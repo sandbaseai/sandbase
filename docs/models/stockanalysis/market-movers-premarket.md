@@ -2,14 +2,13 @@
 
 `stockanalysis/market-movers-premarket` · data API · StockAnalysis · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Top gainers, losers, and most active stocks in the pre-market session. Each category contains query metadata and a data array of stock entries with symbol, name, premarket change percent, premarket price, premarket.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

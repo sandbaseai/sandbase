@@ -4,7 +4,7 @@ Call 1 Meijer endpoints through SandBase with one API key: no separate account, 
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`meijer/scrape/product`](../models/meijer/scrape/product.md) | Extract structured data from a Meijer product page URL: price, availability and product details, optionally localized by ZIP code. | $0.01 per call (free daily quota) |
+| [`meijer/scrape/product`](../models/meijer/scrape/product.md) | Extract structured data from a Meijer product page URL: price, availability and product details, optionally localized by ZIP code. | $0.01 per call |
 
 ## Quick start
 

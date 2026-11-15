@@ -1,0 +1,107 @@
+{
+  "name": "zoopla/search-sold-house-prices",
+  "display_name": "Zoopla Search Sold House Prices",
+  "type": "api",
+  "vendor": "Zoopla",
+  "vendor_slug": "zoopla",
+  "description": "Search sold house prices in a specific area. Returns paginated results with property sale history including last sale price and date, full address, and property attributes (bedrooms, bathrooms, floor area, tenure). Uses cursor-based pagination internally but exposes page numbers.",
+  "tags": [
+    "api",
+    "zoopla",
+    "real-estate",
+    "uk"
+  ],
+  "capabilities": [
+    "api",
+    "zoopla",
+    "real-estate",
+    "uk"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/zoopla/search-sold-house-prices"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "location"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "example": 1,
+        "description": "Page number for pagination."
+      },
+      "location": {
+        "type": "string",
+        "example": "london",
+        "description": "Location slug matching Zoopla URL structure (e.g., 'london', 'manchester', 'se1')."
+      },
+      "max_beds": {
+        "type": "integer",
+        "example": 4,
+        "description": "Maximum number of bedrooms."
+      },
+      "min_beds": {
+        "type": "integer",
+        "example": 1,
+        "description": "Minimum number of bedrooms."
+      },
+      "max_baths": {
+        "type": "integer",
+        "example": 3,
+        "description": "Maximum number of bathrooms."
+      },
+      "min_baths": {
+        "type": "integer",
+        "example": 1,
+        "description": "Minimum number of bathrooms."
+      },
+      "property_type": {
+        "type": "string",
+        "example": "detached",
+        "description": "Property type code for sold prices."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.06
+  },
+  "readme": "# Zoopla Search Sold House Prices API\n\nSearch sold house prices in a specific area. Returns paginated results with property sale history including last sale price and date, full address, and property attributes (bedrooms, bathrooms, floor area, tenure). Uses cursor-based pagination internally but exposes page numbers.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"zoopla/search-sold-house-prices\", \"page\": 1, \"location\": \"london\", \"max_beds\": 4, \"min_beds\": 1, \"max_baths\": 3, \"min_baths\": 1, \"property_type\": \"detached\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `location` | string | Yes | Location slug matching Zoopla URL structure (e.g., 'london', 'manchester', 'se1'). |\n| `max_baths` | integer | No | Maximum number of bathrooms. |\n| `max_beds` | integer | No | Maximum number of bedrooms. |\n| `min_baths` | integer | No | Minimum number of bathrooms. |\n| `min_beds` | integer | No | Minimum number of bedrooms. |\n| `page` | integer | No | Page number for pagination. |\n| `property_type` | string | No | Property type code for sold prices. |\n\n## Pricing\n\nFlat $0.06 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/zoopla/search-sold-house-prices",
+  "created_at": "2026-11-15T11:10:11.458Z"
+}

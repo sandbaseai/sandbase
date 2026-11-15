@@ -2,14 +2,13 @@
 
 `zhihu/user-included-articles` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.014286 per call (free daily quota) · **Modes:** sync
+**Price:** $0.014286 per call · **Modes:** sync
 
 Get the included-article records exposed for a Zhihu user, with offset pagination. Use it to browse that account's included-article list.
 
 ## Pricing
 
 - **$0.014286 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

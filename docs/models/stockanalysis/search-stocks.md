@@ -2,14 +2,13 @@
 
 `stockanalysis/search-stocks` · data API · StockAnalysis · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Full-text search for stocks and ETFs by company name or ticker symbol. Returns matches across multiple global exchanges including US, international, and ETF listings.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

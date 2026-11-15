@@ -1,0 +1,123 @@
+{
+  "name": "tiktok-ads-library/search-ads",
+  "display_name": "TikTok Ads Library Search Ads",
+  "type": "api",
+  "vendor": "TikTok Ads Library",
+  "vendor_slug": "tiktok-ads-library",
+  "description": "Search the TikTok Ad Library for ads matching a query (advertiser name or keyword).",
+  "tags": [
+    "api",
+    "tiktok-ads-library",
+    "ads",
+    "ad-library"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok-ads-library",
+    "ads",
+    "ad-library"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok-ads-library/search-ads"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "default": 12,
+        "example": 12,
+        "description": "Number of results per page (max 50)"
+      },
+      "query": {
+        "type": "string",
+        "example": "nike",
+        "description": "Search query (advertiser name or keyword)"
+      },
+      "offset": {
+        "type": "integer",
+        "default": 0,
+        "example": 0,
+        "description": "Pagination offset (0-based). Requires search_id from a previous response for values > 0."
+      },
+      "region": {
+        "enum": [
+          "all",
+          "FR",
+          "DE",
+          "GB"
+        ],
+        "type": "string",
+        "default": "all",
+        "example": "all",
+        "description": "Region/country code filter (e.g. 'FR', 'DE', 'GB') or 'all' for all regions. Use get_supported_regions for the full list of accepted codes."
+      },
+      "sort_by": {
+        "enum": [
+          "last_shown_date,desc",
+          "last_shown_date,asc"
+        ],
+        "type": "string",
+        "default": "last_shown_date,desc",
+        "example": "last_shown_date,desc",
+        "description": "Sort order: 'last_shown_date,desc' or 'last_shown_date,asc'"
+      },
+      "end_time": {
+        "type": "integer",
+        "description": "End of date range as Unix timestamp (seconds). Defaults to now."
+      },
+      "search_id": {
+        "type": "string",
+        "example": "",
+        "description": "Search ID returned from a previous search_ads call. Required when offset > 0 to paginate through results."
+      },
+      "start_time": {
+        "type": "integer",
+        "description": "Start of date range as Unix timestamp (seconds). Defaults to 1 year ago."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.06
+  },
+  "readme": "# TikTok Ads Library Search Ads API\n\nSearch the TikTok Ad Library for ads matching a query (advertiser name or keyword).\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"tiktok-ads-library/search-ads\", \"limit\": 12, \"query\": \"nike\", \"offset\": 0, \"region\": \"all\", \"sort_by\": \"last_shown_date,desc\", \"search_id\": \"\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search query (advertiser name or keyword) |\n| `end_time` | integer | No | End of date range as Unix timestamp (seconds). Defaults to now. |\n| `limit` | integer | No | Number of results per page (max 50) |\n| `offset` | integer | No | Pagination offset (0-based). Requires search_id from a previous response for values > 0. |\n| `region` | string | No | Region/country code filter (e.g. 'FR', 'DE', 'GB') or 'all' for all regions. Use get_supported_regions for the full list of accepted codes. One of: `all`, `FR`, `DE`, `GB`. |\n| `search_id` | string | No | Search ID returned from a previous search_ads call. Required when offset > 0 to paginate through results. |\n| `sort_by` | string | No | Sort order: 'last_shown_date,desc' or 'last_shown_date,asc' One of: `last_shown_date,desc`, `last_shown_date,asc`. |\n| `start_time` | integer | No | Start of date range as Unix timestamp (seconds). Defaults to 1 year ago. |\n\n## Pricing\n\nFlat $0.06 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok-ads-library/search-ads",
+  "created_at": "2026-11-15T10:29:21.786Z"
+}

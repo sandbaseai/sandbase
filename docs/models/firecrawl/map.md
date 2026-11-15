@@ -2,14 +2,13 @@
 
 `firecrawl/map` · data API · Firecrawl · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0075 per call (free daily quota) · **Modes:** sync
+**Price:** $0.0075 per call · **Modes:** sync
 
 Discovers and returns URLs found across a target website. Provide an HTTPS target address and define the maximum link count to map site pages.
 
 ## Pricing
 
 - **$0.0075 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

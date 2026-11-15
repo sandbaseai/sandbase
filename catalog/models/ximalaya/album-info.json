@@ -1,0 +1,78 @@
+{
+  "name": "ximalaya/album-info",
+  "display_name": "Ximalaya Album Info",
+  "type": "api",
+  "vendor": "Ximalaya",
+  "vendor_slug": "ximalaya",
+  "description": "Retrieve detailed metadata for a single album by its numeric ID. Returns title, cover, play count, subscription count, pricing, intro text, category, dates added and last changed, and anchor details. A single round-trip; no pagination.",
+  "tags": [
+    "api",
+    "ximalaya",
+    "audio",
+    "podcasts",
+    "china"
+  ],
+  "capabilities": [
+    "api",
+    "ximalaya",
+    "audio",
+    "podcasts",
+    "china"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/ximalaya/album-info"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "album_id"
+    ],
+    "properties": {
+      "album_id": {
+        "type": "string",
+        "example": "81519744",
+        "description": "Numeric album ID (e.g. 77855794). Obtainable from get_category_albums or search_albums results."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Ximalaya Album Info API\n\nRetrieve detailed metadata for a single album by its numeric ID. Returns title, cover, play count, subscription count, pricing, intro text, category, dates added and last changed, and anchor details. A single round-trip; no pagination.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"ximalaya/album-info\", \"album_id\": \"81519744\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `album_id` | string | Yes | Numeric album ID (e.g. 77855794). Obtainable from get_category_albums or search_albums results. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/ximalaya/album-info",
+  "created_at": "2026-11-15T12:37:04.312Z"
+}

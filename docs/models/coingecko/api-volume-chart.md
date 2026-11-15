@@ -2,14 +2,13 @@
 
 `coingecko/api-volume-chart` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.008 per call (free daily quota) · **Modes:** sync
+**Price:** $0.008 per call · **Modes:** sync
 
 Get the historical volume chart data with time in UNIX and trading volume data in BTC based on exchange's ID
 
 ## Pricing
 
 - **$0.008 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

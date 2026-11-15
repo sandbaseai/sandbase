@@ -11,7 +11,7 @@ Call 8 Apollo endpoints through SandBase with one API key: no separate account, 
 | [`apollo/company-record`](../models/apollo/company-record.md) | The complete Apollo record for one company, by Apollo organization id (not by domain). | $0.01975 per call |
 | [`apollo/company-search`](../models/apollo/company-search.md) | Find companies matching criteria: name, domain, headcount, industry, location, funding stage and technologies in use. | $0.01975 per call |
 | [`apollo/people-match`](../models/apollo/people-match.md) | Enrich one person: give whatever identifiers you have and get back Apollo's full record for them. Send identifiers in the JSON request… | $0.01975 per call |
-| [`apollo/people-search`](../models/apollo/people-search.md) | Use the People API Search endpoint to find net new people in the Apollo database. Several filters are available to help narrow your… | $0.012 per call (free daily quota) |
+| [`apollo/people-search`](../models/apollo/people-search.md) | Use the People API Search endpoint to find net new people in the Apollo database. Several filters are available to help narrow your… | $0.012 per call |
 
 ## Quick start
 

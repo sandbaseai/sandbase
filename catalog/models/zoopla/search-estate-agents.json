@@ -1,0 +1,76 @@
+{
+  "name": "zoopla/search-estate-agents",
+  "display_name": "Zoopla Search Estate Agents",
+  "type": "api",
+  "vendor": "Zoopla",
+  "vendor_slug": "zoopla",
+  "description": "Search for estate agents in a specific location. Returns a paginated list of agents with contact details, logo, display address, and listing statistics (average asking price, weeks on market, available listings for both sales and lettings).",
+  "tags": [
+    "api",
+    "zoopla",
+    "real-estate",
+    "uk"
+  ],
+  "capabilities": [
+    "api",
+    "zoopla",
+    "real-estate",
+    "uk"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/zoopla/search-estate-agents"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "location"
+    ],
+    "properties": {
+      "location": {
+        "type": "string",
+        "example": "london",
+        "description": "Location slug matching Zoopla URL structure (e.g., 'london', 'manchester')."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Zoopla Search Estate Agents API\n\nSearch for estate agents in a specific location. Returns a paginated list of agents with contact details, logo, display address, and listing statistics (average asking price, weeks on market, available listings for both sales and lettings).\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"zoopla/search-estate-agents\", \"location\": \"london\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `location` | string | Yes | Location slug matching Zoopla URL structure (e.g., 'london', 'manchester'). |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/zoopla/search-estate-agents",
+  "created_at": "2026-11-15T11:11:25.048Z"
+}

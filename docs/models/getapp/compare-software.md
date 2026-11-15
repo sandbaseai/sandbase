@@ -2,14 +2,13 @@
 
 `getapp/compare-software` · data API · GetApp · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Compare two software products side-by-side, including features, pricing, reviews, pros/cons, and support options. slug1 is the full product path, slug2 is the comparison product slug.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

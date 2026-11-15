@@ -1,0 +1,77 @@
+{
+  "name": "hm/product-detail",
+  "display_name": "H&M Product Detail",
+  "type": "api",
+  "vendor": "H&M",
+  "vendor_slug": "hm",
+  "description": "Fetch product details including pricing, availability, color variants, and images for a given article code or product URL. Returns full variant information with all color options, stock states, and image galleries. Either article_code or url must be provided.",
+  "tags": [
+    "api",
+    "hm",
+    "ecommerce",
+    "fashion"
+  ],
+  "capabilities": [
+    "api",
+    "hm",
+    "ecommerce",
+    "fashion"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/hm/product-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "",
+        "description": "Full product URL (e.g. 'https://www2.hm.com/en_us/productpage.0685816001.html'). Either article_code or url must be provided."
+      },
+      "article_code": {
+        "type": "string",
+        "description": "Article code (e.g. '0685816001', '1347416001'). Either article_code or url must be provided."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# H&M Product Detail API\n\nFetch product details including pricing, availability, color variants, and images for a given article code or product URL. Returns full variant information with all color options, stock states, and image galleries. Either article_code or url must be provided.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"hm/product-detail\", \"url\": \"\", \"article_code\": \"1347416001\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `article_code` | string | No | Article code (e.g. '0685816001', '1347416001'). Either article_code or url must be provided. |\n| `url` | string | No | Full product URL (e.g. 'https://www2.hm.com/en_us/productpage.0685816001.html'). Either article_code or url must be provided. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/hm/product-detail",
+  "created_at": "2026-11-15T12:50:23.256Z"
+}

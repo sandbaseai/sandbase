@@ -1,0 +1,92 @@
+{
+  "name": "temu/batch-get-products",
+  "display_name": "Temu Batch Products",
+  "type": "api",
+  "vendor": "Temu",
+  "vendor_slug": "temu",
+  "description": "Batch fetch product data for multiple product IDs in one call (up to 40). For each product ID, returns both raw API data and a flat normalized DTO. Each product result carries its own status field so single failures don't break the batch. Products are looked up via Temu's catalog search by goods_id.",
+  "tags": [
+    "api",
+    "temu",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "temu",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/temu/batch-get-products"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "product_ids"
+    ],
+    "properties": {
+      "locale": {
+        "type": "string",
+        "default": "en",
+        "example": "en",
+        "description": "Locale/language code for localized results (e.g. 'en', 'it', 'de', 'fr', 'es')."
+      },
+      "include_dto": {
+        "type": "boolean",
+        "default": true,
+        "example": true,
+        "description": "If true, include the flat normalized DTO per product."
+      },
+      "include_raw": {
+        "type": "boolean",
+        "default": true,
+        "example": true,
+        "description": "If true, include the raw API response data per product."
+      },
+      "product_ids": {
+        "type": "string",
+        "example": "[\"605731197670167\"]",
+        "description": "JSON array of numeric product ID strings (up to 40). Example: '[\"605731197670167\",\"605714873454696\"]'."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Temu Batch Products API\n\nBatch fetch product data for multiple product IDs in one call (up to 40). For each product ID, returns both raw API data and a flat normalized DTO. Each product result carries its own status field so single failures don't break the batch. Products are looked up via Temu's catalog search by goods_id.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"temu/batch-get-products\", \"locale\": \"en\", \"include_dto\": true, \"include_raw\": true, \"product_ids\": \"[\\\"605731197670167\\\"]\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `product_ids` | string | Yes | JSON array of numeric product ID strings (up to 40). Example: '[\"605731197670167\",\"605714873454696\"]'. |\n| `include_dto` | boolean | No | If true, include the flat normalized DTO per product. |\n| `include_raw` | boolean | No | If true, include the raw API response data per product. |\n| `locale` | string | No | Locale/language code for localized results (e.g. 'en', 'it', 'de', 'fr', 'es'). |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/temu/batch-get-products",
+  "created_at": "2026-11-15T13:14:19.235Z"
+}

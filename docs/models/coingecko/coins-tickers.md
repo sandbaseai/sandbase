@@ -2,14 +2,13 @@
 
 `coingecko/coins-tickers` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.008 per call (free daily quota) · **Modes:** sync
+**Price:** $0.008 per call · **Modes:** sync
 
 Get the coin tickers on both centralized exchange (CEX) and decentralized exchange (DEX) based on a particular coin ID
 
 ## Pricing
 
 - **$0.008 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

@@ -2,14 +2,13 @@
 
 `tavily/extract` · data API · Tavily · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.012 per call (free daily quota) · **Modes:** sync
+**Price:** $0.012 per call · **Modes:** sync
 
 Extracts clean text content from specified web pages using their URLs. Supports basic or advanced extraction depth and optional image inclusion.
 
 ## Pricing
 
 - **$0.012 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

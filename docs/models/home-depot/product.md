@@ -2,14 +2,13 @@
 
 `home-depot/product` · data API · Home Depot · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.015 per call (free daily quota) · **Modes:** async
+**Price:** $0.015 per call · **Modes:** async
 
 Get a Home Depot product by product ID: title, brand, model number, UPC, price, specifications, images, fulfillment and ratings, localized by store or ZIP.
 
 ## Pricing
 
 - **$0.015 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

@@ -1,0 +1,86 @@
+{
+  "name": "temu/start-search-session",
+  "display_name": "Temu Start Search Session",
+  "type": "api",
+  "vendor": "Temu",
+  "vendor_slug": "temu",
+  "description": "Start a paginated search session over Temu's product catalog.",
+  "tags": [
+    "api",
+    "temu",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "temu",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/temu/start-search-session"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "default": 40,
+        "example": 40,
+        "description": "Number of results to return per page (max 40)."
+      },
+      "query": {
+        "type": "string",
+        "example": "wireless earbuds",
+        "description": "Search keyword (e.g. 'wireless earbuds', 'kitchen gadgets')."
+      },
+      "locale": {
+        "type": "string",
+        "default": "en",
+        "example": "en",
+        "description": "Locale/language code for localized results (e.g. 'en', 'it', 'de', 'fr', 'es'). Controls language of titles and currency of prices."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Temu Start Search Session API\n\nStart a paginated search session over Temu's product catalog.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"temu/start-search-session\", \"limit\": 40, \"query\": \"wireless earbuds\", \"locale\": \"en\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search keyword (e.g. 'wireless earbuds', 'kitchen gadgets'). |\n| `limit` | integer | No | Number of results to return per page (max 40). |\n| `locale` | string | No | Locale/language code for localized results (e.g. 'en', 'it', 'de', 'fr', 'es'). Controls language of titles and currency of prices. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/temu/start-search-session",
+  "created_at": "2026-11-15T13:12:46.273Z"
+}

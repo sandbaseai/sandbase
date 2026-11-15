@@ -1,0 +1,104 @@
+{
+  "name": "temu/batch-get-stores",
+  "display_name": "Temu Batch Stores",
+  "type": "api",
+  "vendor": "Temu",
+  "vendor_slug": "temu",
+  "description": "Batch fetch store products for multiple mall IDs in one call (up to 20).",
+  "tags": [
+    "api",
+    "temu",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "temu",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/temu/batch-get-stores"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "mall_ids"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "default": 40,
+        "example": 10,
+        "description": "Number of products to return per store (max 999). Internally splits into multiple 40-item upstream requests."
+      },
+      "locale": {
+        "type": "string",
+        "default": "en",
+        "example": "en",
+        "description": "Locale/language code for localized results (e.g. 'en', 'it', 'de', 'fr', 'es')."
+      },
+      "offset": {
+        "type": "integer",
+        "default": 0,
+        "example": 0,
+        "description": "Offset for pagination within each store's product list."
+      },
+      "mall_ids": {
+        "type": "string",
+        "example": "[\"2610127\"]",
+        "description": "JSON array of mall ID strings (up to 20). Example: '[\"2610127\",\"634418223099265\"]'."
+      },
+      "include_dto": {
+        "type": "boolean",
+        "default": true,
+        "example": true,
+        "description": "If true, include the flat normalized DTO per store."
+      },
+      "include_raw": {
+        "type": "boolean",
+        "default": true,
+        "example": true,
+        "description": "If true, include the raw API response data per store."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Temu Batch Stores API\n\nBatch fetch store products for multiple mall IDs in one call (up to 20).\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"temu/batch-get-stores\", \"limit\": 10, \"locale\": \"en\", \"offset\": 0, \"mall_ids\": \"[\\\"2610127\\\"]\", \"include_dto\": true, \"include_raw\": true}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `mall_ids` | string | Yes | JSON array of mall ID strings (up to 20). Example: '[\"2610127\",\"634418223099265\"]'. |\n| `include_dto` | boolean | No | If true, include the flat normalized DTO per store. |\n| `include_raw` | boolean | No | If true, include the raw API response data per store. |\n| `limit` | integer | No | Number of products to return per store (max 999). Internally splits into multiple 40-item upstream requests. |\n| `locale` | string | No | Locale/language code for localized results (e.g. 'en', 'it', 'de', 'fr', 'es'). |\n| `offset` | integer | No | Offset for pagination within each store's product list. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/temu/batch-get-stores",
+  "created_at": "2026-11-15T13:16:04.493Z"
+}

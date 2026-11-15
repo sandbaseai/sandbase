@@ -2,14 +2,13 @@
 
 `douyin/app-v3/open-app-to-send-private-message` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.001 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call · **Modes:** sync
 
 Generates a Douyin deep link to open the mobile application directly to a user conversation. Requires the target user's uid and sec_uid to return a shortened URL.
 
 ## Pricing
 
 - **$0.001 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

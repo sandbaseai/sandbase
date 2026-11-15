@@ -5,15 +5,15 @@ Call 10 Brave endpoints through SandBase with one API key: no separate account, 
 | Endpoint | What it does | Price |
 |---|---|---|
 | [`brave/ai-mode`](../models/brave/ai-mode.md) | Get the AI-generated answer Brave Search shows for a query, with answer text, cited sources and location and language options. | $0.01 per call |
-| [`brave/images`](../models/brave/images.md) | Image Search from Brave. Returns the official Brave API response unchanged. | $0.005 per call (free daily quota) |
-| [`brave/llm-context`](../models/brave/llm-context.md) | LLM Context from Brave. Returns the official Brave API response unchanged. | $0.005 per call (free daily quota) |
-| [`brave/local-descriptions`](../models/brave/local-descriptions.md) | POI Descriptions from Brave. Returns the official Brave API response unchanged. | $0.005 per call (free daily quota) |
-| [`brave/local-place-search`](../models/brave/local-place-search.md) | Place Search from Brave. Returns the official Brave API response unchanged. | $0.005 per call (free daily quota) |
-| [`brave/local-pois`](../models/brave/local-pois.md) | Local POIs from Brave. Returns the official Brave API response unchanged. | $0.005 per call (free daily quota) |
-| [`brave/news`](../models/brave/news.md) | News Search from Brave. Returns the official Brave API response unchanged. | $0.005 per call (free daily quota) |
-| [`brave/videos`](../models/brave/videos.md) | Video Search from Brave. Returns the official Brave API response unchanged. | $0.005 per call (free daily quota) |
-| [`brave/web`](../models/brave/web.md) | Web Search from Brave. Returns the official Brave API response unchanged. | $0.005 per call (free daily quota) |
-| [`brave/web-rich`](../models/brave/web-rich.md) | Rich Search from Brave. Returns the official Brave API response unchanged. | $0.005 per call (free daily quota) |
+| [`brave/images`](../models/brave/images.md) | Image Search from Brave. Returns the official Brave API response unchanged. | $0.005 per call |
+| [`brave/llm-context`](../models/brave/llm-context.md) | LLM Context from Brave. Returns the official Brave API response unchanged. | $0.005 per call |
+| [`brave/local-descriptions`](../models/brave/local-descriptions.md) | POI Descriptions from Brave. Returns the official Brave API response unchanged. | $0.005 per call |
+| [`brave/local-place-search`](../models/brave/local-place-search.md) | Place Search from Brave. Returns the official Brave API response unchanged. | $0.005 per call |
+| [`brave/local-pois`](../models/brave/local-pois.md) | Local POIs from Brave. Returns the official Brave API response unchanged. | $0.005 per call |
+| [`brave/news`](../models/brave/news.md) | News Search from Brave. Returns the official Brave API response unchanged. | $0.005 per call |
+| [`brave/videos`](../models/brave/videos.md) | Video Search from Brave. Returns the official Brave API response unchanged. | $0.005 per call |
+| [`brave/web`](../models/brave/web.md) | Web Search from Brave. Returns the official Brave API response unchanged. | $0.005 per call |
+| [`brave/web-rich`](../models/brave/web-rich.md) | Rich Search from Brave. Returns the official Brave API response unchanged. | $0.005 per call |
 
 ## Quick start
 

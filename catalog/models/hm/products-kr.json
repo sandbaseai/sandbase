@@ -1,0 +1,93 @@
+{
+  "name": "hm/products-kr",
+  "display_name": "H&M List Products Kr",
+  "type": "api",
+  "vendor": "H&M",
+  "vendor_slug": "hm",
+  "description": "List Korean H&M products by category path. Returns paginated products with Korean names, KRW prices, member prices, images, and facets. Sort by price is supported. The category path maps to the Korean site's navigation structure. Each page returns up to page_size products (default 36).",
+  "tags": [
+    "api",
+    "hm",
+    "ecommerce",
+    "fashion"
+  ],
+  "capabilities": [
+    "api",
+    "hm",
+    "ecommerce",
+    "fashion"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/hm/products-kr"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "category"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "example": 1,
+        "description": "Page number for pagination (1-based)."
+      },
+      "sort": {
+        "type": "string",
+        "example": "ascPrice",
+        "description": "Sort order. Supported values: 'ascPrice' (lowest first), 'descPrice' (highest first). Omit for default."
+      },
+      "category": {
+        "type": "string",
+        "example": "ladies/products/view-all",
+        "description": "Korean site category path (e.g. 'ladies/products/view-all', 'men/new-arrivals/view-all', 'ladies/sale/view-all', 'men/jeans/view-all')."
+      },
+      "page_size": {
+        "type": "integer",
+        "default": 36,
+        "example": 5,
+        "description": "Number of products per page."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# H&M List Products Kr API\n\nList Korean H&M products by category path. Returns paginated products with Korean names, KRW prices, member prices, images, and facets. Sort by price is supported. The category path maps to the Korean site's navigation structure. Each page returns up to page_size products (default 36).\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"hm/products-kr\", \"page\": 1, \"sort\": \"ascPrice\", \"category\": \"ladies/products/view-all\", \"page_size\": 5}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `category` | string | Yes | Korean site category path (e.g. 'ladies/products/view-all', 'men/new-arrivals/view-all', 'ladies/sale/view-all', 'men/jeans/view-all'). |\n| `page` | integer | No | Page number for pagination (1-based). |\n| `page_size` | integer | No | Number of products per page. |\n| `sort` | string | No | Sort order. Supported values: 'ascPrice' (lowest first), 'descPrice' (highest first). Omit for default. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/hm/products-kr",
+  "created_at": "2026-11-15T12:57:18.113Z"
+}

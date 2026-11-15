@@ -1,0 +1,84 @@
+# H&M Store Finder API: pricing, parameters and code examples
+
+`hm/store-finder` · data API · H&M · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** sync
+
+Fetch physical H&M store locations in the US. Optionally filter by city name using case-insensitive substring matching. Returns store details including name, address, coordinates, and opening hours.
+
+## Pricing
+
+- **$0.03 per call** (USD)
+
+## Call it
+
+Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `run()` waits for async results; `submit()` + `wait()` split the two steps.
+
+**curl**
+
+```bash
+curl https://api.sandbase.ai/v1/run \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
+  -d '{"model": "hm/store-finder"}'
+```
+
+**Python** ([sdk/python](../../../sdk/python))
+
+```python
+from sandbase import SandBase
+
+result = SandBase().run('hm/store-finder', {})
+print(result["outputs"])
+```
+
+**TypeScript** ([sdk/typescript](../../../sdk/typescript))
+
+```ts
+import { SandBase } from "@sandbaseai/sdk";
+
+const result = await new SandBase().run("hm/store-finder", {});
+console.log(result.outputs);
+```
+
+**Go** ([sdk/go](../../../sdk/go))
+
+```go
+c, _ := sandbase.NewClient("")
+run, err := c.Run(ctx, "hm/store-finder", sandbase.Params{})
+```
+
+Same call via the path form: `POST /v1/api/hm/store-finder` with the body above minus `model`.
+
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `city` | string |  | Filter stores by city name using substring match (e.g. 'New York', 'Los Angeles').  |
+
+## Details
+
+Fetch physical H&M store locations in the US. Optionally filter by city name using case-insensitive substring matching. Returns store details including name, address, coordinates, and opening hours.
+
+### Request
+
+```bash
+curl -X POST "https://api.sandbase.ai/v1/run" \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"model": "hm/store-finder", "city": "New York"}'
+```
+
+The result is returned in `outputs[0].data`.
+
+### Parameters
+
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `city` | string | No | Filter stores by city name using substring match (e.g. 'New York', 'Los Angeles'). |
+
+### Pricing
+
+Flat $0.03 per call. Failed calls are not charged.
+
+---
+Machine-readable: [`catalog/models/hm/store-finder.json`](../../../catalog/models/hm/store-finder.json) · Store page: https://www.sandbase.ai/model/hm/store-finder

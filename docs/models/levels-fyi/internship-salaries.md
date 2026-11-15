@@ -2,14 +2,13 @@
 
 `levels-fyi/internship-salaries` · data API · Levels.fyi · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Retrieve internship salary data across all companies. Returns the full dataset including monthly and hourly pay, location, season, year, and education level for each record.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

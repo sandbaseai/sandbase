@@ -1,0 +1,97 @@
+{
+  "name": "x-rates/convert-currency",
+  "display_name": "X-Rates Convert Currency",
+  "type": "api",
+  "vendor": "X-Rates",
+  "vendor_slug": "x-rates",
+  "description": "Performs a currency conversion from one currency to another for a given amount. Returns the converted value and a text representation. Conversion uses the latest available rate.",
+  "tags": [
+    "api",
+    "x-rates",
+    "finance",
+    "forex"
+  ],
+  "capabilities": [
+    "api",
+    "x-rates",
+    "finance",
+    "forex"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/x-rates/convert-currency"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "to",
+      "from"
+    ],
+    "properties": {
+      "to": {
+        "type": "string",
+        "example": "EUR",
+        "description": "Target currency code (e.g. EUR, JPY, GBP)."
+      },
+      "from": {
+        "enum": [
+          "USD",
+          "EUR",
+          "GBP",
+          "JPY",
+          "CHF",
+          "CAD",
+          "AUD"
+        ],
+        "type": "string",
+        "example": "USD",
+        "description": "Source currency code (e.g. USD, EUR, GBP)."
+      },
+      "amount": {
+        "type": "number",
+        "default": 1,
+        "example": 100,
+        "description": "Amount to convert."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# X-Rates Convert Currency API\n\nPerforms a currency conversion from one currency to another for a given amount. Returns the converted value and a text representation. Conversion uses the latest available rate.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"x-rates/convert-currency\", \"to\": \"EUR\", \"from\": \"USD\", \"amount\": 100.0}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `from` | string | Yes | Source currency code (e.g. USD, EUR, GBP). One of: `USD`, `EUR`, `GBP`, `JPY`, `CHF`, `CAD`, `AUD`. |\n| `to` | string | Yes | Target currency code (e.g. EUR, JPY, GBP). |\n| `amount` | number | No | Amount to convert. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/x-rates/convert-currency",
+  "created_at": "2026-11-15T12:30:15.868Z"
+}

@@ -2,14 +2,13 @@
 
 `wechat-mp/v2/comment-replies` · data API · WeChat MP · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** sync
+**Price:** $0.01 per call · **Modes:** sync
 
 Returns second-level replies under a specific WeChat MP article comment using the article url and comment identifiers. Supports pagination offset and raw output formats.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

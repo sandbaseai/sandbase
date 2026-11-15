@@ -2,14 +2,13 @@
 
 `secform4/stock-options` · data API · SECForm4 · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Returns recent stock option transactions including exercises, awards, grants, conversions, and tax withholdings from SEC Form 4 filings.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

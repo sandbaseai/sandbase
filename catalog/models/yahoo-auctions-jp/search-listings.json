@@ -1,0 +1,118 @@
+{
+  "name": "yahoo-auctions-jp/search-listings",
+  "display_name": "Yahoo! Auctions Japan Search Listings",
+  "type": "api",
+  "vendor": "Yahoo! Auctions Japan",
+  "vendor_slug": "yahoo-auctions-jp",
+  "description": "Search active auction and fixed-price listings by keyword and category.",
+  "tags": [
+    "api",
+    "yahoo-auctions-jp",
+    "ecommerce",
+    "auctions",
+    "japan"
+  ],
+  "capabilities": [
+    "api",
+    "yahoo-auctions-jp",
+    "ecommerce",
+    "auctions",
+    "japan"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/yahoo-auctions-jp/search-listings"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "sort": {
+        "type": "string",
+        "default": "new",
+        "example": "new",
+        "description": "Sort field"
+      },
+      "limit": {
+        "type": "integer",
+        "default": 50,
+        "example": 5,
+        "description": "Number of results per page (max 50)"
+      },
+      "order": {
+        "type": "string",
+        "default": "d",
+        "example": "a",
+        "description": "Sort order"
+      },
+      "query": {
+        "type": "string",
+        "example": "Nintendo Switch",
+        "description": "Search keyword"
+      },
+      "auccat": {
+        "type": "string",
+        "description": "Category ID"
+      },
+      "offset": {
+        "type": "integer",
+        "default": 1,
+        "example": 1,
+        "description": "Pagination offset (starts at 1, increments by limit)"
+      },
+      "condition": {
+        "type": "string",
+        "example": "new",
+        "description": "Item condition filter"
+      },
+      "max_price": {
+        "type": "integer",
+        "example": 50000,
+        "description": "Maximum price in Yen"
+      },
+      "min_price": {
+        "type": "integer",
+        "example": 1000,
+        "description": "Minimum price in Yen"
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Yahoo! Auctions Japan Search Listings API\n\nSearch active auction and fixed-price listings by keyword and category.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"yahoo-auctions-jp/search-listings\", \"sort\": \"new\", \"limit\": 5, \"order\": \"a\", \"query\": \"Nintendo Switch\", \"offset\": 1, \"condition\": \"new\", \"max_price\": 50000, \"min_price\": 1000}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `auccat` | string | No | Category ID |\n| `condition` | string | No | Item condition filter |\n| `limit` | integer | No | Number of results per page (max 50) |\n| `max_price` | integer | No | Maximum price in Yen |\n| `min_price` | integer | No | Minimum price in Yen |\n| `offset` | integer | No | Pagination offset (starts at 1, increments by limit) |\n| `order` | string | No | Sort order |\n| `query` | string | No | Search keyword |\n| `sort` | string | No | Sort field |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/yahoo-auctions-jp/search-listings",
+  "created_at": "2026-11-15T12:46:47.48Z"
+}

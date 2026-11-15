@@ -2,14 +2,13 @@
 
 `dataforseo/v3/serp/youtube/video_info/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.006 per call (free daily quota) · **Modes:** sync
+**Price:** $0.006 per call · **Modes:** sync
 
 Fetch metadata and stats for one YouTube video by id. Details of a YouTube video by video_id.
 
 ## Pricing
 
 - **$0.006 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

@@ -1,0 +1,76 @@
+{
+  "name": "baidu/novel-rankings-by-genre",
+  "display_name": "Baidu Novel Rankings By Genre",
+  "type": "api",
+  "vendor": "Baidu",
+  "vendor_slug": "baidu",
+  "description": "Fetch novel rankings filtered by genre type. Returns novels matching the specified genre along with available tags. Equivalent to get_board_by_tab with tab=novel and the genre as tag.",
+  "tags": [
+    "api",
+    "baidu",
+    "trending",
+    "china"
+  ],
+  "capabilities": [
+    "api",
+    "baidu",
+    "trending",
+    "china"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/baidu/novel-rankings-by-genre"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "genre"
+    ],
+    "properties": {
+      "genre": {
+        "type": "string",
+        "example": "xuanhuan",
+        "description": "Novel genre filter. Available genres can be discovered from the tags_available field of get_novel_rankings."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Baidu Novel Rankings By Genre API\n\nFetch novel rankings filtered by genre type. Returns novels matching the specified genre along with available tags. Equivalent to get_board_by_tab with tab=novel and the genre as tag.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"baidu/novel-rankings-by-genre\", \"genre\": \"xuanhuan\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `genre` | string | Yes | Novel genre filter. Available genres can be discovered from the tags_available field of get_novel_rankings. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/baidu/novel-rankings-by-genre",
+  "created_at": "2026-11-15T10:46:53.232Z"
+}

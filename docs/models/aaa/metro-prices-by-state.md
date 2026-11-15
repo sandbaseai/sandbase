@@ -2,14 +2,13 @@
 
 `aaa/metro-prices-by-state` · data API · AAA · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Returns gas price data for all metro/city areas within a given state, including current and historical prices (yesterday, week ago, month ago, year ago) for all fuel grades. Each metro includes top-level.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

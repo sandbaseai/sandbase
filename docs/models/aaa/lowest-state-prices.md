@@ -2,14 +2,13 @@
 
 `aaa/lowest-state-prices` · data API · AAA · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Returns all states sorted by lowest average regular gas price ascending. Useful for identifying the cheapest states for gasoline.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

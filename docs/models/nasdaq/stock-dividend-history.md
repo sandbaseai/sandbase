@@ -2,14 +2,13 @@
 
 `nasdaq/stock-dividend-history` · data API · Nasdaq · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Dividend history for a stock including ex-dividend date, current yield, annualized dividend, payout ratio, and historical dividend payment records.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

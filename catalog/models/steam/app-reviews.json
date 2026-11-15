@@ -1,0 +1,107 @@
+{
+  "name": "steam/app-reviews",
+  "display_name": "Steam App Reviews",
+  "type": "api",
+  "vendor": "Steam",
+  "vendor_slug": "steam",
+  "description": "Get user reviews for a Steam product with filtering and cursor-based pagination. Returns reviews with author info (playtime, games owned), vote data, and a cursor for fetching subsequent pages. First page uses cursor '*'.",
+  "tags": [
+    "api",
+    "steam",
+    "games"
+  ],
+  "capabilities": [
+    "api",
+    "steam",
+    "games"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/steam/app-reviews"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "appid"
+    ],
+    "properties": {
+      "appid": {
+        "type": "string",
+        "example": "570",
+        "description": "Steam application ID"
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Pagination cursor ('*' for first page, then use returned cursor for next pages)"
+      },
+      "filter": {
+        "type": "string",
+        "default": "recent",
+        "example": "recent",
+        "description": "Sort filter for reviews"
+      },
+      "language": {
+        "type": "string",
+        "default": "english",
+        "example": "english",
+        "description": "Review language filter"
+      },
+      "day_range": {
+        "type": "integer",
+        "example": 365,
+        "description": "Filter reviews to within N days"
+      },
+      "review_type": {
+        "type": "string",
+        "default": "all",
+        "example": "all",
+        "description": "Filter by review sentiment"
+      },
+      "num_per_page": {
+        "type": "integer",
+        "default": 20,
+        "example": 5,
+        "description": "Number of reviews per page (max 100)"
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Steam App Reviews API\n\nGet user reviews for a Steam product with filtering and cursor-based pagination. Returns reviews with author info (playtime, games owned), vote data, and a cursor for fetching subsequent pages. First page uses cursor '*'.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"steam/app-reviews\", \"appid\": \"570\", \"cursor\": \"*\", \"filter\": \"recent\", \"language\": \"english\", \"day_range\": 365, \"review_type\": \"all\", \"num_per_page\": 5, \"purchase_type\": \"all\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `appid` | string | Yes | Steam application ID |\n| `cursor` | string | No | Pagination cursor ('*' for first page, then use returned cursor for next pages) |\n| `day_range` | integer | No | Filter reviews to within N days |\n| `filter` | string | No | Sort filter for reviews |\n| `language` | string | No | Review language filter |\n| `num_per_page` | integer | No | Number of reviews per page (max 100) |\n| `review_type` | string | No | Filter by review sentiment |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/steam/app-reviews",
+  "created_at": "2026-11-15T13:00:19.164Z"
+}

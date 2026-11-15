@@ -4,8 +4,8 @@ Call 3 AccuWeather endpoints through SandBase with one API key: no separate acco
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`accuweather/list-cities`](../models/accuweather/list-cities.md) | List all provinces or major administrative divisions within a country by its ISO 2-letter code. Searches across regional browse pages to… | $0.01 per call (free daily quota) |
-| [`accuweather/search-locations`](../models/accuweather/search-locations.md) | Search for location keys and metadata by query string. Returns matching cities with their AccuWeather location keys, geographic… | $0.01 per call (free daily quota) |
+| [`accuweather/list-cities`](../models/accuweather/list-cities.md) | List all provinces or major administrative divisions within a country by its ISO 2-letter code. Searches across regional browse pages to… | $0.01 per call |
+| [`accuweather/search-locations`](../models/accuweather/search-locations.md) | Search for location keys and metadata by query string. Returns matching cities with their AccuWeather location keys, geographic… | $0.01 per call |
 | [`accuweather/weather`](../models/accuweather/weather.md) | Get comprehensive weather data for a city including current conditions, daily and hourly forecasts, alerts, allergens, and radar metadata.… | $0.05 per call |
 
 ## Quick start

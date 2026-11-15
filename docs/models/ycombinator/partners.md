@@ -2,14 +2,13 @@
 
 `ycombinator/partners` · data API · Y Combinator · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 List all current YC Partners. Returns partner profiles with name, slug, title, short bio, and photo URLs.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

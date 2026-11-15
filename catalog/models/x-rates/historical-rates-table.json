@@ -1,0 +1,97 @@
+{
+  "name": "x-rates/historical-rates-table",
+  "display_name": "X-Rates Historical Rates Table",
+  "type": "api",
+  "vendor": "X-Rates",
+  "vendor_slug": "x-rates",
+  "description": "Fetches historical exchange rates for a base currency against all supported currencies on a specific date. The date must be in ISO YYYY-MM-DD format. Returns the same structure as the current rates table but for the specified historical date.",
+  "tags": [
+    "api",
+    "x-rates",
+    "finance",
+    "forex"
+  ],
+  "capabilities": [
+    "api",
+    "x-rates",
+    "finance",
+    "forex"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/x-rates/historical-rates-table"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "date"
+    ],
+    "properties": {
+      "date": {
+        "type": "string",
+        "example": "2026-10-16",
+        "description": "Historical date in ISO format YYYY-MM-DD."
+      },
+      "from": {
+        "enum": [
+          "USD",
+          "EUR",
+          "GBP",
+          "JPY",
+          "CHF",
+          "CAD",
+          "AUD"
+        ],
+        "type": "string",
+        "default": "USD",
+        "example": "USD",
+        "description": "Base currency code."
+      },
+      "amount": {
+        "type": "number",
+        "default": 1,
+        "example": 1,
+        "description": "Amount to calculate rates for."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# X-Rates Historical Rates Table API\n\nFetches historical exchange rates for a base currency against all supported currencies on a specific date. The date must be in ISO YYYY-MM-DD format. Returns the same structure as the current rates table but for the specified historical date.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"x-rates/historical-rates-table\", \"date\": \"2026-10-16\", \"from\": \"USD\", \"amount\": 1.0}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `date` | string | Yes | Historical date in ISO format YYYY-MM-DD. |\n| `amount` | number | No | Amount to calculate rates for. |\n| `from` | string | No | Base currency code. One of: `USD`, `EUR`, `GBP`, `JPY`, `CHF`, `CAD`, `AUD`. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/x-rates/historical-rates-table",
+  "created_at": "2026-11-15T12:30:38.799Z"
+}

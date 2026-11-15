@@ -1,0 +1,255 @@
+{
+  "name": "tencent/miora-3d/multi-view-to-3d",
+  "display_name": "Miora 3D Multi-View to 3D",
+  "type": "image",
+  "vendor": "Tencent",
+  "vendor_slug": "tencent",
+  "description": "Miora 3D by Tencent Design reconstructs a textured or untextured 3D asset from a front image plus optional back, side, top, bottom and 45-degree views.",
+  "tags": [
+    "image-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://static.sandbase.ai/examples/tencent/hunyuan-3d/3.1/pro/image-to-3d/input_image_0.png"
+        ],
+        "description": "Front view image URL. 128-5000 px per side, up to 10 MB, JPG/PNG/WEBP. Works best with a single object on a simple background."
+      },
+      "top_image": {
+        "type": "string",
+        "title": "Top Image",
+        "description": "Optional top view image URL for multi-view reconstruction."
+      },
+      "back_image": {
+        "type": "string",
+        "title": "Back Image",
+        "description": "Optional back view image URL for multi-view reconstruction."
+      },
+      "enable_pbr": {
+        "type": "boolean",
+        "title": "Enable PBR",
+        "default": false,
+        "description": "Generate PBR materials (metallic, roughness, normal). Ignored for Geometry output."
+      },
+      "face_count": {
+        "type": "integer",
+        "title": "Face Count",
+        "maximum": 1500000,
+        "minimum": 3000,
+        "description": "Target polygon face count. Uses the model default when unset."
+      },
+      "left_image": {
+        "type": "string",
+        "title": "Left Image",
+        "description": "Optional left view image URL for multi-view reconstruction."
+      },
+      "right_image": {
+        "type": "string",
+        "title": "Right Image",
+        "description": "Optional right view image URL for multi-view reconstruction."
+      },
+      "bottom_image": {
+        "type": "string",
+        "title": "Bottom Image",
+        "description": "Optional bottom view image URL for multi-view reconstruction."
+      },
+      "generate_type": {
+        "enum": [
+          "Normal",
+          "Geometry"
+        ],
+        "type": "string",
+        "title": "Generate Type",
+        "default": "Normal",
+        "description": "Normal: textured model. Geometry: untextured white model."
+      },
+      "left_front_image": {
+        "type": "string",
+        "title": "Left-Front Image",
+        "description": "Optional left-front view image URL for multi-view reconstruction."
+      },
+      "right_front_image": {
+        "type": "string",
+        "title": "Right-Front Image",
+        "description": "Optional right-front view image URL for multi-view reconstruction."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(((params.generate_type ?? \"Normal\") == \"Geometry\" ? 15 : 20) + ((params.enable_pbr ?? false) && (params.generate_type ?? \"Normal\") != \"Geometry\" ? 10 : 0) + ((params.face_count ?? 0) > 0 ? 10 : 0) + (((params.back_image ?? \"\") != \"\" || (params.left_image ?? \"\") != \"\" || (params.right_image ?? \"\") != \"\" || (params.top_image ?? \"\") != \"\" || (params.bottom_image ?? \"\") != \"\" || (params.left_front_image ?? \"\") != \"\" || (params.right_front_image ?? \"\") != \"\") ? 10 : 0)) * 0.12 / 7",
+    "formula_variables": [
+      "params.back_image",
+      "params.bottom_image",
+      "params.enable_pbr",
+      "params.face_count",
+      "params.generate_type",
+      "params.left_front_image",
+      "params.left_image",
+      "params.right_front_image",
+      "params.right_image",
+      "params.top_image"
+    ],
+    "reference_price": 0.342857,
+    "price_examples": [
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 3000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.685714
+      },
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 3000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.6
+      },
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 1500000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.685714
+      },
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 1500000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.6
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 3000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.857143
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 3000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.6
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 1500000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.857143
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 1500000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.6
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "back_image": "https://static.sandbase.ai/examples/ecfc21d3-eab9-4dea-9fd6-68dd64d229dc/input/a136f725-ff3d-46c9-8451-ca84dc72ca73.png",
+        "image": "https://static.sandbase.ai/examples/ecfc21d3-eab9-4dea-9fd6-68dd64d229dc/input/fe06a98d-0e79-4ffb-a08e-8401e2d2ba8d.png",
+        "left_image": "https://static.sandbase.ai/examples/ecfc21d3-eab9-4dea-9fd6-68dd64d229dc/input/d2780dc6-53fd-4e9e-8eca-4539d02187ce.png"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/ecfc21d3-eab9-4dea-9fd6-68dd64d229dc/output/52485c39-d737-4f90-af27-2104c3778ecd.png",
+          "thumbnail": "https://static.sandbase.ai/examples/ecfc21d3-eab9-4dea-9fd6-68dd64d229dc/output/b44f8f04-1844-4896-8e01-0098260679e8.png",
+          "url": "https://static.sandbase.ai/examples/ecfc21d3-eab9-4dea-9fd6-68dd64d229dc/output/94a74ab7-c7b4-4c42-9c45-cdbe02e4a6a9.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Miora 3D Multi-View to 3D\n\nMiora 3D by Tencent Design reconstructs a textured or untextured 3D asset from a front image plus optional back, side, top, bottom and 45-degree views.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Front view image URL. 128-5000 px per side, up to 10 MB, JPG/PNG/WEBP. Works best with a single object on a simple background. |\n| `generate_type` | string | \"Normal\" | Normal: textured model. Geometry: untextured white model. |\n| `enable_pbr` | boolean | false | Generate PBR materials (metallic, roughness, normal). Ignored for Geometry output. |\n| `face_count` | integer | — | Target polygon face count. Uses the model default when unset. |\n| `back_image` | image URL | — | Optional back view image URL for multi-view reconstruction. |\n| `left_image` | image URL | — | Optional left view image URL for multi-view reconstruction. |\n| `right_image` | image URL | — | Optional right view image URL for multi-view reconstruction. |\n| `top_image` | image URL | — | Optional top view image URL for multi-view reconstruction. |\n| `bottom_image` | image URL | — | Optional bottom view image URL for multi-view reconstruction. |\n| `left_front_image` | image URL | — | Optional left-front view image URL for multi-view reconstruction. |\n| `right_front_image` | image URL | — | Optional right-front view image URL for multi-view reconstruction. |\n\n## Billing\n\n| Request | Price |\n|---|---|\n| Default | $0.3429 |\n| Geometry (untextured) | $0.2571 |\n| With PBR | $0.5143 |\n| With custom face count | $0.5143 |\n| With extra views | $0.5143 |\n\nPBR, a custom face count and extra views each add to the default price. Failed runs are not charged.\n",
+  "cover_url": "https://static.sandbase.ai/covers/tencent/miora-3d/multi-view-to-3d/cover-flare-20261115181843.webp",
+  "page_url": "https://www.sandbase.ai/model/tencent/miora-3d/multi-view-to-3d",
+  "created_at": "2026-11-15T09:03:23.099Z"
+}

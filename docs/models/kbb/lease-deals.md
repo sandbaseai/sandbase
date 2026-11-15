@@ -2,14 +2,13 @@
 
 `kbb/lease-deals` · data API · Kelley Blue Book · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Retrieve the current '10 Best Lease Deals Around $200' editorial list from Kelley Blue Book in one round trip. Each deal carries the vehicle name as one string (e.g.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

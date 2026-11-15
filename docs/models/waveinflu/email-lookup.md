@@ -2,14 +2,13 @@
 
 `waveinflu/email-lookup` · data API · Waveinflu · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.001991 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001991 per call · **Modes:** sync
 
 Looks up the contact email for one Instagram, TikTok, or YouTube creator from a profile URL.
 
 ## Pricing
 
 - **$0.001991 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

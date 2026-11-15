@@ -2,14 +2,13 @@
 
 `douyin/web/video-high-quality-play-url` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.005 per call (free daily quota) · **Modes:** sync
+**Price:** $0.005 per call · **Modes:** sync
 
 Returns the highest quality playback URL for a Douyin video using a video ID or share URL, with an optional exit region specification.
 
 ## Pricing
 
 - **$0.005 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

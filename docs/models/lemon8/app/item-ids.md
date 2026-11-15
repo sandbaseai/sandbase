@@ -2,14 +2,13 @@
 
 `lemon8/app/item-ids` · data API · Lemon8 · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.001 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call · **Modes:** sync
 
 Batch resolves Lemon8 post IDs from shared URLs. Accepts an array of share links and returns corresponding post IDs for up to 10 links at a time.
 
 ## Pricing
 
 - **$0.001 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

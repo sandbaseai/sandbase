@@ -2,14 +2,13 @@
 
 `douyin/web/all-webcast-id` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.001 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call · **Modes:** sync
 
 Extracts webcast IDs from a submitted list of Douyin live room links. Useful for resolving live stream identifiers across multiple URLs in bulk.
 
 ## Pricing
 
 - **$0.001 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

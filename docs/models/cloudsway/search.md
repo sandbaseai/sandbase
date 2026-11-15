@@ -2,14 +2,13 @@
 
 `cloudsway/search` · data API · Cloudsway · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.005 per call (free daily quota) · **Modes:** sync
+**Price:** $0.005 per call · **Modes:** sync
 
 Web search API for AI agents with topic focus (news, academic, company, finance and more), country, date range and domain filters, plus optional full text, summaries and highlights.
 
 ## Pricing
 
 - **$0.005 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

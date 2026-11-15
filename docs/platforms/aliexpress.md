@@ -5,7 +5,7 @@ Call 2 AliExpress endpoints through SandBase with one API key: no separate accou
 | Endpoint | What it does | Price |
 |---|---|---|
 | [`aliexpress/reviews`](../models/aliexpress/reviews.md) | Get one page of buyer reviews for an AliExpress product by id, with rating, text, buyer country, date, bought variant and photos for each… | about $0.00085 per call |
-| [`aliexpress/search/products`](../models/aliexpress/search/products.md) | Search AliExpress products by keyword with sort, category, brand, price, locale, region and currency filters. | $0.014286 per call (free daily quota) |
+| [`aliexpress/search/products`](../models/aliexpress/search/products.md) | Search AliExpress products by keyword with sort, category, brand, price, locale, region and currency filters. | $0.014286 per call |
 
 ## Quick start
 

@@ -1,0 +1,73 @@
+{
+  "name": "hm/store-finder",
+  "display_name": "H&M Store Finder",
+  "type": "api",
+  "vendor": "H&M",
+  "vendor_slug": "hm",
+  "description": "Fetch physical H&M store locations in the US. Optionally filter by city name using case-insensitive substring matching. Returns store details including name, address, coordinates, and opening hours.",
+  "tags": [
+    "api",
+    "hm",
+    "ecommerce",
+    "fashion"
+  ],
+  "capabilities": [
+    "api",
+    "hm",
+    "ecommerce",
+    "fashion"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/hm/store-finder"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "city": {
+        "type": "string",
+        "example": "New York",
+        "description": "Filter stores by city name using substring match (e.g. 'New York', 'Los Angeles')."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# H&M Store Finder API\n\nFetch physical H&M store locations in the US. Optionally filter by city name using case-insensitive substring matching. Returns store details including name, address, coordinates, and opening hours.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"hm/store-finder\", \"city\": \"New York\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `city` | string | No | Filter stores by city name using substring match (e.g. 'New York', 'Los Angeles'). |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/hm/store-finder",
+  "created_at": "2026-11-15T12:55:05.303Z"
+}

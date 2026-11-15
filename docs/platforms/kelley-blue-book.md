@@ -4,9 +4,9 @@ Call 3 Kelley Blue Book endpoints through SandBase with one API key: no separate
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`kbb/lease-deals`](../models/kbb/lease-deals.md) | Retrieve the current '10 Best Lease Deals Around $200' editorial list from Kelley Blue Book in one round trip. Each deal carries the… | $0.01 per call (free daily quota) |
-| [`kbb/obd-codes`](../models/kbb/obd-codes.md) | Retrieve OBD-II diagnostic trouble code descriptions from KBB. Currently supports powertrain (P) codes only. | $0.01 per call (free daily quota) |
-| [`kbb/years`](../models/kbb/years.md) | Retrieve all available vehicle model years from Kelley Blue Book in one round trip. Returns an array of integer years in descending order,… | $0.01 per call (free daily quota) |
+| [`kbb/lease-deals`](../models/kbb/lease-deals.md) | Retrieve the current '10 Best Lease Deals Around $200' editorial list from Kelley Blue Book in one round trip. Each deal carries the… | $0.01 per call |
+| [`kbb/obd-codes`](../models/kbb/obd-codes.md) | Retrieve OBD-II diagnostic trouble code descriptions from KBB. Currently supports powertrain (P) codes only. | $0.01 per call |
+| [`kbb/years`](../models/kbb/years.md) | Retrieve all available vehicle model years from Kelley Blue Book in one round trip. Returns an array of integer years in descending order,… | $0.01 per call |
 
 ## Quick start
 

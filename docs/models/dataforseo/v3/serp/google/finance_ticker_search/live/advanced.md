@@ -2,14 +2,13 @@
 
 `dataforseo/v3/serp/google/finance_ticker_search/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.002 per call (free daily quota) · **Modes:** sync
+**Price:** $0.002 per call · **Modes:** sync
 
 Resolve a company or instrument name to Google Finance tickers. Google Finance search for a company or instrument name.
 
 ## Pricing
 
 - **$0.002 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

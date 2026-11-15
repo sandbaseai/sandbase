@@ -1,0 +1,76 @@
+{
+  "name": "eastmoney/filter-conditions",
+  "display_name": "Eastmoney Filter Conditions",
+  "type": "api",
+  "vendor": "Eastmoney",
+  "vendor_slug": "eastmoney",
+  "description": "Get the full hierarchical tree of filter conditions available for stock or fund screening. Returns all categories (范围, 基本面, 行情技术面, 消息面, 人气&涨停) with their children and parameter options.",
+  "tags": [
+    "api",
+    "eastmoney",
+    "finance",
+    "stocks",
+    "china"
+  ],
+  "capabilities": [
+    "api",
+    "eastmoney",
+    "finance",
+    "stocks",
+    "china"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/eastmoney/filter-conditions"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "domain": {
+        "type": "string",
+        "default": "stock",
+        "example": "stock",
+        "description": "Domain type for filtering. Accepted values: 'stock', 'fund'."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Eastmoney Filter Conditions API\n\nGet the full hierarchical tree of filter conditions available for stock or fund screening. Returns all categories (范围, 基本面, 行情技术面, 消息面, 人气&涨停) with their children and parameter options.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"eastmoney/filter-conditions\", \"domain\": \"stock\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `domain` | string | No | Domain type for filtering. Accepted values: 'stock', 'fund'. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/eastmoney/filter-conditions",
+  "created_at": "2026-11-15T10:34:50.101Z"
+}

@@ -1,0 +1,75 @@
+{
+  "name": "hm/related-products-kr",
+  "display_name": "H&M Related Products Kr",
+  "type": "api",
+  "vendor": "H&M",
+  "vendor_slug": "hm",
+  "description": "Get styling and pairing recommendations for a Korean H&M product.",
+  "tags": [
+    "api",
+    "hm",
+    "ecommerce",
+    "fashion"
+  ],
+  "capabilities": [
+    "api",
+    "hm",
+    "ecommerce",
+    "fashion"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/hm/related-products-kr"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "article_code"
+    ],
+    "properties": {
+      "article_code": {
+        "type": "string",
+        "description": "10-digit article code to get recommendations for (e.g. '1309848011')."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# H&M Related Products Kr API\n\nGet styling and pairing recommendations for a Korean H&M product.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"hm/related-products-kr\", \"article_code\": \"1309848011\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `article_code` | string | Yes | 10-digit article code to get recommendations for (e.g. '1309848011'). |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/hm/related-products-kr",
+  "created_at": "2026-11-15T12:59:18.495Z"
+}

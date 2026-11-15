@@ -1,0 +1,90 @@
+{
+  "name": "eastmoney/screen-stocks",
+  "display_name": "Eastmoney Screen Stocks",
+  "type": "api",
+  "vendor": "Eastmoney",
+  "vendor_slug": "eastmoney",
+  "description": "Search for stocks using natural language or filter conditions on EastMoney's AI stock screener. Accepts Chinese or symbolic queries like 'PE<20' or '市值>1000亿'. Returns matching stocks with market data columns, parsed filter conditions, and total count. Paginated by page_no/page_size.",
+  "tags": [
+    "api",
+    "eastmoney",
+    "finance",
+    "stocks",
+    "china"
+  ],
+  "capabilities": [
+    "api",
+    "eastmoney",
+    "finance",
+    "stocks",
+    "china"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/eastmoney/screen-stocks"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "example": "PE<20",
+        "description": "Search keyword or natural language query (e.g. 'PE<20', '市值>1000亿', '白酒')"
+      },
+      "page_no": {
+        "type": "integer",
+        "default": 1,
+        "example": 1,
+        "description": "Page number for results pagination."
+      },
+      "page_size": {
+        "type": "integer",
+        "default": 50,
+        "example": 10,
+        "description": "Number of results per page."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Eastmoney Screen Stocks API\n\nSearch for stocks using natural language or filter conditions on EastMoney's AI stock screener. Accepts Chinese or symbolic queries like 'PE<20' or '市值>1000亿'. Returns matching stocks with market data columns, parsed filter conditions, and total count. Paginated by page_no/page_size.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"eastmoney/screen-stocks\", \"query\": \"PE<20\", \"page_no\": 1, \"page_size\": 10}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search keyword or natural language query (e.g. 'PE<20', '市值>1000亿', '白酒') |\n| `page_no` | integer | No | Page number for results pagination. |\n| `page_size` | integer | No | Number of results per page. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/eastmoney/screen-stocks",
+  "created_at": "2026-11-15T10:33:11.504Z"
+}

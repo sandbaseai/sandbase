@@ -2,14 +2,13 @@
 
 `lmarena/list-available-models` · data API · LMArena · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 List all models available for direct interaction on LMArena, including their capabilities (input/output modalities), organization, selectability status, and per-modality rank. This is the full model catalog.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

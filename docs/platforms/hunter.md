@@ -4,7 +4,7 @@ Call 2 Hunter endpoints through SandBase with one API key: no separate account, 
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`hunter/companies-find`](../models/hunter/companies-find.md) | Look up a company's full profile — industry, size, location, tech stack — from its domain. | $0.0049 per call (free daily quota) |
+| [`hunter/companies-find`](../models/hunter/companies-find.md) | Look up a company's full profile — industry, size, location, tech stack — from its domain. | $0.0049 per call |
 | [`hunter/discover-ai`](../models/hunter/discover-ai.md) | Describe target companies in plain language; an AI picks the filters and runs the search. | $0.1 per call |
 
 ## Quick start

@@ -2,14 +2,13 @@
 
 `indeed/company-profile` · data API · Indeed · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Get a comprehensive company profile including overview, employee reviews, ratings by category, salary data by role, interview information, and FAQ. The company slug is from the Indeed URL path (e.g.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

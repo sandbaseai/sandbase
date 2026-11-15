@@ -2,14 +2,13 @@
 
 `stockanalysis/stock-financials-income` · data API · StockAnalysis · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Detailed income statement for a stock. Returns annual financial data including revenue, gross profit, operating income, net income, EPS, margins, and growth rates organized in a financialData object with arrays per.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

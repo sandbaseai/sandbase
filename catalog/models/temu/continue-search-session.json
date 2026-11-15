@@ -1,0 +1,79 @@
+{
+  "name": "temu/continue-search-session",
+  "display_name": "Temu Continue Search Session",
+  "type": "api",
+  "vendor": "Temu",
+  "vendor_slug": "temu",
+  "description": "Continue a paginated search session started by start_search_session.",
+  "tags": [
+    "api",
+    "temu",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "temu",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/temu/continue-search-session"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "pagination_token"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "default": 40,
+        "example": 40,
+        "description": "Number of results to return per page (max 40)."
+      },
+      "pagination_token": {
+        "type": "string",
+        "description": "Opaque signed token from start_search_session or a previous continue_search_session response (the session_id field)."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Temu Continue Search Session API\n\nContinue a paginated search session started by start_search_session.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"temu/continue-search-session\", \"limit\": 40}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `pagination_token` | string | Yes | Opaque signed token from start_search_session or a previous continue_search_session response (the session_id field). |\n| `limit` | integer | No | Number of results to return per page (max 40). |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/temu/continue-search-session",
+  "created_at": "2026-11-15T13:12:54.156Z"
+}

@@ -2,14 +2,13 @@
 
 `dataforseo/v3/serp/google/ai_mode/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.004 per call (free daily quota) · **Modes:** sync
+**Price:** $0.004 per call · **Modes:** sync
 
 Fetch Google AI Mode's generated answer and cited sources for a query. Google AI Mode response for a keyword and location.
 
 ## Pricing
 
 - **$0.004 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

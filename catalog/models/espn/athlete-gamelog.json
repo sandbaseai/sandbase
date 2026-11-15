@@ -1,0 +1,111 @@
+{
+  "name": "espn/athlete-gamelog",
+  "display_name": "ESPN Athlete Gamelog",
+  "type": "api",
+  "vendor": "ESPN",
+  "vendor_slug": "espn",
+  "description": "Get game-by-game stats for an athlete with monthly breakdowns, totals, and averages. Stats labels are sport-specific. Each game includes opponent, result, score, and full stat line.",
+  "tags": [
+    "api",
+    "espn",
+    "sports"
+  ],
+  "capabilities": [
+    "api",
+    "espn",
+    "sports"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/espn/athlete-gamelog"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "league",
+      "athlete_id"
+    ],
+    "properties": {
+      "league": {
+        "enum": [
+          "nba",
+          "nfl",
+          "mlb",
+          "nhl",
+          "wnba",
+          "college-football",
+          "mens-college-basketball",
+          "womens-college-basketball",
+          "college-baseball",
+          "college-softball",
+          "eng.1",
+          "esp.1",
+          "ger.1",
+          "ita.1",
+          "ita.2",
+          "fra.1",
+          "usa.1",
+          "uefa.champions",
+          "uefa.europa",
+          "ufc",
+          "f1",
+          "nascar",
+          "nll",
+          "mlc"
+        ],
+        "type": "string",
+        "example": "nba",
+        "description": "League identifier."
+      },
+      "season": {
+        "type": "string",
+        "example": "2026",
+        "description": "Season year (e.g., 2026). When omitted, returns current season gamelog."
+      },
+      "athlete_id": {
+        "type": "string",
+        "example": "1966",
+        "description": "Athlete ID obtained from search endpoint results[*].id or get_team_roster endpoint athletes[*].id"
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.06
+  },
+  "readme": "# ESPN Athlete Gamelog API\n\nGet game-by-game stats for an athlete with monthly breakdowns, totals, and averages. Stats labels are sport-specific. Each game includes opponent, result, score, and full stat line.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"espn/athlete-gamelog\", \"athlete_id\": \"1966\", \"league\": \"nba\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `athlete_id` | string | Yes | Athlete ID obtained from search endpoint results[*].id or get_team_roster endpoint athletes[*].id |\n| `league` | string | Yes | League identifier. One of: `nba`, `nfl`, `mlb`, `nhl`, `wnba`, `college-football`, `mens-college-basketball`, `womens-college-basketball`, `college-baseball`, `college-softball`, `eng.1`, `esp.1`. |\n| `season` | string | No | Season year (e.g., 2026). When omitted, returns current season gamelog. |\n\n## Pricing\n\nFlat $0.06 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/espn/athlete-gamelog",
+  "created_at": "2026-11-15T10:53:13.328Z"
+}

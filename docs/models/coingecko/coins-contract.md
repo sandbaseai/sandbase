@@ -2,14 +2,13 @@
 
 `coingecko/coins-contract` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.008 per call (free daily quota) · **Modes:** sync
+**Price:** $0.008 per call · **Modes:** sync
 
 Get all the metadata (image, websites, socials, description, contract address, etc.) and market data (price, ATH, exchange tickers, etc.) of a coin from the CoinGecko coin page based on an asset platform and a.
 
 ## Pricing
 
 - **$0.008 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

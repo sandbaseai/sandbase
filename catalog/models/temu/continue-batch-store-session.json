@@ -1,0 +1,91 @@
+{
+  "name": "temu/continue-batch-store-session",
+  "display_name": "Temu Continue Batch Store Session",
+  "type": "api",
+  "vendor": "Temu",
+  "vendor_slug": "temu",
+  "description": "Continue paginated store sessions started by batch_get_stores. Accepts an array of opaque session tokens (from previous next_session_token fields), fetches the next page for each store, and returns updated tokens. Handles list_id expiration with automatic recovery.",
+  "tags": [
+    "api",
+    "temu",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "temu",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/temu/continue-batch-store-session"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "session_tokens"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "example": 40,
+        "description": "Override the page size stored in the token (max 999)."
+      },
+      "include_dto": {
+        "type": "boolean",
+        "default": true,
+        "example": true,
+        "description": "If true, include the flat normalized DTO per store."
+      },
+      "include_raw": {
+        "type": "boolean",
+        "default": true,
+        "example": true,
+        "description": "If true, include the raw API response data per store."
+      },
+      "session_tokens": {
+        "type": "string",
+        "example": "[\"eyJ2IjoxLCJ0Ijoic3RvcmUiLCJtaWQiOiIyNjEwMTI3IiwibCI6ImVuIiwibGlkIjoiYWJjMTIzIiwibyI6MTAsImxpbSI6MTB9.placeholder_sig\"]",
+        "description": "JSON array of opaque session token strings from batch_get_stores or a previous continue_batch_store_session response (up to 20)."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Temu Continue Batch Store Session API\n\nContinue paginated store sessions started by batch_get_stores. Accepts an array of opaque session tokens (from previous next_session_token fields), fetches the next page for each store, and returns updated tokens. Handles list_id expiration with automatic recovery.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"temu/continue-batch-store-session\", \"limit\": 40, \"include_dto\": true, \"include_raw\": true, \"session_tokens\": \"[\\\"eyJ2IjoxLCJ0Ijoic3RvcmUiLCJtaWQiOiIyNjEwMTI3IiwibCI6ImVuIiwibGlkIjoiYWJjMTIzIiwibyI6MTAsImxpbSI6MTB9.placeholder_sig\\\"]\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `session_tokens` | string | Yes | JSON array of opaque session token strings from batch_get_stores or a previous continue_batch_store_session response (up to 20). |\n| `include_dto` | boolean | No | If true, include the flat normalized DTO per store. |\n| `include_raw` | boolean | No | If true, include the raw API response data per store. |\n| `limit` | integer | No | Override the page size stored in the token (max 999). |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/temu/continue-batch-store-session",
+  "created_at": "2026-11-15T13:16:20.21Z"
+}

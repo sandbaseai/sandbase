@@ -1,0 +1,82 @@
+{
+  "name": "yellowpages/search-filters",
+  "display_name": "Yellow Pages Search Filters",
+  "type": "api",
+  "vendor": "Yellow Pages",
+  "vendor_slug": "yellowpages",
+  "description": "Get available search filters for a query and location. Returns quick filter options (e.g., 'OPEN 24 Hours') and nearby location refinements when available. Useful for discovering refinement options before narrowing a search.",
+  "tags": [
+    "api",
+    "yellowpages",
+    "local",
+    "business-directory"
+  ],
+  "capabilities": [
+    "api",
+    "yellowpages",
+    "local",
+    "business-directory"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/yellowpages/search-filters"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query",
+      "location"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "example": "plumber",
+        "description": "Search keyword (e.g., 'plumber', 'restaurant')"
+      },
+      "location": {
+        "type": "string",
+        "example": "new york ny",
+        "description": "Location (e.g., 'new york ny', 'los angeles ca')"
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Yellow Pages Search Filters API\n\nGet available search filters for a query and location. Returns quick filter options (e.g., 'OPEN 24 Hours') and nearby location refinements when available. Useful for discovering refinement options before narrowing a search.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"yellowpages/search-filters\", \"query\": \"plumber\", \"location\": \"new york ny\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `location` | string | Yes | Location (e.g., 'new york ny', 'los angeles ca') |\n| `query` | string | Yes | Search keyword (e.g., 'plumber', 'restaurant') |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/yellowpages/search-filters",
+  "created_at": "2026-11-15T13:06:22.225Z"
+}

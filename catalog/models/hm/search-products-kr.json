@@ -1,0 +1,93 @@
+{
+  "name": "hm/search-products-kr",
+  "display_name": "H&M Search Products Kr",
+  "type": "api",
+  "vendor": "H&M",
+  "vendor_slug": "hm",
+  "description": "Search Korean H&M products by keyword.",
+  "tags": [
+    "api",
+    "hm",
+    "ecommerce",
+    "fashion"
+  ],
+  "capabilities": [
+    "api",
+    "hm",
+    "ecommerce",
+    "fashion"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/hm/search-products-kr"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "example": 1,
+        "description": "Page number for pagination (1-based)."
+      },
+      "sort": {
+        "type": "string",
+        "example": "",
+        "description": "Sort order. Supported values: 'ascPrice' (lowest first), 'descPrice' (highest first). Omit for relevance."
+      },
+      "query": {
+        "type": "string",
+        "example": "jeans",
+        "description": "Search keyword in Korean or English (e.g. 'jeans', '재킷', 'dress')."
+      },
+      "page_size": {
+        "type": "integer",
+        "default": 36,
+        "example": 36,
+        "description": "Number of products per page (max observed: 36)."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# H&M Search Products Kr API\n\nSearch Korean H&M products by keyword.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"hm/search-products-kr\", \"page\": 1, \"sort\": \"\", \"query\": \"jeans\", \"page_size\": 36}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search keyword in Korean or English (e.g. 'jeans', '재킷', 'dress'). |\n| `page` | integer | No | Page number for pagination (1-based). |\n| `page_size` | integer | No | Number of products per page (max observed: 36). |\n| `sort` | string | No | Sort order. Supported values: 'ascPrice' (lowest first), 'descPrice' (highest first). Omit for relevance. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/hm/search-products-kr",
+  "created_at": "2026-11-15T12:56:43.003Z"
+}

@@ -2,14 +2,13 @@
 
 `douyin/index/item-sug` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.001 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call · **Modes:** sync
 
 Returns search suggestions and related video items based on a keyword query. Includes video titles, URLs, like counts, and author nicknames.
 
 ## Pricing
 
 - **$0.001 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

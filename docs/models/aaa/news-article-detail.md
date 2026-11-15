@@ -2,14 +2,13 @@
 
 `aaa/news-article-detail` · data API · AAA · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Returns the full content of a specific news article identified by its URL slug. The slug is obtainable from get_news_articles results.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

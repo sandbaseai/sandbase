@@ -2,14 +2,13 @@
 
 `walmart/search` · data API · Walmart · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.015 per call (free daily quota) · **Modes:** async
+**Price:** $0.015 per call · **Modes:** async
 
 Search Walmart products by keyword with price, rating, reviews, seller and fulfillment badges, plus sorting, price filters and pagination.
 
 ## Pricing
 
 - **$0.015 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

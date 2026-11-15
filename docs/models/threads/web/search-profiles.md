@@ -2,14 +2,13 @@
 
 `threads/web/search-profiles` · data API · Threads · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.003 per call (free daily quota) · **Modes:** sync
+**Price:** $0.003 per call · **Modes:** sync
 
 Searches Threads user profiles based on a specified text query string. Returns matching user accounts and profile information from the platform.
 
 ## Pricing
 
 - **$0.003 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

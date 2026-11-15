@@ -4,14 +4,14 @@ Call 8 Levels.fyi endpoints through SandBase with one API key: no separate accou
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`levels-fyi/company-benefits`](../models/levels-fyi/company-benefits.md) | Retrieve benefits and perks data for a specific company including benefit categories, descriptions, field values, and computed monetary… | $0.01 per call (free daily quota) |
-| [`levels-fyi/company-overview`](../models/levels-fyi/company-overview.md) | Retrieve a company profile overview including full company details (name, description, industry, ticker, HQ location, vesting info), a… | $0.01 per call (free daily quota) |
-| [`levels-fyi/h1b-salaries`](../models/levels-fyi/h1b-salaries.md) | Retrieve paginated H-1B visa salary records for a given year, sorted by date descending. Each record includes company, job title, wage,… | $0.01 per call (free daily quota) |
-| [`levels-fyi/internship-salaries`](../models/levels-fyi/internship-salaries.md) | Retrieve internship salary data across all companies. Returns the full dataset including monthly and hourly pay, location, season, year,… | $0.01 per call (free daily quota) |
-| [`levels-fyi/job-families`](../models/levels-fyi/job-families.md) | Retrieve the full directory of job titles and families organized as a flat list. Each job family includes slug, name, category, focus… | $0.01 per call (free daily quota) |
+| [`levels-fyi/company-benefits`](../models/levels-fyi/company-benefits.md) | Retrieve benefits and perks data for a specific company including benefit categories, descriptions, field values, and computed monetary… | $0.01 per call |
+| [`levels-fyi/company-overview`](../models/levels-fyi/company-overview.md) | Retrieve a company profile overview including full company details (name, description, industry, ticker, HQ location, vesting info), a… | $0.01 per call |
+| [`levels-fyi/h1b-salaries`](../models/levels-fyi/h1b-salaries.md) | Retrieve paginated H-1B visa salary records for a given year, sorted by date descending. Each record includes company, job title, wage,… | $0.01 per call |
+| [`levels-fyi/internship-salaries`](../models/levels-fyi/internship-salaries.md) | Retrieve internship salary data across all companies. Returns the full dataset including monthly and hourly pay, location, season, year,… | $0.01 per call |
+| [`levels-fyi/job-families`](../models/levels-fyi/job-families.md) | Retrieve the full directory of job titles and families organized as a flat list. Each job family includes slug, name, category, focus… | $0.01 per call |
 | [`levels-fyi/jobs`](../models/levels-fyi/jobs.md) | Search Levels.fyi job listings by title or keyword and get each job with its salary range and estimated total compensation where… | about $0.00085 per call |
-| [`levels-fyi/popular-companies`](../models/levels-fyi/popular-companies.md) | Retrieve a list of popular companies from the Levels.fyi directory with their slugs and salary page URLs. Returns approximately 24 top… | $0.01 per call (free daily quota) |
-| [`levels-fyi/salary-summary-md`](../models/levels-fyi/salary-summary-md.md) | Retrieve an aggregate salary summary in Markdown format for a given company and optional job family. Includes median compensation, level… | $0.01 per call (free daily quota) |
+| [`levels-fyi/popular-companies`](../models/levels-fyi/popular-companies.md) | Retrieve a list of popular companies from the Levels.fyi directory with their slugs and salary page URLs. Returns approximately 24 top… | $0.01 per call |
+| [`levels-fyi/salary-summary-md`](../models/levels-fyi/salary-summary-md.md) | Retrieve an aggregate salary summary in Markdown format for a given company and optional job family. Includes median compensation, level… | $0.01 per call |
 
 ## Quick start
 

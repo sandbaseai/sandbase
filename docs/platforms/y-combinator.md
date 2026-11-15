@@ -4,12 +4,12 @@ Call 6 Y Combinator endpoints through SandBase with one API key: no separate acc
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`ycombinator/company`](../models/ycombinator/company.md) | Retrieve full details for a YC company by its slug. Returns comprehensive company profile including founders with bios, social links, team… | $0.01 per call (free daily quota) |
-| [`ycombinator/partners`](../models/ycombinator/partners.md) | List all current YC Partners. Returns partner profiles with name, slug, title, short bio, and photo URLs. | $0.01 per call (free daily quota) |
-| [`ycombinator/person-detail`](../models/ycombinator/person-detail.md) | Get a detailed profile for a YC partner by slug. Returns full biography, achievement stats, associated companies, blog posts, press… | $0.01 per call (free daily quota) |
-| [`ycombinator/search-companies`](../models/ycombinator/search-companies.md) | Search and filter the YC company directory via Algolia. Returns paginated results with company metadata including name, batch, industry,… | $0.01 per call (free daily quota) |
-| [`ycombinator/search-founders`](../models/ycombinator/search-founders.md) | Search the YC founder directory via Algolia. Returns paginated results with founder metadata including name, current company, title,… | $0.01 per call (free daily quota) |
-| [`ycombinator/search-jobs`](../models/ycombinator/search-jobs.md) | List job openings at YC companies from workatastartup.com, filtered by role category. Returns up to 30 jobs per call with title, salary… | $0.01 per call (free daily quota) |
+| [`ycombinator/company`](../models/ycombinator/company.md) | Retrieve full details for a YC company by its slug. Returns comprehensive company profile including founders with bios, social links, team… | $0.01 per call |
+| [`ycombinator/partners`](../models/ycombinator/partners.md) | List all current YC Partners. Returns partner profiles with name, slug, title, short bio, and photo URLs. | $0.01 per call |
+| [`ycombinator/person-detail`](../models/ycombinator/person-detail.md) | Get a detailed profile for a YC partner by slug. Returns full biography, achievement stats, associated companies, blog posts, press… | $0.01 per call |
+| [`ycombinator/search-companies`](../models/ycombinator/search-companies.md) | Search and filter the YC company directory via Algolia. Returns paginated results with company metadata including name, batch, industry,… | $0.01 per call |
+| [`ycombinator/search-founders`](../models/ycombinator/search-founders.md) | Search the YC founder directory via Algolia. Returns paginated results with founder metadata including name, current company, title,… | $0.01 per call |
+| [`ycombinator/search-jobs`](../models/ycombinator/search-jobs.md) | List job openings at YC companies from workatastartup.com, filtered by role category. Returns up to 30 jobs per call with title, salary… | $0.01 per call |
 
 ## Quick start
 

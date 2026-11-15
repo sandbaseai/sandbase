@@ -4,9 +4,9 @@ Call 3 Exa endpoints through SandBase with one API key: no separate account, one
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`exa/answer`](../models/exa/answer.md) | Returns direct answers and cited web sources for a given query. Supports custom retrieval modes, optional full page text, and structured… | $0.0075 per call (free daily quota) |
+| [`exa/answer`](../models/exa/answer.md) | Returns direct answers and cited web sources for a given query. Supports custom retrieval modes, optional full page text, and structured… | $0.0075 per call |
 | [`exa/contents`](../models/exa/contents.md) | Extract clean page contents for a list of URLs: full text, highlights, AI summaries and metadata, from cache or with a live crawl. | $0.0045 per call |
-| [`exa/search`](../models/exa/search.md) | Neural web search for AI apps and agents. Ask in natural language and get the most relevant pages, with optional highlights, summaries or… | $0.0105 per call (free daily quota) |
+| [`exa/search`](../models/exa/search.md) | Neural web search for AI apps and agents. Ask in natural language and get the most relevant pages, with optional highlights, summaries or… | $0.0105 per call |
 
 ## Quick start
 

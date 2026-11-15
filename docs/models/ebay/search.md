@@ -2,14 +2,13 @@
 
 `ebay/search` · data API · eBay · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.015 per call (free daily quota) · **Modes:** async
+**Price:** $0.015 per call · **Modes:** async
 
 Search eBay listings by keyword with price, condition, shipping, bids, time left and seller, plus condition, format, price and location filters.
 
 ## Pricing
 
 - **$0.015 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

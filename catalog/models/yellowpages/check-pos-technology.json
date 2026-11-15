@@ -1,0 +1,76 @@
+{
+  "name": "yellowpages/check-pos-technology",
+  "display_name": "Yellow Pages Check Pos Technology",
+  "type": "api",
+  "vendor": "Yellow Pages",
+  "vendor_slug": "yellowpages",
+  "description": "Check a business website for POS (Point of Sale) technology signals by scanning the page HTML for mentions of specific software platforms (MICROS Simphony, MICROS 3700, Oracle Hospitality). Returns whether any POS technology was detected and the list of detected technologies.",
+  "tags": [
+    "api",
+    "yellowpages",
+    "local",
+    "business-directory"
+  ],
+  "capabilities": [
+    "api",
+    "yellowpages",
+    "local",
+    "business-directory"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/yellowpages/check-pos-technology"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "website_url"
+    ],
+    "properties": {
+      "website_url": {
+        "type": "string",
+        "example": "https://www.rotorooter.com",
+        "description": "Business website URL to check (e.g., 'https://www.example.com')"
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Yellow Pages Check Pos Technology API\n\nCheck a business website for POS (Point of Sale) technology signals by scanning the page HTML for mentions of specific software platforms (MICROS Simphony, MICROS 3700, Oracle Hospitality). Returns whether any POS technology was detected and the list of detected technologies.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"yellowpages/check-pos-technology\", \"website_url\": \"https://www.rotorooter.com\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `website_url` | string | Yes | Business website URL to check (e.g., 'https://www.example.com') |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/yellowpages/check-pos-technology",
+  "created_at": "2026-11-15T13:07:19.67Z"
+}

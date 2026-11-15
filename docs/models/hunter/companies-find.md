@@ -2,14 +2,13 @@
 
 `hunter/companies-find` · data API · Hunter · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0049 per call (free daily quota) · **Modes:** async
+**Price:** $0.0049 per call · **Modes:** async
 
 Look up a company's full profile — industry, size, location, tech stack — from its domain.
 
 ## Pricing
 
 - **$0.0049 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

@@ -1,0 +1,87 @@
+{
+  "name": "tiktok-ads-library/ad-details",
+  "display_name": "TikTok Ads Library Ad Details",
+  "type": "api",
+  "vendor": "TikTok Ads Library",
+  "vendor_slug": "tiktok-ads-library",
+  "description": "Get detailed information about a specific ad including advertiser info, targeting (location, age, gender), and creative assets.",
+  "tags": [
+    "api",
+    "tiktok-ads-library",
+    "ads",
+    "ad-library"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok-ads-library",
+    "ads",
+    "ad-library"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok-ads-library/ad-details"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "ad_id"
+    ],
+    "properties": {
+      "lang": {
+        "enum": [
+          "en-US",
+          "fr-FR",
+          "de-DE"
+        ],
+        "type": "string",
+        "default": "en-US",
+        "example": "en-US",
+        "description": "Language code for the response (e.g. 'en-US', 'fr-FR', 'de-DE')"
+      },
+      "ad_id": {
+        "type": "string",
+        "example": "1880398616261842",
+        "description": "The ad ID (from search_ads results, e.g. '1867460299162625')"
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# TikTok Ads Library Ad Details API\n\nGet detailed information about a specific ad including advertiser info, targeting (location, age, gender), and creative assets.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"tiktok-ads-library/ad-details\", \"ad_id\": \"1880398616261842\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `ad_id` | string | Yes | The ad ID (from search_ads results, e.g. '1867460299162625') |\n| `lang` | string | No | Language code for the response (e.g. 'en-US', 'fr-FR', 'de-DE') One of: `en-US`, `fr-FR`, `de-DE`. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok-ads-library/ad-details",
+  "created_at": "2026-11-15T10:29:10.151Z"
+}

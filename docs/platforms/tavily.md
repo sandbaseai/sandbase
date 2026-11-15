@@ -4,9 +4,9 @@ Call 3 Tavily endpoints through SandBase with one API key: no separate account, 
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`tavily/extract`](../models/tavily/extract.md) | Extracts clean text content from specified web pages using their URLs. Supports basic or advanced extraction depth and optional image… | $0.012 per call (free daily quota) |
+| [`tavily/extract`](../models/tavily/extract.md) | Extracts clean text content from specified web pages using their URLs. Supports basic or advanced extraction depth and optional image… | $0.012 per call |
 | [`tavily/map`](../models/tavily/map.md) | Discovers the URL structure of a target website without extracting full page content. Accepts a starting URL, maximum traversal depth, and… | $0.012 per call |
-| [`tavily/search`](../models/tavily/search.md) | AI-optimized web search for agents and RAG: ranked results with titles, URLs and relevant content, depth control, news and finance topics,… | $0.012 per call (free daily quota) |
+| [`tavily/search`](../models/tavily/search.md) | AI-optimized web search for agents and RAG: ranked results with titles, URLs and relevant content, depth control, news and finance topics,… | $0.012 per call |
 
 ## Quick start
 

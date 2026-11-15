@@ -1,0 +1,74 @@
+{
+  "name": "shop-app/merchant-info",
+  "display_name": "Shop Merchant Info",
+  "type": "api",
+  "vendor": "Shop",
+  "vendor_slug": "shop-app",
+  "description": "Retrieves merchant profile information including name, website, reviews, contacts, store sections, and visual theme. Returns the full shop object with all available metadata. Use the handle from get_search_autocomplete or get_product_details results.",
+  "tags": [
+    "api",
+    "shop-app",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "shop-app",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/shop-app/merchant-info"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "handle"
+    ],
+    "properties": {
+      "handle": {
+        "type": "string",
+        "example": "05a2xwjtkr",
+        "description": "Merchant handle/slug from get_search_autocomplete or get_product_details results."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Shop Merchant Info API\n\nRetrieves merchant profile information including name, website, reviews, contacts, store sections, and visual theme. Returns the full shop object with all available metadata. Use the handle from get_search_autocomplete or get_product_details results.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"shop-app/merchant-info\", \"handle\": \"05a2xwjtkr\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `handle` | string | Yes | Merchant handle/slug from get_search_autocomplete or get_product_details results. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/shop-app/merchant-info",
+  "created_at": "2026-11-15T12:43:01.238Z"
+}

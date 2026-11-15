@@ -2,14 +2,13 @@
 
 `polymarket/builders-leaderboard` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.012 per call (free daily quota) · **Modes:** sync
+**Price:** $0.012 per call · **Modes:** sync
 
 Leaderboard of Polymarket builders (apps routing orders) by volume for a time period.
 
 ## Pricing
 
 - **$0.012 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

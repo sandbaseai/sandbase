@@ -1,0 +1,114 @@
+{
+  "name": "espn/scoreboard",
+  "display_name": "ESPN Scoreboard",
+  "type": "api",
+  "vendor": "ESPN",
+  "vendor_slug": "espn",
+  "description": "Get live scores, final results, and upcoming fixtures for any supported league.",
+  "tags": [
+    "api",
+    "espn",
+    "sports"
+  ],
+  "capabilities": [
+    "api",
+    "espn",
+    "sports"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/espn/scoreboard"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "league"
+    ],
+    "properties": {
+      "dates": {
+        "type": "string",
+        "example": "20261115",
+        "description": "Date filter in YYYYMMDD format (e.g., 20260424). When omitted, returns current day's events."
+      },
+      "limit": {
+        "type": "integer",
+        "example": 10,
+        "description": "Maximum number of events to return."
+      },
+      "league": {
+        "enum": [
+          "nba",
+          "nfl",
+          "mlb",
+          "nhl",
+          "wnba",
+          "college-football",
+          "mens-college-basketball",
+          "womens-college-basketball",
+          "college-baseball",
+          "college-softball",
+          "eng.1",
+          "esp.1",
+          "ger.1",
+          "ita.1",
+          "ita.2",
+          "fra.1",
+          "usa.1",
+          "uefa.champions",
+          "uefa.europa",
+          "ufc",
+          "f1",
+          "nascar",
+          "nll",
+          "mlc"
+        ],
+        "type": "string",
+        "example": "nba",
+        "description": "League identifier."
+      },
+      "matchday": {
+        "type": "integer",
+        "description": "Matchday/round number (e.g., 1, 2, 38). Filters events to a specific matchday. Primarily useful for soccer leagues that organize fixtures by round. When omitted, no matchday filter is applied."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# ESPN Scoreboard API\n\nGet live scores, final results, and upcoming fixtures for any supported league.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"espn/scoreboard\", \"dates\": \"20261115\", \"limit\": 10, \"league\": \"nba\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `league` | string | Yes | League identifier. One of: `nba`, `nfl`, `mlb`, `nhl`, `wnba`, `college-football`, `mens-college-basketball`, `womens-college-basketball`, `college-baseball`, `college-softball`, `eng.1`, `esp.1`. |\n| `dates` | string | No | Date filter in YYYYMMDD format (e.g., 20260424). When omitted, returns current day's events. |\n| `limit` | integer | No | Maximum number of events to return. |\n| `matchday` | integer | No | Matchday/round number (e.g., 1, 2, 38). Filters events to a specific matchday. Primarily useful for soccer leagues that organize fixtures by round. When omitted, no matchday filter is applied. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/espn/scoreboard",
+  "created_at": "2026-11-15T10:47:41.865Z"
+}

@@ -4,7 +4,7 @@ Call 1 Built In endpoints through SandBase with one API key: no separate account
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`builtin/suggest-job-titles`](../models/builtin/suggest-job-titles.md) | Returns up to 10 autocomplete suggestions for job title searches, matching the query prefix against Built In's job title index. Useful for… | $0.01 per call (free daily quota) |
+| [`builtin/suggest-job-titles`](../models/builtin/suggest-job-titles.md) | Returns up to 10 autocomplete suggestions for job title searches, matching the query prefix against Built In's job title index. Useful for… | $0.01 per call |
 
 ## Quick start
 

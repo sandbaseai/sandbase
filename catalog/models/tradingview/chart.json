@@ -1,0 +1,106 @@
+{
+  "name": "tradingview/chart",
+  "display_name": "TradingView Chart",
+  "type": "api",
+  "vendor": "TradingView",
+  "vendor_slug": "tradingview",
+  "description": "Get recent OHLC bar data for a forex pair at the specified interval.",
+  "tags": [
+    "api",
+    "tradingview",
+    "finance",
+    "forex"
+  ],
+  "capabilities": [
+    "api",
+    "tradingview",
+    "finance",
+    "forex"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tradingview/chart"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "bars": {
+        "type": "integer",
+        "default": 10,
+        "example": 10,
+        "description": "Maximum number of bars to return (1-30). Fewer bars may be returned depending on available data."
+      },
+      "symbol": {
+        "type": "string",
+        "default": "EURUSD",
+        "example": "EURUSD",
+        "description": "Forex pair symbol (e.g., EURUSD, GBPUSD, USDJPY, AUDUSD, USDCAD, NZDUSD, EURGBP, EURJPY)"
+      },
+      "exchange": {
+        "enum": [
+          "FX",
+          "OANDA",
+          "FX_IDC"
+        ],
+        "type": "string",
+        "default": "FX",
+        "example": "FX",
+        "description": "Exchange/data source (FX, OANDA, FX_IDC)"
+      },
+      "interval": {
+        "enum": [
+          "1m",
+          "5m",
+          "15m",
+          "1H",
+          "4H",
+          "1D",
+          "1W"
+        ],
+        "type": "string",
+        "default": "1D",
+        "example": "1m",
+        "description": "Bar interval/timeframe"
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# TradingView Chart API\n\nGet recent OHLC bar data for a forex pair at the specified interval.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"tradingview/chart\", \"bars\": 10, \"symbol\": \"EURUSD\", \"exchange\": \"FX\", \"interval\": \"1m\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `bars` | integer | No | Maximum number of bars to return (1-30). Fewer bars may be returned depending on available data. |\n| `exchange` | string | No | Exchange/data source (FX, OANDA, FX_IDC) One of: `FX`, `OANDA`, `FX_IDC`. |\n| `interval` | string | No | Bar interval/timeframe One of: `1m`, `5m`, `15m`, `1H`, `4H`, `1D`, `1W`. |\n| `symbol` | string | No | Forex pair symbol (e.g., EURUSD, GBPUSD, USDJPY, AUDUSD, USDCAD, NZDUSD, EURGBP, EURJPY) |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tradingview/chart",
+  "created_at": "2026-11-15T10:32:36.458Z"
+}

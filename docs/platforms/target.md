@@ -6,7 +6,7 @@ Call 3 Target endpoints through SandBase with one API key: no separate account, 
 |---|---|---|
 | [`target/product`](../models/target/product.md) | Fetch a Target.com product by URL and get title, price, brand, rating, description, and images in one normalized response. | about $0.00085 per call |
 | [`target/reviews`](../models/target/reviews.md) | Pull a page of 10 customer reviews for any Target.com product by URL, newest first or by helpfulness or rating: rating, title, text, date,… | about $0.00085 per call |
-| [`target/search`](../models/target/search.md) | Search Target products by keyword with TCIN, brand, price, sale price, rating, reviews and pickup, delivery and shipping availability. | $0.015 per call (free daily quota) |
+| [`target/search`](../models/target/search.md) | Search Target products by keyword with TCIN, brand, price, sale price, rating, reviews and pickup, delivery and shipping availability. | $0.015 per call |
 
 ## Quick start
 

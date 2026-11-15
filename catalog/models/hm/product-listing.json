@@ -1,0 +1,87 @@
+{
+  "name": "hm/product-listing",
+  "display_name": "H&M Product Listing",
+  "type": "api",
+  "vendor": "H&M",
+  "vendor_slug": "hm",
+  "description": "Fetch paginated product listings for a specific category path. Returns product hits with pricing, images, swatches, sizes, and pagination metadata. Each page returns up to 36 products.",
+  "tags": [
+    "api",
+    "hm",
+    "ecommerce",
+    "fashion"
+  ],
+  "capabilities": [
+    "api",
+    "hm",
+    "ecommerce",
+    "fashion"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/hm/product-listing"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "category"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "example": 1,
+        "description": "Page number for pagination (1-based)."
+      },
+      "sort": {
+        "type": "string",
+        "example": "",
+        "description": "Sort order for results."
+      },
+      "category": {
+        "type": "string",
+        "example": "men/products/view-all",
+        "description": "Category path (e.g. 'men/products/view-all', 'women/products/view-all', 'kids/girls/products/view-all')."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# H&M Product Listing API\n\nFetch paginated product listings for a specific category path. Returns product hits with pricing, images, swatches, sizes, and pagination metadata. Each page returns up to 36 products.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"hm/product-listing\", \"page\": 1, \"sort\": \"\", \"category\": \"men/products/view-all\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `category` | string | Yes | Category path (e.g. 'men/products/view-all', 'women/products/view-all', 'kids/girls/products/view-all'). |\n| `page` | integer | No | Page number for pagination (1-based). |\n| `sort` | string | No | Sort order for results. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/hm/product-listing",
+  "created_at": "2026-11-15T12:50:16.261Z"
+}

@@ -2,14 +2,13 @@
 
 `semrush/backlinks-overview` · data API · Semrush · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.004 per call (free daily quota) · **Modes:** sync
+**Price:** $0.004 per call · **Modes:** sync
 
 Backlink summary for a domain or URL: Authority Score, total backlinks, referring domains, URLs and IPs.
 
 ## Pricing
 
 - **$0.004 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

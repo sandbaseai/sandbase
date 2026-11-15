@@ -1,0 +1,106 @@
+{
+  "name": "shop-app/search-merchants-by-category",
+  "display_name": "Shop Search Merchants By Category",
+  "type": "api",
+  "vendor": "Shop",
+  "vendor_slug": "shop-app",
+  "description": "Searches for merchants within a shop.app category page.",
+  "tags": [
+    "api",
+    "shop-app",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "shop-app",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/shop-app/search-merchants-by-category"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "category"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "example": 1,
+        "description": "Page number for pagination (1-indexed)."
+      },
+      "category": {
+        "type": "string",
+        "example": "women",
+        "description": "Category slug to search within. Known categories: women, men, beauty, home, fitness-nutrition, baby-toddler, food-drinks, sporting-goods, toys-games, pet-supplies, accessories, electronics, arts-crafts, luggage-bags. Aliases like clothing, fashion, womenswear, menswear, fitness, baby, food, sports, toys, pet, arts, luggage are also accepted."
+      },
+      "page_size": {
+        "type": "integer",
+        "default": 20,
+        "example": 20,
+        "description": "Number of merchants per page."
+      },
+      "max_rating": {
+        "type": "number",
+        "example": 5,
+        "description": "Maximum average rating. Merchants above this rating are excluded."
+      },
+      "min_rating": {
+        "type": "number",
+        "example": 3,
+        "description": "Minimum average rating (e.g. 4.5). Merchants below this rating are excluded."
+      },
+      "max_reviews": {
+        "type": "integer",
+        "example": 500000,
+        "description": "Maximum number of product reviews the merchant may have. Merchants with more reviews are excluded."
+      },
+      "min_reviews": {
+        "type": "integer",
+        "example": 100,
+        "description": "Minimum number of product reviews the merchant must have. Merchants with fewer reviews are excluded."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Shop Search Merchants By Category API\n\nSearches for merchants within a shop.app category page.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"shop-app/search-merchants-by-category\", \"page\": 1, \"category\": \"women\", \"page_size\": 20, \"max_rating\": 5.0, \"min_rating\": 3.0, \"max_reviews\": 500000, \"min_reviews\": 100}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `category` | string | Yes | Category slug to search within. Known categories: women, men, beauty, home, fitness-nutrition, baby-toddler, food-drinks, sporting-goods, toys-games, pet-supplies, accessories, electronics, arts-crafts, luggage-bags. Ali |\n| `max_rating` | number | No | Maximum average rating. Merchants above this rating are excluded. |\n| `max_reviews` | integer | No | Maximum number of product reviews the merchant may have. Merchants with more reviews are excluded. |\n| `min_rating` | number | No | Minimum average rating (e.g. 4.5). Merchants below this rating are excluded. |\n| `min_reviews` | integer | No | Minimum number of product reviews the merchant must have. Merchants with fewer reviews are excluded. |\n| `page` | integer | No | Page number for pagination (1-indexed). |\n| `page_size` | integer | No | Number of merchants per page. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/shop-app/search-merchants-by-category",
+  "created_at": "2026-11-15T12:45:35.059Z"
+}

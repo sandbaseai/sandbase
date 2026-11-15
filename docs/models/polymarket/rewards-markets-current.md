@@ -2,14 +2,13 @@
 
 `polymarket/rewards-markets-current` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.012 per call (free daily quota) · **Modes:** sync
+**Price:** $0.012 per call · **Modes:** sync
 
 Returns the current active rewards configurations for markets.
 
 ## Pricing
 
 - **$0.012 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

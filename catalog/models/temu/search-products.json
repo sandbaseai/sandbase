@@ -1,0 +1,102 @@
+{
+  "name": "temu/search-products",
+  "display_name": "Temu Search Products",
+  "type": "api",
+  "vendor": "Temu",
+  "vendor_slug": "temu",
+  "description": "Full-text search over Temu's product catalog by keyword.",
+  "tags": [
+    "api",
+    "temu",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "temu",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/temu/search-products"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "default": 48,
+        "example": 10,
+        "description": "Number of results to return per page."
+      },
+      "query": {
+        "type": "string",
+        "example": "wireless earbuds",
+        "description": "Search keyword (e.g. 'wireless earbuds', 'kitchen gadgets')."
+      },
+      "locale": {
+        "type": "string",
+        "default": "en",
+        "example": "en",
+        "description": "Locale/language code for localized results (e.g. 'en', 'it', 'de', 'fr', 'es'). Controls language of titles and currency of prices."
+      },
+      "offset": {
+        "type": "integer",
+        "default": 0,
+        "example": 0,
+        "description": "Offset for pagination. Advance by `limit` for the next page."
+      },
+      "price_max": {
+        "type": "number",
+        "example": 50,
+        "description": "Maximum price in USD. Only products with a price <= this value are returned."
+      },
+      "price_min": {
+        "type": "number",
+        "example": 5,
+        "description": "Minimum price in USD. Only products with a price >= this value are returned."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Temu Search Products API\n\nFull-text search over Temu's product catalog by keyword.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"temu/search-products\", \"limit\": 10, \"query\": \"wireless earbuds\", \"locale\": \"en\", \"offset\": 0, \"price_max\": 50.0, \"price_min\": 5.0}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search keyword (e.g. 'wireless earbuds', 'kitchen gadgets'). |\n| `limit` | integer | No | Number of results to return per page. |\n| `locale` | string | No | Locale/language code for localized results (e.g. 'en', 'it', 'de', 'fr', 'es'). Controls language of titles and currency of prices. |\n| `offset` | integer | No | Offset for pagination. Advance by `limit` for the next page. |\n| `price_max` | number | No | Maximum price in USD. Only products with a price <= this value are returned. |\n| `price_min` | number | No | Minimum price in USD. Only products with a price >= this value are returned. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/temu/search-products",
+  "created_at": "2026-11-15T13:09:45.941Z"
+}

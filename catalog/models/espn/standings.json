@@ -1,0 +1,110 @@
+{
+  "name": "espn/standings",
+  "display_name": "ESPN Standings",
+  "type": "api",
+  "vendor": "ESPN",
+  "vendor_slug": "espn",
+  "description": "Get current standings/rankings for a league, organized by conference/division with full statistics. Season type '2' returns regular season division breakdown, '3' returns postseason/playoff standings. When omitted, returns summary standings.",
+  "tags": [
+    "api",
+    "espn",
+    "sports"
+  ],
+  "capabilities": [
+    "api",
+    "espn",
+    "sports"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/espn/standings"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "league"
+    ],
+    "properties": {
+      "league": {
+        "enum": [
+          "nba",
+          "nfl",
+          "mlb",
+          "nhl",
+          "wnba",
+          "college-football",
+          "mens-college-basketball",
+          "womens-college-basketball",
+          "college-baseball",
+          "college-softball",
+          "eng.1",
+          "esp.1",
+          "ger.1",
+          "ita.1",
+          "ita.2",
+          "fra.1",
+          "usa.1",
+          "uefa.champions",
+          "uefa.europa",
+          "ufc",
+          "f1",
+          "nascar",
+          "nll",
+          "mlc"
+        ],
+        "type": "string",
+        "example": "nba",
+        "description": "League identifier."
+      },
+      "season": {
+        "type": "string",
+        "example": "2026",
+        "description": "Season year (e.g., 2026). When omitted, returns current season standings."
+      },
+      "season_type": {
+        "type": "string",
+        "example": "2",
+        "description": "Season type filter. Use '2' for regular season division breakdown, '3' for postseason/playoff standings. When omitted, returns summary standings."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# ESPN Standings API\n\nGet current standings/rankings for a league, organized by conference/division with full statistics. Season type '2' returns regular season division breakdown, '3' returns postseason/playoff standings. When omitted, returns summary standings.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"espn/standings\", \"league\": \"nba\", \"season\": \"2026\", \"season_type\": \"2\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `league` | string | Yes | League identifier. One of: `nba`, `nfl`, `mlb`, `nhl`, `wnba`, `college-football`, `mens-college-basketball`, `womens-college-basketball`, `college-baseball`, `college-softball`, `eng.1`, `esp.1`. |\n| `season` | string | No | Season year (e.g., 2026). When omitted, returns current season standings. |\n| `season_type` | string | No | Season type filter. Use '2' for regular season division breakdown, '3' for postseason/playoff standings. When omitted, returns summary standings. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/espn/standings",
+  "created_at": "2026-11-15T10:48:40.754Z"
+}

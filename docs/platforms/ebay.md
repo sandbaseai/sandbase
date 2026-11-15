@@ -4,8 +4,8 @@ Call 3 eBay endpoints through SandBase with one API key: no separate account, on
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`ebay/product`](../models/ebay/product.md) | Get an eBay product by product ID: title, price, condition, quantity sold, item specifics, media, shipping, returns and seller details. | $0.015 per call (free daily quota) |
-| [`ebay/search`](../models/ebay/search.md) | Search eBay listings by keyword with price, condition, shipping, bids, time left and seller, plus condition, format, price and location… | $0.015 per call (free daily quota) |
+| [`ebay/product`](../models/ebay/product.md) | Get an eBay product by product ID: title, price, condition, quantity sold, item specifics, media, shipping, returns and seller details. | $0.015 per call |
+| [`ebay/search`](../models/ebay/search.md) | Search eBay listings by keyword with price, condition, shipping, bids, time left and seller, plus condition, format, price and location… | $0.015 per call |
 | [`ebay/sold-listings`](../models/ebay/sold-listings.md) | Retrieve recently sold eBay listings for any keyword with optional price-range, condition, category, sold-date, and sort filters, page by… | about $0.003 per call |
 
 ## Quick start

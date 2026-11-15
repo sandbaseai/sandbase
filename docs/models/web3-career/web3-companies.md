@@ -2,14 +2,13 @@
 
 `web3-career/web3-companies` · data API · Web3.career · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Fetch a paginated list of Web3 companies hiring on the platform. Each company includes its name and profile page URL.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

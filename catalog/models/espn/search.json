@@ -1,0 +1,85 @@
+{
+  "name": "espn/search",
+  "display_name": "ESPN Search",
+  "type": "api",
+  "vendor": "ESPN",
+  "vendor_slug": "espn",
+  "description": "Search for athletes and teams across all sports. Returns matching results with IDs for use in other endpoints. When type filter is specified, only results of that type are returned.",
+  "tags": [
+    "api",
+    "espn",
+    "sports"
+  ],
+  "capabilities": [
+    "api",
+    "espn",
+    "sports"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/espn/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "type": {
+        "type": "string",
+        "example": "player",
+        "description": "Filter results by type. Accepted values: 'player', 'team'. When omitted, searches both players and teams."
+      },
+      "limit": {
+        "type": "integer",
+        "default": 25,
+        "example": 5,
+        "description": "Maximum results to return."
+      },
+      "query": {
+        "type": "string",
+        "example": "LeBron",
+        "description": "Search query (player name, team name, etc.)"
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.06
+  },
+  "readme": "# ESPN Search API\n\nSearch for athletes and teams across all sports. Returns matching results with IDs for use in other endpoints. When type filter is specified, only results of that type are returned.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"espn/search\", \"type\": \"player\", \"limit\": 5, \"query\": \"LeBron\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search query (player name, team name, etc.) |\n| `limit` | integer | No | Maximum results to return. |\n| `type` | string | No | Filter results by type. Accepted values: 'player', 'team'. When omitted, searches both players and teams. |\n\n## Pricing\n\nFlat $0.06 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/espn/search",
+  "created_at": "2026-11-15T10:53:30.577Z"
+}

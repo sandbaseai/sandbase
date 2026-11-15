@@ -1,0 +1,67 @@
+{
+  "name": "xe/all-rates",
+  "display_name": "XE All Rates",
+  "type": "api",
+  "vendor": "XE",
+  "vendor_slug": "xe",
+  "description": "Get all mid-market exchange rates relative to USD. Returns a timestamp and a rates object mapping every supported currency code to its USD-relative rate. The rate sheet refreshes every few minutes.",
+  "tags": [
+    "api",
+    "xe",
+    "finance",
+    "forex"
+  ],
+  "capabilities": [
+    "api",
+    "xe",
+    "finance",
+    "forex"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xe/all-rates"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.06
+  },
+  "readme": "# XE All Rates API\n\nGet all mid-market exchange rates relative to USD. Returns a timestamp and a rates object mapping every supported currency code to its USD-relative rate. The rate sheet refreshes every few minutes.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"xe/all-rates\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n\n## Pricing\n\nFlat $0.06 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/xe/all-rates",
+  "created_at": "2026-11-15T12:24:09.271Z"
+}

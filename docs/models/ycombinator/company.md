@@ -2,14 +2,13 @@
 
 `ycombinator/company` · data API · Y Combinator · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Retrieve full details for a YC company by its slug. Returns comprehensive company profile including founders with bios, social links, team size, description, and funding information.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

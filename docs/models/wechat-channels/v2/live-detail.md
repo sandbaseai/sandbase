@@ -2,14 +2,13 @@
 
 `wechat-channels/v2/live-detail` · data API · WeChat Channels · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** sync
+**Price:** $0.01 per call · **Modes:** sync
 
 Returns live-room details including anchor info, status, online count, and replay data using a live ID. Allows switching between raw and parsed output formats.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

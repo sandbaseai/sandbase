@@ -43,12 +43,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.014286,
-    "free_quota": {
-      "eligible": true,
-      "daily_calls_per_org": 100,
-      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
-    }
+    "per_call": 0.014286
   },
   "readme": "# Instagram Post Details API\n\nGet an Instagram post by its shortcode. Use it to look up a known post before content review, archiving, comment analysis, or related workflows.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/post-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"code\": \"C3Kg3F7vHeK\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `code` | string | Yes | The unique shortcode from the Instagram post URL. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/instagram/post-detail",

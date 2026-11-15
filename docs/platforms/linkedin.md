@@ -36,12 +36,12 @@ Call 38 LinkedIn endpoints through SandBase with one API key: no separate accoun
 | [`linkedin/search-profiles-thin`](../models/linkedin/search-profiles-thin.md) | Cheap people search: name/handle, headline, VANITY profile URL, location. No full profile or email - for full profiles per hit use… | about $0.036 per call |
 | [`linkedin/user-detail`](../models/linkedin/user-detail.md) | Get a LinkedIn profile by username, including documented core profile fields such as name and headline. Use it to inspect a person's… | $0.028571 per call |
 | [`linkedin/web-v2/company-posts`](../models/linkedin/web-v2/company-posts.md) | Returns posts from a LinkedIn organization page using the company URL. Supports ordering by top or recent posts and offset or token… | $0.05 per call |
-| [`linkedin/web-v2/company-profile`](../models/linkedin/web-v2/company-profile.md) | Returns LinkedIn company profile details, including affiliated organizations, using a direct company page URL. | $0.008 per call (free daily quota) |
+| [`linkedin/web-v2/company-profile`](../models/linkedin/web-v2/company-profile.md) | Returns LinkedIn company profile details, including affiliated organizations, using a direct company page URL. | $0.008 per call |
 | [`linkedin/web-v2/job-detail`](../models/linkedin/web-v2/job-detail.md) | Returns detailed information for a specific LinkedIn job posting via its URL. Allows optional inclusion of required skills and hiring team… | $0.05 per call |
 | [`linkedin/web-v2/post-comments`](../models/linkedin/web-v2/post-comments.md) | Returns comments for a specific LinkedIn post using its activity URN. Supports filtering by share URN, sorting by relevance or recency,… | $0.05 per call |
-| [`linkedin/web-v2/post-detail`](../models/linkedin/web-v2/post-detail.md) | Returns content and metadata for a LinkedIn post or article using its web address. Works with both standard post and pulse article links. | $0.008 per call (free daily quota) |
+| [`linkedin/web-v2/post-detail`](../models/linkedin/web-v2/post-detail.md) | Returns content and metadata for a LinkedIn post or article using its web address. Works with both standard post and pulse article links. | $0.008 per call |
 | [`linkedin/web-v2/user-posts`](../models/linkedin/web-v2/user-posts.md) | Retrieves a member's posts, commented posts, or reacted posts using their profile URL. Supports filtering by activity type and paginating… | $0.05 per call |
-| [`linkedin/web-v2/user-profile`](../models/linkedin/web-v2/user-profile.md) | Retrieves public profile details for a LinkedIn member. Input the full profile link to look up member information. | $0.008 per call (free daily quota) |
+| [`linkedin/web-v2/user-profile`](../models/linkedin/web-v2/user-profile.md) | Retrieves public profile details for a LinkedIn member. Input the full profile link to look up member information. | $0.008 per call |
 
 ## Quick start
 

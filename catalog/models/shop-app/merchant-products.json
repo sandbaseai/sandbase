@@ -1,0 +1,85 @@
+{
+  "name": "shop-app/merchant-products",
+  "display_name": "Shop Merchant Products",
+  "type": "api",
+  "vendor": "Shop",
+  "vendor_slug": "shop-app",
+  "description": "Retrieves one page of a merchant's in-stock product listing, sorted by the site's most-sales order, in a single upstream request.",
+  "tags": [
+    "api",
+    "shop-app",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "shop-app",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/shop-app/merchant-products"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "broker_id"
+    ],
+    "properties": {
+      "after": {
+        "type": "string",
+        "example": "",
+        "description": "Pagination cursor taken unchanged from a previous response's endCursor field. Omit or leave empty for the first page."
+      },
+      "first": {
+        "type": "integer",
+        "default": 30,
+        "example": 10,
+        "description": "Number of products to retrieve per page; must be an integer from 1 to 100, other values are rejected before any request."
+      },
+      "broker_id": {
+        "type": "string",
+        "example": "9658745",
+        "description": "Merchant numeric ID from get_merchant_info or get_search_autocomplete results."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Shop Merchant Products API\n\nRetrieves one page of a merchant's in-stock product listing, sorted by the site's most-sales order, in a single upstream request.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"shop-app/merchant-products\", \"broker_id\": \"9658745\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `broker_id` | string | Yes | Merchant numeric ID from get_merchant_info or get_search_autocomplete results. |\n| `after` | string | No | Pagination cursor taken unchanged from a previous response's endCursor field. Omit or leave empty for the first page. |\n| `first` | integer | No | Number of products to retrieve per page; must be an integer from 1 to 100, other values are rejected before any request. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/shop-app/merchant-products",
+  "created_at": "2026-11-15T12:42:11.653Z"
+}

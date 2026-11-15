@@ -2,14 +2,13 @@
 
 `youtube/channel-shorts` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.014286 per call (free daily quota) · **Modes:** sync
+**Price:** $0.014286 per call · **Modes:** sync
 
 Get public Shorts from a YouTube channel ID with optional continuation-token pagination. Use it to browse a channel's short-form videos and continue through additional result pages.
 
 ## Pricing
 
 - **$0.014286 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

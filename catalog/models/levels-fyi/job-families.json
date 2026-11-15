@@ -50,12 +50,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.01,
-    "free_quota": {
-      "eligible": true,
-      "daily_calls_per_org": 100,
-      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
-    }
+    "per_call": 0.01
   },
   "readme": "# Levels.fyi Job Families\n\nRetrieve the full directory of job titles and families organized as a flat list. Each job family includes slug, name, category, focus tags, and job titles.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/levels-fyi/job-families\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\nThis API takes no parameters.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/levels-fyi/job-families",

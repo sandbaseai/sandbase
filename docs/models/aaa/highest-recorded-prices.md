@@ -2,14 +2,13 @@
 
 `aaa/highest-recorded-prices` · data API · AAA · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Returns all-time highest recorded average gas prices for a specific state or nationally. If no state_code is provided, returns national records.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

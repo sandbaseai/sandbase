@@ -2,14 +2,13 @@
 
 `amazon/product` · data API · Amazon · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.015 per call (free daily quota) · **Modes:** async
+**Price:** $0.015 per call · **Modes:** async
 
 Get an Amazon product by ASIN: title, brand, price, rating, reviews, images, variants, availability, purchase options, about-this-item and description.
 
 ## Pricing
 
 - **$0.015 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

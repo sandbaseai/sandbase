@@ -2,14 +2,13 @@
 
 `firecrawl/scrape` · data API · Firecrawl · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0075 per call (free daily quota) · **Modes:** sync
+**Price:** $0.0075 per call · **Modes:** sync
 
 Scrapes content from target web pages with automatic handling of JavaScript rendering. Returns extracted page data based on specified formats and proxy settings.
 
 ## Pricing
 
 - **$0.0075 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

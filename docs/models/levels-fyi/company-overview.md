@@ -2,14 +2,13 @@
 
 `levels-fyi/company-overview` · data API · Levels.fyi · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Retrieve a company profile overview including full company details (name, description, industry, ticker, HQ location, vesting info), a structured overview summary, related companies, and available job families at the.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

@@ -1,0 +1,106 @@
+{
+  "name": "epic-games/browse-games",
+  "display_name": "Epic Games Store Browse Games",
+  "type": "api",
+  "vendor": "Epic Games Store",
+  "vendor_slug": "epic-games",
+  "description": "Browses the Epic Games Store catalog with optional filtering and sorting. Returns paginated results with total count. Uses offset-based pagination via start parameter.",
+  "tags": [
+    "api",
+    "epic-games",
+    "games"
+  ],
+  "capabilities": [
+    "api",
+    "epic-games",
+    "games"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/epic-games/browse-games"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "tag": {
+        "type": "string",
+        "example": "",
+        "description": "Genre or tag filter identifier used by the Epic Games Store API. Omitting returns all games."
+      },
+      "count": {
+        "type": "integer",
+        "default": 40,
+        "example": 5,
+        "description": "Number of items to return per page."
+      },
+      "start": {
+        "type": "integer",
+        "default": 0,
+        "example": 0,
+        "description": "Pagination offset (0-based)."
+      },
+      "sort_by": {
+        "type": "string",
+        "default": "releaseDate",
+        "example": "releaseDate",
+        "description": "Sort field."
+      },
+      "category": {
+        "enum": [
+          "games/edition/base",
+          "Game",
+          "Apps"
+        ],
+        "type": "string",
+        "default": "games/edition/base",
+        "example": "games/edition/base",
+        "description": "Category filter path. Common values: 'games/edition/base', 'Game', 'Apps'."
+      },
+      "sort_dir": {
+        "type": "string",
+        "default": "DESC",
+        "example": "ASC",
+        "description": "Sort direction."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Epic Games Store Browse Games API\n\nBrowses the Epic Games Store catalog with optional filtering and sorting. Returns paginated results with total count. Uses offset-based pagination via start parameter.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"epic-games/browse-games\", \"tag\": \"\", \"count\": 5, \"start\": 0, \"sort_by\": \"releaseDate\", \"category\": \"games/edition/base\", \"sort_dir\": \"ASC\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `category` | string | No | Category filter path. Common values: 'games/edition/base', 'Game', 'Apps'. One of: `games/edition/base`, `Game`, `Apps`. |\n| `count` | integer | No | Number of items to return per page. |\n| `sort_by` | string | No | Sort field. |\n| `sort_dir` | string | No | Sort direction. |\n| `start` | integer | No | Pagination offset (0-based). |\n| `tag` | string | No | Genre or tag filter identifier used by the Epic Games Store API. Omitting returns all games. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/epic-games/browse-games",
+  "created_at": "2026-11-15T10:59:26.088Z"
+}

@@ -1,0 +1,106 @@
+{
+  "name": "espn/news",
+  "display_name": "ESPN News",
+  "type": "api",
+  "vendor": "ESPN",
+  "vendor_slug": "espn",
+  "description": "Get latest news articles and headlines for a specific league. Returns articles with full metadata including categories, images, and links.",
+  "tags": [
+    "api",
+    "espn",
+    "sports"
+  ],
+  "capabilities": [
+    "api",
+    "espn",
+    "sports"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/espn/news"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "league"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "default": 25,
+        "example": 5,
+        "description": "Number of articles to return."
+      },
+      "league": {
+        "enum": [
+          "nba",
+          "nfl",
+          "mlb",
+          "nhl",
+          "wnba",
+          "college-football",
+          "mens-college-basketball",
+          "womens-college-basketball",
+          "college-baseball",
+          "college-softball",
+          "eng.1",
+          "esp.1",
+          "ger.1",
+          "ita.1",
+          "ita.2",
+          "fra.1",
+          "usa.1",
+          "uefa.champions",
+          "uefa.europa",
+          "ufc",
+          "f1",
+          "nascar",
+          "nll",
+          "mlc"
+        ],
+        "type": "string",
+        "example": "nba",
+        "description": "League identifier."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# ESPN News API\n\nGet latest news articles and headlines for a specific league. Returns articles with full metadata including categories, images, and links.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"espn/news\", \"limit\": 5, \"league\": \"nba\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `league` | string | Yes | League identifier. One of: `nba`, `nfl`, `mlb`, `nhl`, `wnba`, `college-football`, `mens-college-basketball`, `womens-college-basketball`, `college-baseball`, `college-softball`, `eng.1`, `esp.1`. |\n| `limit` | integer | No | Number of articles to return. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/espn/news",
+  "created_at": "2026-11-15T10:50:27.56Z"
+}

@@ -5,7 +5,7 @@ Call 3 AutoZone endpoints through SandBase with one API key: no separate account
 | Endpoint | What it does | Price |
 |---|---|---|
 | [`autozone/product`](../models/autozone/product.md) | Get an AutoZone part by product ID with brand, part number, price, specifications, warranty, vehicle fitment and store availability. | $0.01 per call |
-| [`autozone/scrape/category`](../models/autozone/scrape/category.md) | Extract product listings from an AutoZone category page URL with pagination and preferred-store pricing. | $0.012 per call (free daily quota) |
+| [`autozone/scrape/category`](../models/autozone/scrape/category.md) | Extract product listings from an AutoZone category page URL with pagination and preferred-store pricing. | $0.012 per call |
 | [`autozone/search`](../models/autozone/search.md) | Search AutoZone auto parts by keyword, optionally for a specific vehicle and store, with part number, brand, price, rating and availability. | $0.01 per call |
 
 ## Quick start

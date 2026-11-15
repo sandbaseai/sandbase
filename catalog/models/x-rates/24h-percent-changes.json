@@ -1,0 +1,67 @@
+{
+  "name": "x-rates/24h-percent-changes",
+  "display_name": "X-Rates 24H Percent Changes",
+  "type": "api",
+  "vendor": "X-Rates",
+  "vendor_slug": "x-rates",
+  "description": "Extracts the 'Percent Change in the Last 24 Hours' widget data for major currency pairs from the homepage. Returns ~8 major pairs with their percentage change and direction (up/down).",
+  "tags": [
+    "api",
+    "x-rates",
+    "finance",
+    "forex"
+  ],
+  "capabilities": [
+    "api",
+    "x-rates",
+    "finance",
+    "forex"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/x-rates/24h-percent-changes"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# X-Rates 24H Percent Changes API\n\nExtracts the 'Percent Change in the Last 24 Hours' widget data for major currency pairs from the homepage. Returns ~8 major pairs with their percentage change and direction (up/down).\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"x-rates/24h-percent-changes\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/x-rates/24h-percent-changes",
+  "created_at": "2026-11-15T12:33:38.961Z"
+}

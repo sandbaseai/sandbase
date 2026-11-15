@@ -1,0 +1,94 @@
+{
+  "name": "yellowpages/search-businesses",
+  "display_name": "Yellow Pages Search Businesses",
+  "type": "api",
+  "vendor": "Yellow Pages",
+  "vendor_slug": "yellowpages",
+  "description": "Full-text search for businesses by keyword and location on YellowPages.com.",
+  "tags": [
+    "api",
+    "yellowpages",
+    "local",
+    "business-directory"
+  ],
+  "capabilities": [
+    "api",
+    "yellowpages",
+    "local",
+    "business-directory"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/yellowpages/search-businesses"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query",
+      "location"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "example": 1,
+        "description": "Starting page number for pagination"
+      },
+      "limit": {
+        "type": "integer",
+        "default": 500,
+        "example": 5,
+        "description": "Maximum number of results to return across all pages"
+      },
+      "query": {
+        "type": "string",
+        "example": "plumber",
+        "description": "Search keyword (e.g., 'plumber', 'restaurant', 'dentist')"
+      },
+      "location": {
+        "type": "string",
+        "example": "new york ny",
+        "description": "Location to search in (e.g., 'new york ny', 'los angeles ca')"
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Yellow Pages Search Businesses API\n\nFull-text search for businesses by keyword and location on YellowPages.com.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"yellowpages/search-businesses\", \"page\": 1, \"limit\": 5, \"query\": \"plumber\", \"location\": \"new york ny\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `location` | string | Yes | Location to search in (e.g., 'new york ny', 'los angeles ca') |\n| `query` | string | Yes | Search keyword (e.g., 'plumber', 'restaurant', 'dentist') |\n| `limit` | integer | No | Maximum number of results to return across all pages |\n| `page` | integer | No | Starting page number for pagination |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/yellowpages/search-businesses",
+  "created_at": "2026-11-15T13:03:02.655Z"
+}

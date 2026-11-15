@@ -63,12 +63,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.01,
-    "free_quota": {
-      "eligible": true,
-      "daily_calls_per_org": 100,
-      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
-    }
+    "per_call": 0.01
   },
   "readme": "# Levels.fyi H1B Salaries\n\nRetrieve paginated H-1B visa salary records for a given year, sorted by date descending. Each record includes company, job title, wage, location (city/state), and certification status.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/levels-fyi/h1b-salaries\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `page` | integer | No | Page number for pagination (starts at 1). |\n| `year` | integer | No | Year of H-1B records. Valid values include 2020 through 2025. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/levels-fyi/h1b-salaries",

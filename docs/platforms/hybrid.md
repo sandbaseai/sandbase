@@ -4,7 +4,7 @@ Call 1 Hybrid endpoints through SandBase with one API key: no separate account, 
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`hybrid/video-data`](../models/hybrid/video-data.md) | Parse a shared video link from Douyin, TikTok and other supported platforms and get the video details, author and no-watermark media URLs. | $0.001 per call (free daily quota) |
+| [`hybrid/video-data`](../models/hybrid/video-data.md) | Parse a shared video link from Douyin, TikTok and other supported platforms and get the video details, author and no-watermark media URLs. | $0.001 per call |
 
 ## Quick start
 

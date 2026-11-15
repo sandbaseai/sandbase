@@ -2,14 +2,13 @@
 
 `dataforseo/v3/on_page/lighthouse/live/json` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.005 per call (free daily quota) · **Modes:** sync
+**Price:** $0.005 per call · **Modes:** sync
 
 Returns real-time Google Lighthouse audit data and web performance metrics for target web pages. Helps assess on-page speed, accessibility, best practices, and search optimization standards.
 
 ## Pricing
 
 - **$0.005 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

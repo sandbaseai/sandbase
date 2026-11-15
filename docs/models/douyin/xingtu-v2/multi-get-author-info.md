@@ -2,14 +2,13 @@
 
 `douyin/xingtu-v2/multi-get-author-info` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.002 per call (free daily quota) · **Modes:** sync
+**Price:** $0.002 per call · **Modes:** sync
 
 Returns Xingtu creator profile information for multiple creator accounts in a single request. It takes a list of creator IDs along with optional platform source and channel options.
 
 ## Pricing
 
 - **$0.002 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

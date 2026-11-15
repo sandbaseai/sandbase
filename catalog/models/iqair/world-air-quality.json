@@ -50,12 +50,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.01,
-    "free_quota": {
-      "eligible": true,
-      "daily_calls_per_org": 100,
-      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
-    }
+    "per_call": 0.01
   },
   "readme": "# IQAir World Air Quality\n\nGlobal air quality overview returning the top 15 most polluted and top 15 cleanest major cities worldwide. Each city entry includes current AQI, geographic identifiers, and a URL slug path usable with.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/iqair/world-air-quality\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\nThis API takes no parameters.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/iqair/world-air-quality",

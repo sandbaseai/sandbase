@@ -2,14 +2,13 @@
 
 `coingecko/coins-categories-list` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.008 per call (free daily quota) · **Modes:** sync
+**Price:** $0.008 per call · **Modes:** sync
 
 Coins Categories List (ID Map) from CoinGecko. Returns the official CoinGecko API response unchanged.
 
 ## Pricing
 
 - **$0.008 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

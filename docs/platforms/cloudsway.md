@@ -4,7 +4,7 @@ Call 1 Cloudsway endpoints through SandBase with one API key: no separate accoun
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`cloudsway/search`](../models/cloudsway/search.md) | Web search API for AI agents with topic focus (news, academic, company, finance and more), country, date range and domain filters, plus… | $0.005 per call (free daily quota) |
+| [`cloudsway/search`](../models/cloudsway/search.md) | Web search API for AI agents with topic focus (news, academic, company, finance and more), country, date range and domain filters, plus… | $0.005 per call |
 
 ## Quick start
 

@@ -2,14 +2,13 @@
 
 `exa/search` · data API · Exa · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0105 per call (free daily quota) · **Modes:** sync
+**Price:** $0.0105 per call · **Modes:** sync
 
 Neural web search for AI apps and agents. Ask in natural language and get the most relevant pages, with optional highlights, summaries or full text, domain filters and date ranges.
 
 ## Pricing
 
 - **$0.0105 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

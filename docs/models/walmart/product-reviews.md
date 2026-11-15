@@ -2,14 +2,13 @@
 
 `walmart/product-reviews` · data API · Walmart · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.015 per call (free daily quota) · **Modes:** async
+**Price:** $0.015 per call · **Modes:** async
 
 Get Walmart product reviews by product ID: overall rating, ratings histogram, top positive and negative reviews, and paginated review text with photos.
 
 ## Pricing
 
 - **$0.015 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

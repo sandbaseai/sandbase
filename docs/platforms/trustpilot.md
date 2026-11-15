@@ -4,8 +4,8 @@ Call 6 Trustpilot endpoints through SandBase with one API key: no separate accou
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`trustpilot/categories`](../models/trustpilot/categories.md) | Retrieve all top-level categories and their sub-categories available on Trustpilot. | $0.01 per call (free daily quota) |
-| [`trustpilot/companies-by-category`](../models/trustpilot/companies-by-category.md) | List companies within a specific category with pagination. Returns companies sorted by trust score. | $0.01 per call (free daily quota) |
+| [`trustpilot/categories`](../models/trustpilot/categories.md) | Retrieve all top-level categories and their sub-categories available on Trustpilot. | $0.01 per call |
+| [`trustpilot/companies-by-category`](../models/trustpilot/companies-by-category.md) | List companies within a specific category with pagination. Returns companies sorted by trust score. | $0.01 per call |
 | [`trustpilot/company-overview`](../models/trustpilot/company-overview.md) | Get full company profile overview including TrustScore, rating distribution, AI summary, and initial reviews. | $0.03 per call |
 | [`trustpilot/company-review-summary`](../models/trustpilot/company-review-summary.md) | Get AI summary, review topics, rating breakdown, and recent review texts for a company. Accepts either a direct company domain or a search… | $0.05 per call |
 | [`trustpilot/company-reviews`](../models/trustpilot/company-reviews.md) | Pull Trustpilot reviews for any company by brand name: star ratings, review text, dates, and reviewer details as clean JSON. | about $0.0008 per call |

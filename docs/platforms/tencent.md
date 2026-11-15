@@ -1,6 +1,6 @@
-# Tencent models API: 19 endpoints with pricing and code examples
+# Tencent models API: 24 endpoints with pricing and code examples
 
-Call 19 Tencent models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 24 Tencent models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
@@ -23,6 +23,11 @@ Call 19 Tencent models through SandBase with one API key: no separate account, o
 | [`tencent/hunyuan3d/v2/turbo`](../models/tencent/hunyuan3d/v2/turbo.md) | Hunyuan3D 2.0 Turbo by Tencent, the fast variant of Hunyuan3D 2.0, generates a 3D mesh from a single image, as a white mesh or with… | from $0.14 to $0.42 per run, depending on parameters |
 | [`tencent/hy3`](../models/tencent/hy3.md) | Hy3 is a 295B-parameter Mixture-of-Experts model from Tencent (21B active, 192 experts with top-8 routing) built for reasoning, agentic… | $0.132 input / $0.528 output per 1M tokens |
 | [`tencent/hy4-preview`](../models/tencent/hy4-preview.md) | Hy4 preview is Tencent Hunyuan's open-source preview of its Hy4 generation, a mixture-of-experts language model with 770B total and 49B… | $0.834 input / $2.501 output per 1M tokens |
+| [`tencent/miora-3d/1.2/image-to-3d`](../models/tencent/miora-3d/1.2/image-to-3d.md) | Miora 3D 1.2 by Tencent Design turns a single image into a high-quality textured or untextured 3D asset, with improved detail over the… | from $0.428571 to $0.685714 per run, depending on parameters |
+| [`tencent/miora-3d/1.2/text-to-3d`](../models/tencent/miora-3d/1.2/text-to-3d.md) | Miora 3D 1.2 by Tencent Design turns a text prompt into a high-quality textured or untextured 3D asset. | from $0.514286 to $0.771429 per run, depending on parameters |
+| [`tencent/miora-3d/multi-view-to-3d`](../models/tencent/miora-3d/multi-view-to-3d.md) | Miora 3D by Tencent Design reconstructs a textured or untextured 3D asset from a front image plus optional back, side, top, bottom and… | from $0.6 to $0.857143 per run, depending on parameters |
+| [`tencent/miora-3d/t1/image-to-3d`](../models/tencent/miora-3d/t1/image-to-3d.md) | Miora 3D T1 by Tencent Design is the fast Miora 3D model: it turns a single image into a textured or untextured 3D asset in about two… | from $0.428571 to $0.6 per run, depending on parameters |
+| [`tencent/miora-3d/t1/text-to-3d`](../models/tencent/miora-3d/t1/text-to-3d.md) | Miora 3D T1 by Tencent Design is the fast Miora 3D model: it turns a text prompt into a textured or untextured 3D asset in about two… | from $0.514286 to $0.685714 per run, depending on parameters |
 
 ## Quick start
 

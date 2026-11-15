@@ -77,12 +77,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.01,
-    "free_quota": {
-      "eligible": true,
-      "daily_calls_per_org": 100,
-      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
-    }
+    "per_call": 0.01
   },
   "readme": "# Nasdaq Stock Historical Quotes\n\nHistorical OHLCV price data for a symbol. Without explicit date range, defaults to one year ending today.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/nasdaq/stock-historical-quotes\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"symbol\": \"AAPL\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `symbol` | string | Yes | Stock symbol (e.g. AAPL). |\n| `asset_class` | string | No | Asset class: stocks, etf, mutualfunds, crypto. |\n| `from_date` | string | No | Start date in YYYY-MM-DD format. Omitting defaults to one year ago. |\n| `limit` | integer | No | Number of records to return. |\n| `to_date` | string | No | End date in YYYY-MM-DD format. Omitting defaults to today. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/nasdaq/stock-historical-quotes",

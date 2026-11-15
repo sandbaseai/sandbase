@@ -4,7 +4,7 @@ Call 1 Weather Underground endpoints through SandBase with one API key: no separ
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`weather-underground/historical-airport-temperature-series`](../models/weather-underground/historical-airport-temperature-series.md) | Retrieve a complete year-scale airport observation temperature series for settlement calibration. Returns every observation within the… | $0.01 per call (free daily quota) |
+| [`weather-underground/historical-airport-temperature-series`](../models/weather-underground/historical-airport-temperature-series.md) | Retrieve a complete year-scale airport observation temperature series for settlement calibration. Returns every observation within the… | $0.01 per call |
 
 ## Quick start
 

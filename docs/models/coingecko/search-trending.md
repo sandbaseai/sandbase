@@ -2,14 +2,13 @@
 
 `coingecko/search-trending` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.008 per call (free daily quota) · **Modes:** sync
+**Price:** $0.008 per call · **Modes:** sync
 
 This endpoint allows you query trending search coins, NFTs and categories on CoinGecko in the last 24 hours
 
 ## Pricing
 
 - **$0.008 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

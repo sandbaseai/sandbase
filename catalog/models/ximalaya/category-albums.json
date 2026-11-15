@@ -1,0 +1,97 @@
+{
+  "name": "ximalaya/category-albums",
+  "display_name": "Ximalaya Category Albums",
+  "type": "api",
+  "vendor": "Ximalaya",
+  "vendor_slug": "ximalaya",
+  "description": "List albums within a category, sorted by popularity. Category is identified by its pinyin name (from get_categories). Paginates via page number; each page returns up to page_size albums with play counts, track counts, and anchor info.",
+  "tags": [
+    "api",
+    "ximalaya",
+    "audio",
+    "podcasts",
+    "china"
+  ],
+  "capabilities": [
+    "api",
+    "ximalaya",
+    "audio",
+    "podcasts",
+    "china"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/ximalaya/category-albums"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "example": 1,
+        "description": "Page number for pagination."
+      },
+      "page_size": {
+        "type": "integer",
+        "default": 30,
+        "example": 10,
+        "description": "Number of albums per page."
+      },
+      "category_name": {
+        "enum": [
+          "yinyue",
+          "youshengshu",
+          "ertong",
+          "xiangsheng",
+          "comic",
+          "finance",
+          "culture"
+        ],
+        "type": "string",
+        "default": "youshengshu",
+        "example": "yinyue",
+        "description": "Category pinyin name from get_categories (e.g. youshengshu, yinyue, ertong, xiangsheng, comic, finance, culture, kid, entertainment, train)."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Ximalaya Category Albums API\n\nList albums within a category, sorted by popularity. Category is identified by its pinyin name (from get_categories). Paginates via page number; each page returns up to page_size albums with play counts, track counts, and anchor info.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"ximalaya/category-albums\", \"page\": 1, \"page_size\": 10, \"category_name\": \"yinyue\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `category_name` | string | No | Category pinyin name from get_categories (e.g. youshengshu, yinyue, ertong, xiangsheng, comic, finance, culture, kid, entertainment, train). One of: `yinyue`, `youshengshu`, `ertong`, `xiangsheng`, `comic`, `finance`, `c |\n| `page` | integer | No | Page number for pagination. |\n| `page_size` | integer | No | Number of albums per page. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/ximalaya/category-albums",
+  "created_at": "2026-11-15T12:35:35.717Z"
+}

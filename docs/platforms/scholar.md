@@ -4,9 +4,9 @@ Call 3 Scholar endpoints through SandBase with one API key: no separate account,
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`scholar/search-mixed`](../models/scholar/search-mixed.md) | Returns scholarly and academic search results matching a query. Supports filtering by publication year range and limiting the total number… | $0.0036 per call (free daily quota) |
-| [`scholar/search-scholar`](../models/scholar/search-scholar.md) | Search academic papers on Google Scholar: titles, authors, links, citation counts and snippets, with publication-year filters. | $0.0036 per call (free daily quota) |
-| [`scholar/search-web`](../models/scholar/search-web.md) | Returns web search results tailored to academic and research topics. Supports filtering by publication year ranges and limiting the total… | $0.0036 per call (free daily quota) |
+| [`scholar/search-mixed`](../models/scholar/search-mixed.md) | Returns scholarly and academic search results matching a query. Supports filtering by publication year range and limiting the total number… | $0.0036 per call |
+| [`scholar/search-scholar`](../models/scholar/search-scholar.md) | Search academic papers on Google Scholar: titles, authors, links, citation counts and snippets, with publication-year filters. | $0.0036 per call |
+| [`scholar/search-web`](../models/scholar/search-web.md) | Returns web search results tailored to academic and research topics. Supports filtering by publication year ranges and limiting the total… | $0.0036 per call |
 
 ## Quick start
 

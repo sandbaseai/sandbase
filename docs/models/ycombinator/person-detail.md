@@ -2,14 +2,13 @@
 
 `ycombinator/person-detail` · data API · Y Combinator · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Get a detailed profile for a YC partner by slug. Returns full biography, achievement stats, associated companies, blog posts, press articles, tweets, and videos.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

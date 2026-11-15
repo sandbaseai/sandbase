@@ -2,14 +2,13 @@
 
 `instagram/v3/search-hashtags` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.008 per call (free daily quota) · **Modes:** sync
+**Price:** $0.008 per call · **Modes:** sync
 
 Searches Instagram hashtags by keyword and returns matching hashtag names, IDs, and media counts. Supports pagination via rank tokens.
 
 ## Pricing
 
 - **$0.008 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

@@ -2,14 +2,13 @@
 
 `aaa/price-change-by-metro` · data API · AAA · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Returns price changes for all metro areas within a given state, showing the difference between current and historical prices for each fuel grade. Includes yesterday_change, week_ago_change, month_ago_change, and.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

@@ -2,14 +2,13 @@
 
 `iqair/world-air-quality` · data API · IQAir · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Global air quality overview returning the top 15 most polluted and top 15 cleanest major cities worldwide. Each city entry includes current AQI, geographic identifiers, and a URL slug path usable with.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

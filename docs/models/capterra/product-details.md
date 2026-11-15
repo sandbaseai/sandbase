@@ -2,14 +2,13 @@
 
 `capterra/product-details` · data API · Capterra · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Retrieve detailed information about a specific software product, including description, overall rating, review count, and feature list. Requires both product_id and product_name (slug) which are available from.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

@@ -1,0 +1,211 @@
+{
+  "name": "tencent/miora-3d/t1/text-to-3d",
+  "display_name": "Miora 3D T1 Text to 3D",
+  "type": "image",
+  "vendor": "Tencent",
+  "vendor_slug": "tencent",
+  "description": "Miora 3D T1 by Tencent Design is the fast Miora 3D model: it turns a text prompt into a textured or untextured 3D asset in about two minutes.",
+  "tags": [
+    "text-to-3d"
+  ],
+  "capabilities": [
+    "text-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A small cute ceramic teapot with a glossy glaze"
+        ],
+        "description": "Text description of the 3D object to generate."
+      },
+      "enable_pbr": {
+        "type": "boolean",
+        "title": "Enable PBR",
+        "default": false,
+        "description": "Generate PBR materials (metallic, roughness, normal). Ignored for Geometry output."
+      },
+      "face_count": {
+        "type": "integer",
+        "title": "Face Count",
+        "maximum": 1500000,
+        "minimum": 3000,
+        "description": "Target polygon face count. Uses the model default when unset."
+      },
+      "generate_type": {
+        "enum": [
+          "Normal",
+          "Geometry"
+        ],
+        "type": "string",
+        "title": "Generate Type",
+        "default": "Normal",
+        "description": "Normal: textured model. Geometry: untextured white model."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(15 + ((params.enable_pbr ?? false) && (params.generate_type ?? \"Normal\") != \"Geometry\" ? 10 : 0) + ((params.face_count ?? 0) > 0 ? 10 : 0) + 5) * 0.12 / 7",
+    "formula_variables": [
+      "params.enable_pbr",
+      "params.face_count",
+      "params.generate_type"
+    ],
+    "reference_price": 0.342857,
+    "price_examples": [
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 3000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.514286
+      },
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 3000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.514286
+      },
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 1500000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.514286
+      },
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 1500000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.514286
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 3000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.685714
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 3000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.514286
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 1500000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.685714
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 1500000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.514286
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "A medieval wooden catapult with iron fittings and a stone in the basket"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/86ae1f0b-9425-4593-9571-593a87a7793f/output/4185c777-9bdd-4795-9815-20f13e50f417.png",
+          "thumbnail": "https://static.sandbase.ai/examples/86ae1f0b-9425-4593-9571-593a87a7793f/output/cd65245f-9f41-4330-ba48-a7b8b35087d3.png",
+          "url": "https://static.sandbase.ai/examples/86ae1f0b-9425-4593-9571-593a87a7793f/output/e42d4330-0c33-4ed7-96e2-9a7303a6b26d.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Miora 3D T1 Text to 3D\n\nMiora 3D T1 by Tencent Design is the fast Miora 3D model: it turns a text prompt into a textured or untextured 3D asset in about two minutes.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text description of the 3D object to generate. |\n| `generate_type` | string | \"Normal\" | Normal: textured model. Geometry: untextured white model. |\n| `enable_pbr` | boolean | false | Generate PBR materials (metallic, roughness, normal). Ignored for Geometry output. |\n| `face_count` | integer | — | Target polygon face count. Uses the model default when unset. |\n\n## Billing\n\n| Request | Price |\n|---|---|\n| Default | $0.3429 |\n| Geometry (untextured) | $0.3429 |\n| With PBR | $0.5143 |\n| With custom face count | $0.5143 |\n\nPBR, a custom face count each add to the default price. Failed runs are not charged.\n",
+  "cover_url": "https://static.sandbase.ai/covers/tencent/miora-3d/t1/text-to-3d/cover-flare-20261115181842.webp",
+  "page_url": "https://www.sandbase.ai/model/tencent/miora-3d/t1/text-to-3d",
+  "created_at": "2026-11-15T09:00:58.644Z"
+}

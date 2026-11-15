@@ -1,0 +1,81 @@
+{
+  "name": "eastmoney/hot-conditions",
+  "display_name": "Eastmoney Hot Conditions",
+  "type": "api",
+  "vendor": "Eastmoney",
+  "vendor_slug": "eastmoney",
+  "description": "Get curated hot screening conditions that are currently trending on EastMoney's stock screener. Each condition includes a title, full query question, stock count, change percentage, and tags. Supports pagination via last_ids.",
+  "tags": [
+    "api",
+    "eastmoney",
+    "finance",
+    "stocks",
+    "china"
+  ],
+  "capabilities": [
+    "api",
+    "eastmoney",
+    "finance",
+    "stocks",
+    "china"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/eastmoney/hot-conditions"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "last_ids": {
+        "type": "string",
+        "example": "",
+        "description": "JSON array of last seen IDs for pagination (e.g. '[141,77,80]'). Omit for first page."
+      },
+      "page_size": {
+        "type": "integer",
+        "default": 4,
+        "example": 4,
+        "description": "Number of hot conditions to return per page."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Eastmoney Hot Conditions API\n\nGet curated hot screening conditions that are currently trending on EastMoney's stock screener. Each condition includes a title, full query question, stock count, change percentage, and tags. Supports pagination via last_ids.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"eastmoney/hot-conditions\", \"last_ids\": \"\", \"page_size\": 4}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `last_ids` | string | No | JSON array of last seen IDs for pagination (e.g. '[141,77,80]'). Omit for first page. |\n| `page_size` | integer | No | Number of hot conditions to return per page. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/eastmoney/hot-conditions",
+  "created_at": "2026-11-15T10:38:32.165Z"
+}

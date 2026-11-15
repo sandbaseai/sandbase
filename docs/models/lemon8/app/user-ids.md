@@ -2,14 +2,13 @@
 
 `lemon8/app/user-ids` · data API · Lemon8 · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.001 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call · **Modes:** sync
 
 Resolves Lemon8 user identifiers in batch from shared profile links. Accepts an array of up to 10 share links per request and returns the corresponding user IDs.
 
 ## Pricing
 
 - **$0.001 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

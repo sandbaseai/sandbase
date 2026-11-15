@@ -2,14 +2,13 @@
 
 `polymarket/price` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.012 per call (free daily quota) · **Modes:** sync
+**Price:** $0.012 per call · **Modes:** sync
 
 Retrieves the best market price for a specific token ID and side (bid or ask). Returns the best bid price for BUY side or best ask price for SELL side.
 
 ## Pricing
 
 - **$0.012 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

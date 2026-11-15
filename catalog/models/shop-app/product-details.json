@@ -1,0 +1,80 @@
+{
+  "name": "shop-app/product-details",
+  "display_name": "Shop Product Details",
+  "type": "api",
+  "vendor": "Shop",
+  "vendor_slug": "shop-app",
+  "description": "Retrieves full details for a single product including current price, original price (if discounted), images, rating, review count, and merchant info. Requires both product_id and product_slug which are available from get_homepage_featured_products or get_merchant_products results.",
+  "tags": [
+    "api",
+    "shop-app",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "shop-app",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/shop-app/product-details"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "product_id",
+      "product_slug"
+    ],
+    "properties": {
+      "product_id": {
+        "type": "string",
+        "example": "9144684642526",
+        "description": "Numeric product ID from get_homepage_featured_products or get_merchant_products results."
+      },
+      "product_slug": {
+        "type": "string",
+        "example": "sospiro-vibrato-edp",
+        "description": "Product URL slug from get_homepage_featured_products or get_merchant_products results."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Shop Product Details API\n\nRetrieves full details for a single product including current price, original price (if discounted), images, rating, review count, and merchant info. Requires both product_id and product_slug which are available from get_homepage_featured_products or get_merchant_products results.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"shop-app/product-details\", \"product_id\": \"9144684642526\", \"product_slug\": \"sospiro-vibrato-edp\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `product_id` | string | Yes | Numeric product ID from get_homepage_featured_products or get_merchant_products results. |\n| `product_slug` | string | Yes | Product URL slug from get_homepage_featured_products or get_merchant_products results. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/shop-app/product-details",
+  "created_at": "2026-11-15T12:40:55.195Z"
+}

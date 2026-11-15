@@ -98,12 +98,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.008,
-    "free_quota": {
-      "eligible": true,
-      "daily_calls_per_org": 100,
-      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
-    }
+    "per_call": 0.008
   },
   "readme": "# CoinGecko Coin Price by Token Addresses API\n\nGet one or more token prices using their token contract addresses\n\nThe response is the official CoinGecko API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/coingecko/simple-token-price\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"id\": \"ethereum\", \"contract_addresses\": \"0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48\", \"vs_currencies\": \"usd\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `id` | string | Yes | Asset platform's ID. *refers to [`/asset_platforms`](/reference/asset-platforms-list) |\n| `contract_addresses` | string | Yes | Token contract addresses, comma-separated if querying more than 1 token |\n| `include_24hr_change` | boolean | No | Include 24-hour change percentage. Default: false |\n| `include_24hr_vol` | boolean | No | Include 24-hour trading volume. Default: false |\n| `include_last_updated_at` | boolean | No | Include last updated price time as a UNIX timestamp. Default: false |\n| `include_market_cap` | boolean | No | Include market capitalization. Default: false |\n| `precision` | string | No | Decimal places for currency price value |\n| `vs_currencies` | string | Yes | Target currency of coins, comma-separated if querying more than 1 currency. *refers to [`/simple/supported_vs_currencies`](/reference/simple-supported-currencie |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/coingecko/simple-token-price",

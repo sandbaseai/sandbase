@@ -1,0 +1,74 @@
+{
+  "name": "epic-games/search-games",
+  "display_name": "Epic Games Store Search Games",
+  "type": "api",
+  "vendor": "Epic Games Store",
+  "vendor_slug": "epic-games",
+  "description": "Searches for games by keyword in the Epic Games Store catalog. Returns up to 20 matching results sorted by relevancy.",
+  "tags": [
+    "api",
+    "epic-games",
+    "games"
+  ],
+  "capabilities": [
+    "api",
+    "epic-games",
+    "games"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/epic-games/search-games"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "example": "fortnite",
+        "description": "Search keyword (e.g. 'fortnite', 'action', 'racing')."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Epic Games Store Search Games API\n\nSearches for games by keyword in the Epic Games Store catalog. Returns up to 20 matching results sorted by relevancy.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"epic-games/search-games\", \"query\": \"fortnite\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search keyword (e.g. 'fortnite', 'action', 'racing'). |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/epic-games/search-games",
+  "created_at": "2026-11-15T11:00:59.966Z"
+}

@@ -4,7 +4,7 @@ Call 1 LMArena endpoints through SandBase with one API key: no separate account,
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`lmarena/list-available-models`](../models/lmarena/list-available-models.md) | List all models available for direct interaction on LMArena, including their capabilities (input/output modalities), organization,… | $0.01 per call (free daily quota) |
+| [`lmarena/list-available-models`](../models/lmarena/list-available-models.md) | List all models available for direct interaction on LMArena, including their capabilities (input/output modalities), organization,… | $0.01 per call |
 
 ## Quick start
 

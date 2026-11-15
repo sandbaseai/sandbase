@@ -21,18 +21,18 @@ Call 30 X (Twitter) endpoints through SandBase with one API key: no separate acc
 | [`twitter/tweets-by-ids`](../models/twitter/tweets-by-ids.md) | Look up several tweets at once by a comma-separated list of tweet IDs, with text, author and engagement counts. | about $0.0075 per call |
 | [`twitter/user-mentions`](../models/twitter/user-mentions.md) | Recent tweets that mention a user by username, with optional time range and cursor pagination. | about $0.003 per call |
 | [`twitter/verified-followers`](../models/twitter/verified-followers.md) | Verified (blue check) followers of a user by numeric user ID, with profile details and cursor pagination. | about $0.006 per call |
-| [`twitter/web/check-follow`](../models/twitter/web/check-follow.md) | Check follow on Twitter. Returns the platform data as structured JSON. | $0.001 per call (free daily quota) |
-| [`twitter/web/check-retweet`](../models/twitter/web/check-retweet.md) | Check retweet on Twitter. Returns the platform data as structured JSON. | $0.001 per call (free daily quota) |
-| [`twitter/web/community-info`](../models/twitter/web/community-info.md) | Get community info on Twitter. Returns the platform data as structured JSON. | $0.001 per call (free daily quota) |
-| [`twitter/web/community-members`](../models/twitter/web/community-members.md) | Get community members (no pagination) on Twitter. Returns the platform data as structured JSON. | $0.001 per call (free daily quota) |
-| [`twitter/web/community-timeline`](../models/twitter/web/community-timeline.md) | Get community timeline on Twitter. Returns the platform data as structured JSON. | $0.001 per call (free daily quota) |
-| [`twitter/web/list-followers`](../models/twitter/web/list-followers.md) | Get list followers on Twitter. Returns the platform data as structured JSON. | $0.001 per call (free daily quota) |
-| [`twitter/web/list-members`](../models/twitter/web/list-members.md) | Get list members on Twitter. Returns the platform data as structured JSON. | $0.001 per call (free daily quota) |
-| [`twitter/web/list-timeline`](../models/twitter/web/list-timeline.md) | Get list timeline on Twitter. Returns the platform data as structured JSON. | $0.001 per call (free daily quota) |
-| [`twitter/web/search-communities`](../models/twitter/web/search-communities.md) | Search communities on Twitter. Returns the platform data as structured JSON. | $0.001 per call (free daily quota) |
-| [`twitter/web/user-about`](../models/twitter/web/user-about.md) | Get user about profile on Twitter. Returns the platform data as structured JSON. | $0.001 per call (free daily quota) |
+| [`twitter/web/check-follow`](../models/twitter/web/check-follow.md) | Check follow on Twitter. Returns the platform data as structured JSON. | $0.001 per call |
+| [`twitter/web/check-retweet`](../models/twitter/web/check-retweet.md) | Check retweet on Twitter. Returns the platform data as structured JSON. | $0.001 per call |
+| [`twitter/web/community-info`](../models/twitter/web/community-info.md) | Get community info on Twitter. Returns the platform data as structured JSON. | $0.001 per call |
+| [`twitter/web/community-members`](../models/twitter/web/community-members.md) | Get community members (no pagination) on Twitter. Returns the platform data as structured JSON. | $0.001 per call |
+| [`twitter/web/community-timeline`](../models/twitter/web/community-timeline.md) | Get community timeline on Twitter. Returns the platform data as structured JSON. | $0.001 per call |
+| [`twitter/web/list-followers`](../models/twitter/web/list-followers.md) | Get list followers on Twitter. Returns the platform data as structured JSON. | $0.001 per call |
+| [`twitter/web/list-members`](../models/twitter/web/list-members.md) | Get list members on Twitter. Returns the platform data as structured JSON. | $0.001 per call |
+| [`twitter/web/list-timeline`](../models/twitter/web/list-timeline.md) | Get list timeline on Twitter. Returns the platform data as structured JSON. | $0.001 per call |
+| [`twitter/web/search-communities`](../models/twitter/web/search-communities.md) | Search communities on Twitter. Returns the platform data as structured JSON. | $0.001 per call |
+| [`twitter/web/user-about`](../models/twitter/web/user-about.md) | Get user about profile on Twitter. Returns the platform data as structured JSON. | $0.001 per call |
 | [`twitter/web/user-affiliates`](../models/twitter/web/user-affiliates.md) | Get user affiliates on Twitter. Returns the platform data as structured JSON. | $0.001 per call (free daily quota) |
-| [`twitter/web/user-live-status`](../models/twitter/web/user-live-status.md) | Check user live status on Twitter. Returns the platform data as structured JSON. | $0.001 per call (free daily quota) |
+| [`twitter/web/user-live-status`](../models/twitter/web/user-live-status.md) | Check user live status on Twitter. Returns the platform data as structured JSON. | $0.001 per call |
 | [`twitter/web/user-profiles-by-rest-ids`](../models/twitter/web/user-profiles-by-rest-ids.md) | Get profiles by rest ids on Twitter. Returns the platform data as structured JSON. | $0.001 per call (free daily quota) |
 
 ## Quick start

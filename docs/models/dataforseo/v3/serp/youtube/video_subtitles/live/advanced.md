@@ -2,14 +2,13 @@
 
 `dataforseo/v3/serp/youtube/video_subtitles/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.006 per call (free daily quota) · **Modes:** sync
+**Price:** $0.006 per call · **Modes:** sync
 
 Fetch the subtitle track of a YouTube video with timestamps. Subtitles of a YouTube video by video_id and language.
 
 ## Pricing
 
 - **$0.006 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

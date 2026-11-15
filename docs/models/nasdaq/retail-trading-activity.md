@@ -2,14 +2,13 @@
 
 `nasdaq/retail-trading-activity` · data API · Nasdaq · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Retail Trading Activity Tracker (RTAT) showing the top 5 stocks by percent of retail equity flow, with activity percentage change and buy/sell sentiment.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

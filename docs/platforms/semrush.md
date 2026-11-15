@@ -7,7 +7,7 @@ Call 19 Semrush endpoints through SandBase with one API key: no separate account
 | [`semrush/backlink-anchors`](../models/semrush/backlink-anchors.md) | Anchor texts used in backlinks to a domain or URL, with backlink counts per anchor. | about $0.08 per call |
 | [`semrush/backlink-competitors`](../models/semrush/backlink-competitors.md) | Domains with a backlink profile similar to the target, ranked by similarity. | about $0.08 per call |
 | [`semrush/backlinks`](../models/semrush/backlinks.md) | Backlinks pointing to a domain or URL, with source URL, target URL and anchor text. | about $0.08 per call |
-| [`semrush/backlinks-overview`](../models/semrush/backlinks-overview.md) | Backlink summary for a domain or URL: Authority Score, total backlinks, referring domains, URLs and IPs. | $0.004 per call (free daily quota) |
+| [`semrush/backlinks-overview`](../models/semrush/backlinks-overview.md) | Backlink summary for a domain or URL: Authority Score, total backlinks, referring domains, URLs and IPs. | $0.004 per call |
 | [`semrush/broad-match-keywords`](../models/semrush/broad-match-keywords.md) | Broad-match keyword ideas for a seed phrase with search volume, CPC and competition, from a regional database. | about $0.04 per call |
 | [`semrush/domain-organic-competitors`](../models/semrush/domain-organic-competitors.md) | Domains competing with the target in Google organic results, with relevance and common keywords. | about $0.08 per call |
 | [`semrush/domain-organic-keywords`](../models/semrush/domain-organic-keywords.md) | Keywords a domain ranks for in Google organic search, with position, search volume, CPC and URL. | about $0.02 per call |

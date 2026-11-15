@@ -52,12 +52,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.004,
-    "free_quota": {
-      "eligible": true,
-      "daily_calls_per_org": 100,
-      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
-    }
+    "per_call": 0.004
   },
   "readme": "# DataForSEO Gemini Search Answer API\n\nGet Gemini's answer to a query as a signed-out user would see it.\n\nRequest fields follow the official DataForSEO `/v3/ai_optimization/gemini/llm_scraper/live/advanced` task schema (one task per call; send `{\"tasks\": [...]}` for several). The response is DataForSEO's original JSON; results are in `tasks[].result`.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/ai_optimization/gemini/llm_scraper/live/advanced\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"best running shoes 2026\", \"location_code\": 2840, \"language_code\": \"en\"}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:\n\n| Name | Description |\n|---|---|\n| `keyword` | Search query. |\n| `location_code` | Location code, e.g. 2840 for the United States. |\n| `language_code` | Language code, e.g. \"en\". |\n\n## Reference\n\n- Official docs: https://docs.dataforseo.com/v3/ai_optimization/gemini/llm_scraper/live/advanced/\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/dataforseo/v3/ai_optimization/gemini/llm_scraper/live/advanced",

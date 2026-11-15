@@ -4,7 +4,7 @@ Call 2 Indeed endpoints through SandBase with one API key: no separate account, 
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`indeed/company-profile`](../models/indeed/company-profile.md) | Get a comprehensive company profile including overview, employee reviews, ratings by category, salary data by role, interview information,… | $0.01 per call (free daily quota) |
+| [`indeed/company-profile`](../models/indeed/company-profile.md) | Get a comprehensive company profile including overview, employee reviews, ratings by category, salary data by role, interview information,… | $0.01 per call |
 | [`indeed/jobs`](../models/indeed/jobs.md) | Search Indeed job listings by keyword and location, with title, company, location, salary, job type and posting date. | $0.01 per call |
 
 ## Quick start

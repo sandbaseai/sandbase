@@ -2,14 +2,13 @@
 
 `nasdaq/etf-quote` · data API · Nasdaq · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Real-time quote and details for an ETF including price, net change, percentage change, volume, and market status.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

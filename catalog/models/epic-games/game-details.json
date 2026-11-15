@@ -1,0 +1,74 @@
+{
+  "name": "epic-games/game-details",
+  "display_name": "Epic Games Store Game Details",
+  "type": "api",
+  "vendor": "Epic Games Store",
+  "vendor_slug": "epic-games",
+  "description": "Fetches full details for a specific game on the Epic Games Store by its URL slug. Returns description, pricing, genres, features, ratings, media gallery, and publisher info. Requires multiple GraphQL round-trips internally (mapping lookup, offer fetch, ratings).",
+  "tags": [
+    "api",
+    "epic-games",
+    "games"
+  ],
+  "capabilities": [
+    "api",
+    "epic-games",
+    "games"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/epic-games/game-details"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "game_slug"
+    ],
+    "properties": {
+      "game_slug": {
+        "type": "string",
+        "example": "fortnite",
+        "description": "Product URL slug from the Epic Games Store product page URL (e.g. 'fortnite', 'ghostrunner-2'). Obtainable from the product_url field of other endpoints by extracting the last path segment after /p/."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Epic Games Store Game Details API\n\nFetches full details for a specific game on the Epic Games Store by its URL slug. Returns description, pricing, genres, features, ratings, media gallery, and publisher info. Requires multiple GraphQL round-trips internally (mapping lookup, offer fetch, ratings).\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"epic-games/game-details\", \"game_slug\": \"fortnite\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `game_slug` | string | Yes | Product URL slug from the Epic Games Store product page URL (e.g. 'fortnite', 'ghostrunner-2'). Obtainable from the product_url field of other endpoints by extracting the last path segment after /p/. |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/epic-games/game-details",
+  "created_at": "2026-11-15T10:59:18.607Z"
+}

@@ -2,14 +2,13 @@
 
 `secform4/13d-filings` · data API · SECForm4 · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Returns recent Schedule 13D filings showing significant ownership positions (>5%) in public companies. 13D filers are activist investors who intend to influence the company.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

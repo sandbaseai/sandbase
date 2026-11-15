@@ -63,12 +63,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.01,
-    "free_quota": {
-      "eligible": true,
-      "daily_calls_per_org": 100,
-      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
-    }
+    "per_call": 0.01
   },
   "readme": "# AAA News Articles\n\nReturns recent AAA gas price news articles with pagination support. Results include article title, publication date, excerpt, slug, and link.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/aaa/news-articles\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `limit` | integer | No | Maximum number of articles per page. |\n| `page` | integer | No | Page number for pagination. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/aaa/news-articles",

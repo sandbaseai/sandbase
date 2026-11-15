@@ -1,0 +1,67 @@
+{
+  "name": "yellowpages/category-list",
+  "display_name": "Yellow Pages Category List",
+  "type": "api",
+  "vendor": "Yellow Pages",
+  "vendor_slug": "yellowpages",
+  "description": "List business categories from the YellowPages categories page, organized by service group (e.g., Home Services, Medical Services, Auto Services). Each group contains named sub-categories with their browse paths.",
+  "tags": [
+    "api",
+    "yellowpages",
+    "local",
+    "business-directory"
+  ],
+  "capabilities": [
+    "api",
+    "yellowpages",
+    "local",
+    "business-directory"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/yellowpages/category-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Yellow Pages Category List API\n\nList business categories from the YellowPages categories page, organized by service group (e.g., Home Services, Medical Services, Auto Services). Each group contains named sub-categories with their browse paths.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"yellowpages/category-list\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/yellowpages/category-list",
+  "created_at": "2026-11-15T13:06:17.77Z"
+}

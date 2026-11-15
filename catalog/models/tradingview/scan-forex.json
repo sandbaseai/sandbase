@@ -1,0 +1,85 @@
+{
+  "name": "tradingview/scan-forex",
+  "display_name": "TradingView Scan Forex",
+  "type": "api",
+  "vendor": "TradingView",
+  "vendor_slug": "tradingview",
+  "description": "Scan multiple forex pairs at once, returning price, change, bid/ask, volume, and key technical indicators for each pair. Useful for building a watchlist or screening for trading signals across the forex market. Each pair includes a Buy/Sell/Neutral recommendation and RSI.",
+  "tags": [
+    "api",
+    "tradingview",
+    "finance",
+    "forex"
+  ],
+  "capabilities": [
+    "api",
+    "tradingview",
+    "finance",
+    "forex"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tradingview/scan-forex"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "symbols": {
+        "type": "string",
+        "default": "EURUSD,GBPUSD,USDJPY,AUDUSD,USDCAD",
+        "example": "EURUSD,GBPUSD,USDJPY",
+        "description": "Comma-separated list of forex pair symbols (e.g., EURUSD,GBPUSD,USDJPY)"
+      },
+      "exchange": {
+        "enum": [
+          "FX",
+          "OANDA",
+          "FX_IDC"
+        ],
+        "type": "string",
+        "default": "FX",
+        "example": "FX",
+        "description": "Exchange/data source for all symbols (FX, OANDA, FX_IDC)"
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# TradingView Scan Forex API\n\nScan multiple forex pairs at once, returning price, change, bid/ask, volume, and key technical indicators for each pair. Useful for building a watchlist or screening for trading signals across the forex market. Each pair includes a Buy/Sell/Neutral recommendation and RSI.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"tradingview/scan-forex\", \"symbols\": \"EURUSD,GBPUSD,USDJPY\", \"exchange\": \"FX\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `exchange` | string | No | Exchange/data source for all symbols (FX, OANDA, FX_IDC) One of: `FX`, `OANDA`, `FX_IDC`. |\n| `symbols` | string | No | Comma-separated list of forex pair symbols (e.g., EURUSD,GBPUSD,USDJPY) |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tradingview/scan-forex",
+  "created_at": "2026-11-15T10:32:18.611Z"
+}

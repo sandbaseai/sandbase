@@ -2,14 +2,13 @@
 
 `scholar/search-scholar` · data API · Scholar · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0036 per call (free daily quota) · **Modes:** sync
+**Price:** $0.0036 per call · **Modes:** sync
 
 Search academic papers on Google Scholar: titles, authors, links, citation counts and snippets, with publication-year filters.
 
 ## Pricing
 
 - **$0.0036 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

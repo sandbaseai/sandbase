@@ -1,0 +1,67 @@
+{
+  "name": "baidu/novel-rankings",
+  "display_name": "Baidu Novel Rankings",
+  "type": "api",
+  "vendor": "Baidu",
+  "vendor_slug": "baidu",
+  "description": "Fetch the hot novel rankings from the Baidu Top board. Returns all novels currently ranked with their scores, along with available genre filter tags that can be used with get_novel_rankings_by_genre or get_board_by_tab.",
+  "tags": [
+    "api",
+    "baidu",
+    "trending",
+    "china"
+  ],
+  "capabilities": [
+    "api",
+    "baidu",
+    "trending",
+    "china"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/baidu/novel-rankings"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Baidu Novel Rankings API\n\nFetch the hot novel rankings from the Baidu Top board. Returns all novels currently ranked with their scores, along with available genre filter tags that can be used with get_novel_rankings_by_genre or get_board_by_tab.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"baidu/novel-rankings\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/baidu/novel-rankings",
+  "created_at": "2026-11-15T10:42:40.937Z"
+}

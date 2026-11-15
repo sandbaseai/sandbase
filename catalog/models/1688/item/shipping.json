@@ -58,12 +58,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.014286,
-    "free_quota": {
-      "eligible": true,
-      "daily_calls_per_org": 100,
-      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
-    }
+    "per_call": 0.014286
   },
   "readme": "# 1688 Product Shipping Fee API\n\nEstimate domestic shipping for a 1688 product to a Chinese province, by quantity and optional total weight.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/1688/item/shipping\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"itemId\": \"857511694718\", \"province\": \"gd\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `itemId` | string | Yes | 1688 product ID. |\n| `province` | string | Yes | Chinese province name or abbreviation, for example Guangdong or gd. |\n| `totalQuantity` | integer | No | Total number of items to ship. |\n| `totalWeight` | number | No | Total shipment weight in kilograms. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/1688/item/shipping",

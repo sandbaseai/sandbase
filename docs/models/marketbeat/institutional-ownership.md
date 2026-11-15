@@ -2,14 +2,13 @@
 
 `marketbeat/institutional-ownership` · data API · MarketBeat · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Get institutional ownership data including top institutional holders, their share positions, market value, portfolio percentage, quarterly change in shares, and ownership percentage in company.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

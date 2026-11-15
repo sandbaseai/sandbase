@@ -1,0 +1,88 @@
+{
+  "name": "arxiv/count-papers-by-comment",
+  "display_name": "arXiv Count Papers By Comment",
+  "type": "api",
+  "vendor": "arXiv",
+  "vendor_slug": "arxiv",
+  "description": "Searches arXiv for papers matching a keyword query that were originally announced in a given calendar month and whose author comments contain a given phrase, and returns the matching papers with their count.",
+  "tags": [
+    "api",
+    "arxiv",
+    "research",
+    "papers"
+  ],
+  "capabilities": [
+    "api",
+    "arxiv",
+    "research",
+    "papers"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/arxiv/count-papers-by-comment"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "month",
+      "query",
+      "phrase"
+    ],
+    "properties": {
+      "month": {
+        "type": "string",
+        "example": "2026-10",
+        "description": "Announcement month in YYYY-MM form; papers originally announced on arXiv in that month are considered"
+      },
+      "query": {
+        "type": "string",
+        "example": "neural network",
+        "description": "Keyword query searched across all paper fields (title, abstract, authors, etc.), e.g. neural network"
+      },
+      "phrase": {
+        "type": "string",
+        "example": "accepted",
+        "description": "Word or phrase that must appear in the paper's author comments, matched case-insensitively as whole words, e.g. accepted at"
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.09
+  },
+  "readme": "# arXiv Count Papers By Comment API\n\nSearches arXiv for papers matching a keyword query that were originally announced in a given calendar month and whose author comments contain a given phrase, and returns the matching papers with their count.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"arxiv/count-papers-by-comment\", \"month\": \"2026-10\", \"query\": \"neural network\", \"phrase\": \"accepted\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `month` | string | Yes | Announcement month in YYYY-MM form; papers originally announced on arXiv in that month are considered |\n| `phrase` | string | Yes | Word or phrase that must appear in the paper's author comments, matched case-insensitively as whole words, e.g. accepted at |\n| `query` | string | Yes | Keyword query searched across all paper fields (title, abstract, authors, etc.), e.g. neural network |\n\n## Pricing\n\nFlat $0.09 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/arxiv/count-papers-by-comment",
+  "created_at": "2026-11-15T12:21:15.009Z"
+}

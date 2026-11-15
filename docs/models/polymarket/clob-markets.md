@@ -2,14 +2,13 @@
 
 `polymarket/clob-markets` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.012 per call (free daily quota) · **Modes:** sync
+**Price:** $0.012 per call · **Modes:** sync
 
 Returns all CLOB-level parameters for a market in a single call — tokens, tick size, base fees, rewards, RFQ status, and fee details.
 
 ## Pricing
 
 - **$0.012 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

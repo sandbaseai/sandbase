@@ -2,14 +2,13 @@
 
 `iqair/map-data` · data API · IQAir · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call (free daily quota) · **Modes:** async
+**Price:** $0.01 per call · **Modes:** async
 
 Air quality station clusters for map visualization. Returns geographic clusters with aggregated AQI values and station counts within the specified bounding box.
 
 ## Pricing
 
 - **$0.01 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

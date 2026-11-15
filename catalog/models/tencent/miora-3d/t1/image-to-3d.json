@@ -1,0 +1,211 @@
+{
+  "name": "tencent/miora-3d/t1/image-to-3d",
+  "display_name": "Miora 3D T1 Image to 3D",
+  "type": "image",
+  "vendor": "Tencent",
+  "vendor_slug": "tencent",
+  "description": "Miora 3D T1 by Tencent Design is the fast Miora 3D model: it turns a single image into a textured or untextured 3D asset in about two minutes.",
+  "tags": [
+    "image-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://static.sandbase.ai/examples/tencent/hunyuan-3d/3.1/pro/image-to-3d/input_image_0.png"
+        ],
+        "description": "Front view image URL. 128-5000 px per side, up to 10 MB, JPG/PNG/WEBP. Works best with a single object on a simple background."
+      },
+      "enable_pbr": {
+        "type": "boolean",
+        "title": "Enable PBR",
+        "default": false,
+        "description": "Generate PBR materials (metallic, roughness, normal). Ignored for Geometry output."
+      },
+      "face_count": {
+        "type": "integer",
+        "title": "Face Count",
+        "maximum": 1500000,
+        "minimum": 3000,
+        "description": "Target polygon face count. Uses the model default when unset."
+      },
+      "generate_type": {
+        "enum": [
+          "Normal",
+          "Geometry"
+        ],
+        "type": "string",
+        "title": "Generate Type",
+        "default": "Normal",
+        "description": "Normal: textured model. Geometry: untextured white model."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(15 + ((params.enable_pbr ?? false) && (params.generate_type ?? \"Normal\") != \"Geometry\" ? 10 : 0) + ((params.face_count ?? 0) > 0 ? 10 : 0)) * 0.12 / 7",
+    "formula_variables": [
+      "params.enable_pbr",
+      "params.face_count",
+      "params.generate_type"
+    ],
+    "reference_price": 0.257143,
+    "price_examples": [
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 3000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.428571
+      },
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 3000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.428571
+      },
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 1500000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.428571
+      },
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 1500000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.428571
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 3000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.6
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 3000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.428571
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 1500000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.6
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 1500000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.428571
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/b338627d-beea-473f-bb2e-c900c95b27a4/input/f794b164-3a58-4306-a875-8dcf8c698d94.png"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/b338627d-beea-473f-bb2e-c900c95b27a4/output/7583d591-9eb2-4a70-a775-d26ffd994284.png",
+          "thumbnail": "https://static.sandbase.ai/examples/b338627d-beea-473f-bb2e-c900c95b27a4/output/e28a4df3-fab9-40a3-9e74-d7132b195c96.png",
+          "url": "https://static.sandbase.ai/examples/b338627d-beea-473f-bb2e-c900c95b27a4/output/55e82096-5539-4809-a83e-dd00b7ec6d5f.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Miora 3D T1 Image to 3D\n\nMiora 3D T1 by Tencent Design is the fast Miora 3D model: it turns a single image into a textured or untextured 3D asset in about two minutes.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Front view image URL. 128-5000 px per side, up to 10 MB, JPG/PNG/WEBP. Works best with a single object on a simple background. |\n| `generate_type` | string | \"Normal\" | Normal: textured model. Geometry: untextured white model. |\n| `enable_pbr` | boolean | false | Generate PBR materials (metallic, roughness, normal). Ignored for Geometry output. |\n| `face_count` | integer | — | Target polygon face count. Uses the model default when unset. |\n\n## Billing\n\n| Request | Price |\n|---|---|\n| Default | $0.2571 |\n| Geometry (untextured) | $0.2571 |\n| With PBR | $0.4286 |\n| With custom face count | $0.4286 |\n\nPBR, a custom face count each add to the default price. Failed runs are not charged.\n",
+  "cover_url": "https://static.sandbase.ai/covers/tencent/miora-3d/t1/image-to-3d/cover-flare-20261115181906.webp",
+  "page_url": "https://www.sandbase.ai/model/tencent/miora-3d/t1/image-to-3d",
+  "created_at": "2026-11-15T08:58:18.284Z"
+}

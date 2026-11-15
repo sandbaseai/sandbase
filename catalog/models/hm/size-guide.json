@@ -1,0 +1,80 @@
+{
+  "name": "hm/size-guide",
+  "display_name": "H&M Size Guide",
+  "type": "api",
+  "vendor": "H&M",
+  "vendor_slug": "hm",
+  "description": "Return the H&M size guide shown on a product page: measurement tables (chest, waist, hip, inside leg, etc.",
+  "tags": [
+    "api",
+    "hm",
+    "ecommerce",
+    "fashion"
+  ],
+  "capabilities": [
+    "api",
+    "hm",
+    "ecommerce",
+    "fashion"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/hm/size-guide"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "article_code"
+    ],
+    "properties": {
+      "locale": {
+        "type": "string",
+        "default": "en_us",
+        "description": "Storefront locale in <language>_<country> form controlling the language and size systems of the guide. Verified values: 'en_us' (US sizes, inch and cm) and 'ko_kr' (Korean text and KR sizes). Other H&M storefront locales are forwarded unverified."
+      },
+      "article_code": {
+        "type": "string",
+        "description": "10-digit H&M article code (e.g. '1347416001'); one code per call. Use hits[*].id from search_products or article_code from the Korean listing endpoints."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# H&M Size Guide API\n\nReturn the H&M size guide shown on a product page: measurement tables (chest, waist, hip, inside leg, etc.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"hm/size-guide\", \"article_code\": \"1353272003\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `article_code` | string | Yes | 10-digit H&M article code (e.g. '1347416001'); one code per call. Use hits[*].id from search_products or article_code from the Korean listing endpoints. |\n| `locale` | string | No | Storefront locale in <language>_<country> form controlling the language and size systems of the guide. Verified values: 'en_us' (US sizes, inch and cm) and 'ko_kr' (Korean text and KR sizes). Other H&M storefront locales |\n\n## Pricing\n\nFlat $0.03 per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/hm/size-guide",
+  "created_at": "2026-11-15T12:59:51.006Z"
+}

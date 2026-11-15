@@ -2,14 +2,13 @@
 
 `dataforseo/v3/serp/google/finance_markets/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.002 per call (free daily quota) · **Modes:** sync
+**Price:** $0.002 per call · **Modes:** sync
 
 Fetch Google Finance market summaries by region or asset class. Google Finance markets page for a market_type (indexes by region, most active, gainers, losers, climate leaders, crypto, currencies).
 
 ## Pricing
 
 - **$0.002 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 
