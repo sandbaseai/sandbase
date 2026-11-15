@@ -74,6 +74,7 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | `prompt` | string | yes | Text instruction describing the extension. Refer to the input video as Video 1 and to reference images or audio as Image 1, Audio 1, and so on.  |
 | `duration` | enum |  | Duration of the extension in seconds (2-30), or `auto` to let the model choose. The input video length plus this duration must not exceed 30 seconds. `auto` is pre-authorized at 30 seconds and billed on the actual… one of: `auto`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12` …; default `5` |
 | `resolution` | string |  | Output video resolution tier. one of: `480p`, `720p`, `1080p`; default `"720p"` |
+| `prompt_extend` | boolean |  | Let the model rewrite your prompt with an LLM before generating. Helps short prompts but adds latency. Set false to use the prompt exactly as written. default `true` |
 | `generate_audio` | boolean |  | Generate a synchronized audio track. Pricing is the same either way. default `true` |
 
 ## Details
@@ -94,6 +95,7 @@ Prime is the faster Wan 3.0 tier: the same inputs and output quality as standard
 | `resolution` | `480p` / `720p` / `1080p` | `720p` | Sets the per-second rate. |
 | `generate_audio` | boolean | true | Native dialogue, music, and effects. Same price on or off. |
 | `seed` | integer 0–2147483647 | random | Fix it to compare prompt changes. |
+| `prompt_extend` | boolean | true | LLM rewrites the prompt before generating. Set false to keep it verbatim. |
 
 The aspect ratio always follows the source, so there is no `aspect_ratio` field.
 

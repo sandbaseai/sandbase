@@ -4,46 +4,43 @@
   "type": "api",
   "vendor": "Yahoo Finance",
   "vendor_slug": "yahoo-finance",
-  "description": "Retrieve real-time stock quotes including current price, bid/ask, volume, market cap, and market status for one or more tickers. Supports batch lookups via comma-separated symbols.",
+  "description": "Look up a stock or ETF by ticker symbol and get its Yahoo Finance quote (price, market cap, volume, and key stats) as normalized JSON.",
   "tags": [
     "api",
     "yahoo-finance",
-    "finance-crypto"
+    "finance",
+    "stocks"
   ],
   "capabilities": [
     "api",
     "yahoo-finance",
-    "finance-crypto"
+    "finance",
+    "stocks"
   ],
   "modes": [
-    "async"
+    "sync"
   ],
-  "default_mode": "async",
+  "default_mode": "sync",
   "endpoints": {
     "run": "POST /v1/run",
-    "get_run": "GET /v1/run/{id}",
     "passthrough": "POST /v1/api/yahoo-finance/quote"
   },
   "input_schema": {
     "type": "object",
     "required": [
-      "symbols"
+      "ticker"
     ],
     "properties": {
-      "symbols": {
+      "ticker": {
         "type": "string",
         "example": "AAPL",
-        "description": "Comma-separated list of stock ticker symbols (e.g., AAPL,MSFT,TSLA)."
+        "description": "The ticker symbol to look up."
       }
-    }
+    },
+    "additionalProperties": false
   },
   "response_schema": {
     "type": "object",
-    "required": [
-      "id",
-      "status",
-      "model"
-    ],
     "properties": {
       "id": {
         "type": "string"
@@ -53,15 +50,28 @@
       },
       "status": {
         "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
       }
     }
   },
   "pricing": {
     "currency": "USD",
-    "model": "per_call",
-    "per_call": 0.05
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.00099
   },
-  "readme": "# Yahoo Finance Quote\n\nRetrieve real-time stock quotes including current price, bid/ask, volume, market cap, and market status for one or more tickers. Supports batch lookups via comma-separated symbols.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/yahoo-finance/quote\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"symbols\": \"AAPL\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `symbols` | string | Yes | Comma-separated list of stock ticker symbols (e.g., AAPL,MSFT,TSLA). |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "readme": "# Yahoo Finance Quote API\n\nLook up a stock or ETF by ticker symbol and get its Yahoo Finance quote (price, market cap, volume, and key stats) as normalized JSON.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"yahoo-finance/quote\", \"ticker\": \"AAPL\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `ticker` | string | Yes | The ticker symbol to look up. |\n\n## Pricing\n\nBilled at the actual cost of each call: about $0.00099 per result returned (about $0.00099 for 1 results). A call can cost more when the first data source fails and another one answers. Failed calls and lookups that find nothing are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/yahoo-finance/quote",
   "created_at": "2026-10-30T07:41:03.049Z"
 }

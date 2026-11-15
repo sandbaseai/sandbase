@@ -4,52 +4,43 @@
   "type": "api",
   "vendor": "Yahoo Finance",
   "vendor_slug": "yahoo-finance",
-  "description": "Return the official daily closing price for a single ticker on one specific calendar date, interpreted in the listing exchange's local timezone (returned as exchange_timezone). One request per call.",
+  "description": "Get a stock or ETF's latest price and previous closing price from Yahoo Finance by ticker symbol, with day high/low, change, volume, and market cap. Returns the most recent session only; historical dates are not supported.",
   "tags": [
     "api",
     "yahoo-finance",
-    "finance-crypto"
+    "finance",
+    "stocks"
   ],
   "capabilities": [
     "api",
     "yahoo-finance",
-    "finance-crypto"
+    "finance",
+    "stocks"
   ],
   "modes": [
-    "async"
+    "sync"
   ],
-  "default_mode": "async",
+  "default_mode": "sync",
   "endpoints": {
     "run": "POST /v1/run",
-    "get_run": "GET /v1/run/{id}",
     "passthrough": "POST /v1/api/yahoo-finance/closing-price"
   },
   "input_schema": {
     "type": "object",
     "required": [
-      "date",
-      "symbol"
+      "ticker"
     ],
     "properties": {
-      "date": {
-        "type": "string",
-        "example": "2026-10-01",
-        "description": "Calendar date in ISO form YYYY-MM-DD, interpreted in the exchange's local timezone. Must not be in the future."
-      },
-      "symbol": {
+      "ticker": {
         "type": "string",
         "example": "AAPL",
-        "description": "Stock ticker symbol (e.g., AAPL)."
+        "description": "The ticker symbol to look up."
       }
-    }
+    },
+    "additionalProperties": false
   },
   "response_schema": {
     "type": "object",
-    "required": [
-      "id",
-      "status",
-      "model"
-    ],
     "properties": {
       "id": {
         "type": "string"
@@ -59,15 +50,28 @@
       },
       "status": {
         "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
       }
     }
   },
   "pricing": {
     "currency": "USD",
-    "model": "per_call",
-    "per_call": 0.05
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.00099
   },
-  "readme": "# Yahoo Finance Closing Price\n\nReturns the daily closing price and related trading data for one stock ticker on one calendar date. It needs a `symbol` and a `date` in `YYYY-MM-DD` form.\n\n## Use cases\n\n- Look up the closing price of a holding on a past date to value a portfolio on that day.\n- Check whether a specific date was a trading day for a given ticker with `is_trading_day`.\n- Pull the open, high, low and volume for one day to review a price move after an event.\n- Compare `close` with `adj_close` to see how the adjusted price differs on a given date.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/yahoo-finance/closing-price\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"date\": \"2026-10-01\", \"symbol\": \"AAPL\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `date` | string | Yes | Calendar date in ISO form YYYY-MM-DD, interpreted in the exchange's local timezone. Must not be in the future. |\n| `symbol` | string | Yes | Stock ticker symbol (e.g., AAPL). |\n\n## Example response\n\nReal response for the request above, trimmed: lists keep their first item and long strings are cut.\n\n```json\n{\n  \"data\": {\n    \"adj_close\": 330.32000732421875,\n    \"close\": 330.32000732421875,\n    \"currency\": \"USD\",\n    \"date\": \"2026-10-01\",\n    \"exchange\": \"NasdaqGS\",\n    \"exchange_timezone\": \"America/New_York\",\n    \"high\": 332.4800109863281,\n    \"is_trading_day\": true,\n    \"low\": 325.80999755859375,\n    \"open\": 330,\n    \"symbol\": \"AAPL\",\n    \"volume\": 36306300\n  },\n  \"status\": \"success\"\n}\n```\n\n## Response fields\n\n| Field | Meaning |\n|---|---|\n| `data.close` | Closing price for the requested date. |\n| `data.adj_close` | Adjusted closing price for the requested date. It matches `close` in this example. |\n| `data.open / data.high / data.low` | Opening price, highest price and lowest price for the day. |\n| `data.volume` | Number of shares traded that day. |\n| `data.currency` | Currency of the price values, such as `USD`. |\n| `data.is_trading_day` | `true` when the exchange traded on this date. |\n| `data.exchange` | Name of the listing exchange, such as `NasdaqGS`. |\n| `data.exchange_timezone` | Timezone used to interpret `date`, such as `America/New_York`. |\n| `data.symbol / data.date` | The ticker and the calendar date the result applies to. |\n\n## Notes\n\n- `date` cannot be in the future.\n- Each call returns one ticker and one date. To get prices for a range of dates, use [Yahoo Finance Historical Data](/apis/yahoo-finance/historical-data).\n- If you do not know the ticker, find it with [Yahoo Finance Search Tickers](/apis/yahoo-finance/search-tickers).\n- For the current price instead of a past close, call [Yahoo Finance Quote](/apis/yahoo-finance/quote).\n\n## Pricing\n\n$0.05 per successful call. Failed calls are not charged.\n",
+  "readme": "# Yahoo Finance Closing Price API\n\nGet a stock or ETF's latest price and previous closing price from Yahoo Finance by ticker symbol, with day high/low, change, volume, and market cap. Returns the most recent session only; historical dates are not supported.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"yahoo-finance/closing-price\", \"ticker\": \"AAPL\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `ticker` | string | Yes | The ticker symbol to look up. |\n\n## Pricing\n\nBilled at the actual cost of each call: about $0.00099 per result returned (about $0.00099 for 1 results). A call can cost more when the first data source fails and another one answers. Failed calls and lookups that find nothing are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/yahoo-finance/closing-price",
   "created_at": "2026-10-30T07:41:01.845Z"
 }

@@ -1,0 +1,116 @@
+{
+  "name": "ahrefs/batch-analysis-batch-analysis",
+  "display_name": "Ahrefs Batch Analysis Batch Analysis",
+  "type": "api",
+  "vendor": "Ahrefs",
+  "vendor_slug": "ahrefs",
+  "description": "Get Domain Rating, backlinks, and traffic metrics for up to 100 targets at once.",
+  "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+  ],
+  "capabilities": [
+    "api",
+    "ahrefs",
+    "seo"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/ahrefs/batch-analysis-batch-analysis"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "targets"
+    ],
+    "properties": {
+      "country": {
+        "type": "string",
+        "example": "us",
+        "maxLength": 2,
+        "minLength": 2,
+        "description": "Two-letter country code (ISO 3166-1 alpha-2), e.g. 'us'."
+      },
+      "targets": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The target: a domain or a URL."
+            },
+            "mode": {
+              "enum": [
+                "exact",
+                "prefix",
+                "domain",
+                "subdomains"
+              ],
+              "type": "string",
+              "default": "subdomains",
+              "description": "Scope of the target: exact (this URL only), prefix (URLs starting with the target), domain (the domain without subdomains), or subdomains (default — the domain and all its subdomains)."
+            },
+            "protocol": {
+              "enum": [
+                "both",
+                "http",
+                "https"
+              ],
+              "type": "string",
+              "default": "both",
+              "description": "Protocol of the target: both (default), http, or https."
+            }
+          },
+          "additionalProperties": false
+        },
+        "example": [
+          {
+            "url": "ahrefs.com"
+          }
+        ],
+        "maxItems": 50,
+        "minItems": 1,
+        "description": "Targets to analyze (up to 50; one charged row per target)."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.013545
+  },
+  "readme": "# Ahrefs Batch Analysis Batch Analysis\n\nGet Domain Rating, backlinks, and traffic metrics for up to 100 targets at once.\n\n## Pricing\n\n- Inspect reference unit price: $0.013545 USD per result.\n- Final settlement uses the provider-reported actual cost after strict validation; the reference price is not used to infer the final charge.",
+  "page_url": "https://www.sandbase.ai/model/ahrefs/batch-analysis-batch-analysis",
+  "created_at": "2026-11-15T01:28:40.685Z"
+}

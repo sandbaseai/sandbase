@@ -1,0 +1,74 @@
+{
+  "name": "akta/news-by-id",
+  "display_name": "Akta News By Id",
+  "type": "api",
+  "vendor": "Akta",
+  "vendor_slug": "akta",
+  "description": "Fetch complete news article records by their article ids.",
+  "tags": [
+    "api",
+    "akta",
+    "company-news"
+  ],
+  "capabilities": [
+    "api",
+    "akta",
+    "company-news"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/akta/news-by-id"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "news_ids"
+    ],
+    "properties": {
+      "news_ids": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "maximum": 9007199254740991,
+          "minimum": -9007199254740991,
+          "exclusiveMinimum": 0
+        },
+        "minItems": 1,
+        "description": "Article ids from the 'id' field of news search results. Comma-separated on the wire."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0005
+  },
+  "readme": "# Akta News By Id\n\nFetch complete news article records by their article ids.\n\n## Pricing\n\n- Inspect reference unit price: $0.0005 USD per result.\n- Inspect flat fee: $0.005 USD per call.\n- Final settlement uses the provider-reported actual cost after strict validation; the reference price is not used to infer the final charge.",
+  "page_url": "https://www.sandbase.ai/model/akta/news-by-id",
+  "created_at": "2026-11-15T01:24:13.881Z"
+}

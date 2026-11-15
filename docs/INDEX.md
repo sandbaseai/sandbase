@@ -1,8 +1,8 @@
 # SandBase capability index
 
-2628 capabilities · generated 2026-11-14T23:56:26Z
+2639 capabilities · generated 2026-11-15T06:27:56Z
 
-- [api](#api) (2111)
+- [api](#api) (2122)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
 - [image](#image) (166)
@@ -44,6 +44,7 @@
 | [`accuweather/list-cities`](models/accuweather/list-cities.md) | 0.01 / call (free quota) | async | List all provinces or major administrative divisions within a country by its ISO 2-letter code. Searches across… |
 | [`accuweather/search-locations`](models/accuweather/search-locations.md) | 0.01 / call (free quota) | async | Search for location keys and metadata by query string. Returns matching cities with their AccuWeather location keys,… |
 | [`accuweather/weather`](models/accuweather/weather.md) | 0.05 / call | async | Get comprehensive weather data for a city including current conditions, daily and hourly forecasts, alerts, allergens,… |
+| [`ahrefs/batch-analysis-batch-analysis`](models/ahrefs/batch-analysis-batch-analysis.md) | ~0.013545 | async | Get Domain Rating, backlinks, and traffic metrics for up to 100 targets at once. |
 | [`ahrefs/domain-rating`](models/ahrefs/domain-rating.md) | 0.08 / call | sync | Return the Ahrefs Domain Rating (0-100 authority score) and Ahrefs Rank for a target domain on a given date. 4xx/5xx… |
 | [`ahrefs/keywords-explorer-matching-terms`](models/ahrefs/keywords-explorer-matching-terms.md) | ~0.01419 | async | Find keyword ideas containing seed terms, with volume and difficulty. |
 | [`ahrefs/keywords-explorer-overview`](models/ahrefs/keywords-explorer-overview.md) | ~0.02709 | async | Get volume, difficulty, traffic potential, intent, and CPC for up to 100 keywords. |
@@ -82,11 +83,14 @@
 | [`ahrefs/site-explorer-total-search-volume-history`](models/ahrefs/site-explorer-total-search-volume-history.md) | ~0.007095 | async | Track total search volume of keywords a target ranks for over time. |
 | [`ahrefs/site-explorer-url-rating-history`](models/ahrefs/site-explorer-url-rating-history.md) | ~0.00129 | async | Track a target URL's rating over time, one row per date bucket. |
 | [`airbnb/search`](models/airbnb/search.md) | 0.01 / call | sync | Search Airbnb stays by location and dates, with listing name, price, rating, reviews, room type, photos and coordinates. |
+| [`akta/companies`](models/akta/companies.md) | ~0.01 | async | Build a list of companies matching industry, location and funding filters. |
 | [`akta/company-headcount-trends`](models/akta/company-headcount-trends.md) | 0.125 / call | async | Get a company's employee count and growth trends by department. |
 | [`akta/company-website-traffic`](models/akta/company-website-traffic.md) | 0.075 / call | async | Get a company website's monthly visits, engagement and traffic sources. |
 | [`akta/concise`](models/akta/concise.md) | 0.15 / call | async | Get a condensed all-section company profile at a flat price. |
 | [`akta/filters-list`](models/akta/filters-list.md) | 0 | async | List every filter key accepted by company list generation. Free. |
+| [`akta/filters-options`](models/akta/filters-options.md) | 0 | async | Get the allowed values for company list filter keys. Free. |
 | [`akta/markdown`](models/akta/markdown.md) | ~0.025 | async | Get selected company profile sections as one Markdown document. |
+| [`akta/news-by-id`](models/akta/news-by-id.md) | ~0.0005 | async | Fetch complete news article records by their article ids. |
 | [`alibaba/search`](models/alibaba/search.md) | ~0.00231 | sync | Search Alibaba by keyword and get up to 25 wholesale listings (title, price range, minimum order, and supplier) in one… |
 | [`aliexpress/reviews`](models/aliexpress/reviews.md) | ~0.00085 | sync | Get one page of buyer reviews for an AliExpress product by id, with rating, text, buyer country, date, bought variant… |
 | [`aliexpress/search/products`](models/aliexpress/search/products.md) | 0.014286 / call (free quota) | sync | Search AliExpress products by keyword with sort, category, brand, price, locale, region and currency filters. |
@@ -206,16 +210,19 @@
 | [`builtin/suggest-job-titles`](models/builtin/suggest-job-titles.md) | 0.01 / call (free quota) | async | Returns up to 10 autocomplete suggestions for job title searches, matching the query prefix against Built In's job… |
 | [`capterra/category-products`](models/capterra/category-products.md) | 0.01 / call (free quota) | async | Retrieve products listed within a specific software category. Returns product names, numeric IDs, URL slugs, and full… |
 | [`capterra/product-details`](models/capterra/product-details.md) | 0.01 / call (free quota) | async | Retrieve detailed information about a specific software product, including description, overall rating, review count,… |
-| [`capterra/product-reviews`](models/capterra/product-reviews.md) | 0.01 / call (free quota) | async | Retrieve user reviews for a software product. Returns paginated reviews with title, date, overall rating, pros, and… |
+| [`capterra/product-reviews`](models/capterra/product-reviews.md) | ~0.0077 | sync | Pull Capterra software reviews for any product: overall and sub-ratings, pros and cons, reviewer job title, company… |
 | [`capterra/search-software`](models/capterra/search-software.md) | 0.01 / call (free quota) | async | Search for software products by keyword. Returns matching products with name, numeric ID, URL slug, and full URL. |
 | [`censusdata-xyz/explore-variables`](models/censusdata-xyz/explore-variables.md) | 0 | async | Discover which US Census variables exist for a topic keyword. |
 | [`censusdata-xyz/query`](models/censusdata-xyz/query.md) | 0.01 / call | async | Ask any US Census question in plain English for a state, county, city, metro area, or ZIP code. |
 | [`channel3/brands`](models/channel3/brands.md) | 0 | async | List top brands, optionally only those selling given categories, with cursor paging. |
 | [`channel3/brands-search`](models/channel3/brands-search.md) | 0 | async | Find brands by name or keyword, optionally within categories, to filter product searches. |
+| [`channel3/browse`](models/channel3/browse.md) | 0.007 / call | async | Page through products for a set of brands, retailers or categories, with offers. |
 | [`channel3/categories`](models/channel3/categories.md) | 0 | async | List product categories page by page, optionally only the top-level ones. |
 | [`channel3/categories-search`](models/channel3/categories-search.md) | 0 | async | Find product categories by keyword or meaning, to filter product searches by slug. |
+| [`channel3/image-search`](models/channel3/image-search.md) | 0.007 / call | async | Find products across retailers that match an image URL, with offers. |
 | [`channel3/lookup`](models/channel3/lookup.md) | 0.007 / call | async | Resolve a retailer product-page URL to a canonical product with offers and variants. |
 | [`channel3/search`](models/channel3/search.md) | 0.007 / call | async | Search products across retailers by text or image URL, with offers and pagination. |
+| [`channel3/similar`](models/channel3/similar.md) | 0.007 / call | async | Find products similar to a given product, in the same category, with offers. |
 | [`channel3/websites`](models/channel3/websites.md) | 0 | async | List top retailers, optionally only those selling given categories, with cursor paging. |
 | [`channel3/websites-search`](models/channel3/websites-search.md) | 0 | async | Find retailers by name or domain, optionally within categories, to filter product search. |
 | [`chatgpt/search`](models/chatgpt/search.md) | ~0.0018 | sync | Ask ChatGPT a web-grounded question and receive an answer with source citations. ChatGPT composes each answer per… |
@@ -848,12 +855,13 @@
 | [`fred/sources`](models/fred/sources.md) | 1e-05 / call (free quota) | sync | Get Sources from FRED. Returns the official FRED API response unchanged. |
 | [`fred/tags`](models/fred/tags.md) | 1e-05 / call (free quota) | sync | Get Tags from FRED. Returns the official FRED API response unchanged. |
 | [`fred/tags-series`](models/fred/tags-series.md) | 1e-05 / call (free quota) | sync | Get Tags Series from FRED. Returns the official FRED API response unchanged. |
+| [`fundable/deals`](models/fundable/deals.md) | ~0.06 | async | Search and filter funding rounds by company, investor, and round details |
 | [`fundable/industry-search`](models/fundable/industry-search.md) | 0 | async | Search industries and super categories by name |
 | [`fundable/location-search`](models/fundable/location-search.md) | 0 | async | Search locations by name and optionally filter by type |
 | [`g2/categories`](models/g2/categories.md) | 0.05 / call | async | Retrieve the full list of software categories and subcategories available on G2. Returns all categories with name,… |
 | [`g2/category-products`](models/g2/category-products.md) | 0.05 / call | async | List software products within a given G2 category. Returns products with name, slug, rating, and review count. |
 | [`g2/product-overview`](models/g2/product-overview.md) | 0.01 / call (free quota) | async | Retrieve product overview information for a given product slug, including name, description, rating, review count, and… |
-| [`g2/product-reviews`](models/g2/product-reviews.md) | 0.05 / call | async | Retrieve paginated user reviews for a given software product, 10 reviews per page, newest-first in G2's default order.… |
+| [`g2/product-reviews`](models/g2/product-reviews.md) | ~0.0025 | sync | Pull G2 software reviews for any product: star rating, what reviewers like and dislike, problems solved, market… |
 | [`g2/search-software`](models/g2/search-software.md) | 0.02 / call | async | Full-text search over G2's software product catalog. Returns matching products with name, slug, rating, review count,… |
 | [`getapp/blog-research`](models/getapp/blog-research.md) | 0.01 / call (free quota) | async | Retrieve blog posts and software research guides from GetApp's resources section. Returns all published posts with… |
 | [`getapp/category-leaders`](models/getapp/category-leaders.md) | 0.01 / call (free quota) | async | Retrieve the category page data including top-ranked software products, buyers guide content, facets, and pagination… |
@@ -1158,6 +1166,7 @@
 | [`levels-fyi/h1b-salaries`](models/levels-fyi/h1b-salaries.md) | 0.01 / call (free quota) | async | Retrieve paginated H-1B visa salary records for a given year, sorted by date descending. Each record includes company,… |
 | [`levels-fyi/internship-salaries`](models/levels-fyi/internship-salaries.md) | 0.01 / call (free quota) | async | Retrieve internship salary data across all companies. Returns the full dataset including monthly and hourly pay,… |
 | [`levels-fyi/job-families`](models/levels-fyi/job-families.md) | 0.01 / call (free quota) | async | Retrieve the full directory of job titles and families organized as a flat list. Each job family includes slug, name,… |
+| [`levels-fyi/jobs`](models/levels-fyi/jobs.md) | ~0.00085 | sync | Search Levels.fyi job listings by title or keyword and get each job with its salary range and estimated total… |
 | [`levels-fyi/popular-companies`](models/levels-fyi/popular-companies.md) | 0.01 / call (free quota) | async | Retrieve a list of popular companies from the Levels.fyi directory with their slugs and salary page URLs. Returns… |
 | [`levels-fyi/salary-summary-md`](models/levels-fyi/salary-summary-md.md) | 0.01 / call (free quota) | async | Retrieve an aggregate salary summary in Markdown format for a given company and optional job family. Includes median… |
 | [`linkedin/ad`](models/linkedin/ad.md) | ~0.0012 | sync | Look up a single LinkedIn Ad Library ad by URL and get the advertiser, headline, creative text, format, CTA,… |
@@ -1256,6 +1265,8 @@
 | [`open-meteo/seasonal`](models/open-meteo/seasonal.md) | 0.0001 / call (free quota) | sync | Seasonal weather forecast up to several months ahead by coordinates, from the ECMWF seasonal model. |
 | [`opentable/reviews`](models/opentable/reviews.md) | 0.01 / call | sync | Get diner reviews for a restaurant on OpenTable by restaurant ID, with overall and sub-ratings, text, date and diner… |
 | [`opoint/search`](models/opoint/search.md) | 0.06 / call | async | Search global news by keyword, phrase, or boolean query with filters. |
+| [`opoint/search-advanced`](models/opoint/search-advanced.md) | 0.06 / call | async | Search news with structured expression lines and typed filter ids. |
+| [`opoint/search-by-ids`](models/opoint/search-by-ids.md) | 0.06 / call | async | Fetch specific articles by their site and article id pairs. |
 | [`opoint/search-headlines`](models/opoint/search-headlines.md) | 0.06 / call | async | Search global news and return headlines only, without article text. |
 | [`opoint/suggest`](models/opoint/suggest.md) | 0 | async | Translate a country, site, language, or media name into a search filter id. |
 | [`perplexity/search`](models/perplexity/search.md) | ~0.002 | sync | Ask Perplexity a web-grounded question and receive an answer with source citations. |
@@ -1712,7 +1723,7 @@
 | [`trustpilot/companies-by-category`](models/trustpilot/companies-by-category.md) | 0.01 / call (free quota) | async | List companies within a specific category with pagination. Returns companies sorted by trust score. |
 | [`trustpilot/company-overview`](models/trustpilot/company-overview.md) | 0.03 / call | async | Get full company profile overview including TrustScore, rating distribution, AI summary, and initial reviews. |
 | [`trustpilot/company-review-summary`](models/trustpilot/company-review-summary.md) | 0.05 / call | async | Get AI summary, review topics, rating breakdown, and recent review texts for a company. Accepts either a direct… |
-| [`trustpilot/company-reviews`](models/trustpilot/company-reviews.md) | 0.03 / call | async | Fetch paginated reviews for a company with optional star filtering, sort order, and keyword search. |
+| [`trustpilot/company-reviews`](models/trustpilot/company-reviews.md) | ~0.0008 | sync | Pull Trustpilot reviews for any company by brand name: star ratings, review text, dates, and reviewer details as clean… |
 | [`trustpilot/search-companies`](models/trustpilot/search-companies.md) | 0.03 / call | async | Search for companies by name or keyword. Returns basic company info including domain, trust score, star rating, and… |
 | [`truth-social/post`](models/truth-social/post.md) | ~0.0011 | sync | Get a single Truth Social post by its URL - text, author, engagement (likes, comments, shares), and timestamp as clean… |
 | [`truth-social/profile`](models/truth-social/profile.md) | ~0.0011 | sync | Get a Truth Social account's public profile by handle - display name, bio, follower/following counts, and post count… |
@@ -1988,10 +1999,10 @@
 | [`xigua/app-v2/user-info`](models/xigua/app-v2/user-info.md) | 0.001 / call (free quota) | sync | Returns profile and personal information for a specified Xigua account. Queries details using the target user… |
 | [`xigua/app-v2/user-post-list`](models/xigua/app-v2/user-post-list.md) | 0.001 / call (free quota) | sync | Returns a list of posts from a specific Xigua user account. Supports paginated results using timestamp cursor tokens. |
 | [`xigua/app-v2/video-comment-list`](models/xigua/app-v2/video-comment-list.md) | 0.001 / call (free quota) | sync | Returns comments for a specified Xigua video. Supports paginating through discussion threads using offset and result… |
-| [`yahoo-finance/closing-price`](models/yahoo-finance/closing-price.md) | 0.05 / call | async | Return the official daily closing price for a single ticker on one specific calendar date, interpreted in the listing… |
+| [`yahoo-finance/closing-price`](models/yahoo-finance/closing-price.md) | ~0.00099 | sync | Get a stock or ETF's latest price and previous closing price from Yahoo Finance by ticker symbol, with day high/low,… |
 | [`yahoo-finance/company-profile`](models/yahoo-finance/company-profile.md) | 0.05 / call | async | Obtain a detailed company profile including business summary, key executives, sector, industry, and financial metrics… |
 | [`yahoo-finance/historical-data`](models/yahoo-finance/historical-data.md) | 0.05 / call | async | Extract historical OHLCV price data for a single ticker over a configurable date range and interval. Returns… |
-| [`yahoo-finance/quote`](models/yahoo-finance/quote.md) | 0.05 / call | async | Retrieve real-time stock quotes including current price, bid/ask, volume, market cap, and market status for one or… |
+| [`yahoo-finance/quote`](models/yahoo-finance/quote.md) | ~0.00099 | sync | Look up a stock or ETF by ticker symbol and get its Yahoo Finance quote (price, market cap, volume, and key stats) as… |
 | [`yahoo-finance/search-tickers`](models/yahoo-finance/search-tickers.md) | 0.05 / call | async | Search for stock tickers and companies by name or keyword. Returns matching equities, ETFs, and other instruments… |
 | [`yahoo-finance/stock-news`](models/yahoo-finance/stock-news.md) | 0.05 / call | async | Gather the latest financial news articles related to a specified stock ticker. Returns headlines, publishers, links,… |
 | [`yahoo/images`](models/yahoo/images.md) | 0.015 / call | sync | Yahoo Images results for a keyword: image URLs, thumbnails, sizes and source pages. |
@@ -2118,12 +2129,12 @@
 | [`zhihu/web/user-segments`](models/zhihu/web/user-segments.md) | 0.001 / call (free quota) | sync | Returns highlighted text segments and line comments for a specified Zhihu member. Supports filtering by content type… |
 | [`zhihu/web/video-list`](models/zhihu/web/video-list.md) | 0.001 / call (free quota) | sync | Retrieves a paginated list of videos from the Zhihu web platform. Supports pagination controls through page size and… |
 | [`zhihu/web/video-search-v3`](models/zhihu/web/video-search-v3.md) | 0.001 / call (free quota) | sync | Returns Zhihu video search results matching a specified keyword. Supports pagination using offset and limit… |
-| [`zillow/agent-profile`](models/zillow/agent-profile.md) | 0.01 / call (free quota) | async | Retrieve a real estate agent's full profile by their username/URL slug. Returns sales stats, reviews, listings,… |
+| [`zillow/agent-profile`](models/zillow/agent-profile.md) | 0.0008 / call (free quota) | sync | Fetch one Zillow real estate agent's profile by URL: name, phone, email, brokerage, rating, review count, sales, and… |
 | [`zillow/mortgage-rates`](models/zillow/mortgage-rates.md) | 0.05 / call | async | Retrieve current mortgage interest rates from Zillow Home Loans. Returns rates for various loan types including… |
 | [`zillow/open-houses`](models/zillow/open-houses.md) | 0.03 / call | async | Retrieve the scheduled open houses for a property listing by its Zillow property ID (zpid), together with the… |
-| [`zillow/property-details`](models/zillow/property-details.md) | 0.01 / call (free quota) | async | Retrieve full details for a specific property by its Zillow property ID (zpid). Returns comprehensive property… |
+| [`zillow/property-details`](models/zillow/property-details.md) | 0.0008 / call (free quota) | sync | Fetch full details for a single Zillow property listing by URL (price, facts and features, photos, and price/tax… |
 | [`zillow/search`](models/zillow/search.md) | 0.01 / call | sync | Search Zillow listings by region or map bounds with status, price, beds, baths, home type and size filters, returning… |
-| [`zillow/zestimate`](models/zillow/zestimate.md) | 0.03 / call | async | Get the Zestimate (automated home value estimate) and rent Zestimate for a property by zpid. |
+| [`zillow/zestimate`](models/zillow/zestimate.md) | ~0.0008 | sync | Get a home's Zestimate and rent Zestimate from Zillow by its listing URL, along with price, facts and features,… |
 
 ## audio
 

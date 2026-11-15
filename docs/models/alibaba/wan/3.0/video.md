@@ -75,6 +75,7 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | `end_image` | string |  | URL of the image used as the last frame (JPEG, PNG, BMP, or WebP). Cannot be combined with `images`, `videos`, or `audios`.  |
 | `resolution` | string |  | Output video resolution. one of: `480p`, `720p`, `1080p`; default `"720p"` |
 | `aspect_ratio` | string |  | Output aspect ratio. Omit to let the model choose: 16:9 for text-only requests, otherwise matching the input image. one of: `21:9`, `16:9`, `4:3`, `1:1`, `3:4`, `9:16` |
+| `prompt_extend` | boolean |  | Let the model rewrite your prompt with an LLM before generating. Helps short prompts but adds latency. Set false to use the prompt exactly as written. default `true` |
 | `generate_audio` | boolean |  | Generate a synchronized audio track. Pricing is the same either way. default `true` |
 
 ## Details
@@ -106,6 +107,7 @@ Mixing frames and references is rejected with a 400 before anything is billed. A
 | `aspect_ratio` | `adaptive` / `21:9` / `16:9` / `4:3` / `1:1` / `3:4` / `9:16` | `adaptive` | `adaptive` follows the prompt and inputs. |
 | `generate_audio` | boolean | true | Native dialogue, music, and effects. Same price on or off. |
 | `seed` | integer 0–2147483647 | random | Fix it to compare prompt changes. |
+| `prompt_extend` | boolean | true | LLM rewrites the prompt before generating. Set false to keep it verbatim. |
 
 ### Billing
 

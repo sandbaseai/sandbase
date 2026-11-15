@@ -4,46 +4,41 @@
   "type": "api",
   "vendor": "Zillow",
   "vendor_slug": "zillow",
-  "description": "Retrieve full details for a specific property by its Zillow property ID (zpid). Returns comprehensive property information including price, address, lot size, tax assessment, and listing metadata.",
+  "description": "Fetch full details for a single Zillow property listing by URL (price, facts and features, photos, and price/tax history).",
   "tags": [
     "api",
     "zillow",
-    "ecommerce"
+    "real-estate"
   ],
   "capabilities": [
     "api",
     "zillow",
-    "ecommerce"
+    "real-estate"
   ],
   "modes": [
-    "async"
+    "sync"
   ],
-  "default_mode": "async",
+  "default_mode": "sync",
   "endpoints": {
     "run": "POST /v1/run",
-    "get_run": "GET /v1/run/{id}",
     "passthrough": "POST /v1/api/zillow/property-details"
   },
   "input_schema": {
     "type": "object",
     "required": [
-      "zpid"
+      "url"
     ],
     "properties": {
-      "zpid": {
+      "url": {
         "type": "string",
-        "example": "29505949",
-        "description": "Zillow property ID (numeric string, e.g., '29505949')"
+        "example": "https://www.zillow.com/homedetails/4510-Secure-Ln-Austin-TX-78725/83126034_zpid/",
+        "description": "Zillow property details URL (e.g. https://www.zillow.com/homedetails/123-Main-St-Anytown-CA-90210/12345678_zpid/)."
       }
-    }
+    },
+    "additionalProperties": false
   },
   "response_schema": {
     "type": "object",
-    "required": [
-      "id",
-      "status",
-      "model"
-    ],
     "properties": {
       "id": {
         "type": "string"
@@ -53,20 +48,32 @@
       },
       "status": {
         "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
       }
     }
   },
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.01,
+    "per_call": 0.0008,
     "free_quota": {
       "eligible": true,
       "daily_calls_per_org": 100,
       "note": "Shared across all free-quota APIs, resets 00:00 UTC."
     }
   },
-  "readme": "# Zillow Property Details\n\nRetrieve full details for a specific property by its Zillow property ID (zpid). Returns comprehensive property information including price, address, lot size, tax assessment, and listing metadata.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/zillow/property-details\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"zpid\": \"29505949\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `zpid` | string | Yes | Zillow property ID (numeric string, e.g., '29505949') |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "readme": "# Zillow Property Details API\n\nFetch full details for a single Zillow property listing by URL (price, facts and features, photos, and price/tax history).\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"zillow/property-details\", \"url\": \"https://www.zillow.com/homedetails/4510-Secure-Ln-Austin-TX-78725/83126034_zpid/\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | Zillow property details URL (e.g. https://www.zillow.com/homedetails/123-Main-St-Anytown-CA-90210/12345678_zpid/). |\n\n## Pricing\n\nFlat $0.0008 per call. Failed calls and lookups that find nothing are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/zillow/property-details",
   "created_at": "2026-10-30T09:06:37.974Z"
 }

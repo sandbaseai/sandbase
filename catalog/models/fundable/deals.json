@@ -1,0 +1,306 @@
+{
+  "name": "fundable/deals",
+  "display_name": "Fundable Deals",
+  "type": "api",
+  "vendor": "Fundable",
+  "vendor_slug": "fundable",
+  "description": "Search and filter funding rounds by company, investor, and round details",
+  "tags": [
+    "api",
+    "fundable",
+    "company-enrichment",
+    "funding-data"
+  ],
+  "capabilities": [
+    "api",
+    "fundable",
+    "company-enrichment",
+    "funding-data"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/fundable/deals"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "deal": {
+        "type": "object",
+        "example": {
+          "date_start": "2026-10-01"
+        },
+        "properties": {
+          "date_end": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "description": "Announced on or before."
+          },
+          "size_max": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Maximum round size (USD)."
+          },
+          "size_min": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Minimum round size (USD)."
+          },
+          "date_start": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "description": "Announced on or after."
+          },
+          "created_end": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "description": "Added to Fundable on or before (ingestion date)."
+          },
+          "created_start": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "description": "Added to Fundable on or after (ingestion date, not announcement)."
+          },
+          "financing_types": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "pre": {
+                  "type": "boolean",
+                  "description": "Pre-round modifier (Pre-Seed, Pre-Series A). Default false."
+                },
+                "type": {
+                  "enum": [
+                    "SERIES_A",
+                    "SERIES_B",
+                    "SERIES_C",
+                    "SERIES_D",
+                    "SERIES_E",
+                    "SERIES_F",
+                    "SERIES_G",
+                    "SERIES_H",
+                    "SERIES_I",
+                    "SERIES_J",
+                    "SERIES_K",
+                    "SERIES_L",
+                    "SERIES_M",
+                    "SEED",
+                    "SAFE",
+                    "CONVERTIBLE_NOTE",
+                    "EQUITY",
+                    "PREFERRED",
+                    "SECONDARY_MARKET",
+                    "DEBT_FINANCING",
+                    "GRANT",
+                    "NON_EQUITY_ASSISTANCE",
+                    "CROWDFUNDING",
+                    "INITIAL_COIN_OFFERING",
+                    "FUNDING_ROUND"
+                  ],
+                  "type": "string",
+                  "description": "Canonical round type (e.g. SERIES_A, SEED) — not the human label."
+                },
+                "extension": {
+                  "type": "boolean",
+                  "description": "Extension-round modifier. Default false."
+                }
+              },
+              "additionalProperties": false
+            },
+            "minItems": 1,
+            "description": "Round types with optional pre/extension modifiers. An invalid type returns 422."
+          }
+        },
+        "description": "Round attribute filters.",
+        "additionalProperties": false
+      },
+      "page": {
+        "type": "integer",
+        "maximum": 9007199254740991,
+        "minimum": 0,
+        "description": "Page number (0-based). Default 0."
+      },
+      "company": {
+        "type": "object",
+        "properties": {
+          "locations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "description": "Location permalinks (e.g. 'san-francisco-california'). Resolve names with /location/search first. A value that is not an exact permalink is silently ignored and returns zero rows."
+          },
+          "industries": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "description": "Industry permalinks (e.g. 'fintech-e067'). Resolve names with /industry/search first. A value that is not an exact permalink is silently ignored and returns zero rows."
+          },
+          "ipo_status": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "public",
+                "private"
+              ],
+              "type": "string"
+            },
+            "minItems": 1,
+            "description": "IPO status filter."
+          },
+          "company_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "minItems": 1,
+            "description": "Company UUIDs."
+          },
+          "employee_count": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "1-10",
+                "11-50",
+                "51-100",
+                "101-250",
+                "251-500",
+                "501-1000",
+                "1001-5000",
+                "5001-10000",
+                "10001+"
+              ],
+              "type": "string"
+            },
+            "minItems": 1,
+            "description": "Employee count ranges."
+          },
+          "super_categories": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "description": "Super-category permalinks (e.g. 'artificial-intelligence-e551'); each automatically includes its related industries. Resolve with /industry/search. A value that is not an exact permalink is silently ignored and returns zero rows."
+          },
+          "total_raised_max": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Maximum total raised by the company (USD)."
+          },
+          "total_raised_min": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Minimum total raised by the company (USD)."
+          }
+        },
+        "description": "Raising-company attribute filters.",
+        "additionalProperties": false
+      },
+      "sort_by": {
+        "enum": [
+          "most_recent_deal",
+          "oldest_deal",
+          "largest_raise",
+          "smallest_raise"
+        ],
+        "type": "string",
+        "description": "Sort order. Default most_recent_deal."
+      },
+      "investors": {
+        "type": "object",
+        "properties": {
+          "people_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "minItems": 1,
+            "description": "Person UUIDs that participated as an angel or as lead partner of an investing firm."
+          },
+          "investor_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "minItems": 1,
+            "description": "Firm investor UUIDs that participated."
+          }
+        },
+        "description": "Investor participation filters.",
+        "additionalProperties": false
+      },
+      "page_size": {
+        "type": "integer",
+        "default": 10,
+        "maximum": 20,
+        "minimum": 1,
+        "description": "Rows per page (1-20, default 10). Each returned row is charged, so this caps the cost of one call."
+      },
+      "identifiers": {
+        "type": "object",
+        "properties": {
+          "deal_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "minItems": 1,
+            "description": "Deal UUIDs to look up."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.06
+  },
+  "readme": "# Fundable Deals\n\nSearch and filter funding rounds by company, investor, and round details\n\n## Pricing\n\n- Inspect reference unit price: $0.06 USD per result.\n- Final settlement uses the provider-reported actual cost after strict validation; the reference price is not used to infer the final charge.",
+  "page_url": "https://www.sandbase.ai/model/fundable/deals",
+  "created_at": "2026-11-15T01:19:38.607Z"
+}

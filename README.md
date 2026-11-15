@@ -190,8 +190,8 @@ Open [`examples/http/sandbase.http`](examples/http/sandbase.http) and click *Sen
 | Search, SEO & web data | 250+ | DataForSEO, Ahrefs, Google, Similarweb, Brave, Bing, DuckDuckGo, Firecrawl, Artificial Analysis, Exa, … |
 | E-commerce, apps & reviews | 150+ | 1688, Amazon, GetApp, Google Maps, Taobao, TikTok Shop, Clutch, Google Play, JD.com, Trustpilot, … |
 | Finance, crypto & markets | 150+ | Polymarket, FRED, Financial Datasets, CoinGecko, Nasdaq, MarketBeat, SECForm4, StockAnalysis, Yahoo Finance, Kalshi, … |
-| Companies, people & jobs | 50+ | Web3.career, Apollo, Levels.fyi, Y Combinator, Akta, Wellfound, Crunchbase, Glassdoor, Hunter, Indeed, … |
-| More | 150+ | Semrush, IMDb, AAA, Open-Meteo, Tendata, Channel3, Finviz, Google Hotels, Naver, Vela Breakout, … |
+| Companies, people & jobs | 50+ | Web3.career, Akta, Apollo, Levels.fyi, Y Combinator, Wellfound, Crunchbase, Glassdoor, Hunter, Indeed, … |
+| More | 200+ | Semrush, IMDb, AAA, Open-Meteo, Tendata, Channel3, Finviz, Google Hotels, Naver, Opoint, … |
 <!-- /inside:en -->
 
 Every entry has a page with its schema, price and code in four languages. See [all models &amp; APIs](docs/INDEX.md) or [browse by platform](docs/platforms/README.md): [TikTok](docs/platforms/tiktok.md) · [Instagram](docs/platforms/instagram.md) · [YouTube](docs/platforms/youtube.md) · [LinkedIn](docs/platforms/linkedin.md) · [Reddit](docs/platforms/reddit.md) · [Douyin](docs/platforms/douyin.md) · [Xiaohongshu](docs/platforms/xiaohongshu.md) · [DataForSEO](docs/platforms/dataforseo.md) · [Polymarket](docs/platforms/polymarket.md) · [OpenAI](docs/platforms/openai.md) · [Google](docs/platforms/google.md) · [Kling](docs/platforms/kwaivgi.md)

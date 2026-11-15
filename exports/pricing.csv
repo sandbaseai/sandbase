@@ -30,6 +30,7 @@ aaa/state-price-details,api,AAA,per_call,0.01,,,,,yes,async,POST /v1/run
 accuweather/list-cities,api,AccuWeather,per_call,0.01,,,,,yes,async,POST /v1/run
 accuweather/search-locations,api,AccuWeather,per_call,0.01,,,,,yes,async,POST /v1/run
 accuweather/weather,api,AccuWeather,per_call,0.05,,,,,,async,POST /v1/run
+ahrefs/batch-analysis-batch-analysis,api,Ahrefs,usage_based,,,,0.013545,0.013545,,async,POST /v1/run
 ahrefs/domain-rating,api,Ahrefs,per_call,0.08,,,,,,sync,POST /v1/run
 ahrefs/keywords-explorer-matching-terms,api,Ahrefs,usage_based,,,,0.01419,0.01419,,async,POST /v1/run
 ahrefs/keywords-explorer-overview,api,Ahrefs,usage_based,,,,0.02709,0.02709,,async,POST /v1/run
@@ -68,11 +69,14 @@ ahrefs/site-explorer-top-pages,api,Ahrefs,usage_based,,,,0.014835,0.014835,,asyn
 ahrefs/site-explorer-total-search-volume-history,api,Ahrefs,usage_based,,,,0.007095,0.007095,,async,POST /v1/run
 ahrefs/site-explorer-url-rating-history,api,Ahrefs,usage_based,,,,0.00129,0.00129,,async,POST /v1/run
 airbnb/search,api,Airbnb,per_call,0.01,,,,,,sync,POST /v1/run
+akta/companies,api,Akta,usage_based,,,,0.01,0.01,,async,POST /v1/run
 akta/company-headcount-trends,api,Akta,per_call,0.125,,,,,,async,POST /v1/run
 akta/company-website-traffic,api,Akta,per_call,0.075,,,,,,async,POST /v1/run
 akta/concise,api,Akta,per_call,0.15,,,,,,async,POST /v1/run
 akta/filters-list,api,Akta,formula,,,,0,0,,async,POST /v1/run
+akta/filters-options,api,Akta,formula,,,,0,0,,async,POST /v1/run
 akta/markdown,api,Akta,usage_based,,,,0.025,0.025,,async,POST /v1/run
+akta/news-by-id,api,Akta,usage_based,,,,0.0005,0.0005,,async,POST /v1/run
 alibaba/flashvsr,video,Alibaba,formula,,,,0.155,0.155,,async,POST /v1/run
 alibaba/happy-horse/1.1/image-to-video,video,Alibaba,formula,,,,0.21,1.44,,async,POST /v1/run
 alibaba/happy-horse/1.1/reference-to-video,video,Alibaba,formula,,,,0.21,1.44,,async,POST /v1/run
@@ -342,16 +346,19 @@ bytedance/seedvr/upscale/video,video,Bytedance,formula,,,,0.31104,0.31104,,async
 bytedance/upscaler/video,video,Bytedance,formula,,,,0.036,0.036,,async,POST /v1/run
 capterra/category-products,api,Capterra,per_call,0.01,,,,,yes,async,POST /v1/run
 capterra/product-details,api,Capterra,per_call,0.01,,,,,yes,async,POST /v1/run
-capterra/product-reviews,api,Capterra,per_call,0.01,,,,,yes,async,POST /v1/run
+capterra/product-reviews,api,Capterra,usage_based,,,,0.0077,0.0077,,sync,POST /v1/run
 capterra/search-software,api,Capterra,per_call,0.01,,,,,yes,async,POST /v1/run
 censusdata-xyz/explore-variables,api,US Census,formula,,,,0,0,,async,POST /v1/run
 censusdata-xyz/query,api,US Census,per_call,0.01,,,,,,async,POST /v1/run
 channel3/brands,api,Channel3,formula,,,,0,0,,async,POST /v1/run
 channel3/brands-search,api,Channel3,formula,,,,0,0,,async,POST /v1/run
+channel3/browse,api,Channel3,per_call,0.007,,,,,,async,POST /v1/run
 channel3/categories,api,Channel3,formula,,,,0,0,,async,POST /v1/run
 channel3/categories-search,api,Channel3,formula,,,,0,0,,async,POST /v1/run
+channel3/image-search,api,Channel3,per_call,0.007,,,,,,async,POST /v1/run
 channel3/lookup,api,Channel3,per_call,0.007,,,,,,async,POST /v1/run
 channel3/search,api,Channel3,per_call,0.007,,,,,,async,POST /v1/run
+channel3/similar,api,Channel3,per_call,0.007,,,,,,async,POST /v1/run
 channel3/websites,api,Channel3,formula,,,,0,0,,async,POST /v1/run
 channel3/websites-search,api,Channel3,formula,,,,0,0,,async,POST /v1/run
 chatgpt/search,api,ChatGPT,usage_based,,,,0.0018,0.0018,,sync,POST /v1/run
@@ -1006,12 +1013,13 @@ fred/source-releases,api,FRED,per_call,1e-05,,,,,yes,sync,POST /v1/run
 fred/sources,api,FRED,per_call,1e-05,,,,,yes,sync,POST /v1/run
 fred/tags,api,FRED,per_call,1e-05,,,,,yes,sync,POST /v1/run
 fred/tags-series,api,FRED,per_call,1e-05,,,,,yes,sync,POST /v1/run
+fundable/deals,api,Fundable,usage_based,,,,0.06,0.06,,async,POST /v1/run
 fundable/industry-search,api,Fundable,formula,,,,0,0,,async,POST /v1/run
 fundable/location-search,api,Fundable,formula,,,,0,0,,async,POST /v1/run
 g2/categories,api,G2,per_call,0.05,,,,,,async,POST /v1/run
 g2/category-products,api,G2,per_call,0.05,,,,,,async,POST /v1/run
 g2/product-overview,api,G2,per_call,0.01,,,,,yes,async,POST /v1/run
-g2/product-reviews,api,G2,per_call,0.05,,,,,,async,POST /v1/run
+g2/product-reviews,api,G2,usage_based,,,,0.0025,0.0025,,sync,POST /v1/run
 g2/search-software,api,G2,per_call,0.02,,,,,,async,POST /v1/run
 getapp/blog-research,api,GetApp,per_call,0.01,,,,,yes,async,POST /v1/run
 getapp/category-leaders,api,GetApp,per_call,0.01,,,,,yes,async,POST /v1/run
@@ -1442,6 +1450,7 @@ levels-fyi/company-overview,api,Levels.fyi,per_call,0.01,,,,,yes,async,POST /v1/
 levels-fyi/h1b-salaries,api,Levels.fyi,per_call,0.01,,,,,yes,async,POST /v1/run
 levels-fyi/internship-salaries,api,Levels.fyi,per_call,0.01,,,,,yes,async,POST /v1/run
 levels-fyi/job-families,api,Levels.fyi,per_call,0.01,,,,,yes,async,POST /v1/run
+levels-fyi/jobs,api,Levels.fyi,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
 levels-fyi/popular-companies,api,Levels.fyi,per_call,0.01,,,,,yes,async,POST /v1/run
 levels-fyi/salary-summary-md,api,Levels.fyi,per_call,0.01,,,,,yes,async,POST /v1/run
 lightricks/ltx-2.3-fast/image-to-video,video,Lightricks,formula,,,,0.36,3.84,,async,POST /v1/run
@@ -1668,6 +1677,8 @@ openai/text-embedding-3-large,embedding,OpenAI,per_token,,0.13,0,,,,sync,POST /v
 openai/wizper,audio,OpenAI,per_call,0.006,,,,,,async,POST /v1/run
 opentable/reviews,api,OpenTable,per_call,0.01,,,,,,sync,POST /v1/run
 opoint/search,api,Opoint,per_call,0.06,,,,,,async,POST /v1/run
+opoint/search-advanced,api,Opoint,per_call,0.06,,,,,,async,POST /v1/run
+opoint/search-by-ids,api,Opoint,per_call,0.06,,,,,,async,POST /v1/run
 opoint/search-headlines,api,Opoint,per_call,0.06,,,,,,async,POST /v1/run
 opoint/suggest,api,Opoint,formula,,,,0,0,,async,POST /v1/run
 perplexity/search,api,Perplexity,usage_based,,,,0.002,0.002,,sync,POST /v1/run
@@ -2174,7 +2185,7 @@ trustpilot/categories,api,Trustpilot,per_call,0.01,,,,,yes,async,POST /v1/run
 trustpilot/companies-by-category,api,Trustpilot,per_call,0.01,,,,,yes,async,POST /v1/run
 trustpilot/company-overview,api,Trustpilot,per_call,0.03,,,,,,async,POST /v1/run
 trustpilot/company-review-summary,api,Trustpilot,per_call,0.05,,,,,,async,POST /v1/run
-trustpilot/company-reviews,api,Trustpilot,per_call,0.03,,,,,,async,POST /v1/run
+trustpilot/company-reviews,api,Trustpilot,usage_based,,,,0.0008,0.0008,,sync,POST /v1/run
 trustpilot/search-companies,api,Trustpilot,per_call,0.03,,,,,,async,POST /v1/run
 truth-social/post,api,Truth Social,usage_based,,,,0.0011,0.0011,,sync,POST /v1/run
 truth-social/profile,api,Truth Social,usage_based,,,,0.0011,0.0011,,sync,POST /v1/run
@@ -2482,10 +2493,10 @@ xigua/app-v2/search-video,api,Xigua,per_call,0.001,,,,,yes,sync,POST /v1/run
 xigua/app-v2/user-info,api,Xigua,per_call,0.001,,,,,yes,sync,POST /v1/run
 xigua/app-v2/user-post-list,api,Xigua,per_call,0.001,,,,,yes,sync,POST /v1/run
 xigua/app-v2/video-comment-list,api,Xigua,per_call,0.001,,,,,yes,sync,POST /v1/run
-yahoo-finance/closing-price,api,Yahoo Finance,per_call,0.05,,,,,,async,POST /v1/run
+yahoo-finance/closing-price,api,Yahoo Finance,usage_based,,,,0.00099,0.00099,,sync,POST /v1/run
 yahoo-finance/company-profile,api,Yahoo Finance,per_call,0.05,,,,,,async,POST /v1/run
 yahoo-finance/historical-data,api,Yahoo Finance,per_call,0.05,,,,,,async,POST /v1/run
-yahoo-finance/quote,api,Yahoo Finance,per_call,0.05,,,,,,async,POST /v1/run
+yahoo-finance/quote,api,Yahoo Finance,usage_based,,,,0.00099,0.00099,,sync,POST /v1/run
 yahoo-finance/search-tickers,api,Yahoo Finance,per_call,0.05,,,,,,async,POST /v1/run
 yahoo-finance/stock-news,api,Yahoo Finance,per_call,0.05,,,,,,async,POST /v1/run
 yahoo/images,api,Yahoo,per_call,0.015,,,,,,sync,POST /v1/run
@@ -2618,9 +2629,9 @@ zhihu/web/user-search-v3,api,Zhihu,per_call,0.001,,,,,yes,sync,POST /v1/run
 zhihu/web/user-segments,api,Zhihu,per_call,0.001,,,,,yes,sync,POST /v1/run
 zhihu/web/video-list,api,Zhihu,per_call,0.001,,,,,yes,sync,POST /v1/run
 zhihu/web/video-search-v3,api,Zhihu,per_call,0.001,,,,,yes,sync,POST /v1/run
-zillow/agent-profile,api,Zillow,per_call,0.01,,,,,yes,async,POST /v1/run
+zillow/agent-profile,api,Zillow,per_call,0.0008,,,,,yes,sync,POST /v1/run
 zillow/mortgage-rates,api,Zillow,per_call,0.05,,,,,,async,POST /v1/run
 zillow/open-houses,api,Zillow,per_call,0.03,,,,,,async,POST /v1/run
-zillow/property-details,api,Zillow,per_call,0.01,,,,,yes,async,POST /v1/run
+zillow/property-details,api,Zillow,per_call,0.0008,,,,,yes,sync,POST /v1/run
 zillow/search,api,Zillow,per_call,0.01,,,,,,sync,POST /v1/run
-zillow/zestimate,api,Zillow,per_call,0.03,,,,,,async,POST /v1/run
+zillow/zestimate,api,Zillow,usage_based,,,,0.0008,0.0008,,sync,POST /v1/run

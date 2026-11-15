@@ -1,0 +1,114 @@
+{
+  "name": "akta/companies",
+  "display_name": "Akta Companies",
+  "type": "api",
+  "vendor": "Akta",
+  "vendor_slug": "akta",
+  "description": "Build a list of companies matching industry, location and funding filters.",
+  "tags": [
+    "api",
+    "akta",
+    "company-enrichment",
+    "funding-data"
+  ],
+  "capabilities": [
+    "api",
+    "akta",
+    "company-enrichment",
+    "funding-data"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/akta/companies"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "filters"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "default": 10,
+        "maximum": 50,
+        "minimum": 1,
+        "description": "Maximum number of rows to return (1-50, default 10). Each returned row is charged, so this caps the cost of one call."
+      },
+      "offset": {
+        "type": "integer",
+        "maximum": 9007199254740991,
+        "minimum": 0,
+        "description": "Number of companies to skip (pagination)."
+      },
+      "filters": {
+        "type": "object",
+        "example": {
+          "location.hq.country": [
+            "USA"
+          ],
+          "firmographic.founded_year": {
+            "gte": 2022
+          }
+        },
+        "description": "Filter conditions keyed by field, combined with AND. List values match any of the given values; ranges take {gte, lte}. Example: {\"location.hq.country\": [\"USA\"], \"firmographic.founded_year\": {\"gte\": 2015}, \"funding_detail.funding_overview.funding_stage\": [\"series_a\"]}. Get the supported keys from the filter list endpoint and allowed values from the filter options endpoint; industry.industry takes codes from Industry Search.",
+        "propertyNames": {
+          "type": "string"
+        },
+        "additionalProperties": {}
+      },
+      "sort_by": {
+        "enum": [
+          "relevance",
+          "revenue_estimate",
+          "valuation_estimate",
+          "employee_range",
+          "total_funding",
+          "founded_year"
+        ],
+        "type": "string",
+        "description": "Field to sort by. Default relevance."
+      },
+      "sort_order": {
+        "enum": [
+          "asc",
+          "desc"
+        ],
+        "type": "string",
+        "description": "Sort direction. Default desc."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.01
+  },
+  "readme": "# Akta Companies\n\nBuild a list of companies matching industry, location and funding filters.\n\n## Pricing\n\n- Inspect reference unit price: $0.01 USD per result.\n- Inspect flat fee: $0.075 USD per call.\n- Final settlement uses the provider-reported actual cost after strict validation; the reference price is not used to infer the final charge.",
+  "page_url": "https://www.sandbase.ai/model/akta/companies",
+  "created_at": "2026-11-15T01:21:05.351Z"
+}

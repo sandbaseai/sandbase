@@ -1,10 +1,10 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-14T23:56:26Z",
+ "generated_at": "2026-11-15T06:27:56Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2628,
+ "count": 2639,
  "counts_by_type": {
-  "api": 2111,
+  "api": 2122,
   "video": 193,
   "image": 166,
   "llm": 124,
@@ -690,6 +690,27 @@
     "usd_per_call": 0.05
    },
    "record": "catalog/models/accuweather/weather.json"
+  },
+  {
+   "name": "ahrefs/batch-analysis-batch-analysis",
+   "display_name": "Ahrefs Batch Analysis Batch Analysis",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Get Domain Rating, backlinks, and traffic metrics for up to 100 targets at once.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.013545
+   },
+   "record": "catalog/models/ahrefs/batch-analysis-batch-analysis.json"
   },
   {
    "name": "ahrefs/domain-rating",
@@ -1491,6 +1512,28 @@
    "record": "catalog/models/airbnb/search.json"
   },
   {
+   "name": "akta/companies",
+   "display_name": "Akta Companies",
+   "type": "api",
+   "vendor": "Akta",
+   "description": "Build a list of companies matching industry, location and funding filters.",
+   "tags": [
+    "api",
+    "akta",
+    "company-enrichment",
+    "funding-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.01
+   },
+   "record": "catalog/models/akta/companies.json"
+  },
+  {
    "name": "akta/company-headcount-trends",
    "display_name": "Akta Company Headcount Trends",
    "type": "api",
@@ -1577,6 +1620,28 @@
    "record": "catalog/models/akta/filters-list.json"
   },
   {
+   "name": "akta/filters-options",
+   "display_name": "Akta Filters Options",
+   "type": "api",
+   "vendor": "Akta",
+   "description": "Get the allowed values for company list filter keys. Free.",
+   "tags": [
+    "api",
+    "akta",
+    "company-enrichment"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0,
+    "usd_to": 0
+   },
+   "record": "catalog/models/akta/filters-options.json"
+  },
+  {
    "name": "akta/markdown",
    "display_name": "Akta Markdown",
    "type": "api",
@@ -1596,6 +1661,27 @@
     "usd_reference": 0.025
    },
    "record": "catalog/models/akta/markdown.json"
+  },
+  {
+   "name": "akta/news-by-id",
+   "display_name": "Akta News By Id",
+   "type": "api",
+   "vendor": "Akta",
+   "description": "Fetch complete news article records by their article ids.",
+   "tags": [
+    "api",
+    "akta",
+    "company-news"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0005
+   },
+   "record": "catalog/models/akta/news-by-id.json"
   },
   {
    "name": "alibaba/search",
@@ -4169,20 +4255,20 @@
    "display_name": "Capterra Product Reviews",
    "type": "api",
    "vendor": "Capterra",
-   "description": "Retrieve user reviews for a software product. Returns paginated reviews with title, date, overall rating, pros, and cons text (up to 25 reviews per page).",
+   "description": "Pull Capterra software reviews for any product: overall and sub-ratings, pros and cons, reviewer job title, company size, and industry as clean JSON.",
    "tags": [
     "api",
     "capterra",
-    "company-people"
+    "reviews",
+    "software"
    ],
    "modes": [
-    "async"
+    "sync"
    ],
    "endpoint": "POST /v1/run",
    "price": {
-    "model": "per_call",
-    "usd_per_call": 0.01,
-    "free_quota": true
+    "model": "usage_based",
+    "usd_reference": 0.0077
    },
    "record": "catalog/models/capterra/product-reviews.json"
   },
@@ -4294,6 +4380,26 @@
    "record": "catalog/models/channel3/brands-search.json"
   },
   {
+   "name": "channel3/browse",
+   "display_name": "Channel3 Browse",
+   "type": "api",
+   "vendor": "Channel3",
+   "description": "Page through products for a set of brands, retailers or categories, with offers.",
+   "tags": [
+    "api",
+    "channel3"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.007
+   },
+   "record": "catalog/models/channel3/browse.json"
+  },
+  {
    "name": "channel3/categories",
    "display_name": "Channel3 Categories",
    "type": "api",
@@ -4336,6 +4442,26 @@
    "record": "catalog/models/channel3/categories-search.json"
   },
   {
+   "name": "channel3/image-search",
+   "display_name": "Channel3 Image Search",
+   "type": "api",
+   "vendor": "Channel3",
+   "description": "Find products across retailers that match an image URL, with offers.",
+   "tags": [
+    "api",
+    "channel3"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.007
+   },
+   "record": "catalog/models/channel3/image-search.json"
+  },
+  {
    "name": "channel3/lookup",
    "display_name": "Channel3 Lookup",
    "type": "api",
@@ -4374,6 +4500,26 @@
     "usd_per_call": 0.007
    },
    "record": "catalog/models/channel3/search.json"
+  },
+  {
+   "name": "channel3/similar",
+   "display_name": "Channel3 Similar",
+   "type": "api",
+   "vendor": "Channel3",
+   "description": "Find products similar to a given product, in the same category, with offers.",
+   "tags": [
+    "api",
+    "channel3"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.007
+   },
+   "record": "catalog/models/channel3/similar.json"
   },
   {
    "name": "channel3/websites",
@@ -17738,6 +17884,28 @@
    "record": "catalog/models/fred/tags-series.json"
   },
   {
+   "name": "fundable/deals",
+   "display_name": "Fundable Deals",
+   "type": "api",
+   "vendor": "Fundable",
+   "description": "Search and filter funding rounds by company, investor, and round details",
+   "tags": [
+    "api",
+    "fundable",
+    "company-enrichment",
+    "funding-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.06
+   },
+   "record": "catalog/models/fundable/deals.json"
+  },
+  {
    "name": "fundable/industry-search",
    "display_name": "Fundable Industry Search",
    "type": "api",
@@ -17850,19 +18018,20 @@
    "display_name": "G2 Product Reviews",
    "type": "api",
    "vendor": "G2",
-   "description": "Retrieve paginated user reviews for a given software product, 10 reviews per page, newest-first in G2's default order. Each review includes author, designation, segment, title, date (ISO YYYY-MM-DD), rating (0-5 on a.",
+   "description": "Pull G2 software reviews for any product: star rating, what reviewers like and dislike, problems solved, market segment, and G2's rating rubric as clean JSON.",
    "tags": [
     "api",
     "g2",
-    "company-people"
+    "reviews",
+    "software"
    ],
    "modes": [
-    "async"
+    "sync"
    ],
    "endpoint": "POST /v1/run",
    "price": {
-    "model": "per_call",
-    "usd_per_call": 0.05
+    "model": "usage_based",
+    "usd_reference": 0.0025
    },
    "record": "catalog/models/g2/product-reviews.json"
   },
@@ -24369,6 +24538,28 @@
    "record": "catalog/models/levels-fyi/job-families.json"
   },
   {
+   "name": "levels-fyi/jobs",
+   "display_name": "Levels.fyi Jobs",
+   "type": "api",
+   "vendor": "Levels.fyi",
+   "description": "Search Levels.fyi job listings by title or keyword and get each job with its salary range and estimated total compensation where Levels.fyi has them, plus company, location, listing date and job link. Returns up to 20 jobs per call, grouped by company; filter by location and…",
+   "tags": [
+    "api",
+    "levels-fyi",
+    "jobs",
+    "salaries"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00085
+   },
+   "record": "catalog/models/levels-fyi/jobs.json"
+  },
+  {
    "name": "levels-fyi/popular-companies",
    "display_name": "Levels.fyi Popular Companies",
    "type": "api",
@@ -26476,6 +26667,48 @@
     "usd_per_call": 0.06
    },
    "record": "catalog/models/opoint/search.json"
+  },
+  {
+   "name": "opoint/search-advanced",
+   "display_name": "Opoint Search Advanced",
+   "type": "api",
+   "vendor": "Opoint",
+   "description": "Search news with structured expression lines and typed filter ids.",
+   "tags": [
+    "api",
+    "opoint",
+    "news-search"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.06
+   },
+   "record": "catalog/models/opoint/search-advanced.json"
+  },
+  {
+   "name": "opoint/search-by-ids",
+   "display_name": "Opoint Search By Ids",
+   "type": "api",
+   "vendor": "Opoint",
+   "description": "Fetch specific articles by their site and article id pairs.",
+   "tags": [
+    "api",
+    "opoint",
+    "news-search"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.06
+   },
+   "record": "catalog/models/opoint/search-by-ids.json"
   },
   {
    "name": "opoint/search-headlines",
@@ -36167,19 +36400,19 @@
    "display_name": "Trustpilot Company Reviews",
    "type": "api",
    "vendor": "Trustpilot",
-   "description": "Fetch paginated reviews for a company with optional star filtering, sort order, and keyword search.",
+   "description": "Pull Trustpilot reviews for any company by brand name: star ratings, review text, dates, and reviewer details as clean JSON.",
    "tags": [
     "api",
     "trustpilot",
-    "company-people"
+    "reviews"
    ],
    "modes": [
-    "async"
+    "sync"
    ],
    "endpoint": "POST /v1/run",
    "price": {
-    "model": "per_call",
-    "usd_per_call": 0.03
+    "model": "usage_based",
+    "usd_reference": 0.0008
    },
    "record": "catalog/models/trustpilot/company-reviews.json"
   },
@@ -41992,19 +42225,20 @@
    "display_name": "Yahoo Finance Closing Price",
    "type": "api",
    "vendor": "Yahoo Finance",
-   "description": "Return the official daily closing price for a single ticker on one specific calendar date, interpreted in the listing exchange's local timezone (returned as exchange_timezone). One request per call.",
+   "description": "Get a stock or ETF's latest price and previous closing price from Yahoo Finance by ticker symbol, with day high/low, change, volume, and market cap. Returns the most recent session only; historical dates are not supported.",
    "tags": [
     "api",
     "yahoo-finance",
-    "finance-crypto"
+    "finance",
+    "stocks"
    ],
    "modes": [
-    "async"
+    "sync"
    ],
    "endpoint": "POST /v1/run",
    "price": {
-    "model": "per_call",
-    "usd_per_call": 0.05
+    "model": "usage_based",
+    "usd_reference": 0.00099
    },
    "record": "catalog/models/yahoo-finance/closing-price.json"
   },
@@ -42055,19 +42289,20 @@
    "display_name": "Yahoo Finance Quote",
    "type": "api",
    "vendor": "Yahoo Finance",
-   "description": "Retrieve real-time stock quotes including current price, bid/ask, volume, market cap, and market status for one or more tickers. Supports batch lookups via comma-separated symbols.",
+   "description": "Look up a stock or ETF by ticker symbol and get its Yahoo Finance quote (price, market cap, volume, and key stats) as normalized JSON.",
    "tags": [
     "api",
     "yahoo-finance",
-    "finance-crypto"
+    "finance",
+    "stocks"
    ],
    "modes": [
-    "async"
+    "sync"
    ],
    "endpoint": "POST /v1/run",
    "price": {
-    "model": "per_call",
-    "usd_per_call": 0.05
+    "model": "usage_based",
+    "usd_reference": 0.00099
    },
    "record": "catalog/models/yahoo-finance/quote.json"
   },
@@ -44751,19 +44986,19 @@
    "display_name": "Zillow Agent Profile",
    "type": "api",
    "vendor": "Zillow",
-   "description": "Retrieve a real estate agent's full profile by their username/URL slug. Returns sales stats, reviews, listings, service areas, and professional information.",
+   "description": "Fetch one Zillow real estate agent's profile by URL: name, phone, email, brokerage, rating, review count, sales, and service areas.",
    "tags": [
     "api",
     "zillow",
-    "ecommerce"
+    "real-estate"
    ],
    "modes": [
-    "async"
+    "sync"
    ],
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.01,
+    "usd_per_call": 0.0008,
     "free_quota": true
    },
    "record": "catalog/models/zillow/agent-profile.json"
@@ -44815,19 +45050,19 @@
    "display_name": "Zillow Property Details",
    "type": "api",
    "vendor": "Zillow",
-   "description": "Retrieve full details for a specific property by its Zillow property ID (zpid). Returns comprehensive property information including price, address, lot size, tax assessment, and listing metadata.",
+   "description": "Fetch full details for a single Zillow property listing by URL (price, facts and features, photos, and price/tax history).",
    "tags": [
     "api",
     "zillow",
-    "ecommerce"
+    "real-estate"
    ],
    "modes": [
-    "async"
+    "sync"
    ],
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.01,
+    "usd_per_call": 0.0008,
     "free_quota": true
    },
    "record": "catalog/models/zillow/property-details.json"
@@ -44858,19 +45093,19 @@
    "display_name": "Zillow Zestimate",
    "type": "api",
    "vendor": "Zillow",
-   "description": "Get the Zestimate (automated home value estimate) and rent Zestimate for a property by zpid.",
+   "description": "Get a home's Zestimate and rent Zestimate from Zillow by its listing URL, along with price, facts and features, photos, and price/tax history.",
    "tags": [
     "api",
     "zillow",
-    "ecommerce"
+    "real-estate"
    ],
    "modes": [
-    "async"
+    "sync"
    ],
    "endpoint": "POST /v1/run",
    "price": {
-    "model": "per_call",
-    "usd_per_call": 0.03
+    "model": "usage_based",
+    "usd_reference": 0.0008
    },
    "record": "catalog/models/zillow/zestimate.json"
   },
@@ -55869,7 +56104,7 @@
   }
  ],
  "free_quota": {
-  "apis": 1238,
+  "apis": 1237,
   "daily_calls_per_org": 100,
   "note": "Shared across all free-quota APIs per organization; resets 00:00 UTC."
  },

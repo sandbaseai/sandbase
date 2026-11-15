@@ -19,8 +19,8 @@
 | [Bilibili](bilibili.md) | 46 | data API |
 | [KwaiVGI](kwaivgi.md) | 44 | image generation model, video generation model |
 | [Kuaishou](kuaishou.md) | 40 | data API |
+| [Ahrefs](ahrefs.md) | 38 | data API |
 | [LinkedIn](linkedin.md) | 38 | data API |
-| [Ahrefs](ahrefs.md) | 37 | data API |
 | [FRED](fred.md) | 35 | data API |
 | [Reddit](reddit.md) | 35 | data API |
 | [Bytedance](bytedance.md) | 30 | LLM, audio model, image generation model, video generation model |
@@ -52,6 +52,7 @@
 | [Open-Meteo](open-meteo.md) | 12 | data API |
 | [Tendata](tendata.md) | 12 | data API |
 | [Tripo3D](tripo3d.md) | 12 | image generation model |
+| [Channel3](channel3.md) | 11 | data API |
 | [Brave](brave.md) | 10 | data API |
 | [GetApp](getapp.md) | 10 | data API |
 | [HeyGen](heygen.md) | 10 | audio model, video generation model |
@@ -59,14 +60,14 @@
 | [SECForm4](secform4.md) | 9 | data API |
 | [Threads](threads.md) | 9 | data API |
 | [Web3.career](web3-career.md) | 9 | data API |
+| [Akta](akta.md) | 8 | data API |
 | [Apollo](apollo.md) | 8 | data API |
-| [Channel3](channel3.md) | 8 | data API |
 | [Google Maps](google-maps.md) | 8 | data API |
+| [Levels.fyi](levels-fyi.md) | 8 | data API |
 | [Taobao](taobao.md) | 8 | data API |
 | [TikTok Shop](tiktok-shop.md) | 8 | data API |
 | [Toutiao](toutiao.md) | 8 | data API |
 | [Hitem3D](hitem3d.md) | 7 | image generation model |
-| [Levels.fyi](levels-fyi.md) | 7 | data API |
 | [Lightricks](lightricks.md) | 7 | video generation model |
 | [Spotify](spotify.md) | 7 | data API |
 | [Telegram](telegram.md) | 7 | data API |
@@ -84,7 +85,6 @@
 | [Yahoo Finance](yahoo-finance.md) | 6 | data API |
 | [Z-Ai](z-ai.md) | 6 | LLM |
 | [Zillow](zillow.md) | 6 | data API |
-| [Akta](akta.md) | 5 | data API |
 | [Finviz](finviz.md) | 5 | data API |
 | [Firecrawl](firecrawl.md) | 5 | data API |
 | [G2](g2.md) | 5 | data API |
@@ -92,6 +92,7 @@
 | [hyper3d](hyper3d.md) | 5 | image generation model |
 | [Meta](meta.md) | 5 | LLM, image generation model |
 | [Naver](naver.md) | 5 | data API |
+| [Opoint](opoint.md) | 5 | data API |
 | [Vela Breakout](vela-breakout.md) | 5 | data API |
 | [Walmart](walmart.md) | 5 | data API |
 | [WeChat Search](wechat-search.md) | 5 | data API |
@@ -122,13 +123,13 @@
 | [Bluesky](bluesky.md) | 3 | data API |
 | [eBay](ebay.md) | 3 | data API |
 | [Exa](exa.md) | 3 | data API |
+| [Fundable](fundable.md) | 3 | data API |
 | [Glassdoor](glassdoor.md) | 3 | data API |
 | [Google Shopping](google-shopping.md) | 3 | data API |
 | [Home Depot](home-depot.md) | 3 | data API |
 | [Kelley Blue Book](kelley-blue-book.md) | 3 | data API |
 | [MeiGen-AI](meigen-ai.md) | 3 | video generation model |
 | [Mercari](mercari.md) | 3 | data API |
-| [Opoint](opoint.md) | 3 | data API |
 | [Scholar](scholar.md) | 3 | data API |
 | [Target](target.md) | 3 | data API |
 | [Tavily](tavily.md) | 3 | data API |
@@ -144,7 +145,6 @@
 | [Apple Maps](apple-maps.md) | 2 | data API |
 | [ASOS](asos.md) | 2 | data API |
 | [Bing Shopping](bing-shopping.md) | 2 | data API |
-| [Fundable](fundable.md) | 2 | data API |
 | [Hunter](hunter.md) | 2 | data API |
 | [IKEA](ikea.md) | 2 | data API |
 | [Indeed](indeed.md) | 2 | data API |

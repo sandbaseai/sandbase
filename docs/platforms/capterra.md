@@ -6,7 +6,7 @@ Call 4 Capterra endpoints through SandBase with one API key: no separate account
 |---|---|---|
 | [`capterra/category-products`](../models/capterra/category-products.md) | Retrieve products listed within a specific software category. Returns product names, numeric IDs, URL slugs, and full URLs. | $0.01 per call (free daily quota) |
 | [`capterra/product-details`](../models/capterra/product-details.md) | Retrieve detailed information about a specific software product, including description, overall rating, review count, and feature list.… | $0.01 per call (free daily quota) |
-| [`capterra/product-reviews`](../models/capterra/product-reviews.md) | Retrieve user reviews for a software product. Returns paginated reviews with title, date, overall rating, pros, and cons text (up to 25… | $0.01 per call (free daily quota) |
+| [`capterra/product-reviews`](../models/capterra/product-reviews.md) | Pull Capterra software reviews for any product: overall and sub-ratings, pros and cons, reviewer job title, company size, and industry as… | about $0.0077 per call |
 | [`capterra/search-software`](../models/capterra/search-software.md) | Search for software products by keyword. Returns matching products with name, numeric ID, URL slug, and full URL. | $0.01 per call (free daily quota) |
 
 ## Quick start

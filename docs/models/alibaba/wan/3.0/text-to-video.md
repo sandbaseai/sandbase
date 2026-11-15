@@ -90,6 +90,7 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | `duration` | enum |  | Output duration in seconds (2-30), or `auto` to let the model pick a length from the prompt and inputs. `auto` is pre-authorized at 30 seconds and billed on the actual output length. one of: `auto`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12` …; default `5` |
 | `resolution` | string |  | Output video resolution tier. one of: `480p`, `720p`, `1080p`; default `"720p"` |
 | `aspect_ratio` | string |  | Output aspect ratio. Defaults to 16:9. one of: `21:9`, `16:9`, `4:3`, `1:1`, `3:4`, `9:16`; default `"16:9"` |
+| `prompt_extend` | boolean |  | Let the model rewrite your prompt with an LLM before generating. Helps short prompts but adds latency. Set false to use the prompt exactly as written. default `true` |
 | `generate_audio` | boolean |  | Generate a synchronized audio track. Pricing is the same either way. default `true` |
 
 ## Details
@@ -106,6 +107,7 @@ Write a scene and get back a 2–30 second, 30fps clip with matching dialogue, m
 | `aspect_ratio` | `adaptive` / `21:9` / `16:9` / `4:3` / `1:1` / `3:4` / `9:16` | `adaptive` | `adaptive` follows the prompt and inputs. |
 | `generate_audio` | boolean | true | Native dialogue, music, and effects. Same price on or off. |
 | `seed` | integer 0–2147483647 | random | Fix it to compare prompt changes. |
+| `prompt_extend` | boolean | true | LLM rewrites the prompt before generating. Set false to keep it verbatim. |
 
 ### Billing
 
