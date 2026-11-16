@@ -1,0 +1,171 @@
+{
+  "name": "kwaivgi/kling-video/v4/flash/text-to-video",
+  "display_name": "Kling V4 Flash Text to Video",
+  "type": "video",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling V4 Flash Text to Video by Kuaishou turns a text prompt into a 3-20 second 720p video at a lower price than Kling V4.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A detective in a black trench coat stands on a rooftop in the rain, looking through a telescope at the street below."
+        ],
+        "description": "Describe subject, action, camera and light."
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "maximum": 20,
+        "minimum": 3,
+        "description": "Output length in seconds (3-20)."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16",
+          "1:1",
+          "21:9"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "Output frame shape."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 5) * 0.094",
+    "formula_variables": [
+      "params.duration"
+    ],
+    "reference_price": 0.47,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 3
+        },
+        "usd": 0.282
+      },
+      {
+        "params": {
+          "duration": 5
+        },
+        "usd": 0.47
+      },
+      {
+        "params": {
+          "duration": 20
+        },
+        "usd": 1.88
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "prompt": "Elegant luxury resort film, one continuous camera move with no cuts: from an unmade bed, out through open glass doors, across a teak deck and down to the waterline as a guest dives in for the first swim of the day just as the sun breaks the horizon. Soft golden light, gentle lens flare, sound of waves and birds."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/79bf908a-a650-4831-9195-97d003cbfeac/output/6a0241e6-ddaa-4c3e-9e2a-3b3593ab5967.mp4"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "prompt": "A small paper boat sails across a rain puddle on a city sidewalk at dusk, neon signs reflect and ripple in the water, raindrops patter around it and a tram bell rings in the distance, low camera at water level."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/b36b5e9c-aeb7-4388-bbc2-e43d80986c3b/output/ebc2eb97-22b2-4f7b-a3da-2de2ca7b2636.mp4"
+        }
+      ]
+    }
+  ],
+  "readme": "# Kling V4 Flash Text to Video\nKling V4 Flash text-to-video is the faster, lower-cost tier of Kling V4: write a scene and get back a 3–20 second 720p clip with sound.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Describe subject, action, camera and light. |\n| `aspect_ratio` | `16:9` / `9:16` / `1:1` / `21:9` | `16:9` | Output frame shape. |\n| `duration` | 3–20 | 5 | Output length in seconds. |\n## Billing\nBilled per output second: $0.094 at 720p.\n| Output | Price |\n|---|---|\n| 5s (default) | $0.47 |\n| 10s | $0.94 |\n| 20s | $1.88 |\nFailed runs are not charged.\n## Prompting\n- Describe subject, action, camera move and light in order.\n## Limits\n- Output is 720p only; clips are 3–20 seconds.\n## Also on SandBase\nOther Kling V4 Flash endpoints: `kwaivgi/kling-video/v4/flash/text-to-video`, `kwaivgi/kling-video/v4/flash/image-to-video`, `kwaivgi/kling-video/v4/flash/reference-to-video`, `kwaivgi/kling-video/v4/flash/video-edit`. For 1080p or clips up to 30 seconds, use Kling V4 (`kwaivgi/kling-video/v4/text-to-video` and its siblings).",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/v4/flash/text-to-video/cover-flare-20261116135825.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/v4/flash/text-to-video",
+  "published_at": "2026-11-16T00:00:00Z",
+  "created_at": "2026-11-16T05:35:29.159Z"
+}

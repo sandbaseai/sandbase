@@ -10,6 +10,7 @@
  "alibaba/qwen3.8-max-0902": 0.125,
  "alibaba/qwen3.8-max-prime": 0.125,
  "alibaba/qwen3.8-omni-flash": 0.1067,
+ "alibaba/qwen4-max": 0.05,
  "anthropic/claude-fable-5": 0.1,
  "anthropic/claude-fable-5.1": 0.025,
  "anthropic/claude-fable-5.2": 0.025,

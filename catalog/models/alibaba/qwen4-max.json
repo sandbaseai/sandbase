@@ -1,0 +1,46 @@
+{
+  "name": "alibaba/qwen4-max",
+  "display_name": "Qwen: Qwen4 Max",
+  "type": "llm",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Qwen4 Max is the flagship of Alibaba's Qwen 4 generation, released in November 2026. It is a multimodal reasoning model that takes text, images and video, with thinking on by default (reasoning_effort sets the depth), tool calling, web search and structured outputs, a 1M-token context and up to 393K output tokens shared by thinking and the answer. Alibaba positions it for coding, office work, frontend design and complex agent tasks, at a lower price than Qwen3.8 Max.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 1.666667,
+      "output": 5,
+      "cache_read_multiplier": 0.05,
+      "cache_write_multiplier": 1.25
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.alibabacloud.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/alibaba/qwen4-max",
+  "published_at": "2026-11-11T02:00:00Z",
+  "created_at": "2026-11-16T02:44:20.123Z",
+  "context_length": 1000000
+}

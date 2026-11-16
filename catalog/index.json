@@ -1,13 +1,13 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-15T15:41:18Z",
+ "generated_at": "2026-11-16T06:25:49Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2769,
+ "count": 2777,
  "counts_by_type": {
   "api": 2247,
-  "video": 193,
+  "video": 200,
   "image": 171,
-  "llm": 124,
+  "llm": 125,
   "audio": 32,
   "embedding": 2
  },
@@ -51546,6 +51546,32 @@
    "record": "catalog/models/alibaba/qwen3.8-omni-flash.json"
   },
   {
+   "name": "alibaba/qwen4-max",
+   "display_name": "Qwen: Qwen4 Max",
+   "type": "llm",
+   "vendor": "Alibaba",
+   "description": "Qwen4 Max is the flagship of Alibaba's Qwen 4 generation, released in November 2026. It is a multimodal reasoning model that takes text, images and video, with thinking on by default (reasoning_effort sets the depth), tool calling, web search and structured outputs, a 1M-token…",
+   "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/chat/completions",
+   "price": {
+    "model": "per_token",
+    "usd_per_million_tokens": {
+     "input": 1.666667,
+     "output": 5
+    }
+   },
+   "record": "catalog/models/alibaba/qwen4-max.json"
+  },
+  {
    "name": "anthropic/claude-fable-5",
    "display_name": "Anthropic: Claude Fable 5",
    "type": "llm",
@@ -55512,6 +55538,65 @@
    "record": "catalog/models/bytedance/seedance/2.0/text-to-video.json"
   },
   {
+   "name": "bytedance/seedance/2.5/flash/image-to-video",
+   "display_name": "Seedance 2.5 Flash Image to Video",
+   "type": "video",
+   "vendor": "Bytedance",
+   "description": "ByteDance's Seedance 2.5 Flash image-to-video model, a faster and lower-cost tier of Seedance 2.5 that animates a still (with an optional end frame) into a native clip up to 30 seconds at 480p or 720p with native audio.",
+   "tags": [
+    "image-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.48,
+    "usd_to": 1.92
+   },
+   "record": "catalog/models/bytedance/seedance/2.5/flash/image-to-video.json"
+  },
+  {
+   "name": "bytedance/seedance/2.5/flash/reference-to-video",
+   "display_name": "Seedance 2.5 Flash Reference to Video",
+   "type": "video",
+   "vendor": "Bytedance",
+   "description": "ByteDance's Seedance 2.5 Flash reference-to-video model, a faster and lower-cost tier of Seedance 2.5 that generates up to 30 seconds of 480p or 720p video from reference images, videos, and audio, and can edit or extend a reference clip.",
+   "tags": [
+    "reference-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 1.2
+   },
+   "record": "catalog/models/bytedance/seedance/2.5/flash/reference-to-video.json"
+  },
+  {
+   "name": "bytedance/seedance/2.5/flash/text-to-video",
+   "display_name": "Seedance 2.5 Flash Text to Video",
+   "type": "video",
+   "vendor": "Bytedance",
+   "description": "ByteDance's Seedance 2.5 Flash text-to-video model, a faster and lower-cost tier of Seedance 2.5 that generates native single-shot clips up to 30 seconds at 480p or 720p with coherent motion, native audio, and camera control.",
+   "tags": [
+    "text-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.48,
+    "usd_to": 1.92
+   },
+   "record": "catalog/models/bytedance/seedance/2.5/flash/text-to-video.json"
+  },
+  {
    "name": "bytedance/seedance/2.5/image-to-video",
    "display_name": "Seedance 2.5 Image to Video",
    "type": "video",
@@ -57033,6 +57118,84 @@
    },
    "status": "coming_soon",
    "record": "catalog/models/kwaivgi/kling-video/v4.json"
+  },
+  {
+   "name": "kwaivgi/kling-video/v4/flash/image-to-video",
+   "display_name": "Kling V4 Flash Image to Video",
+   "type": "video",
+   "vendor": "KwaiVGI",
+   "description": "Kling V4 Flash Image to Video by Kuaishou animates a start image into a 3-20 second 720p video at a lower price than Kling V4.",
+   "tags": [
+    "image-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.282,
+    "usd_to": 1.88
+   },
+   "record": "catalog/models/kwaivgi/kling-video/v4/flash/image-to-video.json"
+  },
+  {
+   "name": "kwaivgi/kling-video/v4/flash/reference-to-video",
+   "display_name": "Kling V4 Flash Reference to Video",
+   "type": "video",
+   "vendor": "KwaiVGI",
+   "description": "Kling V4 Flash Reference to Video by Kuaishou generates a 3-20 second 720p video that keeps characters, objects and motion from reference images and videos.",
+   "tags": [
+    "reference-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 0.47
+   },
+   "record": "catalog/models/kwaivgi/kling-video/v4/flash/reference-to-video.json"
+  },
+  {
+   "name": "kwaivgi/kling-video/v4/flash/text-to-video",
+   "display_name": "Kling V4 Flash Text to Video",
+   "type": "video",
+   "vendor": "KwaiVGI",
+   "description": "Kling V4 Flash Text to Video by Kuaishou turns a text prompt into a 3-20 second 720p video at a lower price than Kling V4.",
+   "tags": [
+    "text-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.282,
+    "usd_to": 1.88
+   },
+   "record": "catalog/models/kwaivgi/kling-video/v4/flash/text-to-video.json"
+  },
+  {
+   "name": "kwaivgi/kling-video/v4/flash/video-edit",
+   "display_name": "Kling V4 Flash Video Edit",
+   "type": "video",
+   "vendor": "KwaiVGI",
+   "description": "Kling V4 Flash Video Edit by Kuaishou edits a 3-20 second source video into a 720p result from a text instruction and optional reference images.",
+   "tags": [
+    "video-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 2.52
+   },
+   "record": "catalog/models/kwaivgi/kling-video/v4/flash/video-edit.json"
   },
   {
    "name": "kwaivgi/kling-video/v4/image-to-video",

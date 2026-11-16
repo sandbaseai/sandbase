@@ -1,6 +1,6 @@
-# Alibaba models API: 83 endpoints with pricing and code examples
+# Alibaba models API: 84 endpoints with pricing and code examples
 
-Call 83 Alibaba models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 84 Alibaba models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
@@ -37,6 +37,7 @@ Call 83 Alibaba models through SandBase with one API key: no separate account, o
 | [`alibaba/qwen3.8-max-0902`](../models/alibaba/qwen3.8-max-0902.md) | Qwen3.8 Max (0902) is the pinned snapshot of Alibaba's Qwen3.8 Max dated September 2, 2026, intended for workloads that need a fixed… | $2 input / $6 output per 1M tokens |
 | [`alibaba/qwen3.8-max-prime`](../models/alibaba/qwen3.8-max-prime.md) | Qwen3.8 Max Prime is the Fast mode (Prime) serving option for Alibaba's Qwen3.8 Max: the same model with the same vision input and… | $4 input / $12 output per 1M tokens |
 | [`alibaba/qwen3.8-omni-flash`](../models/alibaba/qwen3.8-omni-flash.md) | Qwen3.8 Omni Flash is Alibaba's omni-modal reasoning model in the Qwen3.8 family, accepting text, image, audio and video input and… | $0.15 input / $0.47 output per 1M tokens |
+| [`alibaba/qwen4-max`](../models/alibaba/qwen4-max.md) | Qwen4 Max is the flagship of Alibaba's Qwen 4 generation, released in November 2026. It is a multimodal reasoning model that takes text,… | $1.666667 input / $5 output per 1M tokens |
 | [`alibaba/text-embedding-v4`](../models/alibaba/text-embedding-v4.md) | Alibaba Cloud Model Studio text-embedding-v4 is a Qwen3-Embedding series text embedding model for semantic search, retrieval-augmented… | $0.1 input / $0 output per 1M tokens |
 | [`alibaba/wan/2.2/animate/move`](../models/alibaba/wan/2.2/animate/move.md) | Wan 2.2 Animate Move animates the character in the image with the motion of the reference video. | about $0.75 per call |
 | [`alibaba/wan/2.2/animate/replace`](../models/alibaba/wan/2.2/animate/replace.md) | Wan 2.2 Animate Replace replaces the person in the reference video with the character from the image. | about $0.75 per call |

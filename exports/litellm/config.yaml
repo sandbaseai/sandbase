@@ -138,6 +138,14 @@ model_list:
     model_info:
       input_cost_per_token: 1.5e-07
       output_cost_per_token: 4.7e-07
+  - model_name: alibaba/qwen4-max
+    litellm_params:
+      model: openai/alibaba/qwen4-max
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.666667e-06
+      output_cost_per_token: 5e-06
   - model_name: alibaba/text-embedding-v4
     litellm_params:
       model: openai/alibaba/text-embedding-v4

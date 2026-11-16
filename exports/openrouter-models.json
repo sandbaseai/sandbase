@@ -205,6 +205,18 @@
    }
   },
   {
+   "id": "alibaba/qwen4-max",
+   "name": "Qwen: Qwen4 Max",
+   "description": "Qwen4 Max is the flagship of Alibaba's Qwen 4 generation, released in November 2026. It is a multimodal reasoning model that takes text, images and video, with thinking on by default (reasoning_effort sets the depth), tool calling, web search and structured outputs, a 1M-token context and up to 393K output tokens shared by thinking and the answer. Alibaba positions it for coding, office work, frontend design and complex agent tasks, at a lower price than Qwen3.8 Max.",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.000001666667",
+    "completion": "0.000005",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
    "id": "anthropic/claude-fable-5",
    "name": "Anthropic: Claude Fable 5",
    "description": "Claude Fable 5 is a Mythos-class model from Anthropic, built for autonomous knowledge work and coding. It supports text, image, and file inputs with text output, with reasoning support and a 1M-token context window. It is suited for long-running, complex, and asynchronous tasks that previously required frequent human check-ins. It is particularly strong at end-to-end work that would otherwise take a person hours, days, or weeks - taking on problems that are long-running, ambiguous, or highly\u2026",

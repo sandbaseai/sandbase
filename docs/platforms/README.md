@@ -9,21 +9,21 @@
 | [DataForSEO](dataforseo.md) | 148 | data API |
 | [Instagram](instagram.md) | 107 | data API |
 | [Google](google.md) | 85 | LLM, audio model, data API, image generation model, video generation model |
-| [Alibaba](alibaba.md) | 83 | LLM, audio model, embedding model, image generation model, video generation model |
+| [Alibaba](alibaba.md) | 84 | LLM, audio model, embedding model, image generation model, video generation model |
 | [Xiaohongshu](xiaohongshu.md) | 68 | data API |
 | [Weibo](weibo.md) | 63 | data API |
 | [Polymarket](polymarket.md) | 59 | data API |
 | [YouTube](youtube.md) | 54 | data API |
 | [OpenAI](openai.md) | 51 | LLM, audio model, embedding model, image generation model |
 | [Zhihu](zhihu.md) | 51 | data API |
+| [KwaiVGI](kwaivgi.md) | 48 | image generation model, video generation model |
 | [Bilibili](bilibili.md) | 46 | data API |
-| [KwaiVGI](kwaivgi.md) | 44 | image generation model, video generation model |
 | [Kuaishou](kuaishou.md) | 40 | data API |
 | [Ahrefs](ahrefs.md) | 38 | data API |
 | [LinkedIn](linkedin.md) | 38 | data API |
 | [FRED](fred.md) | 35 | data API |
 | [Reddit](reddit.md) | 35 | data API |
-| [Bytedance](bytedance.md) | 30 | LLM, audio model, image generation model, video generation model |
+| [Bytedance](bytedance.md) | 33 | LLM, audio model, image generation model, video generation model |
 | [X (Twitter)](x-twitter.md) | 30 | data API |
 | [Facebook](facebook.md) | 28 | data API |
 | [MiniMax](minimax.md) | 27 | audio model, image generation model, video generation model |

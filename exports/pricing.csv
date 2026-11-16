@@ -110,6 +110,7 @@ alibaba/qwen3.8-max,llm,Alibaba,per_token,,2,6,,,,sync,POST /v1/chat/completions
 alibaba/qwen3.8-max-0902,llm,Alibaba,per_token,,2,6,,,,sync,POST /v1/chat/completions
 alibaba/qwen3.8-max-prime,llm,Alibaba,per_token,,4,12,,,,sync,POST /v1/chat/completions
 alibaba/qwen3.8-omni-flash,llm,Alibaba,per_token,,0.15,0.47,,,,sync,POST /v1/chat/completions
+alibaba/qwen4-max,llm,Alibaba,per_token,,1.666667,5,,,,sync,POST /v1/chat/completions
 alibaba/search,api,Alibaba.com,usage_based,,,,0.00231,0.00231,,sync,POST /v1/run
 alibaba/text-embedding-v4,embedding,Alibaba,per_token,,0.1,0,,,,sync,POST /v1/embeddings
 alibaba/wan/2.2/animate/move,video,Alibaba,formula,,,,0.75,0.75,,async,POST /v1/run
@@ -341,6 +342,9 @@ bytedance/seedance/2.0/mini/reference-to-video,video,Bytedance,formula,,,,0.6,0.
 bytedance/seedance/2.0/mini/text-to-video,video,Bytedance,formula,,,,0.24,0.96,,async,POST /v1/run
 bytedance/seedance/2.0/reference-to-video,video,Bytedance,formula,,,,1.2,1.2,,async,POST /v1/run
 bytedance/seedance/2.0/text-to-video,video,Bytedance,formula,,,,0.48,9.6,,async,POST /v1/run
+bytedance/seedance/2.5/flash/image-to-video,video,Bytedance,formula,,,,0.48,1.92,,async,POST /v1/run
+bytedance/seedance/2.5/flash/reference-to-video,video,Bytedance,formula,,,,1.2,1.2,,async,POST /v1/run
+bytedance/seedance/2.5/flash/text-to-video,video,Bytedance,formula,,,,0.48,1.92,,async,POST /v1/run
 bytedance/seedance/2.5/image-to-video,video,Bytedance,formula,,,,0.72,7.2,,async,POST /v1/run
 bytedance/seedance/2.5/reference-to-video,video,Bytedance,formula,,,,1.8,1.8,,async,POST /v1/run
 bytedance/seedance/2.5/text-to-video,video,Bytedance,formula,,,,0.72,7.2,,async,POST /v1/run
@@ -1483,6 +1487,10 @@ kwaivgi/kling-video/v3/pro/text-to-video,video,KwaiVGI,formula,,,,0.336,1.344,,a
 kwaivgi/kling-video/v3/standard/image-to-video,video,KwaiVGI,formula,,,,0.252,1.008,,async,POST /v1/run
 kwaivgi/kling-video/v3/standard/motion-control,video,KwaiVGI,formula,,,,0.63,0.63,,async,POST /v1/run
 kwaivgi/kling-video/v3/standard/text-to-video,video,KwaiVGI,formula,,,,0.252,1.008,,async,POST /v1/run
+kwaivgi/kling-video/v4/flash/image-to-video,video,KwaiVGI,formula,,,,0.282,1.88,,async,POST /v1/run
+kwaivgi/kling-video/v4/flash/reference-to-video,video,KwaiVGI,formula,,,,0.47,0.47,,async,POST /v1/run
+kwaivgi/kling-video/v4/flash/text-to-video,video,KwaiVGI,formula,,,,0.282,1.88,,async,POST /v1/run
+kwaivgi/kling-video/v4/flash/video-edit,video,KwaiVGI,formula,,,,2.52,2.52,,async,POST /v1/run
 kwaivgi/kling-video/v4/image-to-video,video,KwaiVGI,formula,,,,0.471,7.05,,async,POST /v1/run
 kwaivgi/kling-video/v4/reference-to-video,video,KwaiVGI,formula,,,,1.175,1.175,,async,POST /v1/run
 kwaivgi/kling-video/v4/text-to-video,video,KwaiVGI,formula,,,,0.471,7.05,,async,POST /v1/run

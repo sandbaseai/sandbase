@@ -1,13 +1,13 @@
 # SandBase capability index
 
-2769 capabilities · generated 2026-11-15T15:41:18Z
+2777 capabilities · generated 2026-11-16T06:25:49Z
 
 - [api](#api) (2247)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
 - [image](#image) (171)
-- [llm](#llm) (124)
-- [video](#video) (193)
+- [llm](#llm) (125)
+- [video](#video) (200)
 
 ## api
 
@@ -2502,6 +2502,7 @@
 | [`alibaba/qwen3.8-max-0902`](models/alibaba/qwen3.8-max-0902.md) | 2 / 6 per 1M tok | sync | Qwen3.8 Max (0902) is the pinned snapshot of Alibaba's Qwen3.8 Max dated September 2, 2026, intended for workloads… |
 | [`alibaba/qwen3.8-max-prime`](models/alibaba/qwen3.8-max-prime.md) | 4 / 12 per 1M tok | sync | Qwen3.8 Max Prime is the Fast mode (Prime) serving option for Alibaba's Qwen3.8 Max: the same model with the same… |
 | [`alibaba/qwen3.8-omni-flash`](models/alibaba/qwen3.8-omni-flash.md) | 0.15 / 0.47 per 1M tok | sync | Qwen3.8 Omni Flash is Alibaba's omni-modal reasoning model in the Qwen3.8 family, accepting text, image, audio and… |
+| [`alibaba/qwen4-max`](models/alibaba/qwen4-max.md) | 1.666667 / 5 per 1M tok | sync | Qwen4 Max is the flagship of Alibaba's Qwen 4 generation, released in November 2026. It is a multimodal reasoning… |
 | [`anthropic/claude-fable-5`](models/anthropic/claude-fable-5.md) | 10 / 50 per 1M tok | sync | Claude Fable 5 is a Mythos-class model from Anthropic, built for autonomous knowledge work and coding. It supports… |
 | [`anthropic/claude-fable-5.1`](models/anthropic/claude-fable-5.1.md) | 10 / 50 per 1M tok | sync | Claude Fable 5.1 improves on Claude Fable 5 across the board, with the biggest gains in agentic coding, long-running… |
 | [`anthropic/claude-fable-5.2`](models/anthropic/claude-fable-5.2.md) | 8 / 40 per 1M tok | sync | Claude Fable 5.2 is Anthropic's most capable model for the most demanding technical work, with gains over Fable 5.1 in… |
@@ -2675,6 +2676,9 @@
 | [`bytedance/seedance/2.0/mini/text-to-video`](models/bytedance/seedance/2.0/mini/text-to-video.md) | 0.24–0.96 | async | Seedance 2.0 Mini is Bytedance's text-to-video AI model. Turn written scripts and prompts into professional-quality… |
 | [`bytedance/seedance/2.0/reference-to-video`](models/bytedance/seedance/2.0/reference-to-video.md) | ~1.2 | async | ByteDance's most advanced reference-to-video model generating cinematic video guided by reference content, with native… |
 | [`bytedance/seedance/2.0/text-to-video`](models/bytedance/seedance/2.0/text-to-video.md) | 0.48–9.6 | async | ByteDance's most advanced text-to-video model delivering cinematic output, native audio, multi-shot editing, and… |
+| [`bytedance/seedance/2.5/flash/image-to-video`](models/bytedance/seedance/2.5/flash/image-to-video.md) | 0.48–1.92 | async | ByteDance's Seedance 2.5 Flash image-to-video model, a faster and lower-cost tier of Seedance 2.5 that animates a… |
+| [`bytedance/seedance/2.5/flash/reference-to-video`](models/bytedance/seedance/2.5/flash/reference-to-video.md) | ~1.2 | async | ByteDance's Seedance 2.5 Flash reference-to-video model, a faster and lower-cost tier of Seedance 2.5 that generates… |
+| [`bytedance/seedance/2.5/flash/text-to-video`](models/bytedance/seedance/2.5/flash/text-to-video.md) | 0.48–1.92 | async | ByteDance's Seedance 2.5 Flash text-to-video model, a faster and lower-cost tier of Seedance 2.5 that generates native… |
 | [`bytedance/seedance/2.5/image-to-video`](models/bytedance/seedance/2.5/image-to-video.md) | 0.72–7.2 | async | ByteDance's next-generation image-to-video model, animating a single still into a native clip up to 30 seconds at 720p… |
 | [`bytedance/seedance/2.5/reference-to-video`](models/bytedance/seedance/2.5/reference-to-video.md) | ~1.8 | async | ByteDance's next-generation reference-to-video model, generating video from multimodal references (images, videos,… |
 | [`bytedance/seedance/2.5/text-to-video`](models/bytedance/seedance/2.5/text-to-video.md) | 0.72–7.2 | async | ByteDance's next-generation text-to-video model, generating native single-shot clips up to 30 seconds at 720p with… |
@@ -2752,6 +2756,10 @@
 | [`kwaivgi/kling-video/v3/standard/motion-control`](models/kwaivgi/kling-video/v3/standard/motion-control.md) | ~0.63 | async | Kling V3 Standard Motion Control by Kuaishou transfers the motion, expressions, and camera movement of a reference… |
 | [`kwaivgi/kling-video/v3/standard/text-to-video`](models/kwaivgi/kling-video/v3/standard/text-to-video.md) | 0.252–1.008 | async | Kling V3 Standard Text to Video by Kuaishou turns a text prompt into a 3-15 second 720p video with optional native… |
 | [`kwaivgi/kling-video/v4`](models/kwaivgi/kling-video/v4.md) | unknown | async | Kling V4 is Kuaishou's next-generation video model, announced on September 28, 2026, with single generations of up to… |
+| [`kwaivgi/kling-video/v4/flash/image-to-video`](models/kwaivgi/kling-video/v4/flash/image-to-video.md) | 0.282–1.88 | async | Kling V4 Flash Image to Video by Kuaishou animates a start image into a 3-20 second 720p video at a lower price than… |
+| [`kwaivgi/kling-video/v4/flash/reference-to-video`](models/kwaivgi/kling-video/v4/flash/reference-to-video.md) | ~0.47 | async | Kling V4 Flash Reference to Video by Kuaishou generates a 3-20 second 720p video that keeps characters, objects and… |
+| [`kwaivgi/kling-video/v4/flash/text-to-video`](models/kwaivgi/kling-video/v4/flash/text-to-video.md) | 0.282–1.88 | async | Kling V4 Flash Text to Video by Kuaishou turns a text prompt into a 3-20 second 720p video at a lower price than Kling… |
+| [`kwaivgi/kling-video/v4/flash/video-edit`](models/kwaivgi/kling-video/v4/flash/video-edit.md) | ~2.52 | async | Kling V4 Flash Video Edit by Kuaishou edits a 3-20 second source video into a 720p result from a text instruction and… |
 | [`kwaivgi/kling-video/v4/image-to-video`](models/kwaivgi/kling-video/v4/image-to-video.md) | 0.471–7.05 | async | Kling V4 Image to Video by Kuaishou animates a start image, optionally toward an end image, into a 3-30 second video. |
 | [`kwaivgi/kling-video/v4/reference-to-video`](models/kwaivgi/kling-video/v4/reference-to-video.md) | ~1.175 | async | Kling V4 Reference to Video by Kuaishou generates a 3-30 second video that keeps characters, objects and motion from… |
 | [`kwaivgi/kling-video/v4/text-to-video`](models/kwaivgi/kling-video/v4/text-to-video.md) | 0.471–7.05 | async | Kling V4 Text to Video by Kuaishou turns a text prompt into a 3-30 second video at 720p or 1080p. |

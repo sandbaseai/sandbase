@@ -1,6 +1,6 @@
-# KwaiVGI models API: 44 endpoints with pricing and code examples
+# KwaiVGI models API: 48 endpoints with pricing and code examples
 
-Call 44 KwaiVGI models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 48 KwaiVGI models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
@@ -44,6 +44,10 @@ Call 44 KwaiVGI models through SandBase with one API key: no separate account, o
 | [`kwaivgi/kling-video/v3/standard/motion-control`](../models/kwaivgi/kling-video/v3/standard/motion-control.md) | Kling V3 Standard Motion Control by Kuaishou transfers the motion, expressions, and camera movement of a reference video onto the… | about $0.63 per call |
 | [`kwaivgi/kling-video/v3/standard/text-to-video`](../models/kwaivgi/kling-video/v3/standard/text-to-video.md) | Kling V3 Standard Text to Video by Kuaishou turns a text prompt into a 3-15 second 720p video with optional native audio. | from $0.252 to $1.008 per run, depending on parameters |
 | [`kwaivgi/kling-video/v4`](../models/kwaivgi/kling-video/v4.md) | Kling V4 is Kuaishou's next-generation video model, announced on September 28, 2026, with single generations of up to 30 seconds guided by… |  |
+| [`kwaivgi/kling-video/v4/flash/image-to-video`](../models/kwaivgi/kling-video/v4/flash/image-to-video.md) | Kling V4 Flash Image to Video by Kuaishou animates a start image into a 3-20 second 720p video at a lower price than Kling V4. | from $0.282 to $1.88 per run, depending on parameters |
+| [`kwaivgi/kling-video/v4/flash/reference-to-video`](../models/kwaivgi/kling-video/v4/flash/reference-to-video.md) | Kling V4 Flash Reference to Video by Kuaishou generates a 3-20 second 720p video that keeps characters, objects and motion from reference… | about $0.47 per call |
+| [`kwaivgi/kling-video/v4/flash/text-to-video`](../models/kwaivgi/kling-video/v4/flash/text-to-video.md) | Kling V4 Flash Text to Video by Kuaishou turns a text prompt into a 3-20 second 720p video at a lower price than Kling V4. | from $0.282 to $1.88 per run, depending on parameters |
+| [`kwaivgi/kling-video/v4/flash/video-edit`](../models/kwaivgi/kling-video/v4/flash/video-edit.md) | Kling V4 Flash Video Edit by Kuaishou edits a 3-20 second source video into a 720p result from a text instruction and optional reference… | about $2.52 per call |
 | [`kwaivgi/kling-video/v4/image-to-video`](../models/kwaivgi/kling-video/v4/image-to-video.md) | Kling V4 Image to Video by Kuaishou animates a start image, optionally toward an end image, into a 3-30 second video. | from $0.471 to $7.05 per run, depending on parameters |
 | [`kwaivgi/kling-video/v4/reference-to-video`](../models/kwaivgi/kling-video/v4/reference-to-video.md) | Kling V4 Reference to Video by Kuaishou generates a 3-30 second video that keeps characters, objects and motion from reference images and… | about $1.175 per call |
 | [`kwaivgi/kling-video/v4/text-to-video`](../models/kwaivgi/kling-video/v4/text-to-video.md) | Kling V4 Text to Video by Kuaishou turns a text prompt into a 3-30 second video at 720p or 1080p. | from $0.471 to $7.05 per run, depending on parameters |

@@ -1,0 +1,178 @@
+{
+  "name": "kwaivgi/kling-video/v4/flash/reference-to-video",
+  "display_name": "Kling V4 Flash Reference to Video",
+  "type": "video",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling V4 Flash Reference to Video by Kuaishou generates a 3-20 second 720p video that keeps characters, objects and motion from reference images and videos.",
+  "tags": [
+    "reference-to-video"
+  ],
+  "capabilities": [
+    "reference-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Reference Images",
+        "maxItems": 10,
+        "description": "Up to 10 reference images, referenced as @Image1, @Image2, ..."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "@Element1 and @Element2 are having dinner at the table in @Image1"
+        ],
+        "description": "Text prompt. Refer to references as @Image1, @Video1, ..."
+      },
+      "videos": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Reference Videos",
+        "maxItems": 5,
+        "description": "Up to 5 reference videos (3-20s each, 20s combined), referenced as @Video1, ... Video references switch to the input-plus-output price."
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "maximum": 20,
+        "minimum": 3,
+        "description": "Output length in seconds (3-20)."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "9:16",
+          "1:1"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "Output frame shape. Leave empty to follow the references (adaptive)."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "len(params.videos ?? []) > 0 ? 0.063 * ((params.duration ?? 5) * 1.0 + Math.max((params.duration ?? 5) * 1.0, media_duration(params.videos) ?? 20.0)) : (params.duration ?? 5) * 0.094",
+    "formula_variables": [
+      "params.duration",
+      "params.videos"
+    ],
+    "reference_price": 0.47
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "images": [
+          "https://static.sandbase.ai/examples/876cfe40-c2cf-4869-91fb-457ac514139b/input/3f37b438-31f7-40e3-83a2-f07ca1a7a364.png",
+          "https://static.sandbase.ai/examples/876cfe40-c2cf-4869-91fb-457ac514139b/input/34423a11-3143-42fa-b016-f38ffd07ec35.png",
+          "https://static.sandbase.ai/examples/876cfe40-c2cf-4869-91fb-457ac514139b/input/475de517-faa0-4318-a194-ea7679683fe3.png",
+          "https://static.sandbase.ai/examples/876cfe40-c2cf-4869-91fb-457ac514139b/input/54f8f7ad-2075-49c6-a036-7d29525b5fd0.png"
+        ],
+        "prompt": "Macro product film for the watchmaker AUREL on black velvet under one raking strip light. @Image1 is the dial, @Image2 the movement seen through the caseback, @Image3 the case flank, @Image4 the strap. Slow precise shots with hard cuts: the dial with the seconds hand sweeping, the balance wheel ticking through the caseback, light gliding along the brushed case flank, then the full watch resting on velvet. Quiet mechanical ticking."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/876cfe40-c2cf-4869-91fb-457ac514139b/output/1a4f7442-8e80-42f1-bc60-d406f0829c20.mp4"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "images": [
+          "https://static.sandbase.ai/examples/2ecd270c-9080-436a-ac22-336247bcebbb/input/ca6f413c-eb10-4c28-ab93-6f4f50e5a71a.png"
+        ],
+        "prompt": "The sneaker from @Image1 bounces off wet city pavement in slow motion, splashing puddle water, then lands as a runner's foot steps into frame at sunrise. Street ambience and footsteps."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/2ecd270c-9080-436a-ac22-336247bcebbb/output/256c59b4-708e-4b58-8229-8c8357e3531d.mp4"
+        }
+      ]
+    }
+  ],
+  "readme": "# Kling V4 Flash Reference to Video\nKling V4 Flash reference-to-video keeps characters, objects and motion from reference images and videos in a new 3–20 second 720p clip.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Refer to inputs as `@Image1`, `@Video1`, … |\n| `images` | image URL[] | — | Up to 10 reference images. |\n| `videos` | video URL[] | — | Up to 5 reference videos, 3–20s each, 20s combined. |\n| `aspect_ratio` | `21:9` / `16:9` / `9:16` / `1:1` | — | Leave empty to follow the references. |\n| `duration` | 3–20 | 5 | Output length in seconds. |\n## Billing\nWithout reference videos: $0.094 per output second.\nWith reference videos: $0.063 per second of output plus input, where the input side counts at least as long as the output. The quote before submission assumes 20 seconds of reference video when the length cannot be read.\n| Request | Price |\n|---|---|\n| 5s, images only (default) | $0.47 |\n| 10s, images only | $0.94 |\n| 5s, 8s reference video | $0.819 |\n| 10s, 4s reference video | $1.26 |\nFailed runs are not charged.\n## Prompting\n- Name each reference in the prompt, e.g. \"@Image1 walks into the scene from @Video1\".\n## Limits\n- Output is 720p only; clips are 3–20 seconds; reference videos 3–20 seconds.\n- Custom voices (`voice_ids`) are only on `kwaivgi/kling-video/v4/reference-to-video`.\n## Also on SandBase\nOther Kling V4 Flash endpoints: `kwaivgi/kling-video/v4/flash/text-to-video`, `kwaivgi/kling-video/v4/flash/image-to-video`, `kwaivgi/kling-video/v4/flash/reference-to-video`, `kwaivgi/kling-video/v4/flash/video-edit`. For 1080p or clips up to 30 seconds, use Kling V4 (`kwaivgi/kling-video/v4/text-to-video` and its siblings).",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/v4/flash/reference-to-video/cover-flare-20261116135830.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/v4/flash/reference-to-video",
+  "published_at": "2026-11-16T00:00:00Z",
+  "created_at": "2026-11-16T05:37:39.645Z"
+}

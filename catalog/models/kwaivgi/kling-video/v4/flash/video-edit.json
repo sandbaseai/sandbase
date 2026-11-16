@@ -1,0 +1,151 @@
+{
+  "name": "kwaivgi/kling-video/v4/flash/video-edit",
+  "display_name": "Kling V4 Flash Video Edit",
+  "type": "video",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling V4 Flash Video Edit by Kuaishou edits a 3-20 second source video into a 720p result from a text instruction and optional reference images.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "video"
+    ],
+    "properties": {
+      "video": {
+        "type": "string",
+        "title": "Video",
+        "description": "Video to edit (3-20s, min 700x700 px, up to 300 MB). The output keeps its length."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Reference Images",
+        "maxItems": 10,
+        "description": "Optional reference images, referenced as @Image1, @Image2, ..."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Change the background to a tropical island at sunset."
+        ],
+        "description": "Edit instruction. Refer to the source video as @Video1 and reference images as @Image1, @Image2, ..."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.063 * 2.0 * Math.min(20.0, usage.duration ?? media_duration(params.video) ?? 20.0)",
+    "formula_variables": [
+      "params.video",
+      "usage.duration"
+    ],
+    "reference_price": 2.52
+  },
+  "examples": [
+    {
+      "input": {
+        "images": [
+          "https://static.sandbase.ai/examples/e72b57c8-1fef-4fc5-93f8-0473dd8fb581/input/b6aa6d28-155c-42b5-b034-064ed3222127.png",
+          "https://static.sandbase.ai/examples/e72b57c8-1fef-4fc5-93f8-0473dd8fb581/input/cc34d877-819c-4495-a496-625cee4cc554.png"
+        ],
+        "prompt": "The blocky car proxy is the KESSEL R4 rally car from @Image1 - chalk-white body with the diagonal signal-orange and charcoal band, black 27 on a white roundel on the doors, slim LED headlamps joined by a light bar, roof scoop, rear wing, red mudflaps, white six-spoke gravel wheels. The grey road ribbon is the loose ochre-grey gravel stage and the cones and cylinders are the pine and birch forest of @Image2, on a crisp autumn morning with low sun raking through the trees and hanging dust. The mannequin proxies behind the rope are rally spectators in muted outdoor jackets and beanies behind red-and-white tape. Keep the exact blocking, timing, camera position and pan of the playblast. Physically real gravel rally: the car slides through the hairpin with opposite lock, rear wheels throwing a thick fan of gravel and a rolling dust cloud that drifts across the spectators; stones rattle off the bank; the suspension works over the ruts; spectators flinch, cheer and raise phones. Sound: a turbocharged four-cylinder rally engine on anti-lag with pops and bangs, gravel spray, crowd cheering. No text other than the number 27, no sponsor logos.",
+        "video": "https://static.sandbase.ai/examples/e72b57c8-1fef-4fc5-93f8-0473dd8fb581/input/4494b4bf-ff4e-4cc8-ac0d-9895bf65742e.mp4"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/e72b57c8-1fef-4fc5-93f8-0473dd8fb581/output/1b1033c7-a1e4-4051-82c4-f2cf9522e9d0.mp4"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "prompt": "Turn the scene in @Video1 into a snowy winter night with falling snowflakes and warm street lamps, keep the paper boat and the camera motion.",
+        "video": "https://static.sandbase.ai/examples/10c551a4-b8e2-42db-9f69-23eeefe474a4/input/5aeb6a40-0bad-4b5d-b97b-5a031ae1721f.mp4"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/10c551a4-b8e2-42db-9f69-23eeefe474a4/output/60c2ac07-bbfb-43cf-ba19-9a1910e4f651.mp4"
+        }
+      ]
+    }
+  ],
+  "readme": "# Kling V4 Flash Video Edit\nKling V4 Flash video edit changes a 3–20 second source video from a text instruction, with optional reference images. The 720p output keeps the source length.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Edit instruction. Refer to the source as `@Video1` and images as `@Image1`, … |\n| `video` | video URL, required | — | 3–20s, min 700×700 px, up to 300 MB. |\n| `images` | image URL[] | — | Up to 10 reference images. |\n## Billing\n$0.063 per second, counted on input plus output (2× the source length). Settlement uses the output length (it matches the source); the quote before submission assumes a 20 second source when the length cannot be read.\n| Source | Price |\n|---|---|\n| 5s | $0.63 |\n| 10s | $1.26 |\n| 20s | $2.52 |\nFailed runs are not charged.\n## Prompting\n- State what to change and what to keep, e.g. \"replace the jacket in @Video1 with the coat in @Image1\".\n## Limits\n- Output is 720p only; source videos are 3–20 seconds.\n## Also on SandBase\nOther Kling V4 Flash endpoints: `kwaivgi/kling-video/v4/flash/text-to-video`, `kwaivgi/kling-video/v4/flash/image-to-video`, `kwaivgi/kling-video/v4/flash/reference-to-video`, `kwaivgi/kling-video/v4/flash/video-edit`. For 1080p or clips up to 30 seconds, use Kling V4 (`kwaivgi/kling-video/v4/text-to-video` and its siblings).",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/v4/flash/video-edit/cover-flare-20261116135831.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/v4/flash/video-edit",
+  "published_at": "2026-11-16T00:00:00Z",
+  "created_at": "2026-11-16T05:38:41.988Z"
+}

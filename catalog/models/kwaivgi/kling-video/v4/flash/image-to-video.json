@@ -1,0 +1,165 @@
+{
+  "name": "kwaivgi/kling-video/v4/flash/image-to-video",
+  "display_name": "Kling V4 Flash Image to Video",
+  "type": "video",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling V4 Flash Image to Video by Kuaishou animates a start image into a 3-20 second 720p video at a lower price than Kling V4.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Start Image",
+        "description": "First frame. Min 300x300 px, aspect ratio 0.4-2.5, up to 30 MB."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A detective in a black trench coat stands on a rooftop in the rain, looking through a telescope at the street below."
+        ],
+        "description": "Describe subject, action, camera and light."
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "maximum": 20,
+        "minimum": 3,
+        "description": "Output length in seconds (3-20)."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 5) * 0.094",
+    "formula_variables": [
+      "params.duration"
+    ],
+    "reference_price": 0.47,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 3
+        },
+        "usd": 0.282
+      },
+      {
+        "params": {
+          "duration": 5
+        },
+        "usd": 0.47
+      },
+      {
+        "params": {
+          "duration": 20
+        },
+        "usd": 1.88
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/f7115edf-3ff0-42a8-b28c-daa7bc658111/input/0554146a-a649-485b-be48-497e51131c34.png",
+        "prompt": "The same elements in the reference are rigid: the fictional KITO Runner 01 low-top sneaker: off-white suede overlays (#EEE9DF) on a bone-coloured finely perforated engineered mesh upper, a sage-green suede heel tab (#8FA383), a natural gum-rubber cupsole with a fine herringbone edge, tonal off-white flat laces and tonal off-white stitching; the only marking is a small debossed \"KITO\" on the sage heel tab. It is a single right shoe standing on a warm light-grey paper seamless that curves up into the background with no visible horizon line. Preserve every element exactly; the shoe and the set are frozen, only the camera moves along the keyframed trajectory: one complete, eased 360-degree orbit around the shoe like a motion-control product rig, dipping slightly lower as it passes the back and the inner side, then rising and pushing in gently to finish on a slightly higher hero three-quarter view of the same outer side it started on.\nUNSEEN SIDES must be coherent with the visible ones: the heel shows the full sage-green suede heel tab with the small debossed 'KITO' centred on it; the medial (inner) side mirrors the lateral side's off-white suede overlay layout on the perforated bone mesh; the gum cupsole wraps all the way round with the same height and herringbone edge; tonal off-white laces and stitching everywhere. The shoe is one pair-half: never a second shoe.\nLIGHT is fixed in the world: one large soft key from the upper left, so as the camera orbits the suede nap and perforations catch raking light on the far side and the gum sole glows slightly translucent when backlit; the soft contact shadow stays anchored to the floor.\nAVOID: the shoe rotating or sliding instead of the camera, sole thickness changing, extra eyelets, lace geometry re-tying itself, stripes or swoosh-like marks appearing, logo text anywhere except the heel tab, seamless edge or studio gear coming into frame, flicker, warped toe box."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/f7115edf-3ff0-42a8-b28c-daa7bc658111/output/7210e3df-7c86-4cc8-a326-9f6a9094c2b5.mp4"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/9b6230cc-2f64-459c-b5e7-d8a350aeac50/input/0bb985d3-4a2d-4884-8f3d-4f9a0e8397af.png",
+        "prompt": "Slow cinematic push-in, branches sway gently in the wind, waves roll onto the shore and the sky warms toward sunset."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/9b6230cc-2f64-459c-b5e7-d8a350aeac50/output/ce70b91b-5f84-4e42-adf0-02ce12272dbd.mp4"
+        }
+      ]
+    }
+  ],
+  "readme": "# Kling V4 Flash Image to Video\nKling V4 Flash image-to-video animates a start image into a 3–20 second 720p clip with sound, at a lower price than Kling V4.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | What moves and how the camera moves. |\n| `image` | image URL, required | — | First frame. Min 300×300 px, aspect ratio 0.4–2.5, up to 30 MB. |\n| `duration` | 3–20 | 5 | Output length in seconds. |\n## Billing\nBilled per output second: $0.094 at 720p.\n| Output | Price |\n|---|---|\n| 5s (default) | $0.47 |\n| 10s | $0.94 |\n| 20s | $1.88 |\nFailed runs are not charged.\n## Prompting\n- Describe what moves and how the camera moves; the image sets the look.\n## Limits\n- Output is 720p only; clips are 3–20 seconds.\n- Start frame only. For an end frame, use `kwaivgi/kling-video/v4/image-to-video`.\n## Also on SandBase\nOther Kling V4 Flash endpoints: `kwaivgi/kling-video/v4/flash/text-to-video`, `kwaivgi/kling-video/v4/flash/image-to-video`, `kwaivgi/kling-video/v4/flash/reference-to-video`, `kwaivgi/kling-video/v4/flash/video-edit`. For 1080p or clips up to 30 seconds, use Kling V4 (`kwaivgi/kling-video/v4/text-to-video` and its siblings).",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/v4/flash/image-to-video/cover-flare-20261116135834.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/v4/flash/image-to-video",
+  "published_at": "2026-11-16T00:00:00Z",
+  "created_at": "2026-11-16T05:36:36.799Z"
+}
