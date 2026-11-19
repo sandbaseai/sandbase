@@ -1,6 +1,6 @@
 # SandBase capability index
 
-2780 capabilities · generated 2026-11-19T12:27:30Z
+2780 capabilities · generated 2026-11-19T16:23:08Z
 
 - [api](#api) (2247)
 - [audio](#audio) (32)
@@ -2758,7 +2758,7 @@
 | [`kwaivgi/kling-video/v3/standard/image-to-video`](models/kwaivgi/kling-video/v3/standard/image-to-video.md) | 0.252–1.008 | async | Kling V3 Standard Image to Video by Kuaishou animates a start image, optionally toward an end image, into a 3-15… |
 | [`kwaivgi/kling-video/v3/standard/motion-control`](models/kwaivgi/kling-video/v3/standard/motion-control.md) | ~0.63 | async | Kling V3 Standard Motion Control by Kuaishou transfers the motion, expressions, and camera movement of a reference… |
 | [`kwaivgi/kling-video/v3/standard/text-to-video`](models/kwaivgi/kling-video/v3/standard/text-to-video.md) | 0.252–1.008 | async | Kling V3 Standard Text to Video by Kuaishou turns a text prompt into a 3-15 second 720p video with optional native… |
-| [`kwaivgi/kling-video/v4`](models/kwaivgi/kling-video/v4.md) | unknown | async | Kling V4 is Kuaishou's next-generation video model, announced on September 28, 2026, with single generations of up to… |
+| [`kwaivgi/kling-video/v4`](models/kwaivgi/kling-video/v4.md) | ~1.175 | async | Kling V4 by KwaiVGI in one endpoint: generate 3-30 second videos with native audio from text, start and end frames,… |
 | [`kwaivgi/kling-video/v4/flash/image-to-video`](models/kwaivgi/kling-video/v4/flash/image-to-video.md) | 0.282–1.88 | async | Kling V4 Flash Image to Video by Kuaishou animates a start image into a 3-20 second 720p video at a lower price than… |
 | [`kwaivgi/kling-video/v4/flash/reference-to-video`](models/kwaivgi/kling-video/v4/flash/reference-to-video.md) | ~0.47 | async | Kling V4 Flash Reference to Video by Kuaishou generates a 3-20 second 720p video that keeps characters, objects and… |
 | [`kwaivgi/kling-video/v4/flash/text-to-video`](models/kwaivgi/kling-video/v4/flash/text-to-video.md) | 0.282–1.88 | async | Kling V4 Flash Text to Video by Kuaishou turns a text prompt into a 3-20 second 720p video at a lower price than Kling… |

@@ -1,6 +1,6 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-19T12:27:30Z",
+ "generated_at": "2026-11-19T16:23:08Z",
  "base_url": "https://api.sandbase.ai",
  "count": 2780,
  "counts_by_type": {
@@ -57163,20 +57163,20 @@
    "display_name": "Kling V4",
    "type": "video",
    "vendor": "KwaiVGI",
-   "description": "Kling V4 is Kuaishou's next-generation video model, announced on September 28, 2026, with single generations of up to 30 seconds guided by text, keyframe images, and references. The public API has not opened yet; specifications and pricing will be confirmed at launch.",
+   "description": "Kling V4 by KwaiVGI in one endpoint: generate 3-30 second videos with native audio from text, start and end frames, reference images and reference videos, at 720p or 1080p.",
    "tags": [
     "text-to-video",
     "image-to-video",
-    "coming-soon"
+    "reference-to-video"
    ],
    "modes": [
     "async"
    ],
    "endpoint": "POST /v1/run",
    "price": {
-    "model": "unknown"
+    "model": "formula",
+    "usd_reference": 1.175
    },
-   "status": "coming_soon",
    "record": "catalog/models/kwaivgi/kling-video/v4.json"
   },
   {
