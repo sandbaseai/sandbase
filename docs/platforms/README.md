@@ -14,9 +14,9 @@
 | [Weibo](weibo.md) | 63 | data API |
 | [Polymarket](polymarket.md) | 59 | data API |
 | [YouTube](youtube.md) | 54 | data API |
+| [KwaiVGI](kwaivgi.md) | 51 | image generation model, video generation model |
 | [OpenAI](openai.md) | 51 | LLM, audio model, embedding model, image generation model |
 | [Zhihu](zhihu.md) | 51 | data API |
-| [KwaiVGI](kwaivgi.md) | 48 | image generation model, video generation model |
 | [Bilibili](bilibili.md) | 46 | data API |
 | [Kuaishou](kuaishou.md) | 40 | data API |
 | [Ahrefs](ahrefs.md) | 38 | data API |

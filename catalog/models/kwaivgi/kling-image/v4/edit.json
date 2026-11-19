@@ -1,0 +1,234 @@
+{
+  "name": "kwaivgi/kling-image/v4/edit",
+  "display_name": "Kling Image V4 Edit",
+  "type": "image",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling Image V4 Edit by Kuaishou edits or recomposes 1 to 10 reference images from a text instruction at native 2K, 4K or 8K resolution.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "images"
+    ],
+    "properties": {
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Reference Images",
+        "maxItems": 10,
+        "minItems": 1,
+        "description": "1-10 reference images (JPG/PNG, up to 30 MB, min 300 px, aspect ratio 2:5-5:2), referenced as @Image1, @Image2, ..."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Turn the scene in @Image1 into a snowy winter evening with warm window light, keep the composition."
+        ],
+        "description": "Describe the image. Refer to reference images as @Image1, @Image2, ..."
+      },
+      "num_images": {
+        "type": "integer",
+        "title": "Number of Images",
+        "default": 1,
+        "maximum": 9,
+        "minimum": 1,
+        "description": "Number of independent images to generate (1-9)."
+      },
+      "resolution": {
+        "enum": [
+          "2K",
+          "4K",
+          "8K"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "2K",
+        "description": "Output resolution. 8K is native ultra-high resolution."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "auto",
+          "16:9",
+          "9:16",
+          "1:1",
+          "4:3",
+          "3:4",
+          "3:2",
+          "2:3",
+          "21:9"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "auto",
+        "description": "Output frame shape. auto picks one from the prompt and references."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/mirrored/2c9355c67c05-Qos5QbCS93YpsPzZ3i8zT_a889cacced76430d85d08c60ca3d023d.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.num_images ?? 1) * ((params.resolution ?? \"2K\") == \"8K\" ? 0.1575 : (params.resolution ?? \"2K\") == \"4K\" ? 0.0945 : 0.063) + len(params.images ?? []) * 0.00315",
+    "formula_variables": [
+      "params.images",
+      "params.num_images",
+      "params.resolution"
+    ],
+    "reference_price": 0.06615,
+    "price_examples": [
+      {
+        "params": {
+          "num_images": 1,
+          "resolution": "2K"
+        },
+        "usd": 0.06615
+      },
+      {
+        "params": {
+          "num_images": 1,
+          "resolution": "4K"
+        },
+        "usd": 0.09765
+      },
+      {
+        "params": {
+          "num_images": 1,
+          "resolution": "8K"
+        },
+        "usd": 0.16065
+      },
+      {
+        "params": {
+          "num_images": 9,
+          "resolution": "2K"
+        },
+        "usd": 0.57015
+      },
+      {
+        "params": {
+          "num_images": 9,
+          "resolution": "4K"
+        },
+        "usd": 0.85365
+      },
+      {
+        "params": {
+          "num_images": 9,
+          "resolution": "8K"
+        },
+        "usd": 1.42065
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "images": [
+          "https://static.sandbase.ai/examples/af741566-8852-406d-be61-8044f265442c/input/ceb31edd-5be2-40d9-a2fa-7be80bf0160b.png"
+        ],
+        "prompt": "Place the sneaker from @Image1 on a mossy rock beside a mountain stream at dawn, soft mist, keep the shoe design, colours and the KITO heel tab exactly."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/af741566-8852-406d-be61-8044f265442c/output/b778d304-ecaa-4f46-b016-a6a435c5a075.png"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "images": [
+          "https://static.sandbase.ai/examples/2cfc80be-f125-4f18-8644-bedf004feb6a/input/5bcf3e54-96c8-4a0f-9e71-46b534bf8821.png",
+          "https://static.sandbase.ai/examples/2cfc80be-f125-4f18-8644-bedf004feb6a/input/0ff16182-a90d-475f-b0c5-f88b3a1c7dc0.png"
+        ],
+        "prompt": "Create a luxury magazine advertisement: the watch dial from @Image1 fitted with the strap from @Image2, lying on black velvet, headline \"AUREL — Time, Enamelled\" in elegant serif type."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/2cfc80be-f125-4f18-8644-bedf004feb6a/output/0af01f1f-a528-46c5-80b3-277ac8421797.png"
+        }
+      ]
+    }
+  ],
+  "readme": "# Kling Image V4 Edit\nKling Image V4 Edit edits or recomposes 1–10 reference images from a text instruction, at native 2K, 4K or 8K.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Refer to inputs as `@Image1`, `@Image2`, … |\n| `images` | image URL[], required | — | 1–10 images (JPG/PNG, up to 30 MB, at least 300 px per side, aspect ratio 2:5–5:2). |\n| `aspect_ratio` | `auto` / `16:9` / `9:16` / `1:1` / `4:3` / `3:4` / `3:2` / `2:3` / `21:9` | `auto` | `auto` picks a shape from the prompt and references. |\n| `resolution` | `2K` / `4K` / `8K` | `2K` | Native output resolution. |\n| `num_images` | 1–9 | 1 | Independent images, each billed. |\n## Billing\nPer output image by resolution, plus $0.00315 per reference image.\n| Request | Price |\n|---|---|\n| 1 reference, 2K (default) | $0.06615 |\n| 3 references, 4K | $0.10395 |\n| 1 reference, 8K | $0.16065 |\nFailed runs are not charged.\n## Prompting\n- Say what to change and what to keep, e.g. \"put the bottle from @Image1 on the table in @Image2, keep its label\".\n## Also on SandBase\nOther Kling Image V4 endpoints: `kwaivgi/kling-image/v4`, `kwaivgi/kling-image/v4/edit`, `kwaivgi/kling-image/v4/long-image`.",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-image/v4/edit/cover-flare-20261119193346.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-image/v4/edit",
+  "published_at": "2026-11-18T00:00:00Z",
+  "created_at": "2026-11-19T11:21:20.521Z"
+}

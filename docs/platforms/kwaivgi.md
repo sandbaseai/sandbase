@@ -1,11 +1,14 @@
-# KwaiVGI models API: 48 endpoints with pricing and code examples
+# KwaiVGI models API: 51 endpoints with pricing and code examples
 
-Call 48 KwaiVGI models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 51 KwaiVGI models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
 | [`kwaivgi/kling-image/o3`](../models/kwaivgi/kling-image/o3.md) | Kling Image O3 by Kuaishou generates images from a text prompt at 1K, 2K, or 4K resolution in common aspect ratios. | from $0.028 to $0.056 per run, depending on parameters |
 | [`kwaivgi/kling-image/o3/edit`](../models/kwaivgi/kling-image/o3/edit.md) | Kling Image O3 Edit by Kuaishou edits or recomposes images from a text instruction using up to 10 reference images, with 1K, 2K, or 4K… | from $0.028 to $0.056 per run, depending on parameters |
+| [`kwaivgi/kling-image/v4`](../models/kwaivgi/kling-image/v4.md) | Kling Image V4 by Kuaishou generates photorealistic images with accurate text rendering from a text prompt at native 2K, 4K or 8K… | from $0.063 to $1.4175 per run, depending on parameters |
+| [`kwaivgi/kling-image/v4/edit`](../models/kwaivgi/kling-image/v4/edit.md) | Kling Image V4 Edit by Kuaishou edits or recomposes 1 to 10 reference images from a text instruction at native 2K, 4K or 8K resolution. | from $0.06615 to $1.42065 per run, depending on parameters |
+| [`kwaivgi/kling-image/v4/long-image`](../models/kwaivgi/kling-image/v4/long-image.md) | Kling Image V4 Long Image by Kuaishou designs one complete ultra-tall image, such as an ecommerce product detail page from 1 to 3 product… | from $0.235 to $0.8617 per run, depending on parameters |
 | [`kwaivgi/kling-video/3.0/omni/pro/image-to-video`](../models/kwaivgi/kling-video/3.0/omni/pro/image-to-video.md) | Kling 3.0 Omni Pro Image to Video by Kuaishou animates a start image, optionally toward an end image, into a 3-10 second 1080p video. | from $0.336 to $0.896 per run, depending on parameters |
 | [`kwaivgi/kling-video/3.0/omni/pro/reference-to-video`](../models/kwaivgi/kling-video/3.0/omni/pro/reference-to-video.md) | Kling 3.0 Omni Pro Reference to Video by Kuaishou generates a 3-10 second 1080p video that keeps characters and objects from reference… | from $0.336 to $0.896 per run, depending on parameters |
 | [`kwaivgi/kling-video/3.0/omni/pro/video-to-video/edit`](../models/kwaivgi/kling-video/3.0/omni/pro/video-to-video/edit.md) | Kling 3.0 Omni Pro Video Edit by Kuaishou edits an input video from a text instruction, optionally guided by reference images, at 1080p. | about $0.84 per call |

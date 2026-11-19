@@ -1,12 +1,12 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-16T06:25:49Z",
+ "generated_at": "2026-11-19T12:27:30Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2777,
+ "count": 2780,
  "counts_by_type": {
   "api": 2247,
   "video": 200,
-  "image": 171,
+  "image": 174,
   "llm": 125,
   "audio": 32,
   "embedding": 2
@@ -49187,6 +49187,66 @@
     "usd_to": 0.056
    },
    "record": "catalog/models/kwaivgi/kling-image/o3/edit.json"
+  },
+  {
+   "name": "kwaivgi/kling-image/v4",
+   "display_name": "Kling Image V4",
+   "type": "image",
+   "vendor": "KwaiVGI",
+   "description": "Kling Image V4 by Kuaishou generates photorealistic images with accurate text rendering from a text prompt at native 2K, 4K or 8K resolution.",
+   "tags": [
+    "text-to-image"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.063,
+    "usd_to": 1.4175
+   },
+   "record": "catalog/models/kwaivgi/kling-image/v4.json"
+  },
+  {
+   "name": "kwaivgi/kling-image/v4/edit",
+   "display_name": "Kling Image V4 Edit",
+   "type": "image",
+   "vendor": "KwaiVGI",
+   "description": "Kling Image V4 Edit by Kuaishou edits or recomposes 1 to 10 reference images from a text instruction at native 2K, 4K or 8K resolution.",
+   "tags": [
+    "image-to-image"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.06615,
+    "usd_to": 1.42065
+   },
+   "record": "catalog/models/kwaivgi/kling-image/v4/edit.json"
+  },
+  {
+   "name": "kwaivgi/kling-image/v4/long-image",
+   "display_name": "Kling Image V4 Long Image",
+   "type": "image",
+   "vendor": "KwaiVGI",
+   "description": "Kling Image V4 Long Image by Kuaishou designs one complete ultra-tall image, such as an ecommerce product detail page from 1 to 3 product photos or a full webpage visual.",
+   "tags": [
+    "text-to-image"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.235,
+    "usd_to": 0.8617
+   },
+   "record": "catalog/models/kwaivgi/kling-image/v4/long-image.json"
   },
   {
    "name": "meshy/6.0-lite/retexture",

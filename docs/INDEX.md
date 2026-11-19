@@ -1,11 +1,11 @@
 # SandBase capability index
 
-2777 capabilities · generated 2026-11-16T06:25:49Z
+2780 capabilities · generated 2026-11-19T12:27:30Z
 
 - [api](#api) (2247)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
-- [image](#image) (171)
+- [image](#image) (174)
 - [llm](#llm) (125)
 - [video](#video) (200)
 
@@ -2384,6 +2384,9 @@
 | [`ideogram/4.5/edit`](models/ideogram/4.5/edit.md) | 0.008–0.22 | async | Ideogram 4.5 edits an image from a text instruction, with an optional mask and style references, with reliable text… |
 | [`kwaivgi/kling-image/o3`](models/kwaivgi/kling-image/o3.md) | 0.028–0.056 | async | Kling Image O3 by Kuaishou generates images from a text prompt at 1K, 2K, or 4K resolution in common aspect ratios. |
 | [`kwaivgi/kling-image/o3/edit`](models/kwaivgi/kling-image/o3/edit.md) | 0.028–0.056 | async | Kling Image O3 Edit by Kuaishou edits or recomposes images from a text instruction using up to 10 reference images,… |
+| [`kwaivgi/kling-image/v4`](models/kwaivgi/kling-image/v4.md) | 0.063–1.4175 | async | Kling Image V4 by Kuaishou generates photorealistic images with accurate text rendering from a text prompt at native… |
+| [`kwaivgi/kling-image/v4/edit`](models/kwaivgi/kling-image/v4/edit.md) | 0.06615–1.42065 | async | Kling Image V4 Edit by Kuaishou edits or recomposes 1 to 10 reference images from a text instruction at native 2K, 4K… |
+| [`kwaivgi/kling-image/v4/long-image`](models/kwaivgi/kling-image/v4/long-image.md) | 0.235–0.8617 | async | Kling Image V4 Long Image by Kuaishou designs one complete ultra-tall image, such as an ecommerce product detail page… |
 | [`meshy/6.0-lite/retexture`](models/meshy/6.0-lite/retexture.md) | 0.36 / call | async | Meshy 6 Lite Retexture is the lower-cost Meshy retexturing model: repaint an existing 3D model from a text or image… |
 | [`meshy/6.0/retexture`](models/meshy/6.0/retexture.md) | 0.33–0.5 | async | Meshy 6 Retexture repaints an existing 3D model from a text or image style, with optional PBR maps and up to 8K… |
 | [`meshy/7.0/image-to-3d`](models/meshy/7.0/image-to-3d.md) | 0.8–1.72 | async | Meshy 7 turns a single image into a 3D model, with optional textures, PBR maps, 2K geometry, humanoid auto-rigging and… |

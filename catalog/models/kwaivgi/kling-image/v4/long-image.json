@@ -1,0 +1,290 @@
+{
+  "name": "kwaivgi/kling-image/v4/long-image",
+  "display_name": "Kling Image V4 Long Image",
+  "type": "image",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling Image V4 Long Image by Kuaishou designs one complete ultra-tall image, such as an ecommerce product detail page from 1 to 3 product photos or a full webpage visual.",
+  "tags": [
+    "text-to-image"
+  ],
+  "capabilities": [
+    "text-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "skill": {
+        "enum": [
+          "webpage",
+          "ecommerce"
+        ],
+        "type": "string",
+        "title": "Skill",
+        "default": "webpage",
+        "description": "webpage: website design. ecommerce: product detail page, requires 1-3 product images."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Product Images",
+        "maxItems": 3,
+        "description": "ecommerce only: 1-3 product images, referenced as @Image1, @Image2, ..."
+      },
+      "length": {
+        "enum": [
+          "short",
+          "medium",
+          "long"
+        ],
+        "type": "string",
+        "title": "Length",
+        "default": "medium",
+        "description": "ecommerce only: short (~2-5 sections), medium (~6-10) or long (~11-18)."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Design a complete website for a specialty coffee brand as one long image: hero section, product showcase, roasting philosophy, store information and footer."
+        ],
+        "description": "Describe the page. Refer to product images as @Image1, @Image2, ..."
+      },
+      "resolution": {
+        "enum": [
+          "1K",
+          "2K"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1K",
+        "description": "Output resolution."
+      },
+      "style_image": {
+        "type": "string",
+        "title": "Style Image",
+        "description": "webpage only: optional style reference for the visual and layout style."
+      },
+      "subject_image": {
+        "type": "string",
+        "title": "Subject Image",
+        "description": "webpage only: optional subject the design is built around."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/mirrored/2c9355c67c05-Qos5QbCS93YpsPzZ3i8zT_a889cacced76430d85d08c60ca3d023d.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.skill ?? \"webpage\") == \"ecommerce\" ? ((params.resolution ?? \"1K\") == \"2K\" ? ((params.length ?? \"medium\") == \"long\" ? 0.8617 : (params.length ?? \"medium\") == \"short\" ? 0.282 : 0.5483) : ((params.length ?? \"medium\") == \"long\" ? 0.7833 : (params.length ?? \"medium\") == \"short\" ? 0.235 : 0.47)) : ((params.resolution ?? \"1K\") == \"2K\" ? 0.5953 : 0.5483)) + (len(params.images ?? []) + ((params.style_image ?? \"\") != \"\" ? 1 : 0) + ((params.subject_image ?? \"\") != \"\" ? 1 : 0)) * 0.00315",
+    "formula_variables": [
+      "params.images",
+      "params.length",
+      "params.resolution",
+      "params.skill",
+      "params.style_image",
+      "params.subject_image"
+    ],
+    "reference_price": 0.5483,
+    "price_examples": [
+      {
+        "params": {
+          "length": "short",
+          "resolution": "1K",
+          "skill": "webpage"
+        },
+        "usd": 0.5483
+      },
+      {
+        "params": {
+          "length": "short",
+          "resolution": "1K",
+          "skill": "ecommerce"
+        },
+        "usd": 0.235
+      },
+      {
+        "params": {
+          "length": "short",
+          "resolution": "2K",
+          "skill": "webpage"
+        },
+        "usd": 0.5953
+      },
+      {
+        "params": {
+          "length": "short",
+          "resolution": "2K",
+          "skill": "ecommerce"
+        },
+        "usd": 0.282
+      },
+      {
+        "params": {
+          "length": "medium",
+          "resolution": "1K",
+          "skill": "webpage"
+        },
+        "usd": 0.5483
+      },
+      {
+        "params": {
+          "length": "medium",
+          "resolution": "1K",
+          "skill": "ecommerce"
+        },
+        "usd": 0.47
+      },
+      {
+        "params": {
+          "length": "medium",
+          "resolution": "2K",
+          "skill": "webpage"
+        },
+        "usd": 0.5953
+      },
+      {
+        "params": {
+          "length": "medium",
+          "resolution": "2K",
+          "skill": "ecommerce"
+        },
+        "usd": 0.5483
+      },
+      {
+        "params": {
+          "length": "long",
+          "resolution": "1K",
+          "skill": "webpage"
+        },
+        "usd": 0.5483
+      },
+      {
+        "params": {
+          "length": "long",
+          "resolution": "1K",
+          "skill": "ecommerce"
+        },
+        "usd": 0.7833
+      },
+      {
+        "params": {
+          "length": "long",
+          "resolution": "2K",
+          "skill": "webpage"
+        },
+        "usd": 0.5953
+      },
+      {
+        "params": {
+          "length": "long",
+          "resolution": "2K",
+          "skill": "ecommerce"
+        },
+        "usd": 0.8617
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Design a complete website for a specialty coffee brand as one long image: hero section, product showcase, roasting philosophy, store information and footer."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/b961cb58-6908-4f94-8221-c2bc31e37f05/output/5fbbc042-2092-495d-a680-e59fb7f8e9de.png"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "images": [
+          "https://static.sandbase.ai/examples/75254cf2-473e-4c40-96c9-3439fcfccb26/input/d162fa1e-db4f-4a80-8595-d0955410fea7.png"
+        ],
+        "length": "short",
+        "prompt": "Design an ecommerce product detail page for the KITO Runner 01 sneaker in @Image1: key visual, breathable perforated mesh, gum rubber sole, styling scenes. Use only these facts.",
+        "skill": "ecommerce"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/75254cf2-473e-4c40-96c9-3439fcfccb26/output/1e53757e-caa0-47d0-822e-29c959593c7b.png"
+        }
+      ]
+    }
+  ],
+  "readme": "# Kling Image V4 Long Image\nKling Image V4 Long Image designs one complete ultra-tall image: an ecommerce product detail page built from 1–3 product photos, or a full webpage visual.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Describe the page. Refer to product images as `@Image1`, … |\n| `skill` | `webpage` / `ecommerce` | `webpage` | `ecommerce` requires `images`. |\n| `images` | image URL[] | — | ecommerce only: 1–3 product images. |\n| `style_image` | image URL | — | webpage only: visual and layout style reference. |\n| `subject_image` | image URL | — | webpage only: subject to design around. |\n| `length` | `short` / `medium` / `long` | `medium` | ecommerce only: about 2–5, 6–10 or 11–18 sections. |\n| `resolution` | `1K` / `2K` | `1K` | Output resolution. |\n## Billing\nPer long image, plus $0.00315 per input image.\n| Request | 1K | 2K |\n|---|---|---|\n| webpage | $0.5483 | $0.5953 |\n| ecommerce, short | $0.235 | $0.282 |\n| ecommerce, medium | $0.47 | $0.5483 |\n| ecommerce, long | $0.7833 | $0.8617 |\nFailed runs are not charged.\n## Prompting\n- For ecommerce, list only real product facts; the model builds the key visual, selling points and usage scenes.\n## Also on SandBase\nOther Kling Image V4 endpoints: `kwaivgi/kling-image/v4`, `kwaivgi/kling-image/v4/edit`, `kwaivgi/kling-image/v4/long-image`.",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-image/v4/long-image/cover-flare-20261119193344.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-image/v4/long-image",
+  "published_at": "2026-11-18T00:00:00Z",
+  "created_at": "2026-11-19T11:22:39.594Z"
+}

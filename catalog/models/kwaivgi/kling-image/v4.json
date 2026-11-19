@@ -1,0 +1,215 @@
+{
+  "name": "kwaivgi/kling-image/v4",
+  "display_name": "Kling Image V4",
+  "type": "image",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling Image V4 by Kuaishou generates photorealistic images with accurate text rendering from a text prompt at native 2K, 4K or 8K resolution.",
+  "tags": [
+    "text-to-image"
+  ],
+  "capabilities": [
+    "text-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A faceted glass perfume bottle on wet black slate, soft rim light, a small card beside it printed with \"NOCTURNE\" in thin serif letters, macro product photography."
+        ],
+        "description": "Describe the image. Refer to reference images as @Image1, @Image2, ..."
+      },
+      "num_images": {
+        "type": "integer",
+        "title": "Number of Images",
+        "default": 1,
+        "maximum": 9,
+        "minimum": 1,
+        "description": "Number of independent images to generate (1-9)."
+      },
+      "resolution": {
+        "enum": [
+          "2K",
+          "4K",
+          "8K"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "2K",
+        "description": "Output resolution. 8K is native ultra-high resolution."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "auto",
+          "16:9",
+          "9:16",
+          "1:1",
+          "4:3",
+          "3:4",
+          "3:2",
+          "2:3",
+          "21:9"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "auto",
+        "description": "Output frame shape. auto picks one from the prompt and references."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/mirrored/2c9355c67c05-Qos5QbCS93YpsPzZ3i8zT_a889cacced76430d85d08c60ca3d023d.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.num_images ?? 1) * ((params.resolution ?? \"2K\") == \"8K\" ? 0.1575 : (params.resolution ?? \"2K\") == \"4K\" ? 0.0945 : 0.063)",
+    "formula_variables": [
+      "params.num_images",
+      "params.resolution"
+    ],
+    "reference_price": 0.063,
+    "price_examples": [
+      {
+        "params": {
+          "num_images": 1,
+          "resolution": "2K"
+        },
+        "usd": 0.063
+      },
+      {
+        "params": {
+          "num_images": 1,
+          "resolution": "4K"
+        },
+        "usd": 0.0945
+      },
+      {
+        "params": {
+          "num_images": 1,
+          "resolution": "8K"
+        },
+        "usd": 0.1575
+      },
+      {
+        "params": {
+          "num_images": 9,
+          "resolution": "2K"
+        },
+        "usd": 0.567
+      },
+      {
+        "params": {
+          "num_images": 9,
+          "resolution": "4K"
+        },
+        "usd": 0.8505
+      },
+      {
+        "params": {
+          "num_images": 9,
+          "resolution": "8K"
+        },
+        "usd": 1.4175
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "prompt": "Event poster for a jazz night: a saxophonist silhouetted against a deep blue stage light, large title \"MIDNIGHT JAZZ\" in bold Art Deco letters, smaller line \"Friday 22 November · Blue Room · 9 PM\" at the bottom, grainy film texture."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/bcc829ad-1640-449e-9efa-04cf84da1d97/output/04854f77-94c7-469a-908e-4f743ba7ea16.png"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "prompt": "Camera-like photograph of an elderly fisherman mending a net on a wooden pier at golden hour, weathered skin and knitted sweater in fine detail, shallow depth of field, 85mm lens."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/023b6cad-c4e9-4b30-9f6f-8da2c22f3f94/output/5d3fe396-e241-4e5c-b84a-b756742d3cd3.png"
+        }
+      ]
+    }
+  ],
+  "readme": "# Kling Image V4\nKling Image V4 generates photorealistic images from a text prompt at native 2K, 4K or 8K, with sharp in-image text (up to about 2,000 characters, multilingual) and dense layouts.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Put any text to render in quotation marks. |\n| `aspect_ratio` | `auto` / `16:9` / `9:16` / `1:1` / `4:3` / `3:4` / `3:2` / `2:3` / `21:9` | `auto` | `auto` picks a shape from the prompt and references. |\n| `resolution` | `2K` / `4K` / `8K` | `2K` | Native output resolution. |\n| `num_images` | 1–9 | 1 | Independent images, each billed. |\n## Billing\nBilled per output image by resolution.\n| Resolution | Per image |\n|---|---|\n| 2K (default) | $0.063 |\n| 4K | $0.0945 |\n| 8K | $0.1575 |\nFailed runs are not charged.\n## Prompting\n- Quote the exact text you want rendered, e.g. a poster title \"SUMMER SALE\".\n- Describe subject, material, light and camera in order.\n## Also on SandBase\nOther Kling Image V4 endpoints: `kwaivgi/kling-image/v4`, `kwaivgi/kling-image/v4/edit`, `kwaivgi/kling-image/v4/long-image`.",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-image/v4/cover-flare-20261119193338.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-image/v4",
+  "published_at": "2026-11-18T00:00:00Z",
+  "created_at": "2026-11-19T11:20:06.044Z"
+}
