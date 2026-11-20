@@ -1,0 +1,44 @@
+{
+  "name": "tencent/hy4-flash",
+  "display_name": "Tencent: Hy4 flash",
+  "type": "llm",
+  "vendor": "Tencent",
+  "vendor_slug": "tencent",
+  "description": "Hy4 flash is the cost-efficient tier of Tencent Hunyuan's Hy4 family, with roughly a quarter of the flagship's parameters for lower latency and cost. It accepts text and image input, has a context window of about 1M tokens, and supports reasoning, tool calling and structured output. It targets code assistance, agent workflows and high-volume tasks where Hy4's full depth is not needed.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.07,
+      "output": 0.281,
+      "cache_read_multiplier": 0.0429
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/tencent/hy4-flash",
+  "published_at": "2026-11-16T14:18:26Z",
+  "created_at": "2026-11-20T00:25:10.489Z",
+  "context_length": 1048576
+}

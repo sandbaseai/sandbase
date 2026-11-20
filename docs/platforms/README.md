@@ -8,14 +8,14 @@
 | [TikTok](tiktok.md) | 175 | data API |
 | [DataForSEO](dataforseo.md) | 148 | data API |
 | [Instagram](instagram.md) | 107 | data API |
-| [Google](google.md) | 85 | LLM, audio model, data API, image generation model, video generation model |
+| [Google](google.md) | 86 | LLM, audio model, data API, image generation model, video generation model |
 | [Alibaba](alibaba.md) | 84 | LLM, audio model, embedding model, image generation model, video generation model |
 | [Xiaohongshu](xiaohongshu.md) | 68 | data API |
 | [Weibo](weibo.md) | 63 | data API |
 | [Polymarket](polymarket.md) | 59 | data API |
+| [OpenAI](openai.md) | 55 | LLM, audio model, embedding model, image generation model |
 | [YouTube](youtube.md) | 54 | data API |
 | [KwaiVGI](kwaivgi.md) | 51 | image generation model, video generation model |
-| [OpenAI](openai.md) | 51 | LLM, audio model, embedding model, image generation model |
 | [Zhihu](zhihu.md) | 51 | data API |
 | [Bilibili](bilibili.md) | 46 | data API |
 | [Kuaishou](kuaishou.md) | 40 | data API |
@@ -27,9 +27,9 @@
 | [X (Twitter)](x-twitter.md) | 30 | data API |
 | [Facebook](facebook.md) | 28 | data API |
 | [MiniMax](minimax.md) | 27 | audio model, image generation model, video generation model |
+| [Tencent](tencent.md) | 26 | LLM, image generation model, video generation model |
 | [Similarweb](similarweb.md) | 25 | data API |
 | [Financial Datasets](financial-datasets.md) | 24 | data API |
-| [Tencent](tencent.md) | 24 | LLM, image generation model, video generation model |
 | [BFL](bfl.md) | 22 | image generation model, video generation model |
 | [CoinGecko](coingecko.md) | 22 | data API |
 | [WeChat Channels](wechat-channels.md) | 22 | data API |

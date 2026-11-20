@@ -1158,6 +1158,7 @@ google/gemini-3.8-flash-tts,audio,Google,formula,,,,0.045,0.045,,async,POST /v1/
 google/gemini-4-argon,llm,Google,per_token,,4,20,,,,sync,POST /v1/chat/completions
 google/gemini-4-carbon,llm,Google,per_token,,4,20,,,,sync,POST /v1/chat/completions
 google/gemini-4-hydrogen,llm,Google,per_token,,1.5,7.5,,,,sync,POST /v1/chat/completions
+google/gemini-4-neon,llm,Google,per_token,,3,15,,,,sync,POST /v1/chat/completions
 google/gemini-answer,api,Google,per_call,0.01,,,,,,sync,POST /v1/run
 google/gemini-nano-banana-2.1,llm,Google,per_token,,1.5,7.5,,,,sync,POST /v1/chat/completions
 google/gemini-omni-flash/1.1/edit,video,Google,formula,,,,1.12,1.12,,async,POST /v1/run
@@ -1729,6 +1730,10 @@ openai/gpt-6.1-sol,llm,OpenAI,per_token,,2,10,,,,sync,POST /v1/chat/completions
 openai/gpt-6.1-sol-pro,llm,OpenAI,per_token,,2,10,,,,sync,POST /v1/chat/completions
 openai/gpt-6.1-terra,llm,OpenAI,per_token,,1,5,,,,sync,POST /v1/chat/completions
 openai/gpt-6.1-terra-pro,llm,OpenAI,per_token,,1,5,,,,sync,POST /v1/chat/completions
+openai/gpt-6.2-astra,llm,OpenAI,per_token,,8,40,,,,sync,POST /v1/chat/completions
+openai/gpt-6.2-astra-pro,llm,OpenAI,per_token,,8,40,,,,sync,POST /v1/chat/completions
+openai/gpt-6.2-sol,llm,OpenAI,per_token,,2,10,,,,sync,POST /v1/chat/completions
+openai/gpt-6.2-sol-pro,llm,OpenAI,per_token,,2,10,,,,sync,POST /v1/chat/completions
 openai/gpt-image-1-mini/edit,image,OpenAI,formula,,,,0.007,0.054,,async,POST /v1/run
 openai/gpt-image-1.5,image,OpenAI,formula,,,,0.014,0.205,,async,POST /v1/run
 openai/gpt-image-1.5/edit,image,OpenAI,formula,,,,0.009,0.2,,async,POST /v1/run
@@ -2035,6 +2040,8 @@ tencent/hunyuan-image/3.0/edit,image,Tencent,per_call,0.45,,,,,,async,POST /v1/r
 tencent/hunyuan-video/1.5/text-to-video,video,Tencent,formula,,,,0.375,0.375,,async,POST /v1/run
 tencent/hunyuan3d/v2/turbo,image,Tencent,formula,,,,0.14,0.42,,async,POST /v1/run
 tencent/hy3,llm,Tencent,per_token,,0.132,0.528,,,,sync,POST /v1/chat/completions
+tencent/hy4,llm,Tencent,per_token,,0.834,2.501,,,,sync,POST /v1/chat/completions
+tencent/hy4-flash,llm,Tencent,per_token,,0.07,0.281,,,,sync,POST /v1/chat/completions
 tencent/hy4-preview,llm,Tencent,per_token,,0.834,2.501,,,,sync,POST /v1/chat/completions
 tencent/miora-3d/1.2/image-to-3d,image,Tencent,formula,,,,0.428571,0.685714,,async,POST /v1/run
 tencent/miora-3d/1.2/text-to-3d,image,Tencent,formula,,,,0.514286,0.771429,,async,POST /v1/run

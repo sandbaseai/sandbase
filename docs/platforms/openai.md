@@ -1,6 +1,6 @@
-# OpenAI models API: 51 endpoints with pricing and code examples
+# OpenAI models API: 55 endpoints with pricing and code examples
 
-Call 51 OpenAI models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 55 OpenAI models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
@@ -39,6 +39,10 @@ Call 51 OpenAI models through SandBase with one API key: no separate account, on
 | [`openai/gpt-6.1-sol-pro`](../models/openai/gpt-6.1-sol-pro.md) | GPT-6.1 Sol Pro is the same GPT-6.1 Sol model, OpenAI's near-Astra GPT-6 tier, served in OpenAI's pro reasoning mode rather than as… | $2 input / $10 output per 1M tokens |
 | [`openai/gpt-6.1-terra`](../models/openai/gpt-6.1-terra.md) | GPT-6.1 Terra is the middle tier of OpenAI's GPT-6.1 family and the replacement for GPT-5.6 Terra, with text and image input. OpenAI… | $1 input / $5 output per 1M tokens |
 | [`openai/gpt-6.1-terra-pro`](../models/openai/gpt-6.1-terra-pro.md) | GPT-6.1 Terra Pro is the same GPT-6.1 Terra model, the balanced middle tier of OpenAI's GPT-6.1 family, served in OpenAI's pro reasoning… | $1 input / $5 output per 1M tokens |
+| [`openai/gpt-6.2-astra`](../models/openai/gpt-6.2-astra.md) | GPT-6.2 Astra is the flagship model of OpenAI's GPT-6.2 series, built for the hardest projects, with text, image and file input and a… | $8 input / $40 output per 1M tokens |
+| [`openai/gpt-6.2-astra-pro`](../models/openai/gpt-6.2-astra-pro.md) | GPT-6.2 Astra Pro is the same GPT-6.2 Astra model served in OpenAI's pro reasoning mode rather than as different weights. Pro mode spends… | $8 input / $40 output per 1M tokens |
+| [`openai/gpt-6.2-sol`](../models/openai/gpt-6.2-sol.md) | GPT-6.2 Sol is OpenAI's upgrade to GPT-6.1 Sol, positioned below the flagship GPT-6.2 Astra in the GPT-6.2 series, with text, image and… | $2 input / $10 output per 1M tokens |
+| [`openai/gpt-6.2-sol-pro`](../models/openai/gpt-6.2-sol-pro.md) | GPT-6.2 Sol Pro is the same GPT-6.2 Sol model served in OpenAI's pro reasoning mode rather than as different weights. Pro mode spends more… | $2 input / $10 output per 1M tokens |
 | [`openai/gpt-image-1-mini/edit`](../models/openai/gpt-image-1-mini/edit.md) | Gpt Image 1 Mini Edit is OpenAI's intelligent image editing model. Transform, retouch, and reimagine existing images using text prompts -… | from $0.007 to $0.054 per run, depending on parameters |
 | [`openai/gpt-image-1.5`](../models/openai/gpt-image-1.5.md) | Gpt Image 1.5 is OpenAI's advanced text-to-image AI model. Create photorealistic images, illustrations, and concept art from natural… | from $0.014 to $0.205 per run, depending on parameters |
 | [`openai/gpt-image-1.5/edit`](../models/openai/gpt-image-1.5/edit.md) | Gpt Image 1.5 Edit by OpenAI - AI-powered image editing, style transfer, and transformation. Edit photos with natural language… | from $0.009 to $0.2 per run, depending on parameters |

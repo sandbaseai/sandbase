@@ -1,0 +1,46 @@
+{
+  "name": "google/gemini-4-neon",
+  "display_name": "Google: Gemini 4 Neon",
+  "type": "llm",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Gemini 4 Neon is a fast, mid-priced model in Google's Gemini 4 family, released on November 18, 2026. Google built it for coding and agentic work, including repository and terminal coding and web development. It accepts text, image, video, audio and PDF input with a 1M-token context window, supports adjustable reasoning effort, and supports function calling and structured output.",
+  "tags": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 3,
+      "output": 15,
+      "cache_read_multiplier": 0.05
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/google/gemini-4-neon",
+  "published_at": "2026-11-18T13:02:57Z",
+  "created_at": "2026-11-19T15:42:14.065Z",
+  "context_length": 1048576
+}

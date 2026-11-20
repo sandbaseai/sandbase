@@ -733,6 +733,18 @@
    }
   },
   {
+   "id": "google/gemini-4-neon",
+   "name": "Google: Gemini 4 Neon",
+   "description": "Gemini 4 Neon is a fast, mid-priced model in Google's Gemini 4 family, released on November 18, 2026. Google built it for coding and agentic work, including repository and terminal coding and web development. It accepts text, image, video, audio and PDF input with a 1M-token context window, supports adjustable reasoning effort, and supports function calling and structured output.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.000003",
+    "completion": "0.000015",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
    "id": "google/gemini-nano-banana-2.1",
    "name": "Google: Nano Banana 2.1 (Gemini Nano Banana 2.1)",
    "description": "Nano Banana 2.1 (Gemini Nano Banana 2.1) is Google's Flash-tier image generation and editing model, succeeding Nano Banana 2 and producing images alongside text through the native Gemini generateContent API. It improves prompt adherence, text rendering, product recontextualization and multi-turn editing consistency, supports extreme aspect ratios and 1K to 4K output, and can ground generation with Google web and image search. Pick Nano Banana Pro instead for the most demanding professional\u2026",
@@ -1273,6 +1285,54 @@
    }
   },
   {
+   "id": "openai/gpt-6.2-astra",
+   "name": "OpenAI: GPT-6.2 Astra",
+   "description": "GPT-6.2 Astra is the flagship model of OpenAI's GPT-6.2 series, built for the hardest projects, with text, image and file input and a context window of about 1M tokens. It suits real-world engineering, professional work and scientific research that need deep multi-step reasoning, coding and tool use. It sits above GPT-6.2 Sol; choose the Astra Pro variant for the most demanding single requests.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.000008",
+    "completion": "0.00004",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-6.2-astra-pro",
+   "name": "OpenAI: GPT-6.2 Astra Pro",
+   "description": "GPT-6.2 Astra Pro is the same GPT-6.2 Astra model served in OpenAI's pro reasoning mode rather than as different weights. Pro mode spends more model work on each request before returning a single final answer, which can improve reliability on the hardest reasoning, research and engineering tasks. It increases latency and token usage, so standard GPT-6.2 Astra remains the default for most work.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.000008",
+    "completion": "0.00004",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-6.2-sol",
+   "name": "OpenAI: GPT-6.2 Sol",
+   "description": "GPT-6.2 Sol is OpenAI's upgrade to GPT-6.1 Sol, positioned below the flagship GPT-6.2 Astra in the GPT-6.2 series, with text, image and file input and a context window of about 1M tokens. It is an efficient, versatile reasoning model for everyday professional work, coding and agentic tasks at scale. Choose GPT-6.2 Astra when a task needs the deepest reasoning, or the Sol Pro variant for harder single requests.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.00001",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-6.2-sol-pro",
+   "name": "OpenAI: GPT-6.2 Sol Pro",
+   "description": "GPT-6.2 Sol Pro is the same GPT-6.2 Sol model served in OpenAI's pro reasoning mode rather than as different weights. Pro mode spends more model work on each request before returning a single final answer, which can improve reliability on difficult tasks such as complex optimization, code review and deep analysis. It increases latency and token usage, so standard GPT-6.2 Sol remains the default for routine work.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.00001",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
    "id": "openai/gpt-oss-120b",
    "name": "OpenAI: gpt-oss-120b",
    "description": "gpt-oss-120b is OpenAI's largest open-weight reasoning model, released in August 2025 under the Apache 2.0 license: a 117B-parameter mixture-of-experts model with 5.1B active parameters that fits on a single 80GB GPU. OpenAI positions it for production, general-purpose and high-reasoning use, with adjustable low, medium or high reasoning, full chain-of-thought access, and native function calling, browsing, Python execution and structured outputs. It is text-only and can be self-hosted or\u2026",
@@ -1304,6 +1364,30 @@
    "pricing": {
     "prompt": "0.000000132",
     "completion": "0.000000528",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "tencent/hy4",
+   "name": "Tencent: Hy4",
+   "description": "Hy4 is the official release of Tencent Hunyuan's Hy4 generation, following Hy4 Preview with broad improvements, especially in agentic capabilities and long-horizon productivity tasks. It accepts text and image input, has a context window of about 1M tokens, and supports reasoning, tool calling and structured output. It targets software development, office and financial analysis, and other real-world multi-step work.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.000000834",
+    "completion": "0.000002501",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "tencent/hy4-flash",
+   "name": "Tencent: Hy4 flash",
+   "description": "Hy4 flash is the cost-efficient tier of Tencent Hunyuan's Hy4 family, with roughly a quarter of the flagship's parameters for lower latency and cost. It accepts text and image input, has a context window of about 1M tokens, and supports reasoning, tool calling and structured output. It targets code assistance, agent workflows and high-volume tasks where Hy4's full depth is not needed.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.00000007",
+    "completion": "0.000000281",
     "request": "0",
     "image": "0"
    }

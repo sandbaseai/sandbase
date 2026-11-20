@@ -1,12 +1,12 @@
 # SandBase capability index
 
-2780 capabilities · generated 2026-11-19T16:23:08Z
+2787 capabilities · generated 2026-11-20T00:39:16Z
 
 - [api](#api) (2247)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
 - [image](#image) (174)
-- [llm](#llm) (125)
+- [llm](#llm) (132)
 - [video](#video) (200)
 
 ## api
@@ -2550,6 +2550,7 @@
 | [`google/gemini-4-argon`](models/google/gemini-4-argon.md) | 4 / 20 per 1M tok | sync | Gemini 4 Argon is Google's flagship reasoning model and the first model of the Gemini 4 generation, generally… |
 | [`google/gemini-4-carbon`](models/google/gemini-4-carbon.md) | 4 / 20 per 1M tok | sync | Gemini 4 Carbon is Google's most capable Gemini 4 model, released on November 10, 2026 and positioned above Gemini 4… |
 | [`google/gemini-4-hydrogen`](models/google/gemini-4-hydrogen.md) | 1.5 / 7.5 per 1M tok | sync | Gemini 4 Hydrogen is the high-efficiency model of Google's Gemini 4 family, released on November 12, 2026. Google… |
+| [`google/gemini-4-neon`](models/google/gemini-4-neon.md) | 3 / 15 per 1M tok | sync | Gemini 4 Neon is a fast, mid-priced model in Google's Gemini 4 family, released on November 18, 2026. Google built it… |
 | [`google/gemini-nano-banana-2.1`](models/google/gemini-nano-banana-2.1.md) | 1.5 / 7.5 per 1M tok | sync | Nano Banana 2.1 (Gemini Nano Banana 2.1) is Google's Flash-tier image generation and editing model, succeeding Nano… |
 | [`meta/llama-3.3-70b-instruct`](models/meta/llama-3.3-70b-instruct.md) | 0.1 / 0.32 per 1M tok | sync | Llama 3.3 70B Instruct is Meta's instruction-tuned, text-only multilingual model released on December 6, 2024, built… |
 | [`minimax/minimax-m2.5`](models/minimax/minimax-m2.5.md) | 0.3 / 1.2 per 1M tok | sync | MiniMax-M2.5 is a MiniMax M2-series language model released in February 2026 for real-world productivity, trained with… |
@@ -2595,9 +2596,15 @@
 | [`openai/gpt-6.1-sol-pro`](models/openai/gpt-6.1-sol-pro.md) | 2 / 10 per 1M tok | sync | GPT-6.1 Sol Pro is the same GPT-6.1 Sol model, OpenAI's near-Astra GPT-6 tier, served in OpenAI's pro reasoning mode… |
 | [`openai/gpt-6.1-terra`](models/openai/gpt-6.1-terra.md) | 1 / 5 per 1M tok | sync | GPT-6.1 Terra is the middle tier of OpenAI's GPT-6.1 family and the replacement for GPT-5.6 Terra, with text and image… |
 | [`openai/gpt-6.1-terra-pro`](models/openai/gpt-6.1-terra-pro.md) | 1 / 5 per 1M tok | sync | GPT-6.1 Terra Pro is the same GPT-6.1 Terra model, the balanced middle tier of OpenAI's GPT-6.1 family, served in… |
+| [`openai/gpt-6.2-astra`](models/openai/gpt-6.2-astra.md) | 8 / 40 per 1M tok | sync | GPT-6.2 Astra is the flagship model of OpenAI's GPT-6.2 series, built for the hardest projects, with text, image and… |
+| [`openai/gpt-6.2-astra-pro`](models/openai/gpt-6.2-astra-pro.md) | 8 / 40 per 1M tok | sync | GPT-6.2 Astra Pro is the same GPT-6.2 Astra model served in OpenAI's pro reasoning mode rather than as different… |
+| [`openai/gpt-6.2-sol`](models/openai/gpt-6.2-sol.md) | 2 / 10 per 1M tok | sync | GPT-6.2 Sol is OpenAI's upgrade to GPT-6.1 Sol, positioned below the flagship GPT-6.2 Astra in the GPT-6.2 series,… |
+| [`openai/gpt-6.2-sol-pro`](models/openai/gpt-6.2-sol-pro.md) | 2 / 10 per 1M tok | sync | GPT-6.2 Sol Pro is the same GPT-6.2 Sol model served in OpenAI's pro reasoning mode rather than as different weights.… |
 | [`openai/gpt-oss-120b`](models/openai/gpt-oss-120b.md) | 0.039 / 0.18 per 1M tok | sync | gpt-oss-120b is OpenAI's largest open-weight reasoning model, released in August 2025 under the Apache 2.0 license: a… |
 | [`stepfun/step-5-preview`](models/stepfun/step-5-preview.md) | 1 / 2.7 per 1M tok | sync | Step 5 Preview is StepFun's flagship model for agentic work, built on a sparse Mixture-of-Experts architecture with… |
 | [`tencent/hy3`](models/tencent/hy3.md) | 0.132 / 0.528 per 1M tok | sync | Hy3 is a 295B-parameter Mixture-of-Experts model from Tencent (21B active, 192 experts with top-8 routing) built for… |
+| [`tencent/hy4`](models/tencent/hy4.md) | 0.834 / 2.501 per 1M tok | sync | Hy4 is the official release of Tencent Hunyuan's Hy4 generation, following Hy4 Preview with broad improvements,… |
+| [`tencent/hy4-flash`](models/tencent/hy4-flash.md) | 0.07 / 0.281 per 1M tok | sync | Hy4 flash is the cost-efficient tier of Tencent Hunyuan's Hy4 family, with roughly a quarter of the flagship's… |
 | [`tencent/hy4-preview`](models/tencent/hy4-preview.md) | 0.834 / 2.501 per 1M tok | sync | Hy4 preview is Tencent Hunyuan's open-source preview of its Hy4 generation, a mixture-of-experts language model with… |
 | [`typesafe/jev-1.13`](models/typesafe/jev-1.13.md) | 0.042 / 0 per 1M tok | sync | Jev 1.13 is a version of Jev, TypeSafe AI's flagship and first public System One model, which makes structured… |
 | [`typesafe/jev-1.14`](models/typesafe/jev-1.14.md) | 0.042 / 0 per 1M tok | sync | Jev 1.14 is the latest version of Jev, TypeSafe AI's flagship and first public System One model, which makes… |

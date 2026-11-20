@@ -368,6 +368,12 @@
    "owned_by": "google"
   },
   {
+   "id": "google/gemini-4-neon",
+   "object": "model",
+   "created": 0,
+   "owned_by": "google"
+  },
+  {
    "id": "google/gemini-nano-banana-2.1",
    "object": "model",
    "created": 0,
@@ -638,6 +644,30 @@
    "owned_by": "openai"
   },
   {
+   "id": "openai/gpt-6.2-astra",
+   "object": "model",
+   "created": 0,
+   "owned_by": "openai"
+  },
+  {
+   "id": "openai/gpt-6.2-astra-pro",
+   "object": "model",
+   "created": 0,
+   "owned_by": "openai"
+  },
+  {
+   "id": "openai/gpt-6.2-sol",
+   "object": "model",
+   "created": 0,
+   "owned_by": "openai"
+  },
+  {
+   "id": "openai/gpt-6.2-sol-pro",
+   "object": "model",
+   "created": 0,
+   "owned_by": "openai"
+  },
+  {
    "id": "openai/gpt-oss-120b",
    "object": "model",
    "created": 0,
@@ -651,6 +681,18 @@
   },
   {
    "id": "tencent/hy3",
+   "object": "model",
+   "created": 0,
+   "owned_by": "tencent"
+  },
+  {
+   "id": "tencent/hy4",
+   "object": "model",
+   "created": 0,
+   "owned_by": "tencent"
+  },
+  {
+   "id": "tencent/hy4-flash",
    "object": "model",
    "created": 0,
    "owned_by": "tencent"

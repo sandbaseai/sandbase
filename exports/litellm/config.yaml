@@ -498,6 +498,14 @@ model_list:
     model_info:
       input_cost_per_token: 1.5e-06
       output_cost_per_token: 7.5e-06
+  - model_name: google/gemini-4-neon
+    litellm_params:
+      model: openai/google/gemini-4-neon
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 3e-06
+      output_cost_per_token: 1.5e-05
   - model_name: google/gemini-nano-banana-2.1
     litellm_params:
       model: openai/google/gemini-nano-banana-2.1
@@ -858,6 +866,38 @@ model_list:
     model_info:
       input_cost_per_token: 1e-06
       output_cost_per_token: 5e-06
+  - model_name: openai/gpt-6.2-astra
+    litellm_params:
+      model: openai/openai/gpt-6.2-astra
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 8e-06
+      output_cost_per_token: 4e-05
+  - model_name: openai/gpt-6.2-astra-pro
+    litellm_params:
+      model: openai/openai/gpt-6.2-astra-pro
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 8e-06
+      output_cost_per_token: 4e-05
+  - model_name: openai/gpt-6.2-sol
+    litellm_params:
+      model: openai/openai/gpt-6.2-sol
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 1e-05
+  - model_name: openai/gpt-6.2-sol-pro
+    litellm_params:
+      model: openai/openai/gpt-6.2-sol-pro
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 1e-05
   - model_name: openai/gpt-oss-120b
     litellm_params:
       model: openai/openai/gpt-oss-120b
@@ -890,6 +930,22 @@ model_list:
     model_info:
       input_cost_per_token: 1.32e-07
       output_cost_per_token: 5.28e-07
+  - model_name: tencent/hy4
+    litellm_params:
+      model: openai/tencent/hy4
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 8.34e-07
+      output_cost_per_token: 2.501e-06
+  - model_name: tencent/hy4-flash
+    litellm_params:
+      model: openai/tencent/hy4-flash
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 7e-08
+      output_cost_per_token: 2.81e-07
   - model_name: tencent/hy4-preview
     litellm_params:
       model: openai/tencent/hy4-preview

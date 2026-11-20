@@ -1,0 +1,53 @@
+{
+  "name": "openai/gpt-6.2-astra-pro",
+  "display_name": "OpenAI: GPT-6.2 Astra Pro",
+  "type": "llm",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "GPT-6.2 Astra Pro is the same GPT-6.2 Astra model served in OpenAI's pro reasoning mode rather than as different weights. Pro mode spends more model work on each request before returning a single final answer, which can improve reliability on the hardest reasoning, research and engineering tasks. It increases latency and token usage, so standard GPT-6.2 Astra remains the default for most work.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 8,
+      "output": 40,
+      "cache_read_multiplier": 0.05,
+      "cache_write_multiplier": 1.25
+    },
+    "formula": "usage.prompt_tokens >= 272000 ? (usage.prompt_tokens * 16 / 1000000 + usage.completion_tokens * 60 / 1000000 - usage.cached_tokens * 7.6 / 1000000 + usage.cache_creation_tokens * 2 / 1000000) : (usage.prompt_tokens * 8 / 1000000 + usage.completion_tokens * 40 / 1000000)",
+    "formula_variables": [
+      "usage.cache_creation_tokens",
+      "usage.cached_tokens",
+      "usage.completion_tokens",
+      "usage.prompt_tokens"
+    ]
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL\\u0026type=FAVICON\\u0026fallback_opts=TYPE,SIZE,URL\\u0026url=https://openai.com\\u0026size=256",
+  "page_url": "https://www.sandbase.ai/model/openai/gpt-6.2-astra-pro",
+  "published_at": "2026-11-17T18:00:32Z",
+  "created_at": "2026-11-20T00:22:29.279Z",
+  "context_length": 1050000
+}

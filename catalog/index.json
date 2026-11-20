@@ -1,13 +1,13 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-19T16:23:08Z",
+ "generated_at": "2026-11-20T00:39:16Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2780,
+ "count": 2787,
  "counts_by_type": {
   "api": 2247,
   "video": 200,
   "image": 174,
-  "llm": 125,
+  "llm": 132,
   "audio": 32,
   "embedding": 2
  },
@@ -52781,6 +52781,33 @@
    "record": "catalog/models/google/gemini-4-hydrogen.json"
   },
   {
+   "name": "google/gemini-4-neon",
+   "display_name": "Google: Gemini 4 Neon",
+   "type": "llm",
+   "vendor": "Google",
+   "description": "Gemini 4 Neon is a fast, mid-priced model in Google's Gemini 4 family, released on November 18, 2026. Google built it for coding and agentic work, including repository and terminal coding and web development. It accepts text, image, video, audio and PDF input with a 1M-token…",
+   "tags": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/chat/completions",
+   "price": {
+    "model": "per_token",
+    "usd_per_million_tokens": {
+     "input": 3,
+     "output": 15
+    }
+   },
+   "record": "catalog/models/google/gemini-4-neon.json"
+  },
+  {
    "name": "google/gemini-nano-banana-2.1",
    "display_name": "Google: Nano Banana 2.1 (Gemini Nano Banana 2.1)",
    "type": "llm",
@@ -53938,6 +53965,110 @@
    "record": "catalog/models/openai/gpt-6.1-terra-pro.json"
   },
   {
+   "name": "openai/gpt-6.2-astra",
+   "display_name": "OpenAI: GPT-6.2 Astra",
+   "type": "llm",
+   "vendor": "OpenAI",
+   "description": "GPT-6.2 Astra is the flagship model of OpenAI's GPT-6.2 series, built for the hardest projects, with text, image and file input and a context window of about 1M tokens. It suits real-world engineering, professional work and scientific research that need deep multi-step…",
+   "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/chat/completions",
+   "price": {
+    "model": "per_token",
+    "usd_per_million_tokens": {
+     "input": 8,
+     "output": 40
+    }
+   },
+   "record": "catalog/models/openai/gpt-6.2-astra.json"
+  },
+  {
+   "name": "openai/gpt-6.2-astra-pro",
+   "display_name": "OpenAI: GPT-6.2 Astra Pro",
+   "type": "llm",
+   "vendor": "OpenAI",
+   "description": "GPT-6.2 Astra Pro is the same GPT-6.2 Astra model served in OpenAI's pro reasoning mode rather than as different weights. Pro mode spends more model work on each request before returning a single final answer, which can improve reliability on the hardest reasoning, research and…",
+   "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/chat/completions",
+   "price": {
+    "model": "per_token",
+    "usd_per_million_tokens": {
+     "input": 8,
+     "output": 40
+    }
+   },
+   "record": "catalog/models/openai/gpt-6.2-astra-pro.json"
+  },
+  {
+   "name": "openai/gpt-6.2-sol",
+   "display_name": "OpenAI: GPT-6.2 Sol",
+   "type": "llm",
+   "vendor": "OpenAI",
+   "description": "GPT-6.2 Sol is OpenAI's upgrade to GPT-6.1 Sol, positioned below the flagship GPT-6.2 Astra in the GPT-6.2 series, with text, image and file input and a context window of about 1M tokens. It is an efficient, versatile reasoning model for everyday professional work, coding and…",
+   "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/chat/completions",
+   "price": {
+    "model": "per_token",
+    "usd_per_million_tokens": {
+     "input": 2,
+     "output": 10
+    }
+   },
+   "record": "catalog/models/openai/gpt-6.2-sol.json"
+  },
+  {
+   "name": "openai/gpt-6.2-sol-pro",
+   "display_name": "OpenAI: GPT-6.2 Sol Pro",
+   "type": "llm",
+   "vendor": "OpenAI",
+   "description": "GPT-6.2 Sol Pro is the same GPT-6.2 Sol model served in OpenAI's pro reasoning mode rather than as different weights. Pro mode spends more model work on each request before returning a single final answer, which can improve reliability on difficult tasks such as complex…",
+   "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/chat/completions",
+   "price": {
+    "model": "per_token",
+    "usd_per_million_tokens": {
+     "input": 2,
+     "output": 10
+    }
+   },
+   "record": "catalog/models/openai/gpt-6.2-sol-pro.json"
+  },
+  {
    "name": "openai/gpt-oss-120b",
    "display_name": "OpenAI: gpt-oss-120b",
    "type": "llm",
@@ -54012,6 +54143,58 @@
     }
    },
    "record": "catalog/models/tencent/hy3.json"
+  },
+  {
+   "name": "tencent/hy4",
+   "display_name": "Tencent: Hy4",
+   "type": "llm",
+   "vendor": "Tencent",
+   "description": "Hy4 is the official release of Tencent Hunyuan's Hy4 generation, following Hy4 Preview with broad improvements, especially in agentic capabilities and long-horizon productivity tasks. It accepts text and image input, has a context window of about 1M tokens, and supports…",
+   "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/chat/completions",
+   "price": {
+    "model": "per_token",
+    "usd_per_million_tokens": {
+     "input": 0.834,
+     "output": 2.501
+    }
+   },
+   "record": "catalog/models/tencent/hy4.json"
+  },
+  {
+   "name": "tencent/hy4-flash",
+   "display_name": "Tencent: Hy4 flash",
+   "type": "llm",
+   "vendor": "Tencent",
+   "description": "Hy4 flash is the cost-efficient tier of Tencent Hunyuan's Hy4 family, with roughly a quarter of the flagship's parameters for lower latency and cost. It accepts text and image input, has a context window of about 1M tokens, and supports reasoning, tool calling and structured…",
+   "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/chat/completions",
+   "price": {
+    "model": "per_token",
+    "usd_per_million_tokens": {
+     "input": 0.07,
+     "output": 0.281
+    }
+   },
+   "record": "catalog/models/tencent/hy4-flash.json"
   },
   {
    "name": "tencent/hy4-preview",
