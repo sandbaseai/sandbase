@@ -2,13 +2,13 @@
 
 `meshy/6.0-lite/retexture` · image generation model · Meshy · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.36 per call · **Modes:** async
+**Price:** $0.4 per call · **Modes:** async
 
 Meshy 6 Lite Retexture is the lower-cost Meshy retexturing model: repaint an existing 3D model from a text or image style.
 
 ## Pricing
 
-- **$0.36 per call** (USD)
+- **$0.4 per call** (USD)
 
 ## Call it
 
@@ -81,11 +81,11 @@ Meshy 6 Lite Retexture is the lower-cost Meshy retexturing model: repaint an exi
 | `enable_pbr` | boolean | false | Also generate metallic, roughness and normal maps. |
 | `enable_original_uv` | boolean | true | Keep the model's UV layout. |
 ### Billing
-$0.36 per retextured model; PBR maps are included.
+$0.40 per retextured model; PBR maps are included.
 | Request | Price |
 |---|---|
-| Retexture | $0.36 |
-| Retexture + PBR | $0.36 |
+| Retexture | $0.40 |
+| Retexture + PBR | $0.40 |
 Failed runs are not charged.
 ### Prompting
 - Name materials and finish, e.g. "weathered bronze with green patina".

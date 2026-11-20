@@ -110,6 +110,7 @@
     "per_call": 0.04
   },
   "readme": "# Meshy Convert\nMeshy Convert exports an existing 3D model to GLB, OBJ, FBX, STL, USDZ, BLEND or 3MF.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI. |\n| `format` | `glb` / `obj` / `fbx` / `stl` / `usdz` / `blend` / `3mf` | `\"fbx\"` | Output file format. |\n## Output\n- `url`: The converted model file.\n## Billing\n$0.04 per conversion.\n",
+  "cover_url": "https://static.sandbase.ai/covers/meshy/convert/cover-flare-20261120161257.webp",
   "page_url": "https://www.sandbase.ai/model/meshy/convert",
   "created_at": "2026-11-20T01:29:09.965Z"
 }

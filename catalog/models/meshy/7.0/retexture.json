@@ -126,29 +126,29 @@
   "pricing": {
     "currency": "USD",
     "model": "formula",
-    "formula": "(params.texture_resolution ?? \"2k\") == \"8k\" ? 0.5 : 0.33",
+    "formula": "(params.texture_resolution ?? \"2k\") == \"8k\" ? 0.6 : 0.4",
     "formula_variables": [
       "params.texture_resolution"
     ],
-    "reference_price": 0.33,
+    "reference_price": 0.4,
     "price_examples": [
       {
         "params": {
           "texture_resolution": "2k"
         },
-        "usd": 0.33
+        "usd": 0.4
       },
       {
         "params": {
           "texture_resolution": "4k"
         },
-        "usd": 0.33
+        "usd": 0.4
       },
       {
         "params": {
           "texture_resolution": "8k"
         },
-        "usd": 0.5
+        "usd": 0.6
       }
     ]
   },
@@ -168,7 +168,7 @@
       "default": true
     }
   ],
-  "readme": "# Meshy 7 Retexture\nMeshy 7 Retexture repaints an existing 3D model from a text or image style, with optional PBR maps and up to 8K textures.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | 3D model URL, required | — | .glb, .gltf, .obj, .fbx or .stl. |\n| `text_style_prompt` | string | — | Texture style, up to 600 characters. Required when `image_style_url` is not set. |\n| `image_style_url` | image URL | — | JPG or PNG style reference; takes precedence over the text prompt. |\n| `texture_resolution` | `2k` / `4k` / `8k` | `2k` | Base color resolution; 8k costs more and its PBR maps are 4k. |\n| `enable_pbr` | boolean | false | Also generate metallic, roughness and normal maps. |\n| `enable_original_uv` | boolean | true | Keep the model's UV layout. |\n## Billing\n$0.33 per retextured model at 2k or 4k, $0.50 at 8k; PBR maps are included.\n| Request | Price |\n|---|---|\n| 2k (default) | $0.33 |\n| 4k + PBR | $0.33 |\n| 8k | $0.50 |\nFailed runs are not charged.\n## Prompting\n- Name materials and finish, e.g. \"weathered bronze with green patina\".\n- Provide either `text_style_prompt` or `image_style_url`.\n## Also on SandBase\nOther retexture models: `meshy/6.0/retexture`, `meshy/6.0-lite/retexture`. Generate a model first with `meshy/7.1/text-to-3d` or `meshy/7.1/image-to-3d`.",
+  "readme": "# Meshy 7 Retexture\nMeshy 7 Retexture repaints an existing 3D model from a text or image style, with optional PBR maps and up to 8K textures.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | 3D model URL, required | — | .glb, .gltf, .obj, .fbx or .stl. |\n| `text_style_prompt` | string | — | Texture style, up to 600 characters. Required when `image_style_url` is not set. |\n| `image_style_url` | image URL | — | JPG or PNG style reference; takes precedence over the text prompt. |\n| `texture_resolution` | `2k` / `4k` / `8k` | `2k` | Base color resolution; 8k costs more and its PBR maps are 4k. |\n| `enable_pbr` | boolean | false | Also generate metallic, roughness and normal maps. |\n| `enable_original_uv` | boolean | true | Keep the model's UV layout. |\n## Billing\n$0.40 per retextured model at 2k or 4k, $0.60 at 8k; PBR maps are included.\n| Request | Price |\n|---|---|\n| 2k (default) | $0.40 |\n| 4k + PBR | $0.40 |\n| 8k | $0.60 |\nFailed runs are not charged.\n## Prompting\n- Name materials and finish, e.g. \"weathered bronze with green patina\".\n- Provide either `text_style_prompt` or `image_style_url`.\n## Also on SandBase\nOther retexture models: `meshy/6.0/retexture`, `meshy/6.0-lite/retexture`. Generate a model first with `meshy/7.1/text-to-3d` or `meshy/7.1/image-to-3d`.",
   "cover_url": "https://static.sandbase.ai/covers/meshy/7.0/retexture/cover-flare-20261022111610.webp",
   "page_url": "https://www.sandbase.ai/model/meshy/7.0/retexture",
   "published_at": "2026-10-15T11:03:57.683Z",

@@ -2,7 +2,7 @@
 
 `meshy/7.0/retexture` · image generation model · Meshy · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** from $0.33 to $0.5 per run, depending on parameters · **Modes:** async
+**Price:** from $0.4 to $0.6 per run, depending on parameters · **Modes:** async
 
 Meshy 7 Retexture repaints an existing 3D model from a text or image style, with optional PBR maps and up to 8K textures.
 
@@ -12,11 +12,11 @@ Meshy 7 Retexture repaints an existing 3D model from a text or image style, with
 
 | parameters | USD |
 |---|---|
-| texture_resolution="2k" | 0.33 |
-| texture_resolution="4k" | 0.33 |
-| texture_resolution="8k" | 0.5 |
+| texture_resolution="2k" | 0.4 |
+| texture_resolution="4k" | 0.4 |
+| texture_resolution="8k" | 0.6 |
 
-Formula: `(params.texture_resolution ?? "2k") == "8k" ? 0.5 : 0.33`
+Formula: `(params.texture_resolution ?? "2k") == "8k" ? 0.6 : 0.4`
 
 ## Call it
 
@@ -91,12 +91,12 @@ Meshy 7 Retexture repaints an existing 3D model from a text or image style, with
 | `enable_pbr` | boolean | false | Also generate metallic, roughness and normal maps. |
 | `enable_original_uv` | boolean | true | Keep the model's UV layout. |
 ### Billing
-$0.33 per retextured model at 2k or 4k, $0.50 at 8k; PBR maps are included.
+$0.40 per retextured model at 2k or 4k, $0.60 at 8k; PBR maps are included.
 | Request | Price |
 |---|---|
-| 2k (default) | $0.33 |
-| 4k + PBR | $0.33 |
-| 8k | $0.50 |
+| 2k (default) | $0.40 |
+| 4k + PBR | $0.40 |
+| 8k | $0.60 |
 Failed runs are not charged.
 ### Prompting
 - Name materials and finish, e.g. "weathered bronze with green patina".

@@ -1,6 +1,6 @@
 # SandBase capability index
 
-2796 capabilities · generated 2026-11-20T04:24:22Z
+2796 capabilities · generated 2026-11-20T08:25:15Z
 
 - [api](#api) (2247)
 - [audio](#audio) (32)
@@ -2389,16 +2389,16 @@
 | [`kwaivgi/kling-image/v4/long-image`](models/kwaivgi/kling-image/v4/long-image.md) | 0.235–0.8617 | async | Kling Image V4 Long Image by Kuaishou designs one complete ultra-tall image, such as an ecommerce product detail page… |
 | [`meshy/6.0-lite/image-to-3d`](models/meshy/6.0-lite/image-to-3d.md) | 0.2–0.92 | async | Meshy 6 Lite turns a single image into a 3D model at a lower price, with optional textures, PBR maps, humanoid rigging… |
 | [`meshy/6.0-lite/multi-image-to-3d`](models/meshy/6.0-lite/multi-image-to-3d.md) | 0.2–0.92 | async | Meshy 6 Lite turns 1–4 views of the same object into a 3D model at a lower price, with optional textures, PBR maps,… |
-| [`meshy/6.0-lite/retexture`](models/meshy/6.0-lite/retexture.md) | 0.36 / call | async | Meshy 6 Lite Retexture is the lower-cost Meshy retexturing model: repaint an existing 3D model from a text or image… |
+| [`meshy/6.0-lite/retexture`](models/meshy/6.0-lite/retexture.md) | 0.4 / call | async | Meshy 6 Lite Retexture is the lower-cost Meshy retexturing model: repaint an existing 3D model from a text or image… |
 | [`meshy/6.0-lite/text-to-3d`](models/meshy/6.0-lite/text-to-3d.md) | 0.2–0.92 | async | Meshy 6 Lite turns a text prompt into a 3D model at a lower price: a preview mesh, then textures, with optional… |
-| [`meshy/6.0/retexture`](models/meshy/6.0/retexture.md) | 0.33–0.5 | async | Meshy 6 Retexture repaints an existing 3D model from a text or image style, with optional PBR maps and up to 8K… |
+| [`meshy/6.0/retexture`](models/meshy/6.0/retexture.md) | 0.4–0.6 | async | Meshy 6 Retexture repaints an existing 3D model from a text or image style, with optional PBR maps and up to 8K… |
 | [`meshy/7.0/image-to-3d`](models/meshy/7.0/image-to-3d.md) | 0.8–1.72 | async | Meshy 7 turns a single image into a 3D model, with optional textures, PBR maps, 2K geometry, humanoid auto-rigging and… |
 | [`meshy/7.0/multi-image-to-3d`](models/meshy/7.0/multi-image-to-3d.md) | 0.8–1.72 | async | Meshy 7 reconstructs a 3D model from 1–4 views of the same object, with optional textures, PBR maps, 2K geometry,… |
-| [`meshy/7.0/retexture`](models/meshy/7.0/retexture.md) | 0.33–0.5 | async | Meshy 7 Retexture repaints an existing 3D model from a text or image style, with optional PBR maps and up to 8K… |
+| [`meshy/7.0/retexture`](models/meshy/7.0/retexture.md) | 0.4–0.6 | async | Meshy 7 Retexture repaints an existing 3D model from a text or image style, with optional PBR maps and up to 8K… |
 | [`meshy/7.0/text-to-3d`](models/meshy/7.0/text-to-3d.md) | 0.8–1.72 | async | Meshy 7 generates a 3D model from a text prompt, either as an untextured preview mesh or fully textured, with optional… |
-| [`meshy/7.1/image-to-3d`](models/meshy/7.1/image-to-3d.md) | 0.96–2.304 | async | Meshy 7.1 turns a single image into a textured, optionally rigged and animated 3D model. |
-| [`meshy/7.1/multi-image-to-3d`](models/meshy/7.1/multi-image-to-3d.md) | 0.96–2.064 | async | Meshy 7.1 reconstructs a textured, optionally rigged 3D model from 1–4 views of the same object. |
-| [`meshy/7.1/text-to-3d`](models/meshy/7.1/text-to-3d.md) | 1.44–2.304 | async | Meshy 7.1 generates a textured, optionally rigged and animated 3D model from a text prompt. |
+| [`meshy/7.1/image-to-3d`](models/meshy/7.1/image-to-3d.md) | 0.8–1.72 | async | Meshy 7.1 turns a single image into a textured, optionally rigged and animated 3D model. |
+| [`meshy/7.1/multi-image-to-3d`](models/meshy/7.1/multi-image-to-3d.md) | 0.8–1.72 | async | Meshy 7.1 reconstructs a textured, optionally rigged 3D model from 1–4 views of the same object. |
+| [`meshy/7.1/text-to-3d`](models/meshy/7.1/text-to-3d.md) | 1.2–1.72 | async | Meshy 7.1 generates a textured, optionally rigged and animated 3D model from a text prompt. |
 | [`meshy/convert`](models/meshy/convert.md) | 0.04 / call | async | Meshy Convert exports an existing 3D model to GLB, OBJ, FBX, STL, USDZ, BLEND or 3MF. |
 | [`meshy/meshy-v6`](models/meshy/meshy-v6.md) | 0.8–1.52 | async | Meshy 6 turns a single image into a 3D model, with optional textures, PBR maps, humanoid auto-rigging and animation. |
 | [`meshy/meshy-v6/multi-image-to-3d`](models/meshy/meshy-v6/multi-image-to-3d.md) | 0.8–1.52 | async | Meshy 6 reconstructs a 3D model from 1–4 views of the same object, with optional textures, PBR maps, auto-rigging and… |

@@ -2,7 +2,7 @@
 
 `meshy/7.1/image-to-3d` · image generation model · Meshy · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** from $0.96 to $2.304 per run, depending on parameters · **Modes:** async
+**Price:** from $0.8 to $1.72 per run, depending on parameters · **Modes:** async
 
 Meshy 7.1 turns a single image into a textured, optionally rigged and animated 3D model.
 
@@ -12,32 +12,32 @@ Meshy 7.1 turns a single image into a textured, optionally rigged and animated 3
 
 | parameters | USD |
 |---|---|
-| enable_animation=false, enable_rigging=false, geometry_resolution="standard", should_texture=false | 0.96 |
-| enable_animation=false, enable_rigging=false, geometry_resolution="standard", should_texture=true | 1.44 |
-| enable_animation=false, enable_rigging=false, geometry_resolution="2k", should_texture=false | 1.2 |
-| enable_animation=false, enable_rigging=false, geometry_resolution="2k", should_texture=true | 1.68 |
-| enable_animation=false, enable_rigging=false, geometry_resolution="4k", should_texture=false | 1.44 |
-| enable_animation=false, enable_rigging=false, geometry_resolution="4k", should_texture=true | 1.92 |
-| enable_animation=false, enable_rigging=true, geometry_resolution="standard", should_texture=false | 1.2 |
-| enable_animation=false, enable_rigging=true, geometry_resolution="standard", should_texture=true | 1.68 |
-| enable_animation=false, enable_rigging=true, geometry_resolution="2k", should_texture=false | 1.44 |
-| enable_animation=false, enable_rigging=true, geometry_resolution="2k", should_texture=true | 1.92 |
-| enable_animation=false, enable_rigging=true, geometry_resolution="4k", should_texture=false | 1.68 |
-| enable_animation=false, enable_rigging=true, geometry_resolution="4k", should_texture=true | 2.16 |
-| enable_animation=true, enable_rigging=false, geometry_resolution="standard", should_texture=false | 0.96 |
-| enable_animation=true, enable_rigging=false, geometry_resolution="standard", should_texture=true | 1.44 |
-| enable_animation=true, enable_rigging=false, geometry_resolution="2k", should_texture=false | 1.2 |
-| enable_animation=true, enable_rigging=false, geometry_resolution="2k", should_texture=true | 1.68 |
-| enable_animation=true, enable_rigging=false, geometry_resolution="4k", should_texture=false | 1.44 |
-| enable_animation=true, enable_rigging=false, geometry_resolution="4k", should_texture=true | 1.92 |
-| enable_animation=true, enable_rigging=true, geometry_resolution="standard", should_texture=false | 1.344 |
-| enable_animation=true, enable_rigging=true, geometry_resolution="standard", should_texture=true | 1.824 |
-| enable_animation=true, enable_rigging=true, geometry_resolution="2k", should_texture=false | 1.584 |
-| enable_animation=true, enable_rigging=true, geometry_resolution="2k", should_texture=true | 2.064 |
-| enable_animation=true, enable_rigging=true, geometry_resolution="4k", should_texture=false | 1.824 |
-| enable_animation=true, enable_rigging=true, geometry_resolution="4k", should_texture=true | 2.304 |
+| enable_animation=false, enable_rigging=false, geometry_resolution="standard", should_texture=false | 0.8 |
+| enable_animation=false, enable_rigging=false, geometry_resolution="standard", should_texture=true | 1.2 |
+| enable_animation=false, enable_rigging=false, geometry_resolution="2k", should_texture=false | 1 |
+| enable_animation=false, enable_rigging=false, geometry_resolution="2k", should_texture=true | 1.4 |
+| enable_animation=false, enable_rigging=false, geometry_resolution="4k", should_texture=false | 1 |
+| enable_animation=false, enable_rigging=false, geometry_resolution="4k", should_texture=true | 1.4 |
+| enable_animation=false, enable_rigging=true, geometry_resolution="standard", should_texture=false | 1 |
+| enable_animation=false, enable_rigging=true, geometry_resolution="standard", should_texture=true | 1.4 |
+| enable_animation=false, enable_rigging=true, geometry_resolution="2k", should_texture=false | 1.2 |
+| enable_animation=false, enable_rigging=true, geometry_resolution="2k", should_texture=true | 1.6 |
+| enable_animation=false, enable_rigging=true, geometry_resolution="4k", should_texture=false | 1.2 |
+| enable_animation=false, enable_rigging=true, geometry_resolution="4k", should_texture=true | 1.6 |
+| enable_animation=true, enable_rigging=false, geometry_resolution="standard", should_texture=false | 1.12 |
+| enable_animation=true, enable_rigging=false, geometry_resolution="standard", should_texture=true | 1.52 |
+| enable_animation=true, enable_rigging=false, geometry_resolution="2k", should_texture=false | 1.32 |
+| enable_animation=true, enable_rigging=false, geometry_resolution="2k", should_texture=true | 1.72 |
+| enable_animation=true, enable_rigging=false, geometry_resolution="4k", should_texture=false | 1.32 |
+| enable_animation=true, enable_rigging=false, geometry_resolution="4k", should_texture=true | 1.72 |
+| enable_animation=true, enable_rigging=true, geometry_resolution="standard", should_texture=false | 1.12 |
+| enable_animation=true, enable_rigging=true, geometry_resolution="standard", should_texture=true | 1.52 |
+| enable_animation=true, enable_rigging=true, geometry_resolution="2k", should_texture=false | 1.32 |
+| enable_animation=true, enable_rigging=true, geometry_resolution="2k", should_texture=true | 1.72 |
+| enable_animation=true, enable_rigging=true, geometry_resolution="4k", should_texture=false | 1.32 |
+| enable_animation=true, enable_rigging=true, geometry_resolution="4k", should_texture=true | 1.72 |
 
-Formula: `((params.should_texture ?? true) ? 1.44 : 0.96) + ((params.geometry_resolution ?? "standard") == "4k" ? 0.48 : (params.geometry_resolution ?? "standard") == "2k" ? 0.24 : 0.0) + ((params.enable_rigging ?? false) ? 0.24 : 0.0) + ((params.enable_rigging ?? false) && (params.enable_animation ?? false) ? 0.144 : 0.0)`
+Formula: `((params.should_texture ?? true) ? 1.2 : 0.8) + ((params.geometry_resolution ?? "standard") != "standard" ? 0.2 : 0.0) + (((params.enable_rigging ?? false) || (params.enable_animation ?? false)) ? 0.2 : 0.0) + ((params.enable_animation ?? false) ? 0.12 : 0.0)`
 
 ## Call it
 
@@ -127,18 +127,14 @@ Meshy 7.1 turns a single image into a textured 3D model, optionally rigged and a
 | `texture_image` | image URL | — | Optional texture reference image. |
 
 ### Billing
-
-$1.44 per textured model ($0.96 untextured); 2K geometry adds $0.24 and 4K adds $0.48; rigging adds $0.24 and animation another $0.144.
-
+$1.20 per textured model ($0.80 untextured); 2K or 4K geometry adds $0.20; rigging adds $0.20 and animation (includes rigging) another $0.12.
 | Request | Price |
 |---|---|
-| Textured | $1.44 |
-| Untextured | $0.96 |
-| Textured, 2K geometry | $1.68 |
-| Textured + rig + animation | $1.824 |
-
+| Textured | $1.20 |
+| Untextured | $0.80 |
+| Textured, 2K or 4K geometry | $1.40 |
+| Textured + rig + animation | $1.52 |
 Failed runs are not charged.
-
 ### Prompting
 
 - Describe or show one object; plain backgrounds work best.

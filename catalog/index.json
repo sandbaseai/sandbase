@@ -1,6 +1,6 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-20T04:24:22Z",
+ "generated_at": "2026-11-20T08:25:15Z",
  "base_url": "https://api.sandbase.ai",
  "count": 2796,
  "counts_by_type": {
@@ -49303,7 +49303,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.36
+    "usd_per_call": 0.4
    },
    "record": "catalog/models/meshy/6.0-lite/retexture.json"
   },
@@ -49342,8 +49342,8 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_from": 0.33,
-    "usd_to": 0.5
+    "usd_from": 0.4,
+    "usd_to": 0.6
    },
    "record": "catalog/models/meshy/6.0/retexture.json"
   },
@@ -49402,8 +49402,8 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_from": 0.33,
-    "usd_to": 0.5
+    "usd_from": 0.4,
+    "usd_to": 0.6
    },
    "record": "catalog/models/meshy/7.0/retexture.json"
   },
@@ -49442,8 +49442,8 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_from": 0.96,
-    "usd_to": 2.304
+    "usd_from": 0.8,
+    "usd_to": 1.72
    },
    "record": "catalog/models/meshy/7.1/image-to-3d.json"
   },
@@ -49462,8 +49462,8 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_from": 0.96,
-    "usd_to": 2.064
+    "usd_from": 0.8,
+    "usd_to": 1.72
    },
    "record": "catalog/models/meshy/7.1/multi-image-to-3d.json"
   },
@@ -49482,8 +49482,8 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_from": 1.44,
-    "usd_to": 2.304
+    "usd_from": 1.2,
+    "usd_to": 1.72
    },
    "record": "catalog/models/meshy/7.1/text-to-3d.json"
   },
