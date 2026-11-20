@@ -1,0 +1,128 @@
+{
+  "name": "meshy/resize",
+  "display_name": "Meshy Resize",
+  "type": "image",
+  "vendor": "Meshy",
+  "vendor_slug": "meshy",
+  "description": "Meshy Resize scales an existing 3D model to a real-world height or longest side, or estimates the size automatically.",
+  "tags": [
+    "3d-to-3d"
+  ],
+  "capabilities": [
+    "3d-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "model_url"
+    ],
+    "properties": {
+      "auto_size": {
+        "type": "boolean",
+        "title": "Auto Size",
+        "default": false,
+        "description": "Estimate the object's real-world size and scale the model to it."
+      },
+      "model_url": {
+        "type": "string",
+        "title": "Model URL",
+        "examples": [
+          "https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb"
+        ],
+        "description": "URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI."
+      },
+      "origin_at": {
+        "enum": [
+          "bottom",
+          "center"
+        ],
+        "type": "string",
+        "title": "Origin",
+        "default": "bottom",
+        "description": "Where to place the model origin."
+      },
+      "resize_height": {
+        "type": "number",
+        "title": "Height (m)",
+        "minimum": 0,
+        "description": "Target height in meters. Send exactly one of resize_height, resize_longest_side or auto_size."
+      },
+      "resize_longest_side": {
+        "type": "number",
+        "title": "Longest Side (m)",
+        "minimum": 0,
+        "description": "Target length of the longest side in meters."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.04
+  },
+  "readme": "# Meshy Resize\nMeshy Resize scales an existing 3D model to a real-world height or longest side, or estimates the size automatically.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI. |\n| `resize_height` | number 0– | — | Target height in meters. Send exactly one of resize_height, resize_longest_side or auto_size. |\n| `resize_longest_side` | number 0– | — | Target length of the longest side in meters. |\n| `auto_size` | boolean | `false` | Estimate the object's real-world size and scale the model to it. |\n| `origin_at` | `bottom` / `center` | `\"bottom\"` | Where to place the model origin. |\n## Output\n- `url`: Resized GLB.\n## Billing\n$0.04 per model.\n",
+  "page_url": "https://www.sandbase.ai/model/meshy/resize",
+  "created_at": "2026-11-20T01:30:29.819Z"
+}

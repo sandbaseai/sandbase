@@ -1,0 +1,100 @@
+{
+  "name": "meshy/uv-unwrap",
+  "display_name": "Meshy UV Unwrap",
+  "type": "image",
+  "vendor": "Meshy",
+  "vendor_slug": "meshy",
+  "description": "Meshy UV Unwrap creates a clean UV layout for an existing 3D model before texturing.",
+  "tags": [
+    "3d-to-3d"
+  ],
+  "capabilities": [
+    "3d-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "model_url"
+    ],
+    "properties": {
+      "model_url": {
+        "type": "string",
+        "title": "Model URL",
+        "examples": [
+          "https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb"
+        ],
+        "description": "URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.2
+  },
+  "readme": "# Meshy UV Unwrap\nMeshy UV Unwrap creates a clean UV layout for an existing 3D model before texturing.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI. |\n## Output\n- `url`: GLB with new UVs.\n- `thumbnail`: Preview image.\n## Billing\n$0.20 per model. The mesh can have at most 40,000 faces.\n",
+  "page_url": "https://www.sandbase.ai/model/meshy/uv-unwrap",
+  "created_at": "2026-11-20T01:31:44.508Z"
+}

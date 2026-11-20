@@ -103,7 +103,7 @@ TypeScript 和 Go 的用法一样，见 [`sdk/typescript`](sdk/typescript) 和 [
 <!-- inside:zh -->
 | | 数量 | 包括 |
 |---|---|---|
-| **AI 模型** | 500+ | LLM 100+、视频 200+、图像 150+、音频 30+：Alibaba, Google, OpenAI, Kling, ByteDance, MiniMax, Tencent, Black Forest Labs 等 |
+| **AI 模型** | 500+ | LLM 100+、视频 200+、图像 150+、音频 30+：Alibaba, Google, OpenAI, Kling, ByteDance, Meshy, MiniMax, Tencent 等 |
 | 社媒与内容 | 1,200+ | Douyin, TikTok, Instagram, Xiaohongshu, Weibo, YouTube, Zhihu, Bilibili, Kuaishou, LinkedIn 等 |
 | 搜索、SEO 与网页数据 | 250+ | DataForSEO, Ahrefs, Google, Similarweb, Brave, Bing, DuckDuckGo, Firecrawl, Artificial Analysis, arXiv 等 |
 | 电商、应用与点评 | 150+ | 1688, Amazon, GetApp, Temu, Google Maps, Taobao, TikTok Shop, Clutch, Google Play, JD.com 等 |

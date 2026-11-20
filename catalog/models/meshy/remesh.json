@@ -1,0 +1,133 @@
+{
+  "name": "meshy/remesh",
+  "display_name": "Meshy Remesh",
+  "type": "image",
+  "vendor": "Meshy",
+  "vendor_slug": "meshy",
+  "description": "Meshy Remesh rebuilds an existing 3D model at a target face count, as triangles or quads.",
+  "tags": [
+    "3d-to-3d"
+  ],
+  "capabilities": [
+    "3d-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "model_url"
+    ],
+    "properties": {
+      "topology": {
+        "enum": [
+          "triangle",
+          "quad"
+        ],
+        "type": "string",
+        "title": "Topology",
+        "default": "triangle",
+        "description": "Output face type."
+      },
+      "auto_size": {
+        "type": "boolean",
+        "title": "Auto Size",
+        "default": false,
+        "description": "Estimate the object's real-world size and scale the model to it."
+      },
+      "model_url": {
+        "type": "string",
+        "title": "Model URL",
+        "examples": [
+          "https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb"
+        ],
+        "description": "URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI."
+      },
+      "origin_at": {
+        "enum": [
+          "bottom",
+          "center"
+        ],
+        "type": "string",
+        "title": "Origin",
+        "description": "Where to place the model origin."
+      },
+      "target_polycount": {
+        "type": "integer",
+        "title": "Target Polycount",
+        "default": 30000,
+        "maximum": 300000,
+        "minimum": 100,
+        "description": "Target number of faces; the result can differ."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.2
+  },
+  "readme": "# Meshy Remesh\nMeshy Remesh rebuilds an existing 3D model at a target face count, as triangles or quads.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI. |\n| `topology` | `triangle` / `quad` | `\"triangle\"` | Output face type. |\n| `target_polycount` | integer 100–300000 | `30000` | Target number of faces; the result can differ. |\n| `auto_size` | boolean | `false` | Estimate the object's real-world size and scale the model to it. |\n| `origin_at` | `bottom` / `center` | — | Where to place the model origin. |\n## Output\n- `url`: Remeshed GLB.\n- `thumbnail`: Preview image.\n## Billing\n$0.20 per model.\n",
+  "page_url": "https://www.sandbase.ai/model/meshy/remesh",
+  "created_at": "2026-11-20T01:26:12.107Z"
+}

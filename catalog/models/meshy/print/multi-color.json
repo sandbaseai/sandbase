@@ -1,0 +1,143 @@
+{
+  "name": "meshy/print/multi-color",
+  "display_name": "Meshy Multi-Color Print",
+  "type": "image",
+  "vendor": "Meshy",
+  "vendor_slug": "meshy",
+  "description": "Meshy Multi-Color Print turns a textured 3D model into color regions and returns a 3MF ready for a multi-color slicer.",
+  "tags": [
+    "3d-to-3d"
+  ],
+  "capabilities": [
+    "3d-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "model_url"
+    ],
+    "properties": {
+      "style": {
+        "enum": [
+          "realistic",
+          "cartoon"
+        ],
+        "type": "string",
+        "title": "Style",
+        "default": "realistic",
+        "description": "Color-region style."
+      },
+      "max_depth": {
+        "type": "integer",
+        "title": "Detail Depth",
+        "default": 4,
+        "maximum": 6,
+        "minimum": 3,
+        "description": "Color detail depth (realistic style only)."
+      },
+      "model_url": {
+        "type": "string",
+        "title": "Model URL",
+        "examples": [
+          "https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb"
+        ],
+        "description": "URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI."
+      },
+      "max_colors": {
+        "type": "integer",
+        "title": "Max Colors",
+        "default": 4,
+        "maximum": 16,
+        "minimum": 1,
+        "description": "Maximum number of colors."
+      },
+      "printer_brand": {
+        "enum": [
+          "bambu",
+          "anycubic",
+          "creality",
+          "flashforge",
+          "snapmaker",
+          "elegoo",
+          "prusa",
+          "qidi",
+          "ankermake"
+        ],
+        "type": "string",
+        "title": "Printer Brand",
+        "default": "bambu",
+        "description": "Slicer preset written into the 3MF."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.4
+  },
+  "readme": "# Meshy Multi-Color Print\nMeshy Multi-Color Print turns a textured 3D model into color regions and returns a 3MF ready for a multi-color slicer.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI. |\n| `style` | `realistic` / `cartoon` | `\"realistic\"` | Color-region style. |\n| `max_colors` | integer 1–16 | `4` | Maximum number of colors. |\n| `max_depth` | integer 3–6 | `4` | Color detail depth (realistic style only). |\n| `printer_brand` | `bambu` / `anycubic` / `creality` / `flashforge` / `snapmaker` / `elegoo` / `prusa` / `qidi` / `ankermake` | `\"bambu\"` | Slicer preset written into the 3MF. |\n## Output\n- `url`: Multi-color 3MF.\n## Billing\n$0.40 per model.\n",
+  "page_url": "https://www.sandbase.ai/model/meshy/print/multi-color",
+  "created_at": "2026-11-20T01:32:47.814Z"
+}

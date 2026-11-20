@@ -25,6 +25,7 @@
 | [Reddit](reddit.md) | 35 | data API |
 | [Bytedance](bytedance.md) | 33 | LLM, audio model, image generation model, video generation model |
 | [X (Twitter)](x-twitter.md) | 30 | data API |
+| [Meshy](meshy.md) | 29 | image generation model |
 | [Facebook](facebook.md) | 28 | data API |
 | [MiniMax](minimax.md) | 27 | audio model, image generation model, video generation model |
 | [Tencent](tencent.md) | 26 | LLM, image generation model, video generation model |
@@ -33,7 +34,6 @@
 | [BFL](bfl.md) | 22 | image generation model, video generation model |
 | [CoinGecko](coingecko.md) | 22 | data API |
 | [WeChat Channels](wechat-channels.md) | 22 | data API |
-| [Meshy](meshy.md) | 20 | image generation model |
 | [xAI](xai.md) | 20 | LLM, audio model, image generation model, video generation model |
 | [Semrush](semrush.md) | 19 | data API |
 | [WeChat MP](wechat-mp.md) | 18 | data API |

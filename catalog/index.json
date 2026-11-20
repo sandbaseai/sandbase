@@ -1,12 +1,12 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-20T00:39:16Z",
+ "generated_at": "2026-11-20T04:24:22Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2787,
+ "count": 2796,
  "counts_by_type": {
   "api": 2247,
   "video": 200,
-  "image": 174,
+  "image": 183,
   "llm": 132,
   "audio": 32,
   "embedding": 2
@@ -49249,6 +49249,46 @@
    "record": "catalog/models/kwaivgi/kling-image/v4/long-image.json"
   },
   {
+   "name": "meshy/6.0-lite/image-to-3d",
+   "display_name": "Meshy 6 Lite Image to 3D",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy 6 Lite turns a single image into a 3D model at a lower price, with optional textures, PBR maps, humanoid rigging and animation.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.2,
+    "usd_to": 0.92
+   },
+   "record": "catalog/models/meshy/6.0-lite/image-to-3d.json"
+  },
+  {
+   "name": "meshy/6.0-lite/multi-image-to-3d",
+   "display_name": "Meshy 6 Lite Multi-Image to 3D",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy 6 Lite turns 1–4 views of the same object into a 3D model at a lower price, with optional textures, PBR maps, humanoid rigging and animation.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.2,
+    "usd_to": 0.92
+   },
+   "record": "catalog/models/meshy/6.0-lite/multi-image-to-3d.json"
+  },
+  {
    "name": "meshy/6.0-lite/retexture",
    "display_name": "Meshy 6 Lite Retexture",
    "type": "image",
@@ -49266,6 +49306,26 @@
     "usd_per_call": 0.36
    },
    "record": "catalog/models/meshy/6.0-lite/retexture.json"
+  },
+  {
+   "name": "meshy/6.0-lite/text-to-3d",
+   "display_name": "Meshy 6 Lite Text to 3D",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy 6 Lite turns a text prompt into a 3D model at a lower price: a preview mesh, then textures, with optional humanoid rigging and animation.",
+   "tags": [
+    "text-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.2,
+    "usd_to": 0.92
+   },
+   "record": "catalog/models/meshy/6.0-lite/text-to-3d.json"
   },
   {
    "name": "meshy/6.0/retexture",
@@ -49428,6 +49488,25 @@
    "record": "catalog/models/meshy/7.1/text-to-3d.json"
   },
   {
+   "name": "meshy/convert",
+   "display_name": "Meshy Convert",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy Convert exports an existing 3D model to GLB, OBJ, FBX, STL, USDZ, BLEND or 3MF.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.04
+   },
+   "record": "catalog/models/meshy/convert.json"
+  },
+  {
    "name": "meshy/meshy-v6",
    "display_name": "Meshy 6 Image to 3D",
    "type": "image",
@@ -49507,6 +49586,44 @@
    "record": "catalog/models/meshy/n1/retexture.json"
   },
   {
+   "name": "meshy/print/multi-color",
+   "display_name": "Meshy Multi-Color Print",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy Multi-Color Print turns a textured 3D model into color regions and returns a 3MF ready for a multi-color slicer.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.4
+   },
+   "record": "catalog/models/meshy/print/multi-color.json"
+  },
+  {
+   "name": "meshy/print/repair",
+   "display_name": "Meshy Print Repair",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy Print Repair fixes holes, non-manifold geometry and thin walls so a 3D model can be printed.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.4
+   },
+   "record": "catalog/models/meshy/print/repair.json"
+  },
+  {
    "name": "meshy/relief",
    "display_name": "Meshy Relief",
    "type": "image",
@@ -49524,6 +49641,44 @@
     "usd_per_call": 0.8
    },
    "record": "catalog/models/meshy/relief.json"
+  },
+  {
+   "name": "meshy/remesh",
+   "display_name": "Meshy Remesh",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy Remesh rebuilds an existing 3D model at a target face count, as triangles or quads.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.2
+   },
+   "record": "catalog/models/meshy/remesh.json"
+  },
+  {
+   "name": "meshy/resize",
+   "display_name": "Meshy Resize",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy Resize scales an existing 3D model to a real-world height or longest side, or estimates the size automatically.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.04
+   },
+   "record": "catalog/models/meshy/resize.json"
   },
   {
    "name": "meshy/rigging",
@@ -49644,6 +49799,25 @@
     "usd_to": 0.92
    },
    "record": "catalog/models/meshy/t2/text-to-3d.json"
+  },
+  {
+   "name": "meshy/uv-unwrap",
+   "display_name": "Meshy UV Unwrap",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy UV Unwrap creates a clean UV layout for an existing 3D model before texturing.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.2
+   },
+   "record": "catalog/models/meshy/uv-unwrap.json"
   },
   {
    "name": "meta/sam-3/3d-align",

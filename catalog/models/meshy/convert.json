@@ -1,0 +1,115 @@
+{
+  "name": "meshy/convert",
+  "display_name": "Meshy Convert",
+  "type": "image",
+  "vendor": "Meshy",
+  "vendor_slug": "meshy",
+  "description": "Meshy Convert exports an existing 3D model to GLB, OBJ, FBX, STL, USDZ, BLEND or 3MF.",
+  "tags": [
+    "3d-to-3d"
+  ],
+  "capabilities": [
+    "3d-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "model_url"
+    ],
+    "properties": {
+      "format": {
+        "enum": [
+          "glb",
+          "obj",
+          "fbx",
+          "stl",
+          "usdz",
+          "blend",
+          "3mf"
+        ],
+        "type": "string",
+        "title": "Format",
+        "default": "fbx",
+        "description": "Output file format."
+      },
+      "model_url": {
+        "type": "string",
+        "title": "Model URL",
+        "examples": [
+          "https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb"
+        ],
+        "description": "URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.04
+  },
+  "readme": "# Meshy Convert\nMeshy Convert exports an existing 3D model to GLB, OBJ, FBX, STL, USDZ, BLEND or 3MF.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI. |\n| `format` | `glb` / `obj` / `fbx` / `stl` / `usdz` / `blend` / `3mf` | `\"fbx\"` | Output file format. |\n## Output\n- `url`: The converted model file.\n## Billing\n$0.04 per conversion.\n",
+  "page_url": "https://www.sandbase.ai/model/meshy/convert",
+  "created_at": "2026-11-20T01:29:09.965Z"
+}
