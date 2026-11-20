@@ -1,0 +1,148 @@
+{
+  "name": "meshy/creative-lab/lamp",
+  "display_name": "Meshy Creative Lab Lamp",
+  "type": "image",
+  "vendor": "Meshy",
+  "vendor_slug": "meshy",
+  "description": "Turns a photo into a 3D-printable lithophane-style lampshade and base.",
+  "tags": [
+    "image-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "description": "Photo of the subject, as an image URL or base64 data URI (JPG, PNG or WebP)."
+      },
+      "diameter_mm": {
+        "type": "number",
+        "title": "Diameter (mm)",
+        "default": 150,
+        "maximum": 300,
+        "minimum": 60,
+        "description": "Lampshade diameter in millimeters."
+      },
+      "image_subject": {
+        "enum": [
+          "character",
+          "landscape"
+        ],
+        "type": "string",
+        "title": "Subject",
+        "default": "character",
+        "description": "What the photo shows."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 1.44
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/c9277bb5-737d-4841-ae51-081e673853b4/input/17cb6678-9426-4af9-acdb-7224fad2a3dd.jpg"
+      },
+      "output": [
+        {
+          "base_stl": "https://static.sandbase.ai/examples/c9277bb5-737d-4841-ae51-081e673853b4/output/8dbf1ead-995a-4c11-82f1-1245adb72d4f.stl",
+          "lamp_stl": "https://static.sandbase.ai/examples/c9277bb5-737d-4841-ae51-081e673853b4/output/e4b60767-9e6a-46e2-bc30-3e3c982e81df.stl",
+          "poster": "https://static.sandbase.ai/examples/c9277bb5-737d-4841-ae51-081e673853b4/output/aced9428-7912-4b73-8ba1-a560bbf49543.png",
+          "thumbnail": "https://static.sandbase.ai/examples/c9277bb5-737d-4841-ae51-081e673853b4/output/aced9428-7912-4b73-8ba1-a560bbf49543.png",
+          "url": "https://static.sandbase.ai/examples/c9277bb5-737d-4841-ae51-081e673853b4/output/f879dcdf-0018-4887-bd5f-015b1ea266bb.glb"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/db88490a-1941-4d66-8147-f7ba989450b7/input/99134f3a-e349-4682-98f8-3b75c759222b.jpg",
+        "image_subject": "landscape"
+      },
+      "output": [
+        {
+          "base_stl": "https://static.sandbase.ai/examples/db88490a-1941-4d66-8147-f7ba989450b7/output/7936887d-51c2-4ce1-8bbc-03d032fca4af.stl",
+          "lamp_stl": "https://static.sandbase.ai/examples/db88490a-1941-4d66-8147-f7ba989450b7/output/1e1eec34-e24c-40c8-b533-0b5422b05f4f.stl",
+          "poster": "https://static.sandbase.ai/examples/db88490a-1941-4d66-8147-f7ba989450b7/output/73ad3868-6f28-4d10-a265-df3c92e308f6.png",
+          "thumbnail": "https://static.sandbase.ai/examples/db88490a-1941-4d66-8147-f7ba989450b7/output/73ad3868-6f28-4d10-a265-df3c92e308f6.png",
+          "url": "https://static.sandbase.ai/examples/db88490a-1941-4d66-8147-f7ba989450b7/output/f2d3b844-4b24-4af7-a47b-2b7736d7e669.glb"
+        }
+      ]
+    }
+  ],
+  "readme": "# Meshy Creative Lab Lamp\nTurns a photo into a 3D-printable lithophane-style lampshade and base.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | string, required | — | Photo of the subject, as an image URL or base64 data URI (JPG, PNG or WebP). |\n| `image_subject` | `character` / `landscape` | `\"character\"` | What the photo shows. |\n| `diameter_mm` | number 60–300 | `150` | Lampshade diameter in millimeters. |\n## Output\n- `url`: Lampshade preview GLB.\n- `lamp_stl`: Lampshade STL.\n- `base_stl`: Base STL.\n- `thumbnail`: Preview image.\n## Billing\n$1.44 per object (concept image + 3D build).\n",
+  "cover_url": "https://static.sandbase.ai/covers/meshy/creative-lab/lamp/cover-flare-20261120181036.webp",
+  "page_url": "https://www.sandbase.ai/model/meshy/creative-lab/lamp",
+  "created_at": "2026-11-20T09:37:32.876Z"
+}

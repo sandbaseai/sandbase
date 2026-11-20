@@ -246,6 +246,34 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/d324d6bd-de63-48bc-aa2c-3878d72ef6c2/input/5cde95a4-2e7d-4dfb-a1ff-5ea4277fd765.png"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/d324d6bd-de63-48bc-aa2c-3878d72ef6c2/output/e1fb442d-6182-4b7b-b3d5-1765aec4edfd.png",
+          "thumbnail": "https://static.sandbase.ai/examples/d324d6bd-de63-48bc-aa2c-3878d72ef6c2/output/e1fb442d-6182-4b7b-b3d5-1765aec4edfd.png",
+          "url": "https://static.sandbase.ai/examples/d324d6bd-de63-48bc-aa2c-3878d72ef6c2/output/ed61348d-c040-4d93-abb6-c972ba85b17b.glb"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/df9630d9-64f4-4b2b-bf16-f33be224158e/input/52d820a3-41a9-476b-b43e-0c61179adc25.png",
+        "should_texture": false
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/df9630d9-64f4-4b2b-bf16-f33be224158e/output/4758cad2-8b42-47c1-8a19-1a486e08fd5a.png",
+          "thumbnail": "https://static.sandbase.ai/examples/df9630d9-64f4-4b2b-bf16-f33be224158e/output/4758cad2-8b42-47c1-8a19-1a486e08fd5a.png",
+          "url": "https://static.sandbase.ai/examples/df9630d9-64f4-4b2b-bf16-f33be224158e/output/05b12082-2d1b-4471-8367-e67f80012fc3.glb"
+        }
+      ]
+    }
+  ],
   "readme": "# Meshy 6 Lite Image to 3D\nMeshy 6 Lite turns a single image into a 3D model at a lower price, with optional textures, PBR maps, humanoid rigging and animation.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | string, required | — | Image URL or base64 data URI of the object. Supports .jpg, .jpeg and .png; AVIF and HEIF are converted automatically. |\n| `topology` | `quad` / `triangle` | `\"triangle\"` | quad for smooth surfaces, triangle for detail. |\n| `pose_mode` | `a-pose` / `t-pose` / `` | `\"\"` | Generate the character in an A-pose or T-pose; empty for no specific pose. |\n| `enable_pbr` | boolean | `false` | Generate PBR maps (metallic, roughness, normal) in addition to base color. |\n| `symmetry_mode` | `off` / `auto` / `on` | `\"auto\"` | Symmetry enforcement: off, auto or on. |\n| `texture_image` | string | — | Image URL to guide texturing. |\n| `enable_rigging` | boolean | `false` | Rig the model as a humanoid character. The rigged GLB is returned as rigged_glb. |\n| `should_texture` | boolean | `true` | Generate textures. Untextured meshes cost less. |\n| `texture_prompt` | string | — | Text prompt to guide texturing. Maximum 800 characters. |\n| `enable_animation` | boolean | `false` | Apply an animation preset to the rigged character (billed together with rigging). The animated GLB is returned as animation_glb. |\n| `target_polycount` | integer 100–300000 | `30000` | Target polygon count (100–300,000). |\n| `animation_action_id` | integer 0–696 | `92` | Animation preset ID from Meshy's animation library (0 is Idle). Only used when animation is enabled. |\n## Output\n- `url`: GLB model.\n- `thumbnail`: Preview image.\n- `rigged_glb`: Rigged character (when rigging is enabled).\n- `animation_glb`: Animated character (when animation is enabled).\n## Billing\n$0.60 per textured model, $0.20 untextured (text-to-3d: `generation_mode=preview`). Rigging adds $0.20; animation adds $0.12 on top of rigging.\n",
   "cover_url": "https://static.sandbase.ai/covers/meshy/6.0-lite/image-to-3d/cover-flare-20261120161201.webp",
   "page_url": "https://www.sandbase.ai/model/meshy/6.0-lite/image-to-3d",

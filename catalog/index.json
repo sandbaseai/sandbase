@@ -1,12 +1,12 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-20T08:25:15Z",
+ "generated_at": "2026-11-20T12:27:20Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2796,
+ "count": 2807,
  "counts_by_type": {
   "api": 2247,
   "video": 200,
-  "image": 183,
+  "image": 194,
   "llm": 132,
   "audio": 32,
   "embedding": 2
@@ -49507,6 +49507,177 @@
    "record": "catalog/models/meshy/convert.json"
   },
   {
+   "name": "meshy/creative-lab/brick-figure",
+   "display_name": "Meshy Creative Lab Brick Figure",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Turns a photo into a textured brick-style minifigure.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 1.44
+   },
+   "record": "catalog/models/meshy/creative-lab/brick-figure.json"
+  },
+  {
+   "name": "meshy/creative-lab/fidget-collapsible",
+   "display_name": "Meshy Creative Lab Collapsible Fidget",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Turns a photo into a print-in-place collapsible fidget toy.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.24
+   },
+   "record": "catalog/models/meshy/creative-lab/fidget-collapsible.json"
+  },
+  {
+   "name": "meshy/creative-lab/fidget-pixel",
+   "display_name": "Meshy Creative Lab Fidget Pixel",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Turns a photo into a multi-color pixel-art fidget board, returned as a 3MF.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 1.44
+   },
+   "record": "catalog/models/meshy/creative-lab/fidget-pixel.json"
+  },
+  {
+   "name": "meshy/creative-lab/figure",
+   "display_name": "Meshy Creative Lab Figure",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Turns a photo into a textured chibi-style figurine.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 1.44
+   },
+   "record": "catalog/models/meshy/creative-lab/figure.json"
+  },
+  {
+   "name": "meshy/creative-lab/fridge-magnet",
+   "display_name": "Meshy Creative Lab Fridge Magnet",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Turns a photo into a colorized relief fridge magnet ready to 3D print.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 1.44
+   },
+   "record": "catalog/models/meshy/creative-lab/fridge-magnet.json"
+  },
+  {
+   "name": "meshy/creative-lab/keycap",
+   "display_name": "Meshy Creative Lab Keycap",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Turns a photo into a full-color custom mechanical keyboard keycap (Cherry MX 1u by default).",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 2.48
+   },
+   "record": "catalog/models/meshy/creative-lab/keycap.json"
+  },
+  {
+   "name": "meshy/creative-lab/keychain",
+   "display_name": "Meshy Creative Lab Keychain",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Turns a photo into a 3D-printable keychain medallion, optionally with a name on its face.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 1.44
+   },
+   "record": "catalog/models/meshy/creative-lab/keychain.json"
+  },
+  {
+   "name": "meshy/creative-lab/lamp",
+   "display_name": "Meshy Creative Lab Lamp",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Turns a photo into a 3D-printable lithophane-style lampshade and base.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 1.44
+   },
+   "record": "catalog/models/meshy/creative-lab/lamp.json"
+  },
+  {
+   "name": "meshy/creative-lab/vinyl-figure",
+   "display_name": "Meshy Creative Lab Vinyl Figure",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Turns a photo into a textured big-head vinyl collectible figure.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 1.44
+   },
+   "record": "catalog/models/meshy/creative-lab/vinyl-figure.json"
+  },
+  {
    "name": "meshy/meshy-v6",
    "display_name": "Meshy 6 Image to 3D",
    "type": "image",
@@ -49584,6 +49755,25 @@
     "usd_per_call": 0.4
    },
    "record": "catalog/models/meshy/n1/retexture.json"
+  },
+  {
+   "name": "meshy/print/analyze",
+   "display_name": "Meshy Analyze Printability",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy Analyze Printability checks a 3D model for watertightness, holes, non-manifold edges, degenerate faces and thin walls before printing.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "free",
+    "usd_per_call": 0
+   },
+   "record": "catalog/models/meshy/print/analyze.json"
   },
   {
    "name": "meshy/print/multi-color",
@@ -49799,6 +49989,26 @@
     "usd_to": 0.92
    },
    "record": "catalog/models/meshy/t2/text-to-3d.json"
+  },
+  {
+   "name": "meshy/text-to-motion",
+   "display_name": "Meshy Text to Motion",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy Text to Motion generates a standalone character motion clip from a text prompt, as FBX (prime) or BVH (swift).",
+   "tags": [
+    "text-to-motion"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.12,
+    "usd_to": 0.4
+   },
+   "record": "catalog/models/meshy/text-to-motion.json"
   },
   {
    "name": "meshy/uv-unwrap",

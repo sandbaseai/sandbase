@@ -19,7 +19,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "meshy/uv-unwrap", "model_url": "https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb"}'
+  -d '{"model": "meshy/uv-unwrap", "model_url": "https://static.sandbase.ai/examples/972f9ac7-cc4c-4437-9a83-ac90c09aa574/input/762be529-02f3-431d-857c-ec32f3115a40.glb"}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('meshy/uv-unwrap', {'model_url': 'https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb'})
+result = SandBase().run('meshy/uv-unwrap', {'model_url': 'https://static.sandbase.ai/examples/972f9ac7-cc4c-4437-9a83-ac90c09aa574/input/762be529-02f3-431d-857c-ec32f3115a40.glb'})
 print(result["outputs"])
 ```
 
@@ -37,7 +37,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("meshy/uv-unwrap", {
-  "model_url": "https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb"
+  "model_url": "https://static.sandbase.ai/examples/972f9ac7-cc4c-4437-9a83-ac90c09aa574/input/762be529-02f3-431d-857c-ec32f3115a40.glb"
 });
 console.log(result.outputs);
 ```
@@ -47,7 +47,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "meshy/uv-unwrap", sandbase.Params{
-	"model_url": "https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb",
+	"model_url": "https://static.sandbase.ai/examples/972f9ac7-cc4c-4437-9a83-ac90c09aa574/input/762be529-02f3-431d-857c-ec32f3115a40.glb",
 })
 ```
 

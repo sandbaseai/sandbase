@@ -19,7 +19,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "meshy/convert", "model_url": "https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb"}'
+  -d '{"model": "meshy/convert", "format": "glb", "model_url": "https://static.sandbase.ai/examples/a371e5e4-7b44-4d5a-8811-528602691cf2/input/bcc4daf1-e924-42c6-99a9-2154a14aa1ab.fbx"}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('meshy/convert', {'model_url': 'https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb'})
+result = SandBase().run('meshy/convert', {'format': 'glb', 'model_url': 'https://static.sandbase.ai/examples/a371e5e4-7b44-4d5a-8811-528602691cf2/input/bcc4daf1-e924-42c6-99a9-2154a14aa1ab.fbx'})
 print(result["outputs"])
 ```
 
@@ -37,7 +37,8 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("meshy/convert", {
-  "model_url": "https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb"
+  "format": "glb",
+  "model_url": "https://static.sandbase.ai/examples/a371e5e4-7b44-4d5a-8811-528602691cf2/input/bcc4daf1-e924-42c6-99a9-2154a14aa1ab.fbx"
 });
 console.log(result.outputs);
 ```
@@ -47,7 +48,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "meshy/convert", sandbase.Params{
-	"model_url": "https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb",
+	"format": "glb",
+	"model_url": "https://static.sandbase.ai/examples/a371e5e4-7b44-4d5a-8811-528602691cf2/input/bcc4daf1-e924-42c6-99a9-2154a14aa1ab.fbx",
 })
 ```
 

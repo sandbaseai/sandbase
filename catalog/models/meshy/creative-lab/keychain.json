@@ -1,0 +1,153 @@
+{
+  "name": "meshy/creative-lab/keychain",
+  "display_name": "Meshy Creative Lab Keychain",
+  "type": "image",
+  "vendor": "Meshy",
+  "vendor_slug": "meshy",
+  "description": "Turns a photo into a 3D-printable keychain medallion, optionally with a name on its face.",
+  "tags": [
+    "image-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "description": "Photo of the subject, as an image URL or base64 data URI (JPG, PNG or WebP)."
+      },
+      "size_mm": {
+        "type": "number",
+        "title": "Size (mm)",
+        "default": 40,
+        "maximum": 400,
+        "minimum": 10,
+        "description": "Edge of the bounding square in millimeters."
+      },
+      "name_text": {
+        "type": "string",
+        "title": "Name",
+        "maxLength": 10,
+        "description": "Name shown on the keychain, up to 10 characters."
+      },
+      "badge_shape": {
+        "enum": [
+          "circle",
+          "rounded-rect",
+          "hexagon",
+          "shield",
+          "star"
+        ],
+        "type": "string",
+        "title": "Badge Shape",
+        "default": "circle",
+        "description": "Outline used when the subject is not traced."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 1.44
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/001021be-9b89-4dd5-bdff-17cded73b67a/input/4b857cac-9de7-4134-b8c2-7f5d04d7ad30.jpg",
+        "name_text": "Corgi"
+      },
+      "output": [
+        {
+          "concept_image": "https://static.sandbase.ai/examples/001021be-9b89-4dd5-bdff-17cded73b67a/output/5a1ac270-bad9-4e27-bd17-c5f189b40a95.jpg",
+          "url": "https://static.sandbase.ai/examples/001021be-9b89-4dd5-bdff-17cded73b67a/output/75f170a2-664a-4c67-a8fa-375796c3aa9e.glb"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "badge_shape": "hexagon",
+        "image": "https://static.sandbase.ai/examples/4f966b75-2130-4bd2-b512-7a8d8fd88ab0/input/a875fcd4-7852-4517-8871-632f9bb0bfbd.jpg",
+        "name_text": "Luna"
+      },
+      "output": [
+        {
+          "concept_image": "https://static.sandbase.ai/examples/4f966b75-2130-4bd2-b512-7a8d8fd88ab0/output/2200b53d-7379-4e27-aeaa-5e1be9e5b36f.png",
+          "url": "https://static.sandbase.ai/examples/4f966b75-2130-4bd2-b512-7a8d8fd88ab0/output/6081f5f5-f363-4bfd-ac9b-e0ef5580d4d1.glb"
+        }
+      ]
+    }
+  ],
+  "readme": "# Meshy Creative Lab Keychain\nTurns a photo into a 3D-printable keychain medallion, optionally with a name on its face.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | string, required | — | Photo of the subject, as an image URL or base64 data URI (JPG, PNG or WebP). |\n| `name_text` | string | — | Name shown on the keychain, up to 10 characters. |\n| `badge_shape` | `circle` / `rounded-rect` / `hexagon` / `shield` / `star` | `\"circle\"` | Outline used when the subject is not traced. |\n| `size_mm` | number 10–400 | `40` | Edge of the bounding square in millimeters. |\n## Output\n- `url`: Keychain GLB.\n- `concept_image`: Colorized concept image.\n## Billing\n$1.44 per object (concept image + 3D build).\n",
+  "cover_url": "https://static.sandbase.ai/covers/meshy/creative-lab/keychain/cover-flare-20261120181106.webp",
+  "page_url": "https://www.sandbase.ai/model/meshy/creative-lab/keychain",
+  "created_at": "2026-11-20T09:28:51.141Z"
+}

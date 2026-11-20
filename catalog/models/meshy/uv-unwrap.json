@@ -94,7 +94,35 @@
     "model": "per_call",
     "per_call": 0.2
   },
+  "examples": [
+    {
+      "input": {
+        "model_url": "https://static.sandbase.ai/examples/972f9ac7-cc4c-4437-9a83-ac90c09aa574/input/762be529-02f3-431d-857c-ec32f3115a40.glb"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/972f9ac7-cc4c-4437-9a83-ac90c09aa574/output/33cb2343-39fb-4bc5-8ca8-5caa11c7a113.png",
+          "thumbnail": "https://static.sandbase.ai/examples/972f9ac7-cc4c-4437-9a83-ac90c09aa574/output/33cb2343-39fb-4bc5-8ca8-5caa11c7a113.png",
+          "url": "https://static.sandbase.ai/examples/972f9ac7-cc4c-4437-9a83-ac90c09aa574/output/328391fc-b7de-4353-9305-063e23daf7b1.glb"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "model_url": "https://static.sandbase.ai/examples/a8caa970-6a0d-4977-820d-0b5e8e83de6f/input/885c9259-a710-42e8-9a6b-d7fa7c635cab.glb"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/a8caa970-6a0d-4977-820d-0b5e8e83de6f/output/7a44f623-0fe4-42f0-b323-4e60f69d560d.png",
+          "thumbnail": "https://static.sandbase.ai/examples/a8caa970-6a0d-4977-820d-0b5e8e83de6f/output/7a44f623-0fe4-42f0-b323-4e60f69d560d.png",
+          "url": "https://static.sandbase.ai/examples/a8caa970-6a0d-4977-820d-0b5e8e83de6f/output/a9d87dc9-436d-432d-9c24-522e09804693.glb"
+        }
+      ]
+    }
+  ],
   "readme": "# Meshy UV Unwrap\nMeshy UV Unwrap creates a clean UV layout for an existing 3D model before texturing.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI. |\n## Output\n- `url`: GLB with new UVs.\n- `thumbnail`: Preview image.\n## Billing\n$0.20 per model. The mesh can have at most 40,000 faces.\n",
+  "cover_url": "https://static.sandbase.ai/covers/meshy/uv-unwrap/cover-flare-20261120161202.webp",
   "page_url": "https://www.sandbase.ai/model/meshy/uv-unwrap",
   "created_at": "2026-11-20T01:31:44.508Z"
 }

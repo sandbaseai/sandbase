@@ -127,6 +127,36 @@
     "model": "per_call",
     "per_call": 0.2
   },
+  "examples": [
+    {
+      "input": {
+        "model_url": "https://static.sandbase.ai/examples/ff1ca0a8-9d9c-4a8c-a33e-cf3225f226a9/input/c854bf08-e574-468e-8145-3f70fa642a01.glb",
+        "target_polycount": 5000,
+        "topology": "quad"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/ff1ca0a8-9d9c-4a8c-a33e-cf3225f226a9/output/0c318b6d-3bf0-4e55-8582-a126c7e77812.png",
+          "thumbnail": "https://static.sandbase.ai/examples/ff1ca0a8-9d9c-4a8c-a33e-cf3225f226a9/output/0c318b6d-3bf0-4e55-8582-a126c7e77812.png",
+          "url": "https://static.sandbase.ai/examples/ff1ca0a8-9d9c-4a8c-a33e-cf3225f226a9/output/5293ecaf-c175-431e-9953-a5f728dc8a0d.glb"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "model_url": "https://static.sandbase.ai/examples/08b13a56-d155-4cd1-85ac-8e191211415d/input/e8ff9bcb-9a1f-46a9-80e4-1a2e455da46c.glb",
+        "target_polycount": 3000
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/08b13a56-d155-4cd1-85ac-8e191211415d/output/064327e1-b2fb-4a40-bb55-2b84041c0d78.png",
+          "thumbnail": "https://static.sandbase.ai/examples/08b13a56-d155-4cd1-85ac-8e191211415d/output/064327e1-b2fb-4a40-bb55-2b84041c0d78.png",
+          "url": "https://static.sandbase.ai/examples/08b13a56-d155-4cd1-85ac-8e191211415d/output/0622bde6-684d-4186-9c1a-db875ca7afb4.glb"
+        }
+      ]
+    }
+  ],
   "readme": "# Meshy Remesh\nMeshy Remesh rebuilds an existing 3D model at a target face count, as triangles or quads.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI. |\n| `topology` | `triangle` / `quad` | `\"triangle\"` | Output face type. |\n| `target_polycount` | integer 100–300000 | `30000` | Target number of faces; the result can differ. |\n| `auto_size` | boolean | `false` | Estimate the object's real-world size and scale the model to it. |\n| `origin_at` | `bottom` / `center` | — | Where to place the model origin. |\n## Output\n- `url`: Remeshed GLB.\n- `thumbnail`: Preview image.\n## Billing\n$0.20 per model.\n",
   "cover_url": "https://static.sandbase.ai/covers/meshy/remesh/cover-flare-20261120161250.webp",
   "page_url": "https://www.sandbase.ai/model/meshy/remesh",

@@ -111,7 +111,37 @@
     "model": "per_call",
     "per_call": 0.4
   },
+  "examples": [
+    {
+      "input": {
+        "model_url": "https://static.sandbase.ai/examples/b8eaa5e3-bc42-49aa-9326-f82581dfd780/input/b52c16ed-bd67-437f-9606-c936dfbd5762.glb"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/b8eaa5e3-bc42-49aa-9326-f82581dfd780/output/2d0280ad-2116-450a-a55a-1e59284624e3.png",
+          "thumbnail": "https://static.sandbase.ai/examples/b8eaa5e3-bc42-49aa-9326-f82581dfd780/output/2d0280ad-2116-450a-a55a-1e59284624e3.png",
+          "url": "https://static.sandbase.ai/examples/b8eaa5e3-bc42-49aa-9326-f82581dfd780/output/ccdaa65d-7bf6-4b60-a181-63c86485fccb.glb"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "intended_print_height_mm": 120,
+        "model_url": "https://static.sandbase.ai/examples/940e54c0-e356-4fe4-8948-3197442edd59/input/ccc4b5c1-4c6e-4eec-91ff-95fd5ba5bb7f.glb",
+        "printer_type": "fdm"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/940e54c0-e356-4fe4-8948-3197442edd59/output/3cd365fa-f93c-4038-98a5-743c2c0cb069.png",
+          "thumbnail": "https://static.sandbase.ai/examples/940e54c0-e356-4fe4-8948-3197442edd59/output/3cd365fa-f93c-4038-98a5-743c2c0cb069.png",
+          "url": "https://static.sandbase.ai/examples/940e54c0-e356-4fe4-8948-3197442edd59/output/c9c2da3a-0d60-43eb-9ca0-de9351bcf550.glb"
+        }
+      ]
+    }
+  ],
   "readme": "# Meshy Print Repair\nMeshy Print Repair fixes holes, non-manifold geometry and thin walls so a 3D model can be printed.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI. |\n| `printer_type` | `fdm` / `sla` / `full_color` | — | Printer that sets the minimum wall thickness. |\n| `intended_print_height_mm` | number 1–1000 | — | Planned print height in millimeters (GLB input). |\n## Output\n- `url`: Repaired GLB.\n- `thumbnail`: Preview image.\n## Billing\n$0.40 per model.\n",
+  "cover_url": "https://static.sandbase.ai/covers/meshy/print/repair/cover-flare-20261120161438.webp",
   "page_url": "https://www.sandbase.ai/model/meshy/print/repair",
   "created_at": "2026-11-20T01:33:50.182Z"
 }

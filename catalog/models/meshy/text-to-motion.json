@@ -1,0 +1,136 @@
+{
+  "name": "meshy/text-to-motion",
+  "display_name": "Meshy Text to Motion",
+  "type": "image",
+  "vendor": "Meshy",
+  "vendor_slug": "meshy",
+  "description": "Meshy Text to Motion generates a standalone character motion clip from a text prompt, as FBX (prime) or BVH (swift).",
+  "tags": [
+    "text-to-motion"
+  ],
+  "capabilities": [
+    "text-to-motion"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "maxLength": 400,
+        "description": "Describe the motion, up to 400 characters."
+      },
+      "duration": {
+        "type": "number",
+        "title": "Duration (s)",
+        "default": 3,
+        "maximum": 10,
+        "minimum": 2,
+        "multipleOf": 0.5,
+        "description": "Clip length in seconds, 2–10 in 0.5 s steps."
+      },
+      "motion_mode": {
+        "enum": [
+          "prime",
+          "swift"
+        ],
+        "type": "string",
+        "title": "Motion Mode",
+        "default": "prime",
+        "description": "prime: higher quality FBX clip; swift: faster BVH clip."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.motion_mode ?? \"prime\") == \"swift\" ? 0.12 : 0.4",
+    "formula_variables": [
+      "params.motion_mode"
+    ],
+    "reference_price": 0.4,
+    "price_examples": [
+      {
+        "params": {
+          "motion_mode": "prime"
+        },
+        "usd": 0.4
+      },
+      {
+        "params": {
+          "motion_mode": "swift"
+        },
+        "usd": 0.12
+      }
+    ]
+  },
+  "readme": "# Meshy Text to Motion\nMeshy Text to Motion generates a standalone character motion clip from a text prompt, as FBX (prime) or BVH (swift).\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Describe the motion, up to 400 characters. |\n| `duration` | number 2–10 | `3` | Clip length in seconds, 2–10 in 0.5 s steps. |\n| `motion_mode` | `prime` / `swift` | `\"prime\"` | prime: higher quality FBX clip; swift: faster BVH clip. |\n## Output\n- `url`: Motion clip. prime returns an FBX file; swift returns BVH text content, stored with a `.bin` file name, so save it as `.bvh` before importing.\n- `format`: `fbx` or `bvh`.\n## Billing\n$0.40 per clip (prime), $0.12 (swift).\n",
+  "cover_url": "https://static.sandbase.ai/covers/meshy/text-to-motion/cover-flare-20261120181316.webp",
+  "page_url": "https://www.sandbase.ai/model/meshy/text-to-motion",
+  "created_at": "2026-11-20T09:25:29.687Z"
+}

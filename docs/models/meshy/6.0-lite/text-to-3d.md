@@ -32,7 +32,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "meshy/6.0-lite/text-to-3d", "prompt": "A rustic, antique wooden treasure chest with a curved, domed lid, constructed from weathered, dark brown planks exhibiting prominent wood grain and subtle distress. It'\''s heavily reinforced with broad, dark grey, oxidized metal bands secured by numerous circular rivets. Ornate, dark iron decorative elements featuring swirling foliate patterns and dragon motifs adorn the corners and lid. A prominent, circular, intricately carved metal lock plate with a central keyhole dominates the front, flanked by two large, dark metallic pull rings."}'
+  -d '{"model": "meshy/6.0-lite/text-to-3d", "prompt": "A rustic, antique wooden treasure chest with a curved, domed lid, constructed from weathered, dark brown planks with iron bands, rivets and an ornate circular lock plate."}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -40,7 +40,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('meshy/6.0-lite/text-to-3d', {'prompt': "A rustic, antique wooden treasure chest with a curved, domed lid, constructed from weathered, dark brown planks exhibiting prominent wood grain and subtle distress. It's heavily reinforced with broad, dark grey, oxidized metal bands secured by numerous circular rivets. Ornate, dark iron decorative elements featuring swirling foliate patterns and dragon motifs adorn the corners and lid. A prominent, circular, intricately carved metal lock plate with a central keyhole dominates the front, flanked by two large, dark metallic pull rings."})
+result = SandBase().run('meshy/6.0-lite/text-to-3d', {'prompt': 'A rustic, antique wooden treasure chest with a curved, domed lid, constructed from weathered, dark brown planks with iron bands, rivets and an ornate circular lock plate.'})
 print(result["outputs"])
 ```
 
@@ -50,7 +50,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("meshy/6.0-lite/text-to-3d", {
-  "prompt": "A rustic, antique wooden treasure chest with a curved, domed lid, constructed from weathered, dark brown planks exhibiting prominent wood grain and subtle distress. It's heavily reinforced with broad, dark grey, oxidized metal bands secured by numerous circular rivets. Ornate, dark iron decorative elements featuring swirling foliate patterns and dragon motifs adorn the corners and lid. A prominent, circular, intricately carved metal lock plate with a central keyhole dominates the front, flanked by two large, dark metallic pull rings."
+  "prompt": "A rustic, antique wooden treasure chest with a curved, domed lid, constructed from weathered, dark brown planks with iron bands, rivets and an ornate circular lock plate."
 });
 console.log(result.outputs);
 ```
@@ -60,7 +60,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "meshy/6.0-lite/text-to-3d", sandbase.Params{
-	"prompt": "A rustic, antique wooden treasure chest with a curved, domed lid, constructed from weathered, dark brown planks exhibiting prominent wood grain and subtle distress. It's heavily reinforced with broad, dark grey, oxidized metal bands secured by numerous circular rivets. Ornate, dark iron decorative elements featuring swirling foliate patterns and dragon motifs adorn the corners and lid. A prominent, circular, intricately carved metal lock plate with a central keyhole dominates the front, flanked by two large, dark metallic pull rings.",
+	"prompt": "A rustic, antique wooden treasure chest with a curved, domed lid, constructed from weathered, dark brown planks with iron bands, rivets and an ornate circular lock plate.",
 })
 ```
 

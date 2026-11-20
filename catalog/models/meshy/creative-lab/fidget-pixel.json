@@ -1,0 +1,136 @@
+{
+  "name": "meshy/creative-lab/fidget-pixel",
+  "display_name": "Meshy Creative Lab Fidget Pixel",
+  "type": "image",
+  "vendor": "Meshy",
+  "vendor_slug": "meshy",
+  "description": "Turns a photo into a multi-color pixel-art fidget board, returned as a 3MF.",
+  "tags": [
+    "image-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "properties": {
+      "type": {
+        "enum": [
+          "person",
+          "other"
+        ],
+        "type": "string",
+        "title": "Subject",
+        "default": "other",
+        "description": "person: chibi sprite; other: bead-art icon."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "description": "Photo of the subject, as an image URL or base64 data URI (JPG, PNG or WebP)."
+      },
+      "shape": {
+        "enum": [
+          "square",
+          "hex"
+        ],
+        "type": "string",
+        "title": "Piece Shape",
+        "default": "square",
+        "description": "Footprint of each piece."
+      },
+      "grid_size": {
+        "enum": [
+          16,
+          32
+        ],
+        "type": "integer",
+        "title": "Grid Size",
+        "default": 32,
+        "description": "Cells per side."
+      },
+      "color_count": {
+        "type": "integer",
+        "title": "Colors",
+        "default": 8,
+        "maximum": 16,
+        "minimum": 2,
+        "description": "Number of colors."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 1.44
+  },
+  "readme": "# Meshy Creative Lab Fidget Pixel\nTurns a photo into a multi-color pixel-art fidget board, returned as a 3MF.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | string, required | — | Photo of the subject, as an image URL or base64 data URI (JPG, PNG or WebP). |\n| `type` | `person` / `other` | `\"other\"` | person: chibi sprite; other: bead-art icon. |\n| `shape` | `square` / `hex` | `\"square\"` | Footprint of each piece. |\n| `grid_size` | `16` / `32` | `32` | Cells per side. |\n| `color_count` | integer 2–16 | `8` | Number of colors. |\n## Output\n- `url`: Multi-color 3MF.\n- `concept_image`: Pixel-art image.\n## Billing\n$1.44 per object (concept image + 3D build).\n",
+  "cover_url": "https://static.sandbase.ai/covers/meshy/creative-lab/fidget-pixel/cover-flare-20261120181125.webp",
+  "page_url": "https://www.sandbase.ai/model/meshy/creative-lab/fidget-pixel",
+  "created_at": "2026-11-20T09:41:50.416Z"
+}

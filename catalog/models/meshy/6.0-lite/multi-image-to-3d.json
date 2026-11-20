@@ -251,6 +251,42 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "images": [
+          "https://static.sandbase.ai/examples/258db007-95dd-4ccd-9f96-c94239151a1c/input/8cd745f8-1eac-46bb-acfe-6fb7e7821578.png",
+          "https://static.sandbase.ai/examples/258db007-95dd-4ccd-9f96-c94239151a1c/input/bb330eb5-86bc-452c-bafc-b22f6a1ee4a0.png",
+          "https://static.sandbase.ai/examples/258db007-95dd-4ccd-9f96-c94239151a1c/input/c161bf92-9b5c-4043-89ce-b1e997af1f2d.png"
+        ]
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/258db007-95dd-4ccd-9f96-c94239151a1c/output/3bb6faa2-bdc5-4b78-bb6d-af7cb548ca14.png",
+          "thumbnail": "https://static.sandbase.ai/examples/258db007-95dd-4ccd-9f96-c94239151a1c/output/3bb6faa2-bdc5-4b78-bb6d-af7cb548ca14.png",
+          "url": "https://static.sandbase.ai/examples/258db007-95dd-4ccd-9f96-c94239151a1c/output/89dee7cb-f4f0-425d-9385-65fa98482bc4.glb"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "images": [
+          "https://static.sandbase.ai/examples/22b87637-2bd3-4757-8545-10f2a60649c3/input/188619f1-8d3a-4be3-b664-dfde93502231.png",
+          "https://static.sandbase.ai/examples/22b87637-2bd3-4757-8545-10f2a60649c3/input/4ba5f16f-3a59-4c51-908e-231d8e6e6ad5.png",
+          "https://static.sandbase.ai/examples/22b87637-2bd3-4757-8545-10f2a60649c3/input/1a508133-ca0e-4f62-8c7c-51a5ba8d5e35.png"
+        ],
+        "should_texture": false
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/22b87637-2bd3-4757-8545-10f2a60649c3/output/4fa22fc2-1275-436f-8139-f511c508bb22.png",
+          "thumbnail": "https://static.sandbase.ai/examples/22b87637-2bd3-4757-8545-10f2a60649c3/output/4fa22fc2-1275-436f-8139-f511c508bb22.png",
+          "url": "https://static.sandbase.ai/examples/22b87637-2bd3-4757-8545-10f2a60649c3/output/f07a3fc2-0b68-4e5c-935a-60c1902c07d6.glb"
+        }
+      ]
+    }
+  ],
   "readme": "# Meshy 6 Lite Multi-Image to 3D\nMeshy 6 Lite turns 1–4 views of the same object into a 3D model at a lower price, with optional textures, PBR maps, humanoid rigging and animation.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `images` | array, required | — | 1 to 4 images of the same object from different angles. Supports .jpg, .jpeg and .png; AVIF and HEIF are converted automatically. |\n| `topology` | `quad` / `triangle` | `\"triangle\"` | quad for smooth surfaces, triangle for detail. |\n| `pose_mode` | `a-pose` / `t-pose` / `` | `\"\"` | Generate the character in an A-pose or T-pose; empty for no specific pose. |\n| `enable_pbr` | boolean | `false` | Generate PBR maps (metallic, roughness, normal) in addition to base color. |\n| `symmetry_mode` | `off` / `auto` / `on` | `\"auto\"` | Symmetry enforcement: off, auto or on. |\n| `texture_image` | string | — | Image URL to guide texturing. |\n| `enable_rigging` | boolean | `false` | Rig the model as a humanoid character. The rigged GLB is returned as rigged_glb. |\n| `should_texture` | boolean | `true` | Generate textures. Untextured meshes cost less. |\n| `texture_prompt` | string | — | Text prompt to guide texturing. Maximum 800 characters. |\n| `enable_animation` | boolean | `false` | Apply an animation preset to the rigged character (billed together with rigging). The animated GLB is returned as animation_glb. |\n| `target_polycount` | integer 100–300000 | `30000` | Target polygon count (100–300,000). |\n| `animation_action_id` | integer 0–696 | `92` | Animation preset ID from Meshy's animation library (0 is Idle). Only used when animation is enabled. |\n## Output\n- `url`: GLB model.\n- `thumbnail`: Preview image.\n- `rigged_glb`: Rigged character (when rigging is enabled).\n- `animation_glb`: Animated character (when animation is enabled).\n## Billing\n$0.60 per textured model, $0.20 untextured (text-to-3d: `generation_mode=preview`). Rigging adds $0.20; animation adds $0.12 on top of rigging.\n",
   "cover_url": "https://static.sandbase.ai/covers/meshy/6.0-lite/multi-image-to-3d/cover-flare-20261120161239.webp",
   "page_url": "https://www.sandbase.ai/model/meshy/6.0-lite/multi-image-to-3d",

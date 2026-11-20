@@ -1,0 +1,127 @@
+{
+  "name": "meshy/creative-lab/vinyl-figure",
+  "display_name": "Meshy Creative Lab Vinyl Figure",
+  "type": "image",
+  "vendor": "Meshy",
+  "vendor_slug": "meshy",
+  "description": "Turns a photo into a textured big-head vinyl collectible figure.",
+  "tags": [
+    "image-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "description": "Photo of the subject, as an image URL or base64 data URI (JPG, PNG or WebP)."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 1.44
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/2ec9f236-4f16-4346-b22c-f5e2567504cc/input/6554a776-491b-4e3c-ab9f-3c672f4f86f2.jpg"
+      },
+      "output": [
+        {
+          "concept_image": "https://static.sandbase.ai/examples/2ec9f236-4f16-4346-b22c-f5e2567504cc/output/0b9253b0-7cb0-4582-b711-5ea608f5a8a4.jpg",
+          "poster": "https://static.sandbase.ai/examples/2ec9f236-4f16-4346-b22c-f5e2567504cc/output/c4a8fce5-9717-4a3c-be13-ab73746801f6.png",
+          "thumbnail": "https://static.sandbase.ai/examples/2ec9f236-4f16-4346-b22c-f5e2567504cc/output/c4a8fce5-9717-4a3c-be13-ab73746801f6.png",
+          "url": "https://static.sandbase.ai/examples/2ec9f236-4f16-4346-b22c-f5e2567504cc/output/bcefb6c0-a9fd-44c5-9e9b-d215089f267e.glb"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/115a3cff-d27f-4fde-a818-ce85ee1eaec8/input/1709bb6e-0375-4a9a-bf9a-9cd5899dce2b.jpg"
+      },
+      "output": [
+        {
+          "concept_image": "https://static.sandbase.ai/examples/115a3cff-d27f-4fde-a818-ce85ee1eaec8/output/ddbce395-4d68-4f7e-9787-199ff728cd02.png",
+          "poster": "https://static.sandbase.ai/examples/115a3cff-d27f-4fde-a818-ce85ee1eaec8/output/9ab7a6e2-35c6-4e64-a7f2-109165bce50d.png",
+          "thumbnail": "https://static.sandbase.ai/examples/115a3cff-d27f-4fde-a818-ce85ee1eaec8/output/9ab7a6e2-35c6-4e64-a7f2-109165bce50d.png",
+          "url": "https://static.sandbase.ai/examples/115a3cff-d27f-4fde-a818-ce85ee1eaec8/output/eb439471-4dec-45b1-84fe-a3b2100e0a33.glb"
+        }
+      ]
+    }
+  ],
+  "readme": "# Meshy Creative Lab Vinyl Figure\nTurns a photo into a textured big-head vinyl collectible figure.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | string, required | — | Photo of the subject, as an image URL or base64 data URI (JPG, PNG or WebP). |\n## Output\n- `url`: Textured GLB.\n- `thumbnail`: Preview image.\n- `concept_image`: Concept image.\n## Billing\n$1.44 per object (concept image + 3D build).\n",
+  "cover_url": "https://static.sandbase.ai/covers/meshy/creative-lab/vinyl-figure/cover-flare-20261120181150.webp",
+  "page_url": "https://www.sandbase.ai/model/meshy/creative-lab/vinyl-figure",
+  "created_at": "2026-11-20T09:33:48.477Z"
+}

@@ -122,7 +122,34 @@
     "model": "per_call",
     "per_call": 0.04
   },
+  "examples": [
+    {
+      "input": {
+        "model_url": "https://static.sandbase.ai/examples/406c41fa-77b3-4fc4-86e9-6283e7acf112/input/b463e310-7d5f-447f-8be2-d053fcdeef1c.glb",
+        "resize_height": 1.8
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/406c41fa-77b3-4fc4-86e9-6283e7acf112/output/3c587a2f-14b2-450c-b27b-637e8bce671c.glb"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "model_url": "https://static.sandbase.ai/examples/eb08a657-0af2-4636-99f6-f7d6acf87ef4/input/c2f43e93-7e34-4b95-961c-99f48c21e3d4.glb",
+        "origin_at": "bottom",
+        "resize_longest_side": 0.45
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/eb08a657-0af2-4636-99f6-f7d6acf87ef4/output/3ac2bbc7-0d6b-4d2c-ad90-614507d88268.glb"
+        }
+      ]
+    }
+  ],
   "readme": "# Meshy Resize\nMeshy Resize scales an existing 3D model to a real-world height or longest side, or estimates the size automatically.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI. |\n| `resize_height` | number 0– | — | Target height in meters. Send exactly one of resize_height, resize_longest_side or auto_size. |\n| `resize_longest_side` | number 0– | — | Target length of the longest side in meters. |\n| `auto_size` | boolean | `false` | Estimate the object's real-world size and scale the model to it. |\n| `origin_at` | `bottom` / `center` | `\"bottom\"` | Where to place the model origin. |\n## Output\n- `url`: Resized GLB.\n## Billing\n$0.04 per model.\n",
+  "cover_url": "https://static.sandbase.ai/covers/meshy/resize/cover-flare-20261120161224.webp",
   "page_url": "https://www.sandbase.ai/model/meshy/resize",
   "created_at": "2026-11-20T01:30:29.819Z"
 }

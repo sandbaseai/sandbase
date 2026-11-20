@@ -19,7 +19,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "meshy/resize", "model_url": "https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb"}'
+  -d '{"model": "meshy/resize", "model_url": "https://static.sandbase.ai/examples/406c41fa-77b3-4fc4-86e9-6283e7acf112/input/b463e310-7d5f-447f-8be2-d053fcdeef1c.glb", "resize_height": 1.8}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('meshy/resize', {'model_url': 'https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb'})
+result = SandBase().run('meshy/resize', {'model_url': 'https://static.sandbase.ai/examples/406c41fa-77b3-4fc4-86e9-6283e7acf112/input/b463e310-7d5f-447f-8be2-d053fcdeef1c.glb', 'resize_height': 1.8})
 print(result["outputs"])
 ```
 
@@ -37,7 +37,8 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("meshy/resize", {
-  "model_url": "https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb"
+  "model_url": "https://static.sandbase.ai/examples/406c41fa-77b3-4fc4-86e9-6283e7acf112/input/b463e310-7d5f-447f-8be2-d053fcdeef1c.glb",
+  "resize_height": 1.8
 });
 console.log(result.outputs);
 ```
@@ -47,7 +48,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "meshy/resize", sandbase.Params{
-	"model_url": "https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb",
+	"model_url": "https://static.sandbase.ai/examples/406c41fa-77b3-4fc4-86e9-6283e7acf112/input/b463e310-7d5f-447f-8be2-d053fcdeef1c.glb",
+	"resize_height": 1.8,
 })
 ```
 
