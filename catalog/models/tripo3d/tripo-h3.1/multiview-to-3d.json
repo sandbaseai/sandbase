@@ -49,8 +49,12 @@
         },
         "title": "Image Urls",
         "examples": [
-          "https://static.sandbase.ai/examples/tripo3d/tripo-h3.1/multiview-to-3d/input_images_0.png",
-          "https://static.sandbase.ai/examples/tripo3d/tripo-h3.1/multiview-to-3d/input_images_0.png"
+          [
+            "https://static.sandbase.ai/examples/tripo3d/tripo/shared/front.jpg",
+            "https://static.sandbase.ai/examples/tripo3d/tripo/shared/left.jpg",
+            "https://static.sandbase.ai/examples/tripo3d/tripo/shared/back.jpg",
+            "https://static.sandbase.ai/examples/tripo3d/tripo/shared/right.jpg"
+          ]
         ],
         "maxItems": 4,
         "minItems": 2,

@@ -95,6 +95,7 @@
     "per_call": 0.1
   },
   "readme": "# Tripo Image to Multiview\nTripo Image to Multiview generates front, left, back and right views of an object from one image, ready for multiview-to-3D.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | string, required | — | Input image; the subject should stand out from a clean background. |\n## Output\n- `url`: Front view image.\n- `left_view`: Left view image.\n- `back_view`: Back view image.\n- `right_view`: Right view image.\n## Billing\n$0.10 per request (4 views).\nFailed runs are not charged.\n",
+  "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo/image-to-multiview/cover-flare-20261121203254.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo/image-to-multiview",
   "created_at": "2026-11-21T09:32:31.255Z"
 }

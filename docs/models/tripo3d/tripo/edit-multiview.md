@@ -25,7 +25,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "tripo3d/tripo/edit-multiview", "image": "https://static.sandbase.ai/examples/tripo3d/tripo-h3.1/image-to-3d/input_image_0.png", "prompts": [{"view": "front", "prompt": "change the shirt color to red"}]}'
+  -d '{"model": "tripo3d/tripo/edit-multiview", "image": "https://static.sandbase.ai/examples/tripo3d/tripo-h3.1/image-to-3d/input_image_0.png", "prompts": [{"view": "front", "prompt": "make the horn bright red"}]}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -33,7 +33,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('tripo3d/tripo/edit-multiview', {'image': 'https://static.sandbase.ai/examples/tripo3d/tripo-h3.1/image-to-3d/input_image_0.png', 'prompts': [{'view': 'front', 'prompt': 'change the shirt color to red'}]})
+result = SandBase().run('tripo3d/tripo/edit-multiview', {'image': 'https://static.sandbase.ai/examples/tripo3d/tripo-h3.1/image-to-3d/input_image_0.png', 'prompts': [{'view': 'front', 'prompt': 'make the horn bright red'}]})
 print(result["outputs"])
 ```
 
@@ -47,7 +47,7 @@ const result = await new SandBase().run("tripo3d/tripo/edit-multiview", {
   "prompts": [
     {
       "view": "front",
-      "prompt": "change the shirt color to red"
+      "prompt": "make the horn bright red"
     }
   ]
 });
@@ -62,7 +62,7 @@ run, err := c.Run(ctx, "tripo3d/tripo/edit-multiview", sandbase.Params{
 	"image": "https://static.sandbase.ai/examples/tripo3d/tripo-h3.1/image-to-3d/input_image_0.png",
 	"prompts": []any{map[string]any{
 		"view": "front",
-		"prompt": "change the shirt color to red",
+		"prompt": "make the horn bright red",
 	}},
 })
 ```

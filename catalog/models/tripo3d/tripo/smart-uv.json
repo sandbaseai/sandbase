@@ -43,7 +43,7 @@
         "type": "string",
         "title": "Model URL",
         "examples": [
-          "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb"
+          "https://static.sandbase.ai/examples/tripo3d/tripo/shared/object.glb"
         ],
         "description": "URL of the input 3D model, up to 80,000 triangles (a quad counts as 2)."
       },
@@ -120,6 +120,7 @@
     "per_call": 0.2
   },
   "readme": "# Tripo Smart UV\nTripo Smart UV unwraps an existing 3D model into a clean UV layout, optionally baking the textures onto it.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the input 3D model, up to 80,000 triangles (a quad counts as 2). |\n| `bake` | boolean | `true` | Bake the existing textures onto the new UVs. false returns UVs only. |\n| `export_orientation` | `+x` / `-x` / `+y` / `-y` | — | Forward axis of the exported model. Leave unset if you will post-process the model. |\n| `compress` | `geometry` | — | geometry applies meshopt compression to reduce file size. |\n## Output\n- `url`: GLB with the new UVs.\n- `uv_render`: UV atlas preview.\n## Billing\n$0.20 per model.\nFailed runs are not charged.\n",
+  "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo/smart-uv/cover-flare-20261121203416.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo/smart-uv",
   "created_at": "2026-11-21T09:21:54.29Z"
 }

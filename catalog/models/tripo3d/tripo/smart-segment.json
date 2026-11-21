@@ -48,13 +48,16 @@
         "type": "string",
         "title": "Input Type",
         "default": "image",
+        "examples": [
+          "image"
+        ],
         "description": "image segments an image and builds a segmented 3D model; model segments an existing GLB."
       },
       "model_url": {
         "type": "string",
         "title": "Model URL",
         "examples": [
-          "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb"
+          "https://static.sandbase.ai/examples/tripo3d/tripo/shared/object.glb"
         ],
         "description": "Input GLB when seg_type is model."
       },
@@ -159,6 +162,7 @@
     ]
   },
   "readme": "# Tripo Smart Segment\nTripo Smart Segment splits an image or a 3D model into named semantic parts, returning a segmented 3D model and a part mask.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `seg_type` | `image` / `model`, required | `image` | image segments an image and builds a segmented 3D model; model segments an existing GLB. |\n| `image` | string | — | Input image when seg_type is image. |\n| `model_url` | string | — | Input GLB when seg_type is model. |\n| `granularity` | `coarse` / `medium` / `fine` | `medium` | How finely to split. |\n| `hint` | string | — | Optional text naming the parts you want. |\n| `transform` | array | — | Model transform as a column-major 4x4 matrix (16 numbers). Used when seg_type is model; identity when unset. |\n## Output\n- `url`: Segmented GLB, one node per part.\n- `mask`: Part mask image.\n- `parts`: Comma-separated part names.\n## Billing\n| seg_type | Price |\n|---|---|\n| image | $0.85 |\n| model | $0.55 |\nFailed runs are not charged.\n",
+  "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo/smart-segment/cover-flare-20261121203346.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo/smart-segment",
   "created_at": "2026-11-21T09:23:47.42Z"
 }

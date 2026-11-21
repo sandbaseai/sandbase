@@ -50,6 +50,9 @@
         "type": "string",
         "title": "Format",
         "default": "FBX",
+        "examples": [
+          "FBX"
+        ],
         "description": "Output format."
       },
       "pack_uv": {
@@ -62,7 +65,7 @@
         "type": "string",
         "title": "Model URL",
         "examples": [
-          "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb"
+          "https://static.sandbase.ai/examples/tripo3d/tripo/shared/object.glb"
         ],
         "description": "URL of the input 3D model (GLB, GLTF, FBX, OBJ or STL, up to 150 MB)."
       },
@@ -883,6 +886,7 @@
     ]
   },
   "readme": "# Tripo Convert\nTripo Convert exports a 3D model to GLTF, FBX, USDZ, OBJ, STL or 3MF, with optional quad remesh, scaling and texture settings.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the input 3D model (GLB, GLTF, FBX, OBJ or STL, up to 150 MB). |\n| `format` | `GLTF` / `FBX` / `USDZ` / `OBJ` / `STL` / `3MF`, required | `FBX` | Output format. |\n| `quad` | boolean | `false` | Quad remesh (10,000 faces when face_limit is unset). Forces FBX. |\n| `force_symmetry` | boolean | `false` | Symmetric quad mesh. Only with quad. |\n| `face_limit` | integer | — | Target face count. Original when unset. |\n| `texture_size` | integer | `4096` | Texture size in pixels. |\n| `texture_format` | `JPEG` / `PNG` / `WEBP` / `BMP` / `DPX` / `HDR` / `OPEN_EXR` / `TARGA` / `TIFF` | `JPEG` | Texture image format. |\n| `bake` | boolean | `true` | Bake advanced materials into the textures. |\n| `pack_uv` | boolean | `false` | Pack all UV islands into one texture. |\n| `export_vertex_colors` | boolean | `false` | Vertex colors (OBJ and GLTF only). |\n| `flatten_bottom` | boolean | `false` | Flatten the bottom of the model. |\n| `flatten_bottom_threshold` | number | `0.01` | Depth flattened when flatten_bottom is on. |\n| `pivot_to_center_bottom` | boolean | `false` | Move the pivot to the bottom center. |\n| `scale_factor` | number | `1` | Uniform scale. |\n| `with_animation` | boolean | `true` | Keep animations. |\n| `animate_in_place` | boolean | `false` | Remove root motion from animations. |\n| `part_names` | array | — | Only process these parts (node names from a segmentation, e.g. tripo_part_0). All parts when unset. |\n| `export_orientation` | `+x` / `-x` / `+y` / `-y` | — | Forward axis of the exported model. |\n| `fbx_preset` | `blender` / `3dsmax` / `mixamo` / `bake_scale` | `blender` | FBX target application. |\n| `texture_packaging` | `embedded` / `zip` | `embedded` | FBX only: embedded textures, or a zip with the FBX and a .fbm folder. |\n## Output\n- `url`: Converted model file (a .zip when texture_packaging is zip).\n## Billing\n$0.05 per conversion; $0.10 when any of quad, face_limit, flatten_bottom, flatten_bottom_threshold, texture_size, texture_format, pivot_to_center_bottom or scale_factor is not the default.\nFailed runs are not charged.\n",
+  "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo/convert/cover-flare-20261121203510.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo/convert",
   "created_at": "2026-11-21T09:19:31.097Z"
 }

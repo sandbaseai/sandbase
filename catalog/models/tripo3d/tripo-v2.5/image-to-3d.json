@@ -46,7 +46,7 @@
         "type": "string",
         "title": "Image",
         "examples": [
-          "https://platform.tripo3d.ai/assets/front-235queJB.jpg"
+          "https://static.sandbase.ai/examples/tripo3d/tripo/shared/front.jpg"
         ],
         "description": "Input image URL for 3D model creation."
       },

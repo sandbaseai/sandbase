@@ -48,7 +48,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "tripo3d/tripo/convert", "model_url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb", "format": "FBX"}'
+  -d '{"model": "tripo3d/tripo/convert", "model_url": "https://static.sandbase.ai/examples/tripo3d/tripo/shared/object.glb", "format": "FBX"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -56,7 +56,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('tripo3d/tripo/convert', {'model_url': 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb', 'format': 'FBX'})
+result = SandBase().run('tripo3d/tripo/convert', {'model_url': 'https://static.sandbase.ai/examples/tripo3d/tripo/shared/object.glb', 'format': 'FBX'})
 print(result["outputs"])
 ```
 
@@ -66,7 +66,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("tripo3d/tripo/convert", {
-  "model_url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb",
+  "model_url": "https://static.sandbase.ai/examples/tripo3d/tripo/shared/object.glb",
   "format": "FBX"
 });
 console.log(result.outputs);
@@ -77,7 +77,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "tripo3d/tripo/convert", sandbase.Params{
-	"model_url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb",
+	"model_url": "https://static.sandbase.ai/examples/tripo3d/tripo/shared/object.glb",
 	"format": "FBX",
 })
 ```

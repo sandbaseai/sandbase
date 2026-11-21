@@ -29,7 +29,7 @@
         "type": "string",
         "title": "Model URL",
         "examples": [
-          "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb"
+          "https://static.sandbase.ai/examples/tripo3d/tripo/shared/object.glb"
         ],
         "description": "URL of the input 3D model (GLB, GLTF, FBX, OBJ or STL, up to 150 MB)."
       },

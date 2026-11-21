@@ -58,6 +58,9 @@
       "prompt": {
         "type": "string",
         "title": "Prompt",
+        "examples": [
+          "weathered bronze with green patina"
+        ],
         "description": "Text describing the texture (Tripo texture_prompt.text)."
       },
       "delight": {
@@ -78,7 +81,7 @@
         "type": "string",
         "title": "Model URL",
         "examples": [
-          "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb"
+          "https://static.sandbase.ai/examples/tripo3d/tripo/shared/object.glb"
         ],
         "description": "URL of the input 3D model (GLB, GLTF, FBX, OBJ or STL, up to 150 MB)."
       },
@@ -228,6 +231,7 @@
     ]
   },
   "readme": "# Tripo Texture\nTripo Texture paints new textures on an existing 3D model from a text prompt, one image or multiple views.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the input 3D model (GLB, GLTF, FBX, OBJ or STL, up to 150 MB). |\n| `prompt` | string | — | Text describing the texture (Tripo texture_prompt.text). |\n| `image` | string | — | Reference image for the texture (texture_prompt.image). Use prompt, image or images, not several. |\n| `images` | array | — | 2 to 4 reference views in the order front, left, back, right (texture_prompt.images). |\n| `style_image` | string | — | Style reference used together with prompt (texture_prompt.style_image). |\n| `model_version` | `v3.5-20260815` / `v3.0-20250812` / `v2.5-20250123` | `v3.5-20260815` | v3.5-20260815 is current; v3.0-20250812 runs as v3.5; v2.5-20250123 for models made with Tripo v2.5. |\n| `texture_quality` | `fast` / `standard` / `detailed` / `extreme` | `standard` | fast and standard cost the same; detailed (HD) and extreme (8K) are add-ons. |\n| `pbr` | boolean | `true` | PBR material maps (base color, metallic, roughness, normal). true also turns texture on. |\n| `texture_alignment` | `original_image` / `geometry` | `original_image` | original_image keeps textures close to the input image; geometry favors the mesh. |\n| `delight` | boolean | `false` | Remove baked-in lighting from the reference image before texturing (texture v3.5). |\n| `bake` | boolean | `true` | Bake advanced materials into the textures. |\n| `part_names` | array | — | Only process these parts (node names from a segmentation, e.g. tripo_part_0). All parts when unset. |\n| `texture_seed` | integer | — | Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry. |\n| `compress` | `geometry` | — | geometry applies meshopt compression to reduce file size. |\n## Output\n- `url`: Textured GLB.\n- `thumbnail`: Preview render.\n## Billing\n| texture_quality | Price |\n|---|---|\n| fast / standard | $0.10 |\n| detailed | $0.20 |\n| extreme (8K) | $0.30 |\nFailed runs are not charged.\n",
+  "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo/texture/cover-flare-20261121203254.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo/texture",
   "created_at": "2026-11-21T10:13:47.979Z"
 }

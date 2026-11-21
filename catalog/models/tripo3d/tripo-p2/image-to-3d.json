@@ -45,6 +45,9 @@
       "image": {
         "type": "string",
         "title": "Image",
+        "examples": [
+          "https://static.sandbase.ai/examples/tripo3d/tripo-h3.1/image-to-3d/input_image_0.png"
+        ],
         "description": "Input image URL for 3D model creation."
       },
       "delight": {

@@ -47,7 +47,7 @@
         "type": "string",
         "title": "Front Image",
         "examples": [
-          "https://platform.tripo3d.ai/assets/front-235queJB.jpg"
+          "https://static.sandbase.ai/examples/tripo3d/tripo/shared/front.jpg"
         ],
         "description": "Front view image URL."
       },
@@ -72,7 +72,7 @@
         "type": "string",
         "title": "Back Image",
         "examples": [
-          "https://platform.tripo3d.ai/assets/front-235queJB.jpg"
+          "https://static.sandbase.ai/examples/tripo3d/tripo/shared/back.jpg"
         ],
         "description": "Back view image URL. Front and back views are both required."
       },
@@ -87,7 +87,7 @@
         "type": "string",
         "title": "Left Image",
         "examples": [
-          "https://platform.tripo3d.ai/assets/left-Nfdj2U8P.jpg"
+          "https://static.sandbase.ai/examples/tripo3d/tripo/shared/left.jpg"
         ],
         "description": "Optional left view image URL."
       },
@@ -105,7 +105,7 @@
         "type": "string",
         "title": "Right Image",
         "examples": [
-          "https://platform.tripo3d.ai/assets/right-hj57H4if.jpg"
+          "https://static.sandbase.ai/examples/tripo3d/tripo/shared/right.jpg"
         ],
         "description": "Optional right view image URL."
       },

@@ -64,7 +64,7 @@
         "type": "string",
         "title": "Model URL",
         "examples": [
-          "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb"
+          "https://static.sandbase.ai/examples/tripo3d/tripo/shared/character.glb"
         ],
         "description": "URL of the 3D model (GLB, FBX, OBJ or STL, up to 150 MB)."
       },
@@ -183,6 +183,7 @@
     ]
   },
   "readme": "# Tripo Animate\nTripo Animate rigs a 3D character or creature and applies preset animations to it in one call (Tripo Rig + Animation Retarget).\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the 3D model (GLB, FBX, OBJ or STL, up to 150 MB). |\n| `animation` | string | — | One preset, e.g. preset:walk. Rig v3.0 biped: preset:idle, walk, run, dive, climb, jump, slash, shoot, hurt, fall, turn. Non-biped: preset:quadruped:walk, preset:hexapod:walk, preset:octopod:walk, preset:serpentine:march, preset:aquatic:march. Rig v1.0: preset:biped:<name>. Use animation or animations. |\n| `animations` | array | — | 1 to 5 presets in one file (same names as animation). Each animation is billed. |\n| `model_version` | `v3.0-20260909` / `v2.5-20260210` / `v1.0-20240301` | `v3.0-20260909` | v3.0-20260909 is recommended for humanoids and supports others; v2.5-20260210 for non-humanoids; v1.0-20240301 biped only (90+ presets). |\n| `rig_type` | `biped` / `quadruped` / `hexapod` / `octopod` / `avian` / `serpentine` / `aquatic` / `others` | `biped` | Skeleton type. Use Tripo Rig Check to find it. |\n| `spec` | `tripo` / `mixamo` / `actorcore` / `unity` / `unreal` / `vrm` | `tripo` | Bone naming for biped rigs. actorcore, unity, unreal and vrm need rig model v3.0-20260909. |\n| `out_format` | `glb` / `fbx` | `glb` | Format of the rigged and the animated model. |\n| `export_with_geometry` | boolean | `true` | Include the mesh in the animated file; false exports the skeleton animation only. |\n| `animate_in_place` | boolean | `false` | Remove root motion so the character stays in place. |\n## Output\n- `url`: Animated model.\n- `rigged`: Rigged model without animation.\n- `thumbnail`: Preview render.\n## Billing\n$0.25 for rigging plus $0.10 per animation ($0.35 with one animation).\nFailed runs are not charged.\n",
+  "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo/animate/cover-flare-20261121203328.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo/animate",
   "created_at": "2026-11-21T11:51:56.958Z"
 }

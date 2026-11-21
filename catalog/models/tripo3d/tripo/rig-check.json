@@ -29,7 +29,7 @@
         "type": "string",
         "title": "Model URL",
         "examples": [
-          "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb"
+          "https://static.sandbase.ai/examples/tripo3d/tripo/shared/character.glb"
         ],
         "description": "URL of the 3D model (GLB, FBX, OBJ or STL, up to 150 MB)."
       }
@@ -95,6 +95,7 @@
     "per_call": 0
   },
   "readme": "# Tripo Rig Check\nTripo Rig Check tells whether a 3D model can be auto-rigged and which skeleton type fits it. Free.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the 3D model (GLB, FBX, OBJ or STL, up to 150 MB). |\n## Output\n- `riggable`: true when the model can be rigged.\n- `rig_type`: biped, quadruped, hexapod, octopod, avian, serpentine, aquatic or others.\n## Billing\nFree.\nFailed runs are not charged.\n",
+  "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo/rig-check/cover-flare-20261121203355.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo/rig-check",
   "created_at": "2026-11-21T09:26:10.01Z"
 }
