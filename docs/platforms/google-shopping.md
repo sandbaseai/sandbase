@@ -5,7 +5,7 @@ Call 3 Google Shopping endpoints through SandBase with one API key: no separate 
 | Endpoint | What it does | Price |
 |---|---|---|
 | [`google-shopping/immersive-product`](../models/google-shopping/immersive-product.md) | Get the full Google Shopping product view by page token: specifications, ratings, reviews and offers from each store with price and… | $0.01 per call |
-| [`google-shopping/product`](../models/google-shopping/product.md) | One Google Shopping product's merchant offers, prices, specifications, reviews and related products. | $0.00015 per call (free daily quota) |
+| [`google-shopping/product`](../models/google-shopping/product.md) | One Google Shopping product's merchant offers, prices, specifications, reviews and related products. | $0.00015 per call |
 | [`google-shopping/search`](../models/google-shopping/search.md) | Search Google Shopping by keyword: product title, price, old price, store, rating, reviews, delivery and product ID, with price, sort and… | $0.015 per call |
 
 ## Quick start

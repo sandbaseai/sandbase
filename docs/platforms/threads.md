@@ -5,7 +5,7 @@ Call 9 Threads endpoints through SandBase with one API key: no separate account,
 | Endpoint | What it does | Price |
 |---|---|---|
 | [`threads/web/post-detail`](../models/threads/web/post-detail.md) | Returns detailed information for a specific Threads post using its numeric ID. Call this endpoint to inspect post content and metadata… | $0.002 per call |
-| [`threads/web/post-detail-v2`](../models/threads/web/post-detail-v2.md) | Returns detailed information for a specific Threads post. Queries can be performed using either a full post link or a post short code as… | $0.002 per call (free daily quota) |
+| [`threads/web/post-detail-v2`](../models/threads/web/post-detail-v2.md) | Returns detailed information for a specific Threads post. Queries can be performed using either a full post link or a post short code as… | $0.002 per call |
 | [`threads/web/search-profiles`](../models/threads/web/search-profiles.md) | Searches Threads user profiles based on a specified text query string. Returns matching user accounts and profile information from the… | $0.003 per call |
 | [`threads/web/search-recent`](../models/threads/web/search-recent.md) | Searches recent public Threads posts matching a specified keyword or hashtag. | $0.002 per call (free daily quota) |
 | [`threads/web/user-info`](../models/threads/web/user-info.md) | Get a Threads (Meta) user profile by username: name, bio, follower count and verification status. | $0.002 per call (free daily quota) |

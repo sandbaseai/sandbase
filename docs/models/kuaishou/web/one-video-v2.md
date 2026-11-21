@@ -2,14 +2,13 @@
 
 `kuaishou/web/one-video-v2` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.002 per call (free daily quota) · **Modes:** sync
+**Price:** $0.002 per call · **Modes:** sync
 
 Retrieves video streaming manifests and media details for a specific Kuaishou video using its unique identifier.
 
 ## Pricing
 
 - **$0.002 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

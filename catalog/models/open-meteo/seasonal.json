@@ -138,12 +138,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.0001,
-    "free_quota": {
-      "eligible": true,
-      "daily_calls_per_org": 100,
-      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
-    }
+    "per_call": 0.0001
   },
   "readme": "# Open-Meteo Seasonal Forecast API\n\nSeasonal weather forecast up to several months ahead by coordinates, from the ECMWF seasonal model.\n\nThe result is returned in `outputs[0].data` as the official Open-Meteo API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/open-meteo/seasonal\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"latitude\": \"52.52\", \"longitude\": \"13.41\", \"daily\": \"temperature_2m_max\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cell_selection` | string | No | Grid-cell preference for the coordinate. Default `land`. |\n| `daily` | string | No | Comma-separated list of daily aggregation variables to return. Requires `timezone`. Common values: `temperature_2m_max`, `temperature_2m_min`, `temperature_2m_m |\n| `end_date` | string | No | End of the interval, `yyyy-mm-dd` (ISO 8601). |\n| `forecast_days` | integer | No | Number of forecast days to return (0-274). Default 0. |\n| `hourly` | string | No | Comma-separated list of hourly variables to return. Interpolated hourly variables (optional). Common values: `temperature_2m`, `relative_humidity_2m`, `dew_poin |\n| `latitude` | string | Yes | WGS84 latitude of the location. Multiple coordinates can be comma-separated. |\n| `longitude` | string | Yes | WGS84 longitude of the location (negative for the Americas). Multiple coordinates can be comma-separated. |\n| `past_days` | integer | No | Number of past days to include (0-92). Default 0. |\n| `precipitation_unit` | string | No | Precipitation unit. Default `mm`. |\n| `six_hourly` | string | No | Comma-separated 6-hourly variables. Common values: `temperature_2m`, `precipitation`, `wind_speed_10m`, `weather_code`. |\n| `start_date` | string | No | Start of the interval, `yyyy-mm-dd` (ISO 8601). |\n| `temperature_unit` | string | No | Temperature unit. Default `celsius`. |\n| `timeformat` | string | No | Time output format. Default `iso8601`. |\n| `timezone` | string | No | IANA time zone name (e.g. `Europe/Berlin`) or `auto` to resolve from coordinates. Defaults to `GMT`. |\n| `wind_speed_unit` | string | No | Wind speed unit. Default `kmh`. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/open-meteo/seasonal",

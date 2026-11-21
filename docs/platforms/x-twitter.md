@@ -31,9 +31,9 @@ Call 30 X (Twitter) endpoints through SandBase with one API key: no separate acc
 | [`twitter/web/list-timeline`](../models/twitter/web/list-timeline.md) | Get list timeline on Twitter. Returns the platform data as structured JSON. | $0.001 per call |
 | [`twitter/web/search-communities`](../models/twitter/web/search-communities.md) | Search communities on Twitter. Returns the platform data as structured JSON. | $0.001 per call |
 | [`twitter/web/user-about`](../models/twitter/web/user-about.md) | Get user about profile on Twitter. Returns the platform data as structured JSON. | $0.001 per call |
-| [`twitter/web/user-affiliates`](../models/twitter/web/user-affiliates.md) | Get user affiliates on Twitter. Returns the platform data as structured JSON. | $0.001 per call (free daily quota) |
+| [`twitter/web/user-affiliates`](../models/twitter/web/user-affiliates.md) | Get user affiliates on Twitter. Returns the platform data as structured JSON. | $0.001 per call |
 | [`twitter/web/user-live-status`](../models/twitter/web/user-live-status.md) | Check user live status on Twitter. Returns the platform data as structured JSON. | $0.001 per call |
-| [`twitter/web/user-profiles-by-rest-ids`](../models/twitter/web/user-profiles-by-rest-ids.md) | Get profiles by rest ids on Twitter. Returns the platform data as structured JSON. | $0.001 per call (free daily quota) |
+| [`twitter/web/user-profiles-by-rest-ids`](../models/twitter/web/user-profiles-by-rest-ids.md) | Get profiles by rest ids on Twitter. Returns the platform data as structured JSON. | $0.001 per call |
 
 ## Quick start
 

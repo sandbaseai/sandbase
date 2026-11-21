@@ -2,14 +2,13 @@
 
 `instagram/v2/general-search` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.002 per call (free daily quota) · **Modes:** sync
+**Price:** $0.002 per call · **Modes:** sync
 
 Returns Instagram search results matching a specified keyword, including media items, user profiles, and engagement statistics.
 
 ## Pricing
 
 - **$0.002 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

@@ -2,14 +2,13 @@
 
 `open-meteo/elevation` · data API · Open-Meteo · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0001 per call (free daily quota) · **Modes:** sync
+**Price:** $0.0001 per call · **Modes:** sync
 
 Terrain elevation in meters for one or more coordinates, from a 90 m digital elevation model.
 
 ## Pricing
 
 - **$0.0001 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

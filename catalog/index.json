@@ -1,6 +1,6 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-21T16:20:29Z",
+ "generated_at": "2026-11-21T20:21:29Z",
  "base_url": "https://api.sandbase.ai",
  "count": 2824,
  "counts_by_type": {
@@ -2252,8 +2252,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.00015,
-    "free_quota": true
+    "usd_per_call": 0.00015
    },
    "record": "catalog/models/app-store/product.json"
   },
@@ -2274,8 +2273,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.00015,
-    "free_quota": true
+    "usd_per_call": 0.00015
    },
    "record": "catalog/models/app-store/reviews.json"
   },
@@ -2970,8 +2968,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/bilibili/app/cinema-tab.json"
   },
@@ -3033,8 +3030,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/bilibili/app/popular-feed.json"
   },
@@ -3136,8 +3132,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/bilibili/app/video-comments.json"
   },
@@ -3304,8 +3299,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/bilibili/web/all-live-areas.json"
   },
@@ -3345,8 +3339,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/bilibili/web/collect-folders.json"
   },
@@ -3366,8 +3359,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/bilibili/web/com-popular.json"
   },
@@ -3427,8 +3419,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/bilibili/web/dynamic-detail-v2.json"
   },
@@ -3469,8 +3460,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/bilibili/web/get-user-id.json"
   },
@@ -3510,8 +3500,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/bilibili/web/live-room-detail.json"
   },
@@ -3551,8 +3540,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/bilibili/web/one-video.json"
   },
@@ -3572,8 +3560,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.002,
-    "free_quota": true
+    "usd_per_call": 0.002
    },
    "record": "catalog/models/bilibili/web/one-video-v2.json"
   },
@@ -3613,8 +3600,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/bilibili/web/user-collection-videos.json"
   },
@@ -3779,8 +3765,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/bilibili/web/video-danmaku.json"
   },
@@ -3800,8 +3785,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/bilibili/web/video-detail.json"
   },
@@ -3821,8 +3805,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/bilibili/web/video-parts.json"
   },
@@ -8872,8 +8855,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/app-v3/generate-video-share-qrcode.json"
   },
@@ -9730,8 +9712,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/billboard/hot-calendar-detail.json"
   },
@@ -9832,8 +9813,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/billboard/hot-comment-word-list.json"
   },
@@ -9853,8 +9833,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/billboard/hot-item-trends-list.json"
   },
@@ -9994,8 +9973,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/billboard/hot-total-hot-word-detail-list.json"
   },
@@ -10137,8 +10115,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/billboard/hot-user-portrait-list.json"
   },
@@ -10178,8 +10155,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/creator/creator-activity-list.json"
   },
@@ -10199,8 +10175,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/creator/creator-content-category.json"
   },
@@ -10220,8 +10195,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/creator/creator-content-course.json"
   },
@@ -10241,8 +10215,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/creator/creator-hot-course.json"
   },
@@ -10262,8 +10235,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/creator/creator-hot-music-billboard.json"
   },
@@ -10283,8 +10255,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/creator/creator-hot-props-billboard.json"
   },
@@ -10304,8 +10275,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/creator/creator-hot-spot-billboard.json"
   },
@@ -10365,8 +10335,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/creator/creator-material-center-config.json"
   },
@@ -10386,8 +10355,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/creator/creator-material-center-related.json"
   },
@@ -10427,8 +10395,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/creator/mission-task-list.json"
   },
@@ -10448,8 +10415,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/creator/user-search.json"
   },
@@ -10469,8 +10435,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/creator/video-danmaku-list.json"
   },
@@ -10510,8 +10475,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/douplus/search-user.json"
   },
@@ -10551,8 +10515,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/douplus/talents-by-category.json"
   },
@@ -10592,8 +10555,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/douplus/video-detail.json"
   },
@@ -10819,8 +10781,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/index/brand-hot-videos-time-scope.json"
   },
@@ -10840,8 +10801,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/index/brand-initiative-rank-weekly.json"
   },
@@ -10861,8 +10821,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/index/brand-lines.json"
   },
@@ -10882,8 +10841,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/index/brand-radar-chart.json"
   },
@@ -10984,8 +10942,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/index/content-consumer-portrait.json"
   },
@@ -11065,8 +11022,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/index/content-creative-topic.json"
   },
@@ -11106,8 +11062,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/index/content-publish-trend.json"
   },
@@ -11167,8 +11122,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/index/daren-compare-users-stable.json"
   },
@@ -11208,8 +11162,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/index/daren-great-user-fans-info.json"
   },
@@ -11229,8 +11182,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/index/daren-great-user-top-video.json"
   },
@@ -11250,8 +11202,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/index/daren-similar-users.json"
   },
@@ -11271,8 +11222,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/index/daren-sug-great-user-list.json"
   },
@@ -11553,8 +11503,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/index/item-user-profile.json"
   },
@@ -11634,8 +11583,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/index/portrait.json"
   },
@@ -11735,8 +11683,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/index/topic-suggest.json"
   },
@@ -12366,8 +12313,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/web/all-aweme-id.json"
   },
@@ -12387,8 +12333,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/web/all-sec-user-id.json"
   },
@@ -12428,8 +12373,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/web/aweme-id.json"
   },
@@ -12589,8 +12533,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/web/generate-wss-xb-signature.json"
   },
@@ -12670,8 +12613,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/web/live-gift-ranking.json"
   },
@@ -12833,8 +12775,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/web/one-video-v2.json"
   },
@@ -13204,8 +13145,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/web/user-profile-v3.json"
   },
@@ -13225,8 +13165,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/web/video-channel-result.json"
   },
@@ -13307,8 +13246,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/web/web-guest-cookie.json"
   },
@@ -13328,8 +13266,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/web/webcast-id.json"
   },
@@ -13389,8 +13326,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.002,
-    "free_quota": true
+    "usd_per_call": 0.002
    },
    "record": "catalog/models/douyin/xingtu-v2/author-base-info.json"
   },
@@ -13490,8 +13426,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.002,
-    "free_quota": true
+    "usd_per_call": 0.002
    },
    "record": "catalog/models/douyin/xingtu-v2/author-convert-videos-or-products.json"
   },
@@ -13711,8 +13646,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.002,
-    "free_quota": true
+    "usd_per_call": 0.002
    },
    "record": "catalog/models/douyin/xingtu-v2/author-spread-info.json"
   },
@@ -13872,8 +13806,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.002,
-    "free_quota": true
+    "usd_per_call": 0.002
    },
    "record": "catalog/models/douyin/xingtu-v2/item-play-count.json"
   },
@@ -14193,8 +14126,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/douyin/xingtu-v2/search-toutiao-creator.json"
   },
@@ -14214,8 +14146,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.002,
-    "free_quota": true
+    "usd_per_call": 0.002
    },
    "record": "catalog/models/douyin/xingtu-v2/user-profile-qrcode.json"
   },
@@ -17844,8 +17775,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/category.json"
   },
@@ -17866,8 +17796,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/category-children.json"
   },
@@ -17888,8 +17817,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/category-related.json"
   },
@@ -17910,8 +17838,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/category-related-tags.json"
   },
@@ -17932,8 +17859,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/category-series.json"
   },
@@ -17954,8 +17880,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/category-tags.json"
   },
@@ -17976,8 +17901,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/geo-regional-data.json"
   },
@@ -17998,8 +17922,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/geo-series-data.json"
   },
@@ -18020,8 +17943,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/geo-series-group.json"
   },
@@ -18042,8 +17964,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/geo-shapes-file.json"
   },
@@ -18064,8 +17985,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/related-tags.json"
   },
@@ -18086,8 +18006,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/release.json"
   },
@@ -18108,8 +18027,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/release-dates.json"
   },
@@ -18130,8 +18048,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/release-related-tags.json"
   },
@@ -18152,8 +18069,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/release-series.json"
   },
@@ -18174,8 +18090,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/release-sources.json"
   },
@@ -18196,8 +18111,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/release-tables.json"
   },
@@ -18218,8 +18132,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/release-tags.json"
   },
@@ -18240,8 +18153,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/releases.json"
   },
@@ -18262,8 +18174,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/releases-dates.json"
   },
@@ -18306,8 +18217,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/series-categories.json"
   },
@@ -18350,8 +18260,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/series-release.json"
   },
@@ -18394,8 +18303,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/series-search-related-tags.json"
   },
@@ -18416,8 +18324,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/series-search-tags.json"
   },
@@ -18438,8 +18345,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/series-tags.json"
   },
@@ -18460,8 +18366,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/series-updates.json"
   },
@@ -18482,8 +18387,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/series-vintagedates.json"
   },
@@ -18504,8 +18408,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/source.json"
   },
@@ -18526,8 +18429,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/source-releases.json"
   },
@@ -18548,8 +18450,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/sources.json"
   },
@@ -18570,8 +18471,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/tags.json"
   },
@@ -18592,8 +18492,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 1e-05,
-    "free_quota": true
+    "usd_per_call": 1e-05
    },
    "record": "catalog/models/fred/tags-series.json"
   },
@@ -19674,8 +19573,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.00015,
-    "free_quota": true
+    "usd_per_call": 0.00015
    },
    "record": "catalog/models/google-maps/photo-metadata.json"
   },
@@ -19783,8 +19681,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.00015,
-    "free_quota": true
+    "usd_per_call": 0.00015
    },
    "record": "catalog/models/google-play/apps.json"
   },
@@ -19805,8 +19702,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.00015,
-    "free_quota": true
+    "usd_per_call": 0.00015
    },
    "record": "catalog/models/google-play/books.json"
   },
@@ -19827,8 +19723,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.00015,
-    "free_quota": true
+    "usd_per_call": 0.00015
    },
    "record": "catalog/models/google-play/games.json"
   },
@@ -19849,8 +19744,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.00015,
-    "free_quota": true
+    "usd_per_call": 0.00015
    },
    "record": "catalog/models/google-play/movies.json"
   },
@@ -19871,8 +19765,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.00015,
-    "free_quota": true
+    "usd_per_call": 0.00015
    },
    "record": "catalog/models/google-play/product.json"
   },
@@ -19937,8 +19830,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.00015,
-    "free_quota": true
+    "usd_per_call": 0.00015
    },
    "record": "catalog/models/google-shopping/product.json"
   },
@@ -22440,8 +22332,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/instagram/v1/user-info-by-username-v2.json"
   },
@@ -22522,8 +22413,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/instagram/v1/user-reels.json"
   },
@@ -22604,8 +22494,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.002,
-    "free_quota": true
+    "usd_per_call": 0.002
    },
    "record": "catalog/models/instagram/v2/general-search.json"
   },
@@ -22893,8 +22782,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.002,
-    "free_quota": true
+    "usd_per_call": 0.002
    },
    "record": "catalog/models/instagram/v2/search-users.json"
   },
@@ -22997,8 +22885,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.002,
-    "free_quota": true
+    "usd_per_call": 0.002
    },
    "record": "catalog/models/instagram/v2/user-highlights.json"
   },
@@ -24165,8 +24052,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/kuaishou/app/generate-share-link.json"
   },
@@ -24591,8 +24477,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/kuaishou/app/video-sub-comments.json"
   },
@@ -24876,8 +24761,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.002,
-    "free_quota": true
+    "usd_per_call": 0.002
    },
    "record": "catalog/models/kuaishou/web/one-video-v2.json"
   },
@@ -25038,8 +24922,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/lemon8/app/item-id.json"
   },
@@ -25100,8 +24983,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/lemon8/app/post-detail.json"
   },
@@ -25223,8 +25105,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/lemon8/app/user-id.json"
   },
@@ -27179,8 +27060,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.0001,
-    "free_quota": true
+    "usd_per_call": 0.0001
    },
    "record": "catalog/models/open-meteo/air-quality.json"
   },
@@ -27201,8 +27081,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.0001,
-    "free_quota": true
+    "usd_per_call": 0.0001
    },
    "record": "catalog/models/open-meteo/archive.json"
   },
@@ -27223,8 +27102,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.0001,
-    "free_quota": true
+    "usd_per_call": 0.0001
    },
    "record": "catalog/models/open-meteo/climate.json"
   },
@@ -27245,8 +27123,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.0001,
-    "free_quota": true
+    "usd_per_call": 0.0001
    },
    "record": "catalog/models/open-meteo/elevation.json"
   },
@@ -27267,8 +27144,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.0001,
-    "free_quota": true
+    "usd_per_call": 0.0001
    },
    "record": "catalog/models/open-meteo/ensemble.json"
   },
@@ -27289,8 +27165,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.0001,
-    "free_quota": true
+    "usd_per_call": 0.0001
    },
    "record": "catalog/models/open-meteo/flood.json"
   },
@@ -27311,8 +27186,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.0001,
-    "free_quota": true
+    "usd_per_call": 0.0001
    },
    "record": "catalog/models/open-meteo/forecast.json"
   },
@@ -27333,8 +27207,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.0001,
-    "free_quota": true
+    "usd_per_call": 0.0001
    },
    "record": "catalog/models/open-meteo/geocoding.json"
   },
@@ -27355,8 +27228,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.0001,
-    "free_quota": true
+    "usd_per_call": 0.0001
    },
    "record": "catalog/models/open-meteo/historical-forecast.json"
   },
@@ -27377,8 +27249,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.0001,
-    "free_quota": true
+    "usd_per_call": 0.0001
    },
    "record": "catalog/models/open-meteo/marine.json"
   },
@@ -27399,8 +27270,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.0001,
-    "free_quota": true
+    "usd_per_call": 0.0001
    },
    "record": "catalog/models/open-meteo/previous-runs.json"
   },
@@ -27421,8 +27291,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.0001,
-    "free_quota": true
+    "usd_per_call": 0.0001
    },
    "record": "catalog/models/open-meteo/seasonal.json"
   },
@@ -27852,8 +27721,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/pipixia/app/post-comment-list.json"
   },
@@ -27935,8 +27803,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/pipixia/app/short-url.json"
   },
@@ -28532,8 +28399,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.00044,
-    "free_quota": true
+    "usd_per_call": 0.00044
    },
    "record": "catalog/models/polymarket/markets-by-token.json"
   },
@@ -28576,8 +28442,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.00044,
-    "free_quota": true
+    "usd_per_call": 0.00044
    },
    "record": "catalog/models/polymarket/markets-slug.json"
   },
@@ -29047,8 +28912,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.00044,
-    "free_quota": true
+    "usd_per_call": 0.00044
    },
    "record": "catalog/models/polymarket/tags-by-id.json"
   },
@@ -29069,8 +28933,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.00044,
-    "free_quota": true
+    "usd_per_call": 0.00044
    },
    "record": "catalog/models/polymarket/tags-related-tags.json"
   },
@@ -29091,8 +28954,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.00044,
-    "free_quota": true
+    "usd_per_call": 0.00044
    },
    "record": "catalog/models/polymarket/tags-related-tags-tags.json"
   },
@@ -29113,8 +28975,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.00044,
-    "free_quota": true
+    "usd_per_call": 0.00044
    },
    "record": "catalog/models/polymarket/tags-slug.json"
   },
@@ -29135,8 +28996,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.00044,
-    "free_quota": true
+    "usd_per_call": 0.00044
    },
    "record": "catalog/models/polymarket/tags-slug-related-tags.json"
   },
@@ -29157,8 +29017,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.00044,
-    "free_quota": true
+    "usd_per_call": 0.00044
    },
    "record": "catalog/models/polymarket/tags-slug-related-tags-tags.json"
   },
@@ -29179,8 +29038,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.00044,
-    "free_quota": true
+    "usd_per_call": 0.00044
    },
    "record": "catalog/models/polymarket/teams.json"
   },
@@ -29389,8 +29247,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/reddit/app/comment-replies.json"
   },
@@ -29410,8 +29267,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/reddit/app/community-highlights.json"
   },
@@ -29512,8 +29368,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/reddit/app/popular-feed.json"
   },
@@ -29554,8 +29409,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/reddit/app/post-details.json"
   },
@@ -29615,8 +29469,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/reddit/app/search-typeahead.json"
   },
@@ -29636,8 +29489,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/reddit/app/subreddit-feed.json"
   },
@@ -29657,8 +29509,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/reddit/app/subreddit-info.json"
   },
@@ -29698,8 +29549,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/reddit/app/subreddit-settings.json"
   },
@@ -29719,8 +29569,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/reddit/app/subreddit-style.json"
   },
@@ -29740,8 +29589,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/reddit/app/trending-searches.json"
   },
@@ -29761,8 +29609,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/reddit/app/user-active-subreddits.json"
   },
@@ -29802,8 +29649,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/reddit/app/user-posts.json"
   },
@@ -29823,8 +29669,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/reddit/app/user-profile.json"
   },
@@ -29844,8 +29689,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/reddit/app/user-trophies.json"
   },
@@ -32549,8 +32393,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/telegram/web/channel-search.json"
   },
@@ -32591,8 +32434,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/telegram/web/post-detail.json"
   },
@@ -33191,8 +33033,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.002,
-    "free_quota": true
+    "usd_per_call": 0.002
    },
    "record": "catalog/models/threads/web/post-detail-v2.json"
   },
@@ -33753,8 +33594,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/ads/creators-card.json"
   },
@@ -33874,8 +33714,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/ads/top-contents-item-detail.json"
   },
@@ -33895,8 +33734,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/ads/top-contents-list.json"
   },
@@ -34018,8 +33856,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/app-v3/check-live-room-online.json"
   },
@@ -34122,8 +33959,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/app-v3/creator-search-insights-trend.json"
   },
@@ -34349,8 +34185,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/app-v3/location-search.json"
   },
@@ -34430,8 +34265,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/app-v3/music-detail.json"
   },
@@ -34451,8 +34285,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/app-v3/music-search-result.json"
   },
@@ -34493,8 +34326,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/app-v3/one-video.json"
   },
@@ -34634,8 +34466,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/app-v3/search-follower-list.json"
   },
@@ -34655,8 +34486,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/app-v3/search-following-list.json"
   },
@@ -34716,8 +34546,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/app-v3/similar-user-recommendations.json"
   },
@@ -34901,8 +34730,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/app-v3/user-post-videos-v3.json"
   },
@@ -35024,8 +34852,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/app-v3/video-search-result.json"
   },
@@ -35045,8 +34872,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/app-v3/webcast-user-info.json"
   },
@@ -35228,8 +35054,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/creator/product-related-videos.json"
   },
@@ -35309,8 +35134,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/creator/video-audience-stats.json"
   },
@@ -35662,8 +35486,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/shop-web/product-detail-v3.json"
   },
@@ -35704,8 +35527,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/shop-web/product-reviews-v2.json"
   },
@@ -35827,8 +35649,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/shop-web/seller-products-list-v2.json"
   },
@@ -36239,8 +36060,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.002,
-    "free_quota": true
+    "usd_per_call": 0.002
    },
    "record": "catalog/models/tiktok/web/device-register.json"
   },
@@ -36300,8 +36120,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/web/general-search.json"
   },
@@ -36441,8 +36260,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.002,
-    "free_quota": true
+    "usd_per_call": 0.002
    },
    "record": "catalog/models/tiktok/web/generate-x-mssdk-info.json"
   },
@@ -36462,8 +36280,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/web/generate-xbogus.json"
   },
@@ -36583,8 +36400,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/web/live-data.json"
   },
@@ -36624,8 +36440,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/web/live-im-fetch.json"
   },
@@ -36968,8 +36783,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/web/user-fans.json"
   },
@@ -36989,8 +36803,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/web/user-id.json"
   },
@@ -37050,8 +36863,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/tiktok/web/user-mix.json"
   },
@@ -37174,8 +36986,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/toutiao/app/article-info.json"
   },
@@ -37215,8 +37026,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/toutiao/app/user-id.json"
   },
@@ -37299,8 +37109,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/toutiao/web/article-info.json"
   },
@@ -37494,8 +37303,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.00015,
-    "free_quota": true
+    "usd_per_call": 0.00015
    },
    "record": "catalog/models/tripadvisor/reviews.json"
   },
@@ -37516,8 +37324,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.00015,
-    "free_quota": true
+    "usd_per_call": 0.00015
    },
    "record": "catalog/models/tripadvisor/search.json"
   },
@@ -38354,8 +38161,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/twitter/web/latest-post-comments.json"
   },
@@ -38435,8 +38241,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/twitter/web/post-comments.json"
   },
@@ -38580,8 +38385,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/twitter/web/user-affiliates.json"
   },
@@ -38723,8 +38527,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/twitter/web/user-profiles-by-rest-ids.json"
   },
@@ -38744,8 +38547,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/twitter/web/user-tweet-replies.json"
   },
@@ -40599,8 +40401,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/weibo/app/user-album.json"
   },
@@ -40720,8 +40521,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/weibo/app/user-super-topics.json"
   },
@@ -41033,8 +40833,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/weibo/web-v2/ai-related-search.json"
   },
@@ -41154,8 +40953,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/weibo/web-v2/hot-ranking-timeline.json"
   },
@@ -41382,8 +41180,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/weibo/web-v2/similar-search.json"
   },
@@ -41423,8 +41220,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/weibo/web-v2/topic-search.json"
   },
@@ -41444,8 +41240,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/weibo/web-v2/user-basic-info.json"
   },
@@ -41465,8 +41260,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/weibo/web-v2/user-fans.json"
   },
@@ -41588,8 +41382,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/weibo/web-v2/user-search.json"
   },
@@ -43573,8 +43366,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/xigua/app-v2/one-video.json"
   },
@@ -43635,8 +43427,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/xigua/app-v2/user-info.json"
   },
@@ -43656,8 +43447,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/xigua/app-v2/user-post-list.json"
   },
@@ -44531,8 +44321,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.00015,
-    "free_quota": true
+    "usd_per_call": 0.00015
    },
    "record": "catalog/models/yelp/reviews.json"
   },
@@ -45078,8 +44867,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/youtube/web-v2/channel-community-posts.json"
   },
@@ -45099,8 +44887,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/youtube/web-v2/channel-description.json"
   },
@@ -45120,8 +44907,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/youtube/web-v2/channel-id.json"
   },
@@ -45203,8 +44989,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/youtube/web-v2/general-search.json"
   },
@@ -45224,8 +45009,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.002,
-    "free_quota": true
+    "usd_per_call": 0.002
    },
    "record": "catalog/models/youtube/web-v2/general-search-v2.json"
   },
@@ -45265,8 +45049,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/youtube/web-v2/post-comments.json"
   },
@@ -45306,8 +45089,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/youtube/web-v2/related-videos.json"
   },
@@ -45369,8 +45151,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/youtube/web-v2/shorts-search.json"
   },
@@ -45472,8 +45253,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/youtube/web-v2/video-comment-replies.json"
   },
@@ -45493,8 +45273,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/youtube/web-v2/video-comments.json"
   },
@@ -45617,8 +45396,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/youtube/web/channel-id-v2.json"
   },
@@ -45719,8 +45497,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
+    "usd_per_call": 0.001
    },
    "record": "catalog/models/youtube/web/search-channel.json"
   },
@@ -59247,7 +59024,7 @@
   }
  ],
  "free_quota": {
-  "apis": 424,
+  "apis": 201,
   "daily_calls_per_org": 100,
   "note": "Shared across all free-quota APIs per organization; resets 00:00 UTC."
  },

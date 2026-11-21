@@ -2,14 +2,13 @@
 
 `open-meteo/flood` · data API · Open-Meteo · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0001 per call (free daily quota) · **Modes:** sync
+**Price:** $0.0001 per call · **Modes:** sync
 
 Daily river discharge forecast and history for any coordinates from the GloFAS flood model.
 
 ## Pricing
 
 - **$0.0001 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

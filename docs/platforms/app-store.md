@@ -4,8 +4,8 @@ Call 3 App Store endpoints through SandBase with one API key: no separate accoun
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`app-store/product`](../models/app-store/product.md) | Read an iOS or Mac app's details, version history, ratings, privacy, and related apps. | $0.00015 per call (free daily quota) |
-| [`app-store/reviews`](../models/app-store/reviews.md) | Read Apple App Store reviews for an app in one storefront country, page by page. | $0.00015 per call (free daily quota) |
+| [`app-store/product`](../models/app-store/product.md) | Read an iOS or Mac app's details, version history, ratings, privacy, and related apps. | $0.00015 per call |
+| [`app-store/reviews`](../models/app-store/reviews.md) | Read Apple App Store reviews for an app in one storefront country, page by page. | $0.00015 per call |
 | [`app-store/search`](../models/app-store/search.md) | Search iPhone, iPad, and Mac apps or developers on the Apple App Store by storefront. | $0.00015 per call (free daily quota) |
 
 ## Quick start

@@ -5,7 +5,7 @@ Call 3 Yelp endpoints through SandBase with one API key: no separate account, on
 | Endpoint | What it does | Price |
 |---|---|---|
 | [`yelp/place`](../models/yelp/place.md) | Get a Yelp business by place ID or alias with rating, review count, categories, hours, address, phone, website, amenities and menu. | $0.01 per call |
-| [`yelp/reviews`](../models/yelp/reviews.md) | Public reviews of a Yelp business by place ID: rating, text, date and reviewer, with paging and sorting. | $0.00015 per call (free daily quota) |
+| [`yelp/reviews`](../models/yelp/reviews.md) | Public reviews of a Yelp business by place ID: rating, text, date and reviewer, with paging and sorting. | $0.00015 per call |
 | [`yelp/search`](../models/yelp/search.md) | Search Yelp businesses by keyword and location: name, rating, review count, price level, categories and address. | $0.00015 per call (free daily quota) |
 
 ## Quick start

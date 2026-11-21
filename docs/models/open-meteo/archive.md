@@ -2,14 +2,13 @@
 
 `open-meteo/archive` · data API · Open-Meteo · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0001 per call (free daily quota) · **Modes:** sync
+**Price:** $0.0001 per call · **Modes:** sync
 
 Historical weather by coordinates and date range from the ERA5 reanalysis, back to 1940, with hourly and daily variables.
 
 ## Pricing
 
 - **$0.0001 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 

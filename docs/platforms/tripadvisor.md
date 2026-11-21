@@ -5,8 +5,8 @@ Call 3 Tripadvisor endpoints through SandBase with one API key: no separate acco
 | Endpoint | What it does | Price |
 |---|---|---|
 | [`tripadvisor/place`](../models/tripadvisor/place.md) | Get one Tripadvisor place with rating, ranking, contacts, amenities, and prices. | $0.00015 per call |
-| [`tripadvisor/reviews`](../models/tripadvisor/reviews.md) | Public reviews of a Tripadvisor hotel, restaurant or attraction by place ID: rating, title, text, date and reviewer. | $0.00015 per call (free daily quota) |
-| [`tripadvisor/search`](../models/tripadvisor/search.md) | Search Tripadvisor hotels, restaurants, attractions and places by keyword. | $0.00015 per call (free daily quota) |
+| [`tripadvisor/reviews`](../models/tripadvisor/reviews.md) | Public reviews of a Tripadvisor hotel, restaurant or attraction by place ID: rating, title, text, date and reviewer. | $0.00015 per call |
+| [`tripadvisor/search`](../models/tripadvisor/search.md) | Search Tripadvisor hotels, restaurants, attractions and places by keyword. | $0.00015 per call |
 
 ## Quick start
 

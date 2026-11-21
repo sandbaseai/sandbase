@@ -27,9 +27,9 @@ Call 59 Polymarket endpoints through SandBase with one API key: no separate acco
 | [`polymarket/market-positions`](../models/polymarket/market-positions.md) | Positions held in one market by condition ID, with each holder wallet, size, value and PnL. | $0.012 per call |
 | [`polymarket/markets`](../models/polymarket/markets.md) | List markets from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call (free daily quota) |
 | [`polymarket/markets-by-id`](../models/polymarket/markets-by-id.md) | Get market by id from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call (free daily quota) |
-| [`polymarket/markets-by-token`](../models/polymarket/markets-by-token.md) | Get market by token from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call (free daily quota) |
+| [`polymarket/markets-by-token`](../models/polymarket/markets-by-token.md) | Get market by token from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call |
 | [`polymarket/markets-keyset`](../models/polymarket/markets-keyset.md) | List markets (keyset pagination) from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call (free daily quota) |
-| [`polymarket/markets-slug`](../models/polymarket/markets-slug.md) | Get market by slug from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call (free daily quota) |
+| [`polymarket/markets-slug`](../models/polymarket/markets-slug.md) | Get market by slug from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call |
 | [`polymarket/markets-tags`](../models/polymarket/markets-tags.md) | Get market tags by id from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call (free daily quota) |
 | [`polymarket/midpoint`](../models/polymarket/midpoint.md) | Retrieves the midpoint price for a specific token ID. The midpoint is calculated as the average of the best bid and best ask prices. | $0.012 per call |
 | [`polymarket/oi`](../models/polymarket/oi.md) | Open interest in USDC for one or more markets by condition ID. | $0.00044 per call (free daily quota) |
@@ -51,13 +51,13 @@ Call 59 Polymarket endpoints through SandBase with one API key: no separate acco
 | [`polymarket/spread`](../models/polymarket/spread.md) | Retrieves the spread for a specific token ID. The spread is the difference between the best ask and best bid prices. | $0.012 per call |
 | [`polymarket/supported-assets`](../models/polymarket/supported-assets.md) | Get supported assets for deposits and withdrawals on the bridge. | $0.012 per call |
 | [`polymarket/tags`](../models/polymarket/tags.md) | List tags from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call (free daily quota) |
-| [`polymarket/tags-by-id`](../models/polymarket/tags-by-id.md) | Get tag by id from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call (free daily quota) |
-| [`polymarket/tags-related-tags`](../models/polymarket/tags-related-tags.md) | Get related tags (relationships) by tag id from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call (free daily quota) |
-| [`polymarket/tags-related-tags-tags`](../models/polymarket/tags-related-tags-tags.md) | Get tags related to a tag id from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call (free daily quota) |
-| [`polymarket/tags-slug`](../models/polymarket/tags-slug.md) | Get tag by slug from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call (free daily quota) |
-| [`polymarket/tags-slug-related-tags`](../models/polymarket/tags-slug-related-tags.md) | Get related tags (relationships) by tag slug from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call (free daily quota) |
-| [`polymarket/tags-slug-related-tags-tags`](../models/polymarket/tags-slug-related-tags-tags.md) | Get tags related to a tag slug from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call (free daily quota) |
-| [`polymarket/teams`](../models/polymarket/teams.md) | List teams from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call (free daily quota) |
+| [`polymarket/tags-by-id`](../models/polymarket/tags-by-id.md) | Get tag by id from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call |
+| [`polymarket/tags-related-tags`](../models/polymarket/tags-related-tags.md) | Get related tags (relationships) by tag id from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call |
+| [`polymarket/tags-related-tags-tags`](../models/polymarket/tags-related-tags-tags.md) | Get tags related to a tag id from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call |
+| [`polymarket/tags-slug`](../models/polymarket/tags-slug.md) | Get tag by slug from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call |
+| [`polymarket/tags-slug-related-tags`](../models/polymarket/tags-slug-related-tags.md) | Get related tags (relationships) by tag slug from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call |
+| [`polymarket/tags-slug-related-tags-tags`](../models/polymarket/tags-slug-related-tags-tags.md) | Get tags related to a tag slug from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call |
+| [`polymarket/teams`](../models/polymarket/teams.md) | List teams from Polymarket. Returns the official Polymarket API response unchanged. | $0.00044 per call |
 | [`polymarket/tick-size`](../models/polymarket/tick-size.md) | Retrieves the minimum tick size (price increment) for a specific token ID. The tick size can be provided either as a query parameter or as… | $0.012 per call |
 | [`polymarket/tick-size-by-token-id`](../models/polymarket/tick-size-by-token-id.md) | Retrieves the minimum tick size (price increment) for a specific token ID using the token ID as a path parameter. | $0.012 per call |
 | [`polymarket/time`](../models/polymarket/time.md) | Returns the current Unix timestamp of the server. This can be used to synchronize client time with server time. | $0.012 per call |
