@@ -1,0 +1,148 @@
+{
+  "name": "tripo3d/tripo/edit-multiview",
+  "display_name": "Tripo Edit Multiview",
+  "type": "image",
+  "vendor": "Tripo3D",
+  "vendor_slug": "tripo3d",
+  "description": "Tripo Edit Multiview generates front, left, back and right views from one image and applies text edits to chosen views, keeping the views consistent.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image",
+      "prompts"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://static.sandbase.ai/examples/tripo3d/tripo-h3.1/image-to-3d/input_image_0.png"
+        ],
+        "description": "Input image; the subject should stand out from a clean background."
+      },
+      "prompts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "view",
+            "prompt"
+          ],
+          "properties": {
+            "view": {
+              "enum": [
+                "front",
+                "left",
+                "back",
+                "right"
+              ],
+              "type": "string"
+            },
+            "prompt": {
+              "type": "string",
+              "maxLength": 1024
+            }
+          }
+        },
+        "title": "Edits",
+        "examples": [
+          [
+            {
+              "view": "front",
+              "prompt": "change the shirt color to red"
+            }
+          ]
+        ],
+        "maxItems": 4,
+        "minItems": 1,
+        "description": "1 to 4 edits, one per view: {\"view\": \"front|left|back|right\", \"prompt\": \"...\"} (prompt up to 1,024 characters)."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.10 + 0.05 * len(params.prompts ?? [])",
+    "formula_variables": [
+      "params.prompts"
+    ],
+    "reference_price": 0.15,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.1
+      }
+    ]
+  },
+  "readme": "# Tripo Edit Multiview\nTripo Edit Multiview generates front, left, back and right views from one image and applies text edits to chosen views, keeping the views consistent.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | string, required | — | Input image; the subject should stand out from a clean background. |\n| `prompts` | array, required | — | 1 to 4 edits, one per view: {\"view\": \"front|left|back|right\", \"prompt\": \"...\"} (prompt up to 1,024 characters). |\n## Output\n- `url`: Front view (edited if requested).\n- `left_view`: Left view.\n- `back_view`: Back view.\n- `right_view`: Right view.\n## Billing\n$0.10 for the four views plus $0.05 per edited view.\nFailed runs are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tripo3d/tripo/edit-multiview",
+  "created_at": "2026-11-21T11:54:19.216Z"
+}

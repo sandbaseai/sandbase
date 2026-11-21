@@ -1,0 +1,164 @@
+{
+  "name": "tripo3d/tripo/smart-segment",
+  "display_name": "Tripo Smart Segment",
+  "type": "image",
+  "vendor": "Tripo3D",
+  "vendor_slug": "tripo3d",
+  "description": "Tripo Smart Segment splits an image or a 3D model into named semantic parts, returning a segmented 3D model and a part mask.",
+  "tags": [
+    "image-to-3d",
+    "3d-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d",
+    "3d-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "seg_type"
+    ],
+    "properties": {
+      "hint": {
+        "type": "string",
+        "title": "Hint",
+        "description": "Optional text naming the parts you want."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://static.sandbase.ai/examples/tripo3d/tripo-h3.1/image-to-3d/input_image_0.png"
+        ],
+        "description": "Input image when seg_type is image."
+      },
+      "seg_type": {
+        "enum": [
+          "image",
+          "model"
+        ],
+        "type": "string",
+        "title": "Input Type",
+        "default": "image",
+        "description": "image segments an image and builds a segmented 3D model; model segments an existing GLB."
+      },
+      "model_url": {
+        "type": "string",
+        "title": "Model URL",
+        "examples": [
+          "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb"
+        ],
+        "description": "Input GLB when seg_type is model."
+      },
+      "transform": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "title": "Transform",
+        "maxItems": 16,
+        "minItems": 16,
+        "description": "Model transform as a column-major 4x4 matrix (16 numbers). Used when seg_type is model; identity when unset."
+      },
+      "granularity": {
+        "enum": [
+          "coarse",
+          "medium",
+          "fine"
+        ],
+        "type": "string",
+        "title": "Granularity",
+        "default": "medium",
+        "description": "How finely to split."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.seg_type ?? \"image\") == \"model\" ? 0.55 : 0.85",
+    "formula_variables": [
+      "params.seg_type"
+    ],
+    "reference_price": 0.85,
+    "price_examples": [
+      {
+        "params": {
+          "seg_type": "image"
+        },
+        "usd": 0.85
+      },
+      {
+        "params": {
+          "seg_type": "model"
+        },
+        "usd": 0.55
+      }
+    ]
+  },
+  "readme": "# Tripo Smart Segment\nTripo Smart Segment splits an image or a 3D model into named semantic parts, returning a segmented 3D model and a part mask.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `seg_type` | `image` / `model`, required | `image` | image segments an image and builds a segmented 3D model; model segments an existing GLB. |\n| `image` | string | — | Input image when seg_type is image. |\n| `model_url` | string | — | Input GLB when seg_type is model. |\n| `granularity` | `coarse` / `medium` / `fine` | `medium` | How finely to split. |\n| `hint` | string | — | Optional text naming the parts you want. |\n| `transform` | array | — | Model transform as a column-major 4x4 matrix (16 numbers). Used when seg_type is model; identity when unset. |\n## Output\n- `url`: Segmented GLB, one node per part.\n- `mask`: Part mask image.\n- `parts`: Comma-separated part names.\n## Billing\n| seg_type | Price |\n|---|---|\n| image | $0.85 |\n| model | $0.55 |\nFailed runs are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tripo3d/tripo/smart-segment",
+  "created_at": "2026-11-21T09:23:47.42Z"
+}

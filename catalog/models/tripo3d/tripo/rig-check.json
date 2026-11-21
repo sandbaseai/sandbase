@@ -1,0 +1,100 @@
+{
+  "name": "tripo3d/tripo/rig-check",
+  "display_name": "Tripo Rig Check",
+  "type": "image",
+  "vendor": "Tripo3D",
+  "vendor_slug": "tripo3d",
+  "description": "Tripo Rig Check tells whether a 3D model can be auto-rigged and which skeleton type fits it. Free.",
+  "tags": [
+    "3d-to-3d"
+  ],
+  "capabilities": [
+    "3d-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "model_url"
+    ],
+    "properties": {
+      "model_url": {
+        "type": "string",
+        "title": "Model URL",
+        "examples": [
+          "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb"
+        ],
+        "description": "URL of the 3D model (GLB, FBX, OBJ or STL, up to 150 MB)."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "free",
+    "per_call": 0
+  },
+  "readme": "# Tripo Rig Check\nTripo Rig Check tells whether a 3D model can be auto-rigged and which skeleton type fits it. Free.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the 3D model (GLB, FBX, OBJ or STL, up to 150 MB). |\n## Output\n- `riggable`: true when the model can be rigged.\n- `rig_type`: biped, quadruped, hexapod, octopod, avian, serpentine, aquatic or others.\n## Billing\nFree.\nFailed runs are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tripo3d/tripo/rig-check",
+  "created_at": "2026-11-21T09:26:10.01Z"
+}

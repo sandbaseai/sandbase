@@ -25,10 +25,16 @@
       "image"
     ],
     "properties": {
+      "pbr": {
+        "type": "boolean",
+        "title": "PBR",
+        "default": false,
+        "description": "PBR material maps (base color, metallic, roughness, normal). true also turns texture on."
+      },
       "seed": {
         "type": "integer",
         "title": "Seed",
-        "description": "Seed for reproducible geometry generation."
+        "description": "Seed for geometry generation (Tripo model_seed). Same seed and input give the same mesh."
       },
       "image": {
         "type": "string",
@@ -38,18 +44,99 @@
         ],
         "description": "Input image URL for 3D model creation."
       },
+      "delight": {
+        "type": "boolean",
+        "title": "Delight",
+        "default": false,
+        "description": "Remove baked-in lighting from the reference image before texturing (texture v3.5)."
+      },
       "texture": {
         "type": "boolean",
         "title": "Texture",
         "default": true,
-        "description": "Generate textures. Set to false for an untextured mesh (cheaper)."
+        "description": "Generate textures. Set texture and pbr to false for bare geometry (cheaper)."
+      },
+      "auto_size": {
+        "type": "boolean",
+        "title": "Auto Size",
+        "default": false,
+        "description": "Scale the model to real-world size in meters."
+      },
+      "export_uv": {
+        "type": "boolean",
+        "title": "Export UV",
+        "default": true,
+        "description": "UV-unwrap during generation. false is faster and smaller; UVs are then made during texturing."
       },
       "face_limit": {
         "type": "integer",
         "title": "Face Limit",
         "maximum": 20000,
-        "minimum": 48,
-        "description": "Target face count of the mesh. Adaptive when unset."
+        "minimum": 50,
+        "description": "Maximum face count (50-20,000). Adaptive when unset."
+      },
+      "orientation": {
+        "enum": [
+          "default",
+          "align_image"
+        ],
+        "type": "string",
+        "title": "Orientation",
+        "default": "default",
+        "description": "align_image rotates the model to match the input image (needs texture)."
+      },
+      "texture_seed": {
+        "type": "integer",
+        "title": "Texture Seed",
+        "description": "Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry."
+      },
+      "texture_quality": {
+        "enum": [
+          "fast",
+          "standard",
+          "detailed",
+          "extreme"
+        ],
+        "type": "string",
+        "title": "Texture Quality",
+        "default": "standard",
+        "description": "fast and standard cost the same; detailed (HD) and extreme (8K) are add-ons."
+      },
+      "texture_version": {
+        "enum": [
+          "v3.5-20260815",
+          "v3.0-20250812"
+        ],
+        "type": "string",
+        "title": "Texture Version",
+        "description": "Texture model. Default v3.5-20260815; v3.0-20250812 runs as v3.5."
+      },
+      "texture_alignment": {
+        "enum": [
+          "original_image",
+          "geometry"
+        ],
+        "type": "string",
+        "title": "Texture Alignment",
+        "default": "original_image",
+        "description": "original_image keeps textures close to the input image; geometry favors the mesh."
+      },
+      "export_orientation": {
+        "enum": [
+          "+x",
+          "-x",
+          "+y",
+          "-y"
+        ],
+        "type": "string",
+        "title": "Export Orientation",
+        "description": "Forward axis of the exported model. Leave unset if you will post-process the model."
+      },
+      "enable_image_autofix": {
+        "type": "boolean",
+        "title": "Image Autofix",
+        "default": false,
+        "description": "Enhance the input image before generation."
       }
     }
   },
@@ -110,23 +197,141 @@
   "pricing": {
     "currency": "USD",
     "model": "formula",
-    "formula": "(params.texture ?? true) ? 0.60 : 0.48",
+    "formula": "(((params.texture ?? true) || (params.pbr ?? false)) ? (0.50 + ((params.texture_quality ?? \"standard\") == \"detailed\" ? 0.10 : (params.texture_quality ?? \"standard\") == \"extreme\" ? 0.20 : 0.0)) : 0.40)",
     "formula_variables": [
-      "params.texture"
+      "params.pbr",
+      "params.texture",
+      "params.texture_quality"
     ],
-    "reference_price": 0.6,
+    "reference_price": 0.5,
     "price_examples": [
       {
         "params": {
-          "texture": false
+          "pbr": false,
+          "texture": false,
+          "texture_quality": "fast"
         },
-        "usd": 0.48
+        "usd": 0.4
       },
       {
         "params": {
-          "texture": true
+          "pbr": false,
+          "texture": false,
+          "texture_quality": "standard"
+        },
+        "usd": 0.4
+      },
+      {
+        "params": {
+          "pbr": false,
+          "texture": false,
+          "texture_quality": "detailed"
+        },
+        "usd": 0.4
+      },
+      {
+        "params": {
+          "pbr": false,
+          "texture": false,
+          "texture_quality": "extreme"
+        },
+        "usd": 0.4
+      },
+      {
+        "params": {
+          "pbr": false,
+          "texture": true,
+          "texture_quality": "fast"
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "pbr": false,
+          "texture": true,
+          "texture_quality": "standard"
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "pbr": false,
+          "texture": true,
+          "texture_quality": "detailed"
         },
         "usd": 0.6
+      },
+      {
+        "params": {
+          "pbr": false,
+          "texture": true,
+          "texture_quality": "extreme"
+        },
+        "usd": 0.7
+      },
+      {
+        "params": {
+          "pbr": true,
+          "texture": false,
+          "texture_quality": "fast"
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "pbr": true,
+          "texture": false,
+          "texture_quality": "standard"
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "pbr": true,
+          "texture": false,
+          "texture_quality": "detailed"
+        },
+        "usd": 0.6
+      },
+      {
+        "params": {
+          "pbr": true,
+          "texture": false,
+          "texture_quality": "extreme"
+        },
+        "usd": 0.7
+      },
+      {
+        "params": {
+          "pbr": true,
+          "texture": true,
+          "texture_quality": "fast"
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "pbr": true,
+          "texture": true,
+          "texture_quality": "standard"
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "pbr": true,
+          "texture": true,
+          "texture_quality": "detailed"
+        },
+        "usd": 0.6
+      },
+      {
+        "params": {
+          "pbr": true,
+          "texture": true,
+          "texture_quality": "extreme"
+        },
+        "usd": 0.7
       }
     ]
   },
@@ -145,7 +350,7 @@
       "default": true
     }
   ],
-  "readme": "# Tripo P1 Image to 3D\nTripo P1 is Tripo3D's image-to-3D model. It reconstructs a 3D mesh with optional textures from a single image.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Input image URL for 3D model creation. |\n| `texture` | boolean | `true` | Generate textures. Set to false for an untextured mesh (cheaper). |\n| `face_limit` | integer 48–20000 | — | Target face count of the mesh. Adaptive when unset. |\n| `seed` | integer | — | Seed for reproducible geometry generation. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.60 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| texture on | $0.60 |\n| texture off | $0.48 |\nFailed runs are not charged.\n## Also on SandBase\nOther Tripo3D 3D endpoints: `tripo3d/tripo-h3.1/image-to-3d`, `tripo3d/tripo-h3.1/multiview-to-3d`, `tripo3d/tripo-h3.1/text-to-3d`, `tripo3d/tripo-p1/text-to-3d`.\n",
+  "readme": "# Tripo P1 Image to 3D\nTripo P1 (P1-20260311) produces clean low-poly meshes (50–20,000 faces).\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | string, required | — | Input image URL for 3D model creation. |\n| `texture` | boolean | `true` | Generate textures. Set texture and pbr to false for bare geometry (cheaper). |\n| `pbr` | boolean | `false` | PBR material maps (base color, metallic, roughness, normal). true also turns texture on. |\n| `texture_quality` | `fast` / `standard` / `detailed` / `extreme` | `standard` | fast and standard cost the same; detailed (HD) and extreme (8K) are add-ons. |\n| `face_limit` | integer 50–20000 | — | Maximum face count (50-20,000). Adaptive when unset. |\n| `texture_alignment` | `original_image` / `geometry` | `original_image` | original_image keeps textures close to the input image; geometry favors the mesh. |\n| `orientation` | `default` / `align_image` | `default` | align_image rotates the model to match the input image (needs texture). |\n| `enable_image_autofix` | boolean | `false` | Enhance the input image before generation. |\n| `seed` | integer | — | Seed for geometry generation (Tripo model_seed). Same seed and input give the same mesh. |\n| `texture_seed` | integer | — | Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry. |\n| `texture_version` | `v3.5-20260815` / `v3.0-20250812` | — | Texture model. Default v3.5-20260815; v3.0-20250812 runs as v3.5. |\n| `delight` | boolean | `false` | Remove baked-in lighting from the reference image before texturing (texture v3.5). |\n| `export_uv` | boolean | `true` | UV-unwrap during generation. false is faster and smaller; UVs are then made during texturing. |\n| `export_orientation` | `+x` / `-x` / `+y` / `-y` | — | Forward axis of the exported model. Leave unset if you will post-process the model. |\n| `auto_size` | boolean | `false` | Scale the model to real-world size in meters. |\n## Output\n- `url`: 3D model (GLB; FBX when quad is on).\n- `thumbnail`: Preview render.\n## Billing\n$0.50 textured (standard or fast texture), $0.40 untextured (texture and pbr false).\n| Add-on | Price |\n|---|---|\n| texture_quality = detailed | +$0.10 |\n| texture_quality = extreme | +$0.20 |\nFailed runs are not charged.\n",
   "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo-p1/image-to-3d/cover-flare-20261111181312.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo-p1/image-to-3d",
   "published_at": "2026-04-15T18:23:58.905Z",

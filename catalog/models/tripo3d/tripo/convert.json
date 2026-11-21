@@ -1,0 +1,888 @@
+{
+  "name": "tripo3d/tripo/convert",
+  "display_name": "Tripo Convert",
+  "type": "image",
+  "vendor": "Tripo3D",
+  "vendor_slug": "tripo3d",
+  "description": "Tripo Convert exports a 3D model to GLTF, FBX, USDZ, OBJ, STL or 3MF, with optional quad remesh, scaling and texture settings.",
+  "tags": [
+    "3d-to-3d"
+  ],
+  "capabilities": [
+    "3d-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "model_url",
+      "format"
+    ],
+    "properties": {
+      "bake": {
+        "type": "boolean",
+        "title": "Bake",
+        "default": true,
+        "description": "Bake advanced materials into the textures."
+      },
+      "quad": {
+        "type": "boolean",
+        "title": "Quad",
+        "default": false,
+        "description": "Quad remesh (10,000 faces when face_limit is unset). Forces FBX."
+      },
+      "format": {
+        "enum": [
+          "GLTF",
+          "FBX",
+          "USDZ",
+          "OBJ",
+          "STL",
+          "3MF"
+        ],
+        "type": "string",
+        "title": "Format",
+        "default": "FBX",
+        "description": "Output format."
+      },
+      "pack_uv": {
+        "type": "boolean",
+        "title": "Pack UV",
+        "default": false,
+        "description": "Pack all UV islands into one texture."
+      },
+      "model_url": {
+        "type": "string",
+        "title": "Model URL",
+        "examples": [
+          "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb"
+        ],
+        "description": "URL of the input 3D model (GLB, GLTF, FBX, OBJ or STL, up to 150 MB)."
+      },
+      "face_limit": {
+        "type": "integer",
+        "title": "Face Limit",
+        "minimum": 1,
+        "description": "Target face count. Original when unset."
+      },
+      "fbx_preset": {
+        "enum": [
+          "blender",
+          "3dsmax",
+          "mixamo",
+          "bake_scale"
+        ],
+        "type": "string",
+        "title": "FBX Preset",
+        "default": "blender",
+        "description": "FBX target application."
+      },
+      "part_names": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Part Names",
+        "description": "Only process these parts (node names from a segmentation, e.g. tripo_part_0). All parts when unset."
+      },
+      "scale_factor": {
+        "type": "number",
+        "title": "Scale Factor",
+        "default": 1,
+        "description": "Uniform scale."
+      },
+      "texture_size": {
+        "type": "integer",
+        "title": "Texture Size",
+        "default": 4096,
+        "description": "Texture size in pixels."
+      },
+      "flatten_bottom": {
+        "type": "boolean",
+        "title": "Flatten Bottom",
+        "default": false,
+        "description": "Flatten the bottom of the model."
+      },
+      "force_symmetry": {
+        "type": "boolean",
+        "title": "Force Symmetry",
+        "default": false,
+        "description": "Symmetric quad mesh. Only with quad."
+      },
+      "texture_format": {
+        "enum": [
+          "JPEG",
+          "PNG",
+          "WEBP",
+          "BMP",
+          "DPX",
+          "HDR",
+          "OPEN_EXR",
+          "TARGA",
+          "TIFF"
+        ],
+        "type": "string",
+        "title": "Texture Format",
+        "default": "JPEG",
+        "description": "Texture image format."
+      },
+      "with_animation": {
+        "type": "boolean",
+        "title": "With Animation",
+        "default": true,
+        "description": "Keep animations."
+      },
+      "animate_in_place": {
+        "type": "boolean",
+        "title": "Animate in Place",
+        "default": false,
+        "description": "Remove root motion from animations."
+      },
+      "texture_packaging": {
+        "enum": [
+          "embedded",
+          "zip"
+        ],
+        "type": "string",
+        "title": "Texture Packaging",
+        "default": "embedded",
+        "description": "FBX only: embedded textures, or a zip with the FBX and a .fbm folder."
+      },
+      "export_orientation": {
+        "enum": [
+          "+x",
+          "-x",
+          "+y",
+          "-y"
+        ],
+        "type": "string",
+        "title": "Export Orientation",
+        "description": "Forward axis of the exported model."
+      },
+      "export_vertex_colors": {
+        "type": "boolean",
+        "title": "Export Vertex Colors",
+        "default": false,
+        "description": "Vertex colors (OBJ and GLTF only)."
+      },
+      "pivot_to_center_bottom": {
+        "type": "boolean",
+        "title": "Pivot to Center Bottom",
+        "default": false,
+        "description": "Move the pivot to the bottom center."
+      },
+      "flatten_bottom_threshold": {
+        "type": "number",
+        "title": "Flatten Bottom Threshold",
+        "default": 0.01,
+        "description": "Depth flattened when flatten_bottom is on."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.quad ?? false) || (params.face_limit ?? 0) > 0 || (params.flatten_bottom ?? false) || (params.flatten_bottom_threshold ?? 0.01) != 0.01 || (params.texture_size ?? 4096) != 4096 || (params.texture_format ?? \"JPEG\") != \"JPEG\" || (params.pivot_to_center_bottom ?? false) || (params.scale_factor ?? 1) != 1) ? 0.10 : 0.05",
+    "formula_variables": [
+      "params.face_limit",
+      "params.flatten_bottom",
+      "params.flatten_bottom_threshold",
+      "params.pivot_to_center_bottom",
+      "params.quad",
+      "params.scale_factor",
+      "params.texture_format",
+      "params.texture_size"
+    ],
+    "reference_price": 0.05,
+    "price_examples": [
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "JPEG",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "PNG",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "WEBP",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "BMP",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "DPX",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "HDR",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "JPEG",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "PNG",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "WEBP",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "BMP",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "DPX",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "HDR",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "JPEG",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "PNG",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "WEBP",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "BMP",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "DPX",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "HDR",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "JPEG",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "PNG",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "WEBP",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "BMP",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "DPX",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": false,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "HDR",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "JPEG",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "PNG",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "WEBP",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "BMP",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "DPX",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "HDR",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "JPEG",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "PNG",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "WEBP",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "BMP",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "DPX",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": false,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "HDR",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "JPEG",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "PNG",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "WEBP",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "BMP",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "DPX",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": false,
+          "scale_factor": 1,
+          "texture_format": "HDR",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "JPEG",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "PNG",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "WEBP",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "BMP",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "DPX",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "face_limit": 1,
+          "flatten_bottom": true,
+          "flatten_bottom_threshold": 0.01,
+          "pivot_to_center_bottom": true,
+          "quad": true,
+          "scale_factor": 1,
+          "texture_format": "HDR",
+          "texture_size": 4096
+        },
+        "usd": 0.1
+      }
+    ]
+  },
+  "readme": "# Tripo Convert\nTripo Convert exports a 3D model to GLTF, FBX, USDZ, OBJ, STL or 3MF, with optional quad remesh, scaling and texture settings.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the input 3D model (GLB, GLTF, FBX, OBJ or STL, up to 150 MB). |\n| `format` | `GLTF` / `FBX` / `USDZ` / `OBJ` / `STL` / `3MF`, required | `FBX` | Output format. |\n| `quad` | boolean | `false` | Quad remesh (10,000 faces when face_limit is unset). Forces FBX. |\n| `force_symmetry` | boolean | `false` | Symmetric quad mesh. Only with quad. |\n| `face_limit` | integer | — | Target face count. Original when unset. |\n| `texture_size` | integer | `4096` | Texture size in pixels. |\n| `texture_format` | `JPEG` / `PNG` / `WEBP` / `BMP` / `DPX` / `HDR` / `OPEN_EXR` / `TARGA` / `TIFF` | `JPEG` | Texture image format. |\n| `bake` | boolean | `true` | Bake advanced materials into the textures. |\n| `pack_uv` | boolean | `false` | Pack all UV islands into one texture. |\n| `export_vertex_colors` | boolean | `false` | Vertex colors (OBJ and GLTF only). |\n| `flatten_bottom` | boolean | `false` | Flatten the bottom of the model. |\n| `flatten_bottom_threshold` | number | `0.01` | Depth flattened when flatten_bottom is on. |\n| `pivot_to_center_bottom` | boolean | `false` | Move the pivot to the bottom center. |\n| `scale_factor` | number | `1` | Uniform scale. |\n| `with_animation` | boolean | `true` | Keep animations. |\n| `animate_in_place` | boolean | `false` | Remove root motion from animations. |\n| `part_names` | array | — | Only process these parts (node names from a segmentation, e.g. tripo_part_0). All parts when unset. |\n| `export_orientation` | `+x` / `-x` / `+y` / `-y` | — | Forward axis of the exported model. |\n| `fbx_preset` | `blender` / `3dsmax` / `mixamo` / `bake_scale` | `blender` | FBX target application. |\n| `texture_packaging` | `embedded` / `zip` | `embedded` | FBX only: embedded textures, or a zip with the FBX and a .fbm folder. |\n## Output\n- `url`: Converted model file (a .zip when texture_packaging is zip).\n## Billing\n$0.05 per conversion; $0.10 when any of quad, face_limit, flatten_bottom, flatten_bottom_threshold, texture_size, texture_format, pivot_to_center_bottom or scale_factor is not the default.\nFailed runs are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tripo3d/tripo/convert",
+  "created_at": "2026-11-21T09:19:31.097Z"
+}

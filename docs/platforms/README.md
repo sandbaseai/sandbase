@@ -26,6 +26,7 @@
 | [Reddit](reddit.md) | 35 | data API |
 | [Bytedance](bytedance.md) | 33 | LLM, audio model, image generation model, video generation model |
 | [X (Twitter)](x-twitter.md) | 30 | data API |
+| [Tripo3D](tripo3d.md) | 29 | image generation model |
 | [Facebook](facebook.md) | 28 | data API |
 | [MiniMax](minimax.md) | 27 | audio model, image generation model, video generation model |
 | [Tencent](tencent.md) | 26 | LLM, image generation model, video generation model |
@@ -53,7 +54,6 @@
 | [H&M](h-m.md) | 12 | data API |
 | [Open-Meteo](open-meteo.md) | 12 | data API |
 | [Tendata](tendata.md) | 12 | data API |
-| [Tripo3D](tripo3d.md) | 12 | image generation model |
 | [Baidu](baidu.md) | 11 | data API |
 | [Channel3](channel3.md) | 11 | data API |
 | [Eastmoney](eastmoney.md) | 11 | data API |

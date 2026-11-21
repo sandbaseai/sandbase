@@ -1,0 +1,338 @@
+{
+  "name": "tripo3d/tripo-h3.0/text-to-3d",
+  "display_name": "Tripo H3.0 Text to 3D",
+  "type": "image",
+  "vendor": "Tripo3D",
+  "vendor_slug": "tripo3d",
+  "description": "Tripo H3.0 Text to 3D by Tripo3D: turn a text prompt into a textured 3D model.",
+  "tags": [
+    "text-to-3d"
+  ],
+  "capabilities": [
+    "text-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "pbr": {
+        "type": "boolean",
+        "title": "PBR",
+        "default": true,
+        "description": "PBR material maps (base color, metallic, roughness, normal). true also turns texture on."
+      },
+      "quad": {
+        "type": "boolean",
+        "title": "Quad Mesh",
+        "default": false,
+        "description": "Quad topology instead of triangles. Output becomes FBX; 10,000 faces when face_limit is unset."
+      },
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Seed for geometry generation (Tripo model_seed). Same seed and input give the same mesh."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A low-poly medieval wooden treasure chest with iron hinges and a rusty lock."
+        ],
+        "maxLength": 1024,
+        "description": "Describe shape, material, style and scale. Up to 1,024 characters."
+      },
+      "delight": {
+        "type": "boolean",
+        "title": "Delight",
+        "default": false,
+        "description": "Remove baked-in lighting from the reference image before texturing (texture v3.5)."
+      },
+      "texture": {
+        "type": "boolean",
+        "title": "Texture",
+        "default": true,
+        "description": "Generate textures. Set texture and pbr to false for bare geometry (cheaper)."
+      },
+      "compress": {
+        "enum": [
+          "geometry"
+        ],
+        "type": "string",
+        "title": "Compress",
+        "description": "geometry applies meshopt compression to reduce file size."
+      },
+      "auto_size": {
+        "type": "boolean",
+        "title": "Auto Size",
+        "default": false,
+        "description": "Scale the model to real-world size in meters."
+      },
+      "export_uv": {
+        "type": "boolean",
+        "title": "Export UV",
+        "default": true,
+        "description": "UV-unwrap during generation. false is faster and smaller; UVs are then made during texturing."
+      },
+      "face_limit": {
+        "type": "integer",
+        "title": "Face Limit",
+        "maximum": 2000000,
+        "description": "Maximum face count, up to 2,000,000 (detailed geometry) or 1,000,000; up to 150,000 with quad. Adaptive when unset."
+      },
+      "image_seed": {
+        "type": "integer",
+        "title": "Image Seed",
+        "description": "Seed for the internal text-to-image step."
+      },
+      "texture_seed": {
+        "type": "integer",
+        "title": "Texture Seed",
+        "description": "Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry."
+      },
+      "generate_parts": {
+        "type": "boolean",
+        "title": "Generate Parts",
+        "default": false,
+        "description": "Editable segmented parts. Requires texture=false and pbr=false; billed as an add-on."
+      },
+      "smart_low_poly": {
+        "type": "boolean",
+        "title": "Smart Low Poly",
+        "default": false,
+        "description": "Hand-crafted style low-poly topology (500-20,000 faces). Best for simple objects; billed as an add-on."
+      },
+      "negative_prompt": {
+        "type": "string",
+        "title": "Negative Prompt",
+        "maxLength": 255,
+        "description": "What to avoid, up to 255 characters."
+      },
+      "texture_quality": {
+        "enum": [
+          "fast",
+          "standard",
+          "detailed",
+          "extreme"
+        ],
+        "type": "string",
+        "title": "Texture Quality",
+        "default": "standard",
+        "description": "fast and standard cost the same; detailed (HD) and extreme (8K) are add-ons."
+      },
+      "texture_version": {
+        "enum": [
+          "v3.5-20260815",
+          "v3.0-20250812"
+        ],
+        "type": "string",
+        "title": "Texture Version",
+        "description": "Texture model. Default v3.5-20260815; v3.0-20250812 runs as v3.5."
+      },
+      "geometry_quality": {
+        "enum": [
+          "standard",
+          "detailed"
+        ],
+        "type": "string",
+        "title": "Geometry Quality",
+        "default": "standard",
+        "description": "detailed (Ultra) adds mesh detail and is billed as an add-on."
+      },
+      "export_orientation": {
+        "enum": [
+          "+x",
+          "-x",
+          "+y",
+          "-y"
+        ],
+        "type": "string",
+        "title": "Export Orientation",
+        "description": "Forward axis of the exported model. Leave unset if you will post-process the model."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(((params.texture ?? true) || (params.pbr ?? true)) ? (0.20 + ((params.texture_quality ?? \"standard\") == \"detailed\" ? 0.10 : (params.texture_quality ?? \"standard\") == \"extreme\" ? 0.20 : 0.0)) : 0.10) + ((params.geometry_quality ?? \"standard\") == \"detailed\" ? 0.20 : 0.0) + ((params.quad ?? false) ? 0.05 : 0.0) + ((params.smart_low_poly ?? false) ? 0.10 : 0.0) + ((params.generate_parts ?? false) ? 0.20 : 0.0)",
+    "formula_variables": [
+      "params.generate_parts",
+      "params.geometry_quality",
+      "params.pbr",
+      "params.quad",
+      "params.smart_low_poly",
+      "params.texture",
+      "params.texture_quality"
+    ],
+    "reference_price": 0.2,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "generate_parts": false
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "generate_parts": true
+        },
+        "usd": 0.4
+      },
+      {
+        "params": {
+          "geometry_quality": "standard"
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "geometry_quality": "detailed"
+        },
+        "usd": 0.4
+      },
+      {
+        "params": {
+          "pbr": false
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "pbr": true
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "quad": false
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "quad": true
+        },
+        "usd": 0.25
+      },
+      {
+        "params": {
+          "smart_low_poly": false
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "smart_low_poly": true
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "texture": false
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "texture": true
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "texture_quality": "fast"
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "texture_quality": "standard"
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "texture_quality": "detailed"
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "texture_quality": "extreme"
+        },
+        "usd": 0.4
+      }
+    ]
+  },
+  "readme": "# Tripo H3.0 Text to 3D\nTripo H3.0 (v3.0-20250812) is Tripo's previous-generation stable model, kept for backward compatibility, with HD geometry, quad, smart low-poly and part generation.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Describe shape, material, style and scale. Up to 1,024 characters. |\n| `negative_prompt` | string | — | What to avoid, up to 255 characters. |\n| `texture` | boolean | `true` | Generate textures. Set texture and pbr to false for bare geometry (cheaper). |\n| `pbr` | boolean | `true` | PBR material maps (base color, metallic, roughness, normal). true also turns texture on. |\n| `texture_quality` | `fast` / `standard` / `detailed` / `extreme` | `standard` | fast and standard cost the same; detailed (HD) and extreme (8K) are add-ons. |\n| `geometry_quality` | `standard` / `detailed` | `standard` | detailed (Ultra) adds mesh detail and is billed as an add-on. |\n| `quad` | boolean | `false` | Quad topology instead of triangles. Output becomes FBX; 10,000 faces when face_limit is unset. |\n| `smart_low_poly` | boolean | `false` | Hand-crafted style low-poly topology (500-20,000 faces). Best for simple objects; billed as an add-on. |\n| `generate_parts` | boolean | `false` | Editable segmented parts. Requires texture=false and pbr=false; billed as an add-on. |\n| `face_limit` | integer | — | Maximum face count, up to 2,000,000 (detailed geometry) or 1,000,000; up to 150,000 with quad. Adaptive when unset. |\n| `seed` | integer | — | Seed for geometry generation (Tripo model_seed). Same seed and input give the same mesh. |\n| `texture_seed` | integer | — | Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry. |\n| `image_seed` | integer | — | Seed for the internal text-to-image step. |\n| `texture_version` | `v3.5-20260815` / `v3.0-20250812` | — | Texture model. Default v3.5-20260815; v3.0-20250812 runs as v3.5. |\n| `delight` | boolean | `false` | Remove baked-in lighting from the reference image before texturing (texture v3.5). |\n| `export_uv` | boolean | `true` | UV-unwrap during generation. false is faster and smaller; UVs are then made during texturing. |\n| `export_orientation` | `+x` / `-x` / `+y` / `-y` | — | Forward axis of the exported model. Leave unset if you will post-process the model. |\n| `compress` | `geometry` | — | geometry applies meshopt compression to reduce file size. |\n| `auto_size` | boolean | `false` | Scale the model to real-world size in meters. |\n## Output\n- `url`: 3D model (GLB; FBX when quad is on).\n- `thumbnail`: Preview render.\n- `generated_image`: Reference image Tripo generated from the prompt.\n## Billing\n$0.20 textured (standard or fast texture), $0.10 untextured (texture and pbr false).\n| Add-on | Price |\n|---|---|\n| texture_quality = detailed | +$0.10 |\n| texture_quality = extreme | +$0.20 |\n| geometry_quality = detailed | +$0.20 |\n| quad | +$0.05 |\n| smart_low_poly | +$0.10 |\n| generate_parts | +$0.20 |\nFailed runs are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tripo3d/tripo-h3.0/text-to-3d",
+  "created_at": "2026-11-21T10:49:07.844Z"
+}

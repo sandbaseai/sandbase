@@ -1,12 +1,12 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-21T08:23:27Z",
+ "generated_at": "2026-11-21T12:25:08Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2807,
+ "count": 2824,
  "counts_by_type": {
   "api": 2247,
+  "image": 211,
   "video": 200,
-  "image": 194,
   "llm": 132,
   "audio": 32,
   "embedding": 2
@@ -51198,6 +51198,66 @@
    "record": "catalog/models/trellis/trellis/multi.json"
   },
   {
+   "name": "tripo3d/tripo-h3.0/image-to-3d",
+   "display_name": "Tripo H3.0 Image to 3D",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo H3.0 Image to 3D by Tripo3D: turn one image into a textured 3D model.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.3,
+    "usd_to": 0.5
+   },
+   "record": "catalog/models/tripo3d/tripo-h3.0/image-to-3d.json"
+  },
+  {
+   "name": "tripo3d/tripo-h3.0/multiview-to-3d",
+   "display_name": "Tripo H3.0 Multiview to 3D",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo H3.0 Multiview to 3D by Tripo3D: build a textured 3D model from 2 to 4 views of the same object.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.3,
+    "usd_to": 0.5
+   },
+   "record": "catalog/models/tripo3d/tripo-h3.0/multiview-to-3d.json"
+  },
+  {
+   "name": "tripo3d/tripo-h3.0/text-to-3d",
+   "display_name": "Tripo H3.0 Text to 3D",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo H3.0 Text to 3D by Tripo3D: turn a text prompt into a textured 3D model.",
+   "tags": [
+    "text-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.2,
+    "usd_to": 0.4
+   },
+   "record": "catalog/models/tripo3d/tripo-h3.0/text-to-3d.json"
+  },
+  {
    "name": "tripo3d/tripo-h3.1/image-to-3d",
    "display_name": "Tripo H3.1 Image to 3D",
    "type": "image",
@@ -51212,8 +51272,8 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_from": 0.24,
-    "usd_to": 0.78
+    "usd_from": 0.3,
+    "usd_to": 0.5
    },
    "record": "catalog/models/tripo3d/tripo-h3.1/image-to-3d.json"
   },
@@ -51232,8 +51292,8 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_from": 0.24,
-    "usd_to": 0.78
+    "usd_from": 0.3,
+    "usd_to": 0.5
    },
    "record": "catalog/models/tripo3d/tripo-h3.1/multiview-to-3d.json"
   },
@@ -51252,8 +51312,8 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_from": 0.12,
-    "usd_to": 0.66
+    "usd_from": 0.2,
+    "usd_to": 0.4
    },
    "record": "catalog/models/tripo3d/tripo-h3.1/text-to-3d.json"
   },
@@ -51272,10 +51332,30 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_from": 0.48,
-    "usd_to": 0.6
+    "usd_from": 0.4,
+    "usd_to": 0.7
    },
    "record": "catalog/models/tripo3d/tripo-p1/image-to-3d.json"
+  },
+  {
+   "name": "tripo3d/tripo-p1/multiview-to-3d",
+   "display_name": "Tripo P1 Multiview to 3D",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo P1 Multiview to 3D by Tripo3D: build a textured 3D model from 2 to 4 views of the same object.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.4,
+    "usd_to": 0.7
+   },
+   "record": "catalog/models/tripo3d/tripo-p1/multiview-to-3d.json"
   },
   {
    "name": "tripo3d/tripo-p1/text-to-3d",
@@ -51292,8 +51372,8 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_from": 0.36,
-    "usd_to": 0.48
+    "usd_from": 0.3,
+    "usd_to": 0.6
    },
    "record": "catalog/models/tripo3d/tripo-p1/text-to-3d.json"
   },
@@ -51312,10 +51392,30 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_from": 1.2,
-    "usd_to": 1.56
+    "usd_from": 1,
+    "usd_to": 1.3
    },
    "record": "catalog/models/tripo3d/tripo-p2/image-to-3d.json"
+  },
+  {
+   "name": "tripo3d/tripo-p2/multiview-to-3d",
+   "display_name": "Tripo P2 Multiview to 3D",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo P2 Multiview to 3D by Tripo3D: build a textured 3D model from 2 to 4 views of the same object.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 1,
+    "usd_to": 1.3
+   },
+   "record": "catalog/models/tripo3d/tripo-p2/multiview-to-3d.json"
   },
   {
    "name": "tripo3d/tripo-p2/text-to-3d",
@@ -51332,8 +51432,8 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_from": 1.2,
-    "usd_to": 1.56
+    "usd_from": 1,
+    "usd_to": 1.3
    },
    "record": "catalog/models/tripo3d/tripo-p2/text-to-3d.json"
   },
@@ -51378,6 +51478,144 @@
    "record": "catalog/models/tripo3d/tripo-v2.5/multiview-to-3d.json"
   },
   {
+   "name": "tripo3d/tripo-v2.5/text-to-3d",
+   "display_name": "Tripo v2.5 Text to 3D",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo v2.5 Text to 3D by Tripo3D: turn a text prompt into a textured 3D model.",
+   "tags": [
+    "text-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.1,
+    "usd_to": 0.35
+   },
+   "record": "catalog/models/tripo3d/tripo-v2.5/text-to-3d.json"
+  },
+  {
+   "name": "tripo3d/tripo/animate",
+   "display_name": "Tripo Animate",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo Animate rigs a 3D character or creature and applies preset animations to it in one call (Tripo Rig + Animation Retarget).",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.35,
+    "usd_to": 0.35
+   },
+   "record": "catalog/models/tripo3d/tripo/animate.json"
+  },
+  {
+   "name": "tripo3d/tripo/convert",
+   "display_name": "Tripo Convert",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo Convert exports a 3D model to GLTF, FBX, USDZ, OBJ, STL or 3MF, with optional quad remesh, scaling and texture settings.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.1,
+    "usd_to": 0.1
+   },
+   "record": "catalog/models/tripo3d/tripo/convert.json"
+  },
+  {
+   "name": "tripo3d/tripo/edit-multiview",
+   "display_name": "Tripo Edit Multiview",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo Edit Multiview generates front, left, back and right views from one image and applies text edits to chosen views, keeping the views consistent.",
+   "tags": [
+    "image-to-image"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.1,
+    "usd_to": 0.1
+   },
+   "record": "catalog/models/tripo3d/tripo/edit-multiview.json"
+  },
+  {
+   "name": "tripo3d/tripo/image-to-multiview",
+   "display_name": "Tripo Image to Multiview",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo Image to Multiview generates front, left, back and right views of an object from one image, ready for multiview-to-3D.",
+   "tags": [
+    "image-to-image"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.1
+   },
+   "record": "catalog/models/tripo3d/tripo/image-to-multiview.json"
+  },
+  {
+   "name": "tripo3d/tripo/image-to-splat",
+   "display_name": "Tripo Image to Splat",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo Image to Splat turns one image into a 3D Gaussian splat scene (.splat).",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.3
+   },
+   "record": "catalog/models/tripo3d/tripo/image-to-splat.json"
+  },
+  {
+   "name": "tripo3d/tripo/part-completion",
+   "display_name": "Tripo Part Completion",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo Part Completion splits a 3D model into parts and rebuilds the hidden or missing surfaces of each part in one call (Tripo Segment + Complete).",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.7,
+    "usd_to": 0.9
+   },
+   "record": "catalog/models/tripo3d/tripo/part-completion.json"
+  },
+  {
    "name": "tripo3d/tripo/remesh",
    "display_name": "Tripo Remesh",
    "type": "image",
@@ -51392,10 +51630,48 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_from": 0.42,
-    "usd_to": 0.48
+    "usd_from": 0.1,
+    "usd_to": 0.4
    },
    "record": "catalog/models/tripo3d/tripo/remesh.json"
+  },
+  {
+   "name": "tripo3d/tripo/rig",
+   "display_name": "Tripo Rig",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo Rig adds a skeleton to a 3D character or creature, for humanoids, quadrupeds, birds, snakes, sea creatures and more.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.25
+   },
+   "record": "catalog/models/tripo3d/tripo/rig.json"
+  },
+  {
+   "name": "tripo3d/tripo/rig-check",
+   "display_name": "Tripo Rig Check",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo Rig Check tells whether a 3D model can be auto-rigged and which skeleton type fits it. Free.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "free",
+    "usd_per_call": 0
+   },
+   "record": "catalog/models/tripo3d/tripo/rig-check.json"
   },
   {
    "name": "tripo3d/tripo/segment",
@@ -51412,9 +51688,69 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.48
+    "usd_per_call": 0.4
    },
    "record": "catalog/models/tripo3d/tripo/segment.json"
+  },
+  {
+   "name": "tripo3d/tripo/smart-segment",
+   "display_name": "Tripo Smart Segment",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo Smart Segment splits an image or a 3D model into named semantic parts, returning a segmented 3D model and a part mask.",
+   "tags": [
+    "image-to-3d",
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.55,
+    "usd_to": 0.85
+   },
+   "record": "catalog/models/tripo3d/tripo/smart-segment.json"
+  },
+  {
+   "name": "tripo3d/tripo/smart-uv",
+   "display_name": "Tripo Smart UV",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo Smart UV unwraps an existing 3D model into a clean UV layout, optionally baking the textures onto it.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.2
+   },
+   "record": "catalog/models/tripo3d/tripo/smart-uv.json"
+  },
+  {
+   "name": "tripo3d/tripo/texture",
+   "display_name": "Tripo Texture",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo Texture paints new textures on an existing 3D model from a text prompt, one image or multiple views.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.1,
+    "usd_to": 0.3
+   },
+   "record": "catalog/models/tripo3d/tripo/texture.json"
   },
   {
    "name": "tripo3d/triposplat",

@@ -2,7 +2,7 @@
 
 `tripo3d/tripo-p2/text-to-3d` · image generation model · Tripo3D · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** from $1.2 to $1.56 per run, depending on parameters · **Modes:** async
+**Price:** from $1 to $1.3 per run, depending on parameters · **Modes:** async
 
 Tripo P2 is Tripo3D's latest flagship 3D generation model. It turns a text description into a production-ready mesh with optional PBR textures.
 
@@ -12,24 +12,24 @@ Tripo P2 is Tripo3D's latest flagship 3D generation model. It turns a text descr
 
 | parameters | USD |
 |---|---|
-| pbr=false, texture=false, texture_quality="fast" | 1.2 |
-| pbr=false, texture=false, texture_quality="standard" | 1.2 |
-| pbr=false, texture=false, texture_quality="detailed" | 1.2 |
-| pbr=false, texture=false, texture_quality="extreme" | 1.2 |
-| pbr=false, texture=true, texture_quality="fast" | 1.32 |
-| pbr=false, texture=true, texture_quality="standard" | 1.32 |
-| pbr=false, texture=true, texture_quality="detailed" | 1.44 |
-| pbr=false, texture=true, texture_quality="extreme" | 1.56 |
-| pbr=true, texture=false, texture_quality="fast" | 1.32 |
-| pbr=true, texture=false, texture_quality="standard" | 1.32 |
-| pbr=true, texture=false, texture_quality="detailed" | 1.44 |
-| pbr=true, texture=false, texture_quality="extreme" | 1.56 |
-| pbr=true, texture=true, texture_quality="fast" | 1.32 |
-| pbr=true, texture=true, texture_quality="standard" | 1.32 |
-| pbr=true, texture=true, texture_quality="detailed" | 1.44 |
-| pbr=true, texture=true, texture_quality="extreme" | 1.56 |
+| pbr=false, texture=false, texture_quality="fast" | 1 |
+| pbr=false, texture=false, texture_quality="standard" | 1 |
+| pbr=false, texture=false, texture_quality="detailed" | 1 |
+| pbr=false, texture=false, texture_quality="extreme" | 1 |
+| pbr=false, texture=true, texture_quality="fast" | 1.1 |
+| pbr=false, texture=true, texture_quality="standard" | 1.1 |
+| pbr=false, texture=true, texture_quality="detailed" | 1.2 |
+| pbr=false, texture=true, texture_quality="extreme" | 1.3 |
+| pbr=true, texture=false, texture_quality="fast" | 1.1 |
+| pbr=true, texture=false, texture_quality="standard" | 1.1 |
+| pbr=true, texture=false, texture_quality="detailed" | 1.2 |
+| pbr=true, texture=false, texture_quality="extreme" | 1.3 |
+| pbr=true, texture=true, texture_quality="fast" | 1.1 |
+| pbr=true, texture=true, texture_quality="standard" | 1.1 |
+| pbr=true, texture=true, texture_quality="detailed" | 1.2 |
+| pbr=true, texture=true, texture_quality="extreme" | 1.3 |
 
-Formula: `((params.texture ?? true) || (params.pbr ?? true)) ? ((params.texture_quality ?? "standard") == "extreme" ? 1.56 : (params.texture_quality ?? "standard") == "detailed" ? 1.44 : 1.32) : 1.20`
+Formula: `(((params.texture ?? true) || (params.pbr ?? true)) ? (1.10 + ((params.texture_quality ?? "standard") == "detailed" ? 0.10 : (params.texture_quality ?? "standard") == "extreme" ? 0.20 : 0.0)) : 1.00)`
 
 ## Call it
 
@@ -82,48 +82,54 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 
 | name | type | required | description |
 |---|---|---|---|
-| `pbr` | boolean |  | Generate PBR materials (also enables texture). default `true` |
-| `quad` | boolean |  | Generate quad mesh topology instead of triangles. default `false` |
-| `seed` | integer |  | Seed for reproducible geometry generation.  |
+| `pbr` | boolean |  | PBR material maps (base color, metallic, roughness, normal). true also turns texture on. default `true` |
+| `quad` | boolean |  | Quad topology instead of triangles. Output becomes FBX; 10,000 faces when face_limit is unset. default `false` |
+| `seed` | integer |  | Seed for geometry generation (Tripo model_seed). Same seed and input give the same mesh.  |
 | `prompt` | string | yes | Text description of the 3D object to generate. Maximum 1024 characters.  |
-| `texture` | boolean |  | Generate textures. Set both texture and pbr to false for an untextured model. default `true` |
-| `face_limit` | integer |  | Maximum faces (quad meshes up to 25,000). range 48–50000 |
-| `negative_prompt` | string |  | Features to avoid in the generated model.  |
-| `texture_quality` | string |  | Texture quality tier. one of: `fast`, `standard`, `detailed`, `extreme`; default `"standard"` |
+| `delight` | boolean |  | Remove baked-in lighting from the reference image before texturing (texture v3.5). default `false` |
+| `texture` | boolean |  | Generate textures. Set texture and pbr to false for bare geometry (cheaper). default `true` |
+| `auto_size` | boolean |  | Scale the model to real-world size in meters. default `false` |
+| `export_uv` | boolean |  | UV-unwrap during generation. false is faster and smaller; UVs are then made during texturing. default `true` |
+| `face_limit` | integer |  | Maximum face count (48-50,000). Adaptive when unset. range 48–50000 |
+| `image_seed` | integer |  | Seed for the internal text-to-image step.  |
+| `texture_seed` | integer |  | Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry.  |
+| `negative_prompt` | string |  | What to avoid, up to 255 characters.  |
+| `texture_quality` | string |  | fast and standard cost the same; detailed (HD) and extreme (8K) are add-ons. one of: `fast`, `standard`, `detailed`, `extreme`; default `"standard"` |
+| `texture_version` | string |  | Texture model. Default v3.5-20260815; v3.0-20250812 runs as v3.5. one of: `v3.5-20260815`, `v3.0-20250812` |
+| `export_orientation` | string |  | Forward axis of the exported model. Leave unset if you will post-process the model. one of: `+x`, `-x`, `+y`, `-y` |
 
 ## Details
 
-Tripo P2, Tripo's flagship 3D model, turns a text prompt into a production-ready mesh with optional PBR textures.
-
+Tripo P2 (P2-20260801) produces production-ready low-poly meshes with native quad topology (48–50,000 faces).
 ### Fields
-
 | Field | Type | Default | Notes |
 |---|---|---|---|
-| `prompt` | string, required | — | Up to 1,024 characters. |
-| `texture` | boolean | true | Generate textures. |
-| `pbr` | boolean | true | PBR materials. |
-| `quad` | boolean | false | Quad mesh output. |
-| `face_limit` | integer 48–50000 | — | Maximum face count. |
-| `texture_quality` | `fast` / `standard` / `detailed` / `extreme` | `standard` | Texture detail; higher costs more. |
-| `seed` | integer | random | Fix it to compare prompt changes. |
-| `negative_prompt` | string | — | What to avoid. |
-
+| `prompt` | string, required | — | Text description of the 3D object to generate. Maximum 1024 characters. |
+| `negative_prompt` | string | — | What to avoid, up to 255 characters. |
+| `texture` | boolean | `true` | Generate textures. Set texture and pbr to false for bare geometry (cheaper). |
+| `pbr` | boolean | `true` | PBR material maps (base color, metallic, roughness, normal). true also turns texture on. |
+| `texture_quality` | `fast` / `standard` / `detailed` / `extreme` | `standard` | fast and standard cost the same; detailed (HD) and extreme (8K) are add-ons. |
+| `quad` | boolean | `false` | Quad topology instead of triangles. Output becomes FBX; 10,000 faces when face_limit is unset. |
+| `face_limit` | integer 48–50000 | — | Maximum face count (48-50,000). Adaptive when unset. |
+| `seed` | integer | — | Seed for geometry generation (Tripo model_seed). Same seed and input give the same mesh. |
+| `texture_seed` | integer | — | Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry. |
+| `image_seed` | integer | — | Seed for the internal text-to-image step. |
+| `texture_version` | `v3.5-20260815` / `v3.0-20250812` | — | Texture model. Default v3.5-20260815; v3.0-20250812 runs as v3.5. |
+| `delight` | boolean | `false` | Remove baked-in lighting from the reference image before texturing (texture v3.5). |
+| `export_uv` | boolean | `true` | UV-unwrap during generation. false is faster and smaller; UVs are then made during texturing. |
+| `export_orientation` | `+x` / `-x` / `+y` / `-y` | — | Forward axis of the exported model. Leave unset if you will post-process the model. |
+| `auto_size` | boolean | `false` | Scale the model to real-world size in meters. |
+### Output
+- `url`: 3D model (GLB; FBX when quad is on).
+- `thumbnail`: Preview render.
+- `generated_image`: Reference image Tripo generated from the prompt.
 ### Billing
-
-$1.32 per textured model at standard texture quality, $1.44 detailed, $1.56 extreme; $1.20 untextured.
-
-| Texture | Price |
+$1.10 textured (standard or fast texture), $1.00 untextured (texture and pbr false).
+| Add-on | Price |
 |---|---|
-| standard | $1.32 |
-| detailed | $1.44 |
-| extreme | $1.56 |
-| Untextured | $1.20 |
-
+| texture_quality = detailed | +$0.10 |
+| texture_quality = extreme | +$0.20 |
 Failed runs are not charged.
-
-### Also on SandBase
-
-Other Tripo endpoints: `tripo3d/tripo-p2/image-to-3d`, `tripo3d/tripo-h3.1/text-to-3d`, `tripo3d/tripo-h3.1/image-to-3d`.
 
 ---
 Machine-readable: [`catalog/models/tripo3d/tripo-p2/text-to-3d.json`](../../../../catalog/models/tripo3d/tripo-p2/text-to-3d.json) · Store page: https://www.sandbase.ai/model/tripo3d/tripo-p2/text-to-3d

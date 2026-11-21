@@ -1,11 +1,11 @@
 # SandBase capability index
 
-2807 capabilities · generated 2026-11-21T08:23:27Z
+2824 capabilities · generated 2026-11-21T12:25:08Z
 
 - [api](#api) (2247)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
-- [image](#image) (194)
+- [image](#image) (211)
 - [llm](#llm) (132)
 - [video](#video) (200)
 
@@ -2485,17 +2485,34 @@
 | [`trellis/trellis-2`](models/trellis/trellis-2.md) | 0.25–0.45 | async | TRELLIS.2 by Microsoft generates a textured 3D model (GLB with PBR materials) from a single image. |
 | [`trellis/trellis-2/retexture`](models/trellis/trellis-2/retexture.md) | 0.2–0.24 | async | TRELLIS.2 Retexture by Microsoft paints new textures onto an existing 3D mesh (GLB, OBJ, PLY or STL) from a reference… |
 | [`trellis/trellis/multi`](models/trellis/trellis/multi.md) | 0.02 / call | async | TRELLIS by Microsoft generates a textured 3D mesh (GLB) from several views of the same object. |
-| [`tripo3d/tripo-h3.1/image-to-3d`](models/tripo3d/tripo-h3.1/image-to-3d.md) | 0.24–0.78 | async | Tripo H3.1 by Tripo3D - convert 2D images into 3D models with AI. Generate textured 3D assets from single photos for… |
-| [`tripo3d/tripo-h3.1/multiview-to-3d`](models/tripo3d/tripo-h3.1/multiview-to-3d.md) | 0.24–0.78 | async | Tripo H3.1 Multiview To 3d by Tripo3D - convert 2D images into 3D models with AI. Generate textured 3D assets from… |
-| [`tripo3d/tripo-h3.1/text-to-3d`](models/tripo3d/tripo-h3.1/text-to-3d.md) | 0.12–0.66 | async | Tripo H3.1 is Tripo3D's text-to-3D AI model. Turn written descriptions into textured 3D objects with realistic… |
-| [`tripo3d/tripo-p1/image-to-3d`](models/tripo3d/tripo-p1/image-to-3d.md) | 0.48–0.6 | async | Tripo P1 is Tripo3D's image-to-3D model. It reconstructs a 3D mesh with optional textures from a single image. |
-| [`tripo3d/tripo-p1/text-to-3d`](models/tripo3d/tripo-p1/text-to-3d.md) | 0.36–0.48 | async | Tripo P1 is Tripo3D's text-to-3D model. It generates a 3D mesh with optional textures from a text description. |
-| [`tripo3d/tripo-p2/image-to-3d`](models/tripo3d/tripo-p2/image-to-3d.md) | 1.2–1.56 | async | Tripo P2 is Tripo3D's latest flagship 3D generation model. It reconstructs a production-ready mesh with optional PBR… |
-| [`tripo3d/tripo-p2/text-to-3d`](models/tripo3d/tripo-p2/text-to-3d.md) | 1.2–1.56 | async | Tripo P2 is Tripo3D's latest flagship 3D generation model. It turns a text description into a production-ready mesh… |
+| [`tripo3d/tripo-h3.0/image-to-3d`](models/tripo3d/tripo-h3.0/image-to-3d.md) | 0.3–0.5 | async | Tripo H3.0 Image to 3D by Tripo3D: turn one image into a textured 3D model. |
+| [`tripo3d/tripo-h3.0/multiview-to-3d`](models/tripo3d/tripo-h3.0/multiview-to-3d.md) | 0.3–0.5 | async | Tripo H3.0 Multiview to 3D by Tripo3D: build a textured 3D model from 2 to 4 views of the same object. |
+| [`tripo3d/tripo-h3.0/text-to-3d`](models/tripo3d/tripo-h3.0/text-to-3d.md) | 0.2–0.4 | async | Tripo H3.0 Text to 3D by Tripo3D: turn a text prompt into a textured 3D model. |
+| [`tripo3d/tripo-h3.1/image-to-3d`](models/tripo3d/tripo-h3.1/image-to-3d.md) | 0.3–0.5 | async | Tripo H3.1 by Tripo3D - convert 2D images into 3D models with AI. Generate textured 3D assets from single photos for… |
+| [`tripo3d/tripo-h3.1/multiview-to-3d`](models/tripo3d/tripo-h3.1/multiview-to-3d.md) | 0.3–0.5 | async | Tripo H3.1 Multiview To 3d by Tripo3D - convert 2D images into 3D models with AI. Generate textured 3D assets from… |
+| [`tripo3d/tripo-h3.1/text-to-3d`](models/tripo3d/tripo-h3.1/text-to-3d.md) | 0.2–0.4 | async | Tripo H3.1 is Tripo3D's text-to-3D AI model. Turn written descriptions into textured 3D objects with realistic… |
+| [`tripo3d/tripo-p1/image-to-3d`](models/tripo3d/tripo-p1/image-to-3d.md) | 0.4–0.7 | async | Tripo P1 is Tripo3D's image-to-3D model. It reconstructs a 3D mesh with optional textures from a single image. |
+| [`tripo3d/tripo-p1/multiview-to-3d`](models/tripo3d/tripo-p1/multiview-to-3d.md) | 0.4–0.7 | async | Tripo P1 Multiview to 3D by Tripo3D: build a textured 3D model from 2 to 4 views of the same object. |
+| [`tripo3d/tripo-p1/text-to-3d`](models/tripo3d/tripo-p1/text-to-3d.md) | 0.3–0.6 | async | Tripo P1 is Tripo3D's text-to-3D model. It generates a 3D mesh with optional textures from a text description. |
+| [`tripo3d/tripo-p2/image-to-3d`](models/tripo3d/tripo-p2/image-to-3d.md) | 1–1.3 | async | Tripo P2 is Tripo3D's latest flagship 3D generation model. It reconstructs a production-ready mesh with optional PBR… |
+| [`tripo3d/tripo-p2/multiview-to-3d`](models/tripo3d/tripo-p2/multiview-to-3d.md) | 1–1.3 | async | Tripo P2 Multiview to 3D by Tripo3D: build a textured 3D model from 2 to 4 views of the same object. |
+| [`tripo3d/tripo-p2/text-to-3d`](models/tripo3d/tripo-p2/text-to-3d.md) | 1–1.3 | async | Tripo P2 is Tripo3D's latest flagship 3D generation model. It turns a text description into a production-ready mesh… |
 | [`tripo3d/tripo-v2.5/image-to-3d`](models/tripo3d/tripo-v2.5/image-to-3d.md) | 0.2–0.45 | async | Tripo v2.5 by Tripo3D generates a textured 3D mesh from a single image, with optional HD textures, PBR materials and… |
 | [`tripo3d/tripo-v2.5/multiview-to-3d`](models/tripo3d/tripo-v2.5/multiview-to-3d.md) | 0.2–0.45 | async | Tripo v2.5 by Tripo3D reconstructs a textured 3D mesh from a front view plus optional left, back and right views of… |
-| [`tripo3d/tripo/remesh`](models/tripo3d/tripo/remesh.md) | 0.42–0.48 | async | Tripo Remesh rebuilds an existing 3D model with clean triangle or quad topology at a target face count. Accepts GLB,… |
-| [`tripo3d/tripo/segment`](models/tripo3d/tripo/segment.md) | 0.48 / call | async | Tripo Segment splits an existing 3D model into named parts. Accepts GLB, OBJ, FBX or STL input. |
+| [`tripo3d/tripo-v2.5/text-to-3d`](models/tripo3d/tripo-v2.5/text-to-3d.md) | 0.1–0.35 | async | Tripo v2.5 Text to 3D by Tripo3D: turn a text prompt into a textured 3D model. |
+| [`tripo3d/tripo/animate`](models/tripo3d/tripo/animate.md) | 0.35 | async | Tripo Animate rigs a 3D character or creature and applies preset animations to it in one call (Tripo Rig + Animation… |
+| [`tripo3d/tripo/convert`](models/tripo3d/tripo/convert.md) | 0.1 | async | Tripo Convert exports a 3D model to GLTF, FBX, USDZ, OBJ, STL or 3MF, with optional quad remesh, scaling and texture… |
+| [`tripo3d/tripo/edit-multiview`](models/tripo3d/tripo/edit-multiview.md) | 0.1 | async | Tripo Edit Multiview generates front, left, back and right views from one image and applies text edits to chosen… |
+| [`tripo3d/tripo/image-to-multiview`](models/tripo3d/tripo/image-to-multiview.md) | 0.1 / call | async | Tripo Image to Multiview generates front, left, back and right views of an object from one image, ready for… |
+| [`tripo3d/tripo/image-to-splat`](models/tripo3d/tripo/image-to-splat.md) | 0.3 / call | async | Tripo Image to Splat turns one image into a 3D Gaussian splat scene (.splat). |
+| [`tripo3d/tripo/part-completion`](models/tripo3d/tripo/part-completion.md) | 0.7–0.9 | async | Tripo Part Completion splits a 3D model into parts and rebuilds the hidden or missing surfaces of each part in one… |
+| [`tripo3d/tripo/remesh`](models/tripo3d/tripo/remesh.md) | 0.1–0.4 | async | Tripo Remesh rebuilds an existing 3D model with clean triangle or quad topology at a target face count. Accepts GLB,… |
+| [`tripo3d/tripo/rig`](models/tripo3d/tripo/rig.md) | 0.25 / call | async | Tripo Rig adds a skeleton to a 3D character or creature, for humanoids, quadrupeds, birds, snakes, sea creatures and… |
+| [`tripo3d/tripo/rig-check`](models/tripo3d/tripo/rig-check.md) | 0 / call | async | Tripo Rig Check tells whether a 3D model can be auto-rigged and which skeleton type fits it. Free. |
+| [`tripo3d/tripo/segment`](models/tripo3d/tripo/segment.md) | 0.4 / call | async | Tripo Segment splits an existing 3D model into named parts. Accepts GLB, OBJ, FBX or STL input. |
+| [`tripo3d/tripo/smart-segment`](models/tripo3d/tripo/smart-segment.md) | 0.55–0.85 | async | Tripo Smart Segment splits an image or a 3D model into named semantic parts, returning a segmented 3D model and a part… |
+| [`tripo3d/tripo/smart-uv`](models/tripo3d/tripo/smart-uv.md) | 0.2 / call | async | Tripo Smart UV unwraps an existing 3D model into a clean UV layout, optionally baking the textures onto it. |
+| [`tripo3d/tripo/texture`](models/tripo3d/tripo/texture.md) | 0.1–0.3 | async | Tripo Texture paints new textures on an existing 3D model from a text prompt, one image or multiple views. |
 | [`tripo3d/triposplat`](models/tripo3d/triposplat.md) | 0.05 / call | async | TripoSplat by Tripo3D turns a single image into a 3D Gaussian splat for real-time rendering. Output is a .ply or… |
 | [`xai/grok-imagine-image/2.0/edit`](models/xai/grok-imagine-image/2.0/edit.md) | 0.04–0.08 | async | Grok Imagine Image 2.0 Edit is xAI's intelligent image editing model. Transform, retouch, and reimagine existing… |
 | [`xai/grok-imagine-image/2.0/text-to-image`](models/xai/grok-imagine-image/2.0/text-to-image.md) | 0.04–0.08 | async | Grok Imagine Image 2.0 by xAI - generate stunning images from text prompts with state-of-the-art AI. Supports multiple… |

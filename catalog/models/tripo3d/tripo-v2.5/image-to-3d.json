@@ -61,10 +61,18 @@
         "default": "standard",
         "description": "Texture quality: no (untextured), standard, or HD."
       },
+      "export_uv": {
+        "type": "boolean",
+        "title": "Export UV",
+        "default": true,
+        "description": "UV-unwrap during generation. false is faster and smaller; UVs are then made during texturing."
+      },
       "face_limit": {
         "type": "integer",
         "title": "Face Limit",
-        "description": "Target face count. Adaptive when unset."
+        "maximum": 500000,
+        "minimum": 1000,
+        "description": "Maximum face count (1,000-500,000). Adaptive when unset."
       },
       "orientation": {
         "enum": [
@@ -75,6 +83,27 @@
         "title": "Orientation",
         "default": "default",
         "description": "Set to align_image to rotate the model to match the input image."
+      },
+      "texture_seed": {
+        "type": "integer",
+        "title": "Texture Seed",
+        "description": "Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry."
+      },
+      "texture_alignment": {
+        "enum": [
+          "original_image",
+          "geometry"
+        ],
+        "type": "string",
+        "title": "Texture Alignment",
+        "default": "original_image",
+        "description": "original_image keeps textures close to the input image; geometry favors the mesh."
+      },
+      "enable_image_autofix": {
+        "type": "boolean",
+        "title": "Image Autofix",
+        "default": false,
+        "description": "Enhance the input image before generation."
       }
     }
   },
@@ -256,7 +285,7 @@
       "default": true
     }
   ],
-  "readme": "# Tripo v2.5 Image to 3D\nTripo v2.5 by Tripo3D generates a textured 3D mesh from a single image, with optional HD textures, PBR materials and quad topology.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Input image URL for 3D model creation. |\n| `texture` | `no` / `standard` / `HD` | `standard` | Texture quality: no (untextured), standard, or HD. |\n| `pbr` | boolean | `false` | Generate PBR materials. |\n| `quad` | boolean | `false` | Generate quad mesh topology (billed as an add-on). |\n| `face_limit` | integer | — | Target face count. Adaptive when unset. |\n| `orientation` | `default` / `align_image` | `default` | Set to align_image to rotate the model to match the input image. |\n| `seed` | integer | — | Seed for reproducible geometry generation. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.30 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| pbr on | $0.30 |\n| pbr off | $0.30 |\n| quad on | $0.35 |\n| quad off | $0.30 |\n| texture = no | $0.20 |\n| texture = standard | $0.30 |\n| texture = HD | $0.40 |\nFailed runs are not charged.\n## Also on SandBase\nOther Tripo3D 3D endpoints: `tripo3d/tripo-h3.1/image-to-3d`, `tripo3d/tripo-h3.1/multiview-to-3d`, `tripo3d/tripo-h3.1/text-to-3d`, `tripo3d/tripo-p1/image-to-3d`.\n",
+  "readme": "# Tripo v2.5 Image to 3D\nTripo v2.5 by Tripo3D generates a textured 3D mesh from a single image, with optional HD textures, PBR materials and quad topology.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | string, required | — | Input image URL for 3D model creation. |\n| `texture` | `no` / `standard` / `HD` | `standard` | Texture quality: no (untextured), standard, or HD. |\n| `pbr` | boolean | `false` | Generate PBR materials. |\n| `quad` | boolean | `false` | Generate quad mesh topology (billed as an add-on). |\n| `face_limit` | integer 1000–500000 | — | Maximum face count (1,000-500,000). Adaptive when unset. |\n| `orientation` | `default` / `align_image` | `default` | Set to align_image to rotate the model to match the input image. |\n| `seed` | integer | — | Seed for reproducible geometry generation. |\n| `texture_seed` | integer | — | Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry. |\n| `export_uv` | boolean | `true` | UV-unwrap during generation. false is faster and smaller; UVs are then made during texturing. |\n| `texture_alignment` | `original_image` / `geometry` | `original_image` | original_image keeps textures close to the input image; geometry favors the mesh. |\n| `enable_image_autofix` | boolean | `false` | Enhance the input image before generation. |\n## Output\n- `url`: 3D model (GLB; FBX when quad is on).\n- `thumbnail`: Preview render.\n## Billing\n$0.30 textured, $0.20 untextured (texture = no and pbr off).\n| Add-on | Price |\n|---|---|\n| texture = HD | +$0.10 |\n| quad | +$0.05 |\nFailed runs are not charged.\n",
   "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo-v2.5/image-to-3d/cover-flare-20261111181314.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo-v2.5/image-to-3d",
   "published_at": "2025-04-25T18:54:01.4Z",

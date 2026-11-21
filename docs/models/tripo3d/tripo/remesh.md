@@ -2,20 +2,24 @@
 
 `tripo3d/tripo/remesh` · image generation model · Tripo3D · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** from $0.42 to $0.48 per run, depending on parameters · **Modes:** async
+**Price:** from $0.1 to $0.4 per run, depending on parameters · **Modes:** async
 
 Tripo Remesh rebuilds an existing 3D model with clean triangle or quad topology at a target face count. Accepts GLB, OBJ, FBX or STL input.
 
 ## Pricing
 
-- Depends on parameters (`params.quad`).
+- Depends on parameters (`params.model_version`, `params.quad`).
 
 | parameters | USD |
 |---|---|
-| quad=false | 0.42 |
-| quad=true | 0.48 |
+| model_version="v3.0", quad=false | 0.35 |
+| model_version="v3.0", quad=true | 0.4 |
+| model_version="v2.0", quad=false | 0.3 |
+| model_version="v2.0", quad=true | 0.3 |
+| model_version="v1.0", quad=false | 0.1 |
+| model_version="v1.0", quad=true | 0.1 |
 
-Formula: `(params.quad ?? false) ? 0.48 : 0.42`
+Formula: `(params.model_version ?? "v3.0") == "v1.0" ? 0.10 : (params.model_version ?? "v3.0") == "v2.0" ? 0.30 : ((params.quad ?? false) ? 0.40 : 0.35)`
 
 ## Call it
 
@@ -68,10 +72,13 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 
 | name | type | required | description |
 |---|---|---|---|
-| `bake` | boolean |  | Bake textures onto the remeshed model. default `true` |
-| `quad` | boolean |  | Generate quad topology instead of triangles. Forces FBX output. default `false` |
-| `model_url` | string | yes | URL of the input 3D model (GLB, OBJ, FBX or STL, max 150MB).  |
-| `face_limit` | integer |  | Target face count, 500-20000 (500-10000 with quad). Adaptive when unset. range 500–20000 |
+| `bake` | boolean |  | Bake textures onto the new mesh (not v1.0). default `true` |
+| `quad` | boolean |  | Quad topology instead of triangles. default `false` |
+| `smart_uv` | boolean |  | Also unwrap UVs (v3.0 only). default `false` |
+| `model_url` | string | yes | URL of the input 3D model (GLB, GLTF, FBX, OBJ or STL, up to 150 MB).  |
+| `face_limit` | integer |  | Target face count. v3.0: 500-20,000 (500-10,000 with quad). Adaptive when unset. range 500–20000 |
+| `part_names` | array |  | Only process these parts (node names from a segmentation, e.g. tripo_part_0). All parts when unset.  |
+| `model_version` | string |  | v3.0 is the newest; v2.0 smart; v1.0 basic (no bake or part_names). one of: `v3.0`, `v2.0`, `v1.0`; default `"v3.0"` |
 
 ## Details
 
@@ -79,22 +86,24 @@ Tripo Remesh rebuilds an existing 3D model with clean triangle or quad topology 
 ### Fields
 | Field | Type | Default | Notes |
 |---|---|---|---|
-| `model_url` | string, required | — | URL of the input 3D model (GLB, OBJ, FBX or STL, max 150MB). |
-| `quad` | boolean | `false` | Generate quad topology instead of triangles. Forces FBX output. |
-| `face_limit` | integer 500–20000 | — | Target face count, 500-20000 (500-10000 with quad). Adaptive when unset. |
-| `bake` | boolean | `true` | Bake textures onto the remeshed model. |
+| `model_url` | string, required | — | URL of the input 3D model (GLB, GLTF, FBX, OBJ or STL, up to 150 MB). |
+| `model_version` | `v3.0` / `v2.0` / `v1.0` | `v3.0` | v3.0 is the newest; v2.0 smart; v1.0 basic (no bake or part_names). |
+| `quad` | boolean | `false` | Quad topology instead of triangles. |
+| `face_limit` | integer 500–20000 | — | Target face count. v3.0: 500-20,000 (500-10,000 with quad). Adaptive when unset. |
+| `smart_uv` | boolean | `false` | Also unwrap UVs (v3.0 only). |
+| `bake` | boolean | `true` | Bake textures onto the new mesh (not v1.0). |
+| `part_names` | array | — | Only process these parts (node names from a segmentation, e.g. tripo_part_0). All parts when unset. |
 ### Output
-- `url`: Main 3D file (GLB unless another export format is selected).
-- `thumbnail`: Preview image rendered by the provider.
+- `url`: Remeshed model (FBX with quad).
+- `thumbnail`: Preview render.
 ### Billing
-$0.42 per request with default settings. Price by option (other settings at default):
-| Option | Price |
+| model | Price |
 |---|---|
-| quad on | $0.48 |
-| quad off | $0.42 |
+| v3.0 triangle | $0.35 |
+| v3.0 quad | $0.40 |
+| v2.0 | $0.30 |
+| v1.0 | $0.10 |
 Failed runs are not charged.
-### Also on SandBase
-Other Tripo3D 3D endpoints: `tripo3d/tripo-h3.1/image-to-3d`, `tripo3d/tripo-h3.1/multiview-to-3d`, `tripo3d/tripo-h3.1/text-to-3d`, `tripo3d/tripo-p1/image-to-3d`.
 
 ---
 Machine-readable: [`catalog/models/tripo3d/tripo/remesh.json`](../../../../catalog/models/tripo3d/tripo/remesh.json) · Store page: https://www.sandbase.ai/model/tripo3d/tripo/remesh

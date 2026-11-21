@@ -1,0 +1,125 @@
+{
+  "name": "tripo3d/tripo/smart-uv",
+  "display_name": "Tripo Smart UV",
+  "type": "image",
+  "vendor": "Tripo3D",
+  "vendor_slug": "tripo3d",
+  "description": "Tripo Smart UV unwraps an existing 3D model into a clean UV layout, optionally baking the textures onto it.",
+  "tags": [
+    "3d-to-3d"
+  ],
+  "capabilities": [
+    "3d-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "model_url"
+    ],
+    "properties": {
+      "bake": {
+        "type": "boolean",
+        "title": "Bake",
+        "default": true,
+        "description": "Bake the existing textures onto the new UVs. false returns UVs only."
+      },
+      "compress": {
+        "enum": [
+          "geometry"
+        ],
+        "type": "string",
+        "title": "Compress",
+        "description": "geometry applies meshopt compression to reduce file size."
+      },
+      "model_url": {
+        "type": "string",
+        "title": "Model URL",
+        "examples": [
+          "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb"
+        ],
+        "description": "URL of the input 3D model, up to 80,000 triangles (a quad counts as 2)."
+      },
+      "export_orientation": {
+        "enum": [
+          "+x",
+          "-x",
+          "+y",
+          "-y"
+        ],
+        "type": "string",
+        "title": "Export Orientation",
+        "description": "Forward axis of the exported model. Leave unset if you will post-process the model."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.2
+  },
+  "readme": "# Tripo Smart UV\nTripo Smart UV unwraps an existing 3D model into a clean UV layout, optionally baking the textures onto it.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the input 3D model, up to 80,000 triangles (a quad counts as 2). |\n| `bake` | boolean | `true` | Bake the existing textures onto the new UVs. false returns UVs only. |\n| `export_orientation` | `+x` / `-x` / `+y` / `-y` | — | Forward axis of the exported model. Leave unset if you will post-process the model. |\n| `compress` | `geometry` | — | geometry applies meshopt compression to reduce file size. |\n## Output\n- `url`: GLB with the new UVs.\n- `uv_render`: UV atlas preview.\n## Billing\n$0.20 per model.\nFailed runs are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tripo3d/tripo/smart-uv",
+  "created_at": "2026-11-21T09:21:54.29Z"
+}

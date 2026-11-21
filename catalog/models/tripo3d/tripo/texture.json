@@ -1,0 +1,233 @@
+{
+  "name": "tripo3d/tripo/texture",
+  "display_name": "Tripo Texture",
+  "type": "image",
+  "vendor": "Tripo3D",
+  "vendor_slug": "tripo3d",
+  "description": "Tripo Texture paints new textures on an existing 3D model from a text prompt, one image or multiple views.",
+  "tags": [
+    "3d-to-3d"
+  ],
+  "capabilities": [
+    "3d-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "model_url"
+    ],
+    "properties": {
+      "pbr": {
+        "type": "boolean",
+        "title": "PBR",
+        "default": true,
+        "description": "PBR material maps (base color, metallic, roughness, normal). true also turns texture on."
+      },
+      "bake": {
+        "type": "boolean",
+        "title": "Bake",
+        "default": true,
+        "description": "Bake advanced materials into the textures."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://static.sandbase.ai/examples/tripo3d/tripo-h3.1/image-to-3d/input_image_0.png"
+        ],
+        "description": "Reference image for the texture (texture_prompt.image). Use prompt, image or images, not several."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Images",
+        "maxItems": 4,
+        "minItems": 2,
+        "description": "2 to 4 reference views in the order front, left, back, right (texture_prompt.images)."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "description": "Text describing the texture (Tripo texture_prompt.text)."
+      },
+      "delight": {
+        "type": "boolean",
+        "title": "Delight",
+        "default": false,
+        "description": "Remove baked-in lighting from the reference image before texturing (texture v3.5)."
+      },
+      "compress": {
+        "enum": [
+          "geometry"
+        ],
+        "type": "string",
+        "title": "Compress",
+        "description": "geometry applies meshopt compression to reduce file size."
+      },
+      "model_url": {
+        "type": "string",
+        "title": "Model URL",
+        "examples": [
+          "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb"
+        ],
+        "description": "URL of the input 3D model (GLB, GLTF, FBX, OBJ or STL, up to 150 MB)."
+      },
+      "part_names": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Part Names",
+        "description": "Only process these parts (node names from a segmentation, e.g. tripo_part_0). All parts when unset."
+      },
+      "style_image": {
+        "type": "string",
+        "title": "Style Image",
+        "examples": [
+          "https://static.sandbase.ai/examples/tripo3d/tripo-h3.1/image-to-3d/input_image_0.png"
+        ],
+        "description": "Style reference used together with prompt (texture_prompt.style_image)."
+      },
+      "texture_seed": {
+        "type": "integer",
+        "title": "Texture Seed",
+        "description": "Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry."
+      },
+      "model_version": {
+        "enum": [
+          "v3.5-20260815",
+          "v3.0-20250812",
+          "v2.5-20250123"
+        ],
+        "type": "string",
+        "title": "Texture Model",
+        "default": "v3.5-20260815",
+        "description": "v3.5-20260815 is current; v3.0-20250812 runs as v3.5; v2.5-20250123 for models made with Tripo v2.5."
+      },
+      "texture_quality": {
+        "enum": [
+          "fast",
+          "standard",
+          "detailed",
+          "extreme"
+        ],
+        "type": "string",
+        "title": "Texture Quality",
+        "default": "standard",
+        "description": "fast and standard cost the same; detailed (HD) and extreme (8K) are add-ons."
+      },
+      "texture_alignment": {
+        "enum": [
+          "original_image",
+          "geometry"
+        ],
+        "type": "string",
+        "title": "Texture Alignment",
+        "default": "original_image",
+        "description": "original_image keeps textures close to the input image; geometry favors the mesh."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.texture_quality ?? \"standard\") == \"extreme\" ? 0.30 : (params.texture_quality ?? \"standard\") == \"detailed\" ? 0.20 : 0.10",
+    "formula_variables": [
+      "params.texture_quality"
+    ],
+    "reference_price": 0.1,
+    "price_examples": [
+      {
+        "params": {
+          "texture_quality": "fast"
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "texture_quality": "standard"
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "texture_quality": "detailed"
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "texture_quality": "extreme"
+        },
+        "usd": 0.3
+      }
+    ]
+  },
+  "readme": "# Tripo Texture\nTripo Texture paints new textures on an existing 3D model from a text prompt, one image or multiple views.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the input 3D model (GLB, GLTF, FBX, OBJ or STL, up to 150 MB). |\n| `prompt` | string | — | Text describing the texture (Tripo texture_prompt.text). |\n| `image` | string | — | Reference image for the texture (texture_prompt.image). Use prompt, image or images, not several. |\n| `images` | array | — | 2 to 4 reference views in the order front, left, back, right (texture_prompt.images). |\n| `style_image` | string | — | Style reference used together with prompt (texture_prompt.style_image). |\n| `model_version` | `v3.5-20260815` / `v3.0-20250812` / `v2.5-20250123` | `v3.5-20260815` | v3.5-20260815 is current; v3.0-20250812 runs as v3.5; v2.5-20250123 for models made with Tripo v2.5. |\n| `texture_quality` | `fast` / `standard` / `detailed` / `extreme` | `standard` | fast and standard cost the same; detailed (HD) and extreme (8K) are add-ons. |\n| `pbr` | boolean | `true` | PBR material maps (base color, metallic, roughness, normal). true also turns texture on. |\n| `texture_alignment` | `original_image` / `geometry` | `original_image` | original_image keeps textures close to the input image; geometry favors the mesh. |\n| `delight` | boolean | `false` | Remove baked-in lighting from the reference image before texturing (texture v3.5). |\n| `bake` | boolean | `true` | Bake advanced materials into the textures. |\n| `part_names` | array | — | Only process these parts (node names from a segmentation, e.g. tripo_part_0). All parts when unset. |\n| `texture_seed` | integer | — | Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry. |\n| `compress` | `geometry` | — | geometry applies meshopt compression to reduce file size. |\n## Output\n- `url`: Textured GLB.\n- `thumbnail`: Preview render.\n## Billing\n| texture_quality | Price |\n|---|---|\n| fast / standard | $0.10 |\n| detailed | $0.20 |\n| extreme (8K) | $0.30 |\nFailed runs are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tripo3d/tripo/texture",
+  "created_at": "2026-11-21T10:13:47.979Z"
+}

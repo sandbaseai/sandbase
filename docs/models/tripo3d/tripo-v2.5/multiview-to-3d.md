@@ -87,11 +87,14 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | `seed` | integer |  | Seed for reproducible geometry generation.  |
 | `image` | string | yes | Front view image URL.  |
 | `texture` | string |  | Texture quality: no (untextured), standard, or HD. one of: `no`, `standard`, `HD`; default `"standard"` |
+| `export_uv` | boolean |  | UV-unwrap during generation. false is faster and smaller; UVs are then made during texturing. default `true` |
 | `back_image` | string | yes | Back view image URL. Front and back views are both required.  |
-| `face_limit` | integer |  | Target face count. Adaptive when unset.  |
+| `face_limit` | integer |  | Maximum face count (1,000-500,000). Adaptive when unset. range 1000–500000 |
 | `left_image` | string |  | Optional left view image URL.  |
 | `orientation` | string |  | Set to align_image to rotate the model to match the input image. one of: `default`, `align_image`; default `"default"` |
 | `right_image` | string |  | Optional right view image URL.  |
+| `texture_seed` | integer |  | Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry.  |
+| `texture_alignment` | string |  | original_image keeps textures close to the input image; geometry favors the mesh. one of: `original_image`, `geometry`; default `"original_image"` |
 
 ## Details
 
@@ -99,33 +102,29 @@ Tripo v2.5 by Tripo3D reconstructs a textured 3D mesh from a front view plus opt
 ### Fields
 | Field | Type | Default | Notes |
 |---|---|---|---|
-| `image` | image URL, required | — | Front view image URL. |
-| `left_image` | image URL | — | Optional left view image URL. |
-| `back_image` | image URL | — | Optional back view image URL. |
-| `right_image` | image URL | — | Optional right view image URL. |
+| `image` | string, required | — | Front view image URL. |
+| `left_image` | string | — | Optional left view image URL. |
+| `back_image` | string, required | — | Back view image URL. Front and back views are both required. |
+| `right_image` | string | — | Optional right view image URL. |
 | `texture` | `no` / `standard` / `HD` | `standard` | Texture quality: no (untextured), standard, or HD. |
 | `pbr` | boolean | `false` | Generate PBR materials. |
 | `quad` | boolean | `false` | Generate quad mesh topology (billed as an add-on). |
-| `face_limit` | integer | — | Target face count. Adaptive when unset. |
+| `face_limit` | integer 1000–500000 | — | Maximum face count (1,000-500,000). Adaptive when unset. |
 | `orientation` | `default` / `align_image` | `default` | Set to align_image to rotate the model to match the input image. |
 | `seed` | integer | — | Seed for reproducible geometry generation. |
+| `texture_seed` | integer | — | Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry. |
+| `export_uv` | boolean | `true` | UV-unwrap during generation. false is faster and smaller; UVs are then made during texturing. |
+| `texture_alignment` | `original_image` / `geometry` | `original_image` | original_image keeps textures close to the input image; geometry favors the mesh. |
 ### Output
-- `url`: Main 3D file (GLB unless another export format is selected).
-- `thumbnail`: Preview image rendered by the provider.
+- `url`: 3D model (GLB; FBX when quad is on).
+- `thumbnail`: Preview render.
 ### Billing
-$0.30 per request with default settings. Price by option (other settings at default):
-| Option | Price |
+$0.30 textured, $0.20 untextured (texture = no and pbr off).
+| Add-on | Price |
 |---|---|
-| pbr on | $0.30 |
-| pbr off | $0.30 |
-| quad on | $0.35 |
-| quad off | $0.30 |
-| texture = no | $0.20 |
-| texture = standard | $0.30 |
-| texture = HD | $0.40 |
+| texture = HD | +$0.10 |
+| quad | +$0.05 |
 Failed runs are not charged.
-### Also on SandBase
-Other Tripo3D 3D endpoints: `tripo3d/tripo-h3.1/image-to-3d`, `tripo3d/tripo-h3.1/multiview-to-3d`, `tripo3d/tripo-h3.1/text-to-3d`, `tripo3d/tripo-p1/image-to-3d`.
 
 ---
 Machine-readable: [`catalog/models/tripo3d/tripo-v2.5/multiview-to-3d.json`](../../../../catalog/models/tripo3d/tripo-v2.5/multiview-to-3d.json) · Store page: https://www.sandbase.ai/model/tripo3d/tripo-v2.5/multiview-to-3d

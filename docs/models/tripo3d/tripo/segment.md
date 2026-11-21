@@ -2,13 +2,13 @@
 
 `tripo3d/tripo/segment` · image generation model · Tripo3D · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.48 per call · **Modes:** async
+**Price:** $0.4 per call · **Modes:** async
 
 Tripo Segment splits an existing 3D model into named parts. Accepts GLB, OBJ, FBX or STL input.
 
 ## Pricing
 
-- **$0.48 per call** (USD)
+- **$0.4 per call** (USD)
 
 ## Call it
 
@@ -61,7 +61,11 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 
 | name | type | required | description |
 |---|---|---|---|
-| `model_url` | string | yes | URL of the input 3D model (GLB, OBJ, FBX or STL, max 150MB).  |
+| `model_url` | string | yes | URL of the input 3D model (GLB, GLTF, FBX, OBJ or STL, up to 150 MB).  |
+| `ref_image` | string |  | v2.0 only. Reference image guiding the parts; granularity and split_by_connectivity are then ignored.  |
+| `model_version` | string |  | v1.0-20250506 splits by geometry; v2.0-20260430 (beta) splits by meaning. one of: `v1.0-20250506`, `v2.0-20260430`; default `"v1.0-20250506"` |
+| `split_by_connectivity` | boolean |  | v2.0 only. Also split disconnected pieces. default `true` |
+| `segmentation_granularity` | string |  | v2.0 only. one of: `simple`, `balanced`, `detailed`; default `"balanced"` |
 
 ## Details
 
@@ -69,15 +73,17 @@ Tripo Segment splits an existing 3D model into named parts. Accepts GLB, OBJ, FB
 ### Fields
 | Field | Type | Default | Notes |
 |---|---|---|---|
-| `model_url` | string, required | — | URL of the input 3D model (GLB, OBJ, FBX or STL, max 150MB). |
+| `model_url` | string, required | — | URL of the input 3D model (GLB, GLTF, FBX, OBJ or STL, up to 150 MB). |
+| `model_version` | `v1.0-20250506` / `v2.0-20260430` | `v1.0-20250506` | v1.0-20250506 splits by geometry; v2.0-20260430 (beta) splits by meaning. |
+| `segmentation_granularity` | `simple` / `balanced` / `detailed` | `balanced` | v2.0 only. |
+| `split_by_connectivity` | boolean | `true` | v2.0 only. Also split disconnected pieces. |
+| `ref_image` | string | — | v2.0 only. Reference image guiding the parts; granularity and split_by_connectivity are then ignored. |
 ### Output
-- `url`: Main 3D file (GLB unless another export format is selected).
-- `thumbnail`: Preview image rendered by the provider.
+- `url`: Segmented GLB; parts are nodes named tripo_part_0, tripo_part_1, ...
+- `thumbnail`: Preview render.
 ### Billing
-$0.48 per request.
+$0.40 per model.
 Failed runs are not charged.
-### Also on SandBase
-Other Tripo3D 3D endpoints: `tripo3d/tripo-h3.1/image-to-3d`, `tripo3d/tripo-h3.1/multiview-to-3d`, `tripo3d/tripo-h3.1/text-to-3d`, `tripo3d/tripo-p1/image-to-3d`.
 
 ---
 Machine-readable: [`catalog/models/tripo3d/tripo/segment.json`](../../../../catalog/models/tripo3d/tripo/segment.json) · Store page: https://www.sandbase.ai/model/tripo3d/tripo/segment

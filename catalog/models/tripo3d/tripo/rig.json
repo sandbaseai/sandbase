@@ -1,0 +1,151 @@
+{
+  "name": "tripo3d/tripo/rig",
+  "display_name": "Tripo Rig",
+  "type": "image",
+  "vendor": "Tripo3D",
+  "vendor_slug": "tripo3d",
+  "description": "Tripo Rig adds a skeleton to a 3D character or creature, for humanoids, quadrupeds, birds, snakes, sea creatures and more.",
+  "tags": [
+    "3d-to-3d"
+  ],
+  "capabilities": [
+    "3d-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "model_url"
+    ],
+    "properties": {
+      "spec": {
+        "enum": [
+          "tripo",
+          "mixamo",
+          "actorcore",
+          "unity",
+          "unreal",
+          "vrm"
+        ],
+        "type": "string",
+        "title": "Skeleton Spec",
+        "default": "tripo",
+        "description": "Bone naming for biped rigs. actorcore, unity, unreal and vrm need rig model v3.0-20260909."
+      },
+      "rig_type": {
+        "enum": [
+          "biped",
+          "quadruped",
+          "hexapod",
+          "octopod",
+          "avian",
+          "serpentine",
+          "aquatic",
+          "others"
+        ],
+        "type": "string",
+        "title": "Rig Type",
+        "default": "biped",
+        "description": "Skeleton type. Use Tripo Rig Check to find it."
+      },
+      "model_url": {
+        "type": "string",
+        "title": "Model URL",
+        "examples": [
+          "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb"
+        ],
+        "description": "URL of the 3D model (GLB, FBX, OBJ or STL, up to 150 MB)."
+      },
+      "out_format": {
+        "enum": [
+          "glb",
+          "fbx"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "glb",
+        "description": "Rigged model format."
+      },
+      "model_version": {
+        "enum": [
+          "v3.0-20260909",
+          "v2.5-20260210",
+          "v1.0-20240301"
+        ],
+        "type": "string",
+        "title": "Rig Model",
+        "default": "v3.0-20260909",
+        "description": "v3.0-20260909 is recommended for humanoids and supports others; v2.5-20260210 for non-humanoids; v1.0-20240301 biped only."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.25
+  },
+  "readme": "# Tripo Rig\nTripo Rig adds a skeleton to a 3D character or creature, for humanoids, quadrupeds, birds, snakes, sea creatures and more.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the 3D model (GLB, FBX, OBJ or STL, up to 150 MB). |\n| `model_version` | `v3.0-20260909` / `v2.5-20260210` / `v1.0-20240301` | `v3.0-20260909` | v3.0-20260909 is recommended for humanoids and supports others; v2.5-20260210 for non-humanoids; v1.0-20240301 biped only. |\n| `rig_type` | `biped` / `quadruped` / `hexapod` / `octopod` / `avian` / `serpentine` / `aquatic` / `others` | `biped` | Skeleton type. Use Tripo Rig Check to find it. |\n| `spec` | `tripo` / `mixamo` / `actorcore` / `unity` / `unreal` / `vrm` | `tripo` | Bone naming for biped rigs. actorcore, unity, unreal and vrm need rig model v3.0-20260909. |\n| `out_format` | `glb` / `fbx` | `glb` | Rigged model format. |\n## Output\n- `url`: Rigged model.\n- `thumbnail`: Preview render.\n## Billing\n$0.25 per model.\nFailed runs are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tripo3d/tripo/rig",
+  "created_at": "2026-11-21T09:28:27.574Z"
+}

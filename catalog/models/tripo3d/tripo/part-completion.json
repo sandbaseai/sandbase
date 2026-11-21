@@ -1,0 +1,171 @@
+{
+  "name": "tripo3d/tripo/part-completion",
+  "display_name": "Tripo Part Completion",
+  "type": "image",
+  "vendor": "Tripo3D",
+  "vendor_slug": "tripo3d",
+  "description": "Tripo Part Completion splits a 3D model into parts and rebuilds the hidden or missing surfaces of each part in one call (Tripo Segment + Complete).",
+  "tags": [
+    "3d-to-3d"
+  ],
+  "capabilities": [
+    "3d-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "model_url"
+    ],
+    "properties": {
+      "model_url": {
+        "type": "string",
+        "title": "Model URL",
+        "examples": [
+          "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb"
+        ],
+        "description": "URL of the input 3D model (GLB, GLTF, FBX, OBJ or STL, up to 150 MB)."
+      },
+      "ref_image": {
+        "type": "string",
+        "title": "Reference Image",
+        "examples": [
+          "https://static.sandbase.ai/examples/tripo3d/tripo-h3.1/image-to-3d/input_image_0.png"
+        ],
+        "description": "v2.0 only. Reference image guiding the parts."
+      },
+      "part_names": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Part Names",
+        "description": "Only complete these parts (tripo_part_0, tripo_part_1, ...). All parts when unset."
+      },
+      "model_version": {
+        "enum": [
+          "v1.0-20250506",
+          "v2.0-20260430"
+        ],
+        "type": "string",
+        "title": "Segment Model",
+        "default": "v1.0-20250506",
+        "description": "v1.0-20250506 splits by geometry; v2.0-20260430 (beta) splits by meaning."
+      },
+      "completion_mode": {
+        "enum": [
+          "ai_completion",
+          "quick_cap"
+        ],
+        "type": "string",
+        "title": "Completion Mode",
+        "default": "ai_completion",
+        "description": "ai_completion rebuilds missing geometry; quick_cap closes holes quickly and costs less."
+      },
+      "split_by_connectivity": {
+        "type": "boolean",
+        "title": "Split by Connectivity",
+        "default": true,
+        "description": "v2.0 only. Also split disconnected pieces."
+      },
+      "segmentation_granularity": {
+        "enum": [
+          "simple",
+          "balanced",
+          "detailed"
+        ],
+        "type": "string",
+        "title": "Granularity",
+        "default": "balanced",
+        "description": "v2.0 only."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.40 + ((params.completion_mode ?? \"ai_completion\") == \"quick_cap\" ? 0.30 : 0.50)",
+    "formula_variables": [
+      "params.completion_mode"
+    ],
+    "reference_price": 0.9,
+    "price_examples": [
+      {
+        "params": {
+          "completion_mode": "ai_completion"
+        },
+        "usd": 0.9
+      },
+      {
+        "params": {
+          "completion_mode": "quick_cap"
+        },
+        "usd": 0.7
+      }
+    ]
+  },
+  "readme": "# Tripo Part Completion\nTripo Part Completion splits a 3D model into parts and rebuilds the hidden or missing surfaces of each part in one call (Tripo Segment + Complete).\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the input 3D model (GLB, GLTF, FBX, OBJ or STL, up to 150 MB). |\n| `completion_mode` | `ai_completion` / `quick_cap` | `ai_completion` | ai_completion rebuilds missing geometry; quick_cap closes holes quickly and costs less. |\n| `model_version` | `v1.0-20250506` / `v2.0-20260430` | `v1.0-20250506` | v1.0-20250506 splits by geometry; v2.0-20260430 (beta) splits by meaning. |\n| `segmentation_granularity` | `simple` / `balanced` / `detailed` | `balanced` | v2.0 only. |\n| `split_by_connectivity` | boolean | `true` | v2.0 only. Also split disconnected pieces. |\n| `ref_image` | string | — | v2.0 only. Reference image guiding the parts. |\n| `part_names` | array | — | Only complete these parts (tripo_part_0, tripo_part_1, ...). All parts when unset. |\n## Output\n- `url`: Completed parts model (GLB).\n- `segmented`: Segmented model before completion.\n- `thumbnail`: Preview render.\n## Billing\n| completion_mode | Price |\n|---|---|\n| ai_completion | $0.90 ($0.40 segment + $0.50 completion) |\n| quick_cap | $0.70 ($0.40 + $0.30) |\nFailed runs are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tripo3d/tripo/part-completion",
+  "created_at": "2026-11-21T11:53:13.073Z"
+}

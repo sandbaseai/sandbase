@@ -29,13 +29,19 @@
         "type": "boolean",
         "title": "Bake Textures",
         "default": true,
-        "description": "Bake textures onto the remeshed model."
+        "description": "Bake textures onto the new mesh (not v1.0)."
       },
       "quad": {
         "type": "boolean",
         "title": "Quad Mesh",
         "default": false,
-        "description": "Generate quad topology instead of triangles. Forces FBX output."
+        "description": "Quad topology instead of triangles."
+      },
+      "smart_uv": {
+        "type": "boolean",
+        "title": "Smart UV",
+        "default": false,
+        "description": "Also unwrap UVs (v3.0 only)."
       },
       "model_url": {
         "type": "string",
@@ -43,14 +49,33 @@
         "examples": [
           "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb"
         ],
-        "description": "URL of the input 3D model (GLB, OBJ, FBX or STL, max 150MB)."
+        "description": "URL of the input 3D model (GLB, GLTF, FBX, OBJ or STL, up to 150 MB)."
       },
       "face_limit": {
         "type": "integer",
         "title": "Face Limit",
         "maximum": 20000,
         "minimum": 500,
-        "description": "Target face count, 500-20000 (500-10000 with quad). Adaptive when unset."
+        "description": "Target face count. v3.0: 500-20,000 (500-10,000 with quad). Adaptive when unset."
+      },
+      "part_names": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Part Names",
+        "description": "Only process these parts (node names from a segmentation, e.g. tripo_part_0). All parts when unset."
+      },
+      "model_version": {
+        "enum": [
+          "v3.0",
+          "v2.0",
+          "v1.0"
+        ],
+        "type": "string",
+        "title": "Retopology Model",
+        "default": "v3.0",
+        "description": "v3.0 is the newest; v2.0 smart; v1.0 basic (no bake or part_names)."
       }
     }
   },
@@ -111,23 +136,54 @@
   "pricing": {
     "currency": "USD",
     "model": "formula",
-    "formula": "(params.quad ?? false) ? 0.48 : 0.42",
+    "formula": "(params.model_version ?? \"v3.0\") == \"v1.0\" ? 0.10 : (params.model_version ?? \"v3.0\") == \"v2.0\" ? 0.30 : ((params.quad ?? false) ? 0.40 : 0.35)",
     "formula_variables": [
+      "params.model_version",
       "params.quad"
     ],
-    "reference_price": 0.42,
+    "reference_price": 0.35,
     "price_examples": [
       {
         "params": {
+          "model_version": "v3.0",
           "quad": false
         },
-        "usd": 0.42
+        "usd": 0.35
       },
       {
         "params": {
+          "model_version": "v3.0",
           "quad": true
         },
-        "usd": 0.48
+        "usd": 0.4
+      },
+      {
+        "params": {
+          "model_version": "v2.0",
+          "quad": false
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "model_version": "v2.0",
+          "quad": true
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "model_version": "v1.0",
+          "quad": false
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "model_version": "v1.0",
+          "quad": true
+        },
+        "usd": 0.1
       }
     ]
   },
@@ -146,7 +202,7 @@
       "default": true
     }
   ],
-  "readme": "# Tripo Remesh\nTripo Remesh rebuilds an existing 3D model with clean triangle or quad topology at a target face count. Accepts GLB, OBJ, FBX or STL input.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the input 3D model (GLB, OBJ, FBX or STL, max 150MB). |\n| `quad` | boolean | `false` | Generate quad topology instead of triangles. Forces FBX output. |\n| `face_limit` | integer 500–20000 | — | Target face count, 500-20000 (500-10000 with quad). Adaptive when unset. |\n| `bake` | boolean | `true` | Bake textures onto the remeshed model. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.42 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| quad on | $0.48 |\n| quad off | $0.42 |\nFailed runs are not charged.\n## Also on SandBase\nOther Tripo3D 3D endpoints: `tripo3d/tripo-h3.1/image-to-3d`, `tripo3d/tripo-h3.1/multiview-to-3d`, `tripo3d/tripo-h3.1/text-to-3d`, `tripo3d/tripo-p1/image-to-3d`.\n",
+  "readme": "# Tripo Remesh\nTripo Remesh rebuilds an existing 3D model with clean triangle or quad topology at a target face count. Accepts GLB, OBJ, FBX or STL input.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the input 3D model (GLB, GLTF, FBX, OBJ or STL, up to 150 MB). |\n| `model_version` | `v3.0` / `v2.0` / `v1.0` | `v3.0` | v3.0 is the newest; v2.0 smart; v1.0 basic (no bake or part_names). |\n| `quad` | boolean | `false` | Quad topology instead of triangles. |\n| `face_limit` | integer 500–20000 | — | Target face count. v3.0: 500-20,000 (500-10,000 with quad). Adaptive when unset. |\n| `smart_uv` | boolean | `false` | Also unwrap UVs (v3.0 only). |\n| `bake` | boolean | `true` | Bake textures onto the new mesh (not v1.0). |\n| `part_names` | array | — | Only process these parts (node names from a segmentation, e.g. tripo_part_0). All parts when unset. |\n## Output\n- `url`: Remeshed model (FBX with quad).\n- `thumbnail`: Preview render.\n## Billing\n| model | Price |\n|---|---|\n| v3.0 triangle | $0.35 |\n| v3.0 quad | $0.40 |\n| v2.0 | $0.30 |\n| v1.0 | $0.10 |\nFailed runs are not charged.\n",
   "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo/remesh/cover-flare-20261111181313.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo/remesh",
   "published_at": "2026-08-06T20:23:54.536Z",

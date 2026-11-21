@@ -31,7 +31,42 @@
         "examples": [
           "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb"
         ],
-        "description": "URL of the input 3D model (GLB, OBJ, FBX or STL, max 150MB)."
+        "description": "URL of the input 3D model (GLB, GLTF, FBX, OBJ or STL, up to 150 MB)."
+      },
+      "ref_image": {
+        "type": "string",
+        "title": "Reference Image",
+        "examples": [
+          "https://static.sandbase.ai/examples/tripo3d/tripo-h3.1/image-to-3d/input_image_0.png"
+        ],
+        "description": "v2.0 only. Reference image guiding the parts; granularity and split_by_connectivity are then ignored."
+      },
+      "model_version": {
+        "enum": [
+          "v1.0-20250506",
+          "v2.0-20260430"
+        ],
+        "type": "string",
+        "title": "Segment Model",
+        "default": "v1.0-20250506",
+        "description": "v1.0-20250506 splits by geometry; v2.0-20260430 (beta) splits by meaning."
+      },
+      "split_by_connectivity": {
+        "type": "boolean",
+        "title": "Split by Connectivity",
+        "default": true,
+        "description": "v2.0 only. Also split disconnected pieces."
+      },
+      "segmentation_granularity": {
+        "enum": [
+          "simple",
+          "balanced",
+          "detailed"
+        ],
+        "type": "string",
+        "title": "Granularity",
+        "default": "balanced",
+        "description": "v2.0 only."
       }
     }
   },
@@ -92,7 +127,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.48
+    "per_call": 0.4
   },
   "examples": [
     {
@@ -109,7 +144,7 @@
       "default": true
     }
   ],
-  "readme": "# Tripo Segment\nTripo Segment splits an existing 3D model into named parts. Accepts GLB, OBJ, FBX or STL input.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the input 3D model (GLB, OBJ, FBX or STL, max 150MB). |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.48 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther Tripo3D 3D endpoints: `tripo3d/tripo-h3.1/image-to-3d`, `tripo3d/tripo-h3.1/multiview-to-3d`, `tripo3d/tripo-h3.1/text-to-3d`, `tripo3d/tripo-p1/image-to-3d`.\n",
+  "readme": "# Tripo Segment\nTripo Segment splits an existing 3D model into named parts. Accepts GLB, OBJ, FBX or STL input.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the input 3D model (GLB, GLTF, FBX, OBJ or STL, up to 150 MB). |\n| `model_version` | `v1.0-20250506` / `v2.0-20260430` | `v1.0-20250506` | v1.0-20250506 splits by geometry; v2.0-20260430 (beta) splits by meaning. |\n| `segmentation_granularity` | `simple` / `balanced` / `detailed` | `balanced` | v2.0 only. |\n| `split_by_connectivity` | boolean | `true` | v2.0 only. Also split disconnected pieces. |\n| `ref_image` | string | — | v2.0 only. Reference image guiding the parts; granularity and split_by_connectivity are then ignored. |\n## Output\n- `url`: Segmented GLB; parts are nodes named tripo_part_0, tripo_part_1, ...\n- `thumbnail`: Preview render.\n## Billing\n$0.40 per model.\nFailed runs are not charged.\n",
   "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo/segment/cover-flare-20261111181220.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo/segment",
   "published_at": "2026-08-06T20:24:01.075Z",

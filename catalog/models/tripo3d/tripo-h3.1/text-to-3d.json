@@ -29,18 +29,18 @@
         "type": "boolean",
         "title": "PBR",
         "default": true,
-        "description": "Generate PBR materials (also enables texture)."
+        "description": "PBR material maps (base color, metallic, roughness, normal). true also turns texture on."
       },
       "quad": {
         "type": "boolean",
         "title": "Quad Mesh",
         "default": false,
-        "description": "Generate quad mesh topology instead of triangles."
+        "description": "Quad topology instead of triangles. Output becomes FBX; 10,000 faces when face_limit is unset."
       },
       "seed": {
         "type": "integer",
         "title": "Seed",
-        "description": "Seed for reproducible geometry generation."
+        "description": "Seed for geometry generation (Tripo model_seed). Same seed and input give the same mesh."
       },
       "prompt": {
         "type": "string",
@@ -51,33 +51,92 @@
         "maxLength": 1024,
         "description": "Text description of the 3D object to generate. Maximum 1024 characters."
       },
+      "delight": {
+        "type": "boolean",
+        "title": "Delight",
+        "default": false,
+        "description": "Remove baked-in lighting from the reference image before texturing (texture v3.5)."
+      },
       "texture": {
         "type": "boolean",
         "title": "Texture",
         "default": true,
-        "description": "Generate textures. Set both texture and pbr to false for an untextured model."
+        "description": "Generate textures. Set texture and pbr to false for bare geometry (cheaper)."
+      },
+      "compress": {
+        "enum": [
+          "geometry"
+        ],
+        "type": "string",
+        "title": "Compress",
+        "description": "geometry applies meshopt compression to reduce file size."
+      },
+      "auto_size": {
+        "type": "boolean",
+        "title": "Auto Size",
+        "default": false,
+        "description": "Scale the model to real-world size in meters."
+      },
+      "export_uv": {
+        "type": "boolean",
+        "title": "Export UV",
+        "default": true,
+        "description": "UV-unwrap during generation. false is faster and smaller; UVs are then made during texturing."
       },
       "face_limit": {
         "type": "integer",
         "title": "Face Limit",
         "maximum": 2000000,
-        "minimum": 1000,
-        "description": "Target face count. Adaptive when unset."
+        "description": "Maximum face count, up to 2,000,000 (detailed geometry) or 1,500,000; 10,000-150,000 typical for quad. Adaptive when unset."
+      },
+      "image_seed": {
+        "type": "integer",
+        "title": "Image Seed",
+        "description": "Seed for the internal text-to-image step."
+      },
+      "texture_seed": {
+        "type": "integer",
+        "title": "Texture Seed",
+        "description": "Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry."
+      },
+      "generate_parts": {
+        "type": "boolean",
+        "title": "Generate Parts",
+        "default": false,
+        "description": "Editable segmented parts. Requires texture=false and pbr=false; billed as an add-on."
+      },
+      "smart_low_poly": {
+        "type": "boolean",
+        "title": "Smart Low Poly",
+        "default": false,
+        "description": "Hand-crafted style low-poly topology (500-20,000 faces). Best for simple objects; billed as an add-on."
       },
       "negative_prompt": {
         "type": "string",
         "title": "Negative Prompt",
-        "description": "Features to avoid in the generated model."
+        "maxLength": 255,
+        "description": "What to avoid, up to 255 characters."
       },
       "texture_quality": {
         "enum": [
+          "fast",
           "standard",
-          "detailed"
+          "detailed",
+          "extreme"
         ],
         "type": "string",
         "title": "Texture Quality",
         "default": "standard",
-        "description": "standard or detailed (HD) textures."
+        "description": "fast and standard cost the same; detailed (HD) and extreme (8K) are add-ons."
+      },
+      "texture_version": {
+        "enum": [
+          "v3.5-20260815",
+          "v3.0-20250812"
+        ],
+        "type": "string",
+        "title": "Texture Version",
+        "description": "Texture model. Default v3.5-20260815; v3.0-20250812 runs as v3.5."
       },
       "geometry_quality": {
         "enum": [
@@ -87,7 +146,18 @@
         "type": "string",
         "title": "Geometry Quality",
         "default": "standard",
-        "description": "detailed geometry is billed as an add-on."
+        "description": "detailed (Ultra) adds mesh detail and is billed as an add-on."
+      },
+      "export_orientation": {
+        "enum": [
+          "+x",
+          "-x",
+          "+y",
+          "-y"
+        ],
+        "type": "string",
+        "title": "Export Orientation",
+        "description": "Forward axis of the exported model. Leave unset if you will post-process the model."
       }
     }
   },
@@ -148,335 +218,117 @@
   "pricing": {
     "currency": "USD",
     "model": "formula",
-    "formula": "(((params.texture ?? true) || (params.pbr ?? true)) ? ((params.texture_quality ?? \"standard\") == \"detailed\" ? 0.36 : 0.24) : 0.12) + ((params.geometry_quality ?? \"standard\") == \"detailed\" ? 0.24 : 0.0) + ((params.quad ?? false) ? 0.06 : 0.0)",
+    "formula": "(((params.texture ?? true) || (params.pbr ?? true)) ? (0.20 + ((params.texture_quality ?? \"standard\") == \"detailed\" ? 0.10 : (params.texture_quality ?? \"standard\") == \"extreme\" ? 0.20 : 0.0)) : 0.10) + ((params.geometry_quality ?? \"standard\") == \"detailed\" ? 0.20 : 0.0) + ((params.quad ?? false) ? 0.05 : 0.0) + ((params.smart_low_poly ?? false) ? 0.10 : 0.0) + ((params.generate_parts ?? false) ? 0.20 : 0.0)",
     "formula_variables": [
+      "params.generate_parts",
       "params.geometry_quality",
       "params.pbr",
       "params.quad",
+      "params.smart_low_poly",
       "params.texture",
       "params.texture_quality"
     ],
-    "reference_price": 0.24,
+    "reference_price": 0.2,
     "price_examples": [
       {
-        "params": {
-          "geometry_quality": "standard",
-          "pbr": false,
-          "quad": false,
-          "texture": false,
-          "texture_quality": "standard"
-        },
-        "usd": 0.12
+        "params": {},
+        "usd": 0.2
       },
       {
         "params": {
-          "geometry_quality": "standard",
-          "pbr": false,
-          "quad": false,
-          "texture": false,
-          "texture_quality": "detailed"
+          "generate_parts": false
         },
-        "usd": 0.12
+        "usd": 0.2
       },
       {
         "params": {
-          "geometry_quality": "standard",
-          "pbr": false,
-          "quad": false,
-          "texture": true,
-          "texture_quality": "standard"
+          "generate_parts": true
         },
-        "usd": 0.24
+        "usd": 0.4
       },
       {
         "params": {
-          "geometry_quality": "standard",
-          "pbr": false,
-          "quad": false,
-          "texture": true,
-          "texture_quality": "detailed"
+          "geometry_quality": "standard"
         },
-        "usd": 0.36
+        "usd": 0.2
       },
       {
         "params": {
-          "geometry_quality": "standard",
-          "pbr": false,
-          "quad": true,
-          "texture": false,
-          "texture_quality": "standard"
+          "geometry_quality": "detailed"
         },
-        "usd": 0.18
+        "usd": 0.4
       },
       {
         "params": {
-          "geometry_quality": "standard",
-          "pbr": false,
-          "quad": true,
-          "texture": false,
-          "texture_quality": "detailed"
+          "pbr": false
         },
-        "usd": 0.18
+        "usd": 0.2
       },
       {
         "params": {
-          "geometry_quality": "standard",
-          "pbr": false,
-          "quad": true,
-          "texture": true,
-          "texture_quality": "standard"
+          "pbr": true
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "quad": false
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "quad": true
+        },
+        "usd": 0.25
+      },
+      {
+        "params": {
+          "smart_low_poly": false
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "smart_low_poly": true
         },
         "usd": 0.3
       },
       {
         "params": {
-          "geometry_quality": "standard",
-          "pbr": false,
-          "quad": true,
-          "texture": true,
-          "texture_quality": "detailed"
+          "texture": false
         },
-        "usd": 0.42
+        "usd": 0.2
       },
       {
         "params": {
-          "geometry_quality": "standard",
-          "pbr": true,
-          "quad": false,
-          "texture": false,
+          "texture": true
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "texture_quality": "fast"
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
           "texture_quality": "standard"
         },
-        "usd": 0.24
+        "usd": 0.2
       },
       {
         "params": {
-          "geometry_quality": "standard",
-          "pbr": true,
-          "quad": false,
-          "texture": false,
           "texture_quality": "detailed"
-        },
-        "usd": 0.36
-      },
-      {
-        "params": {
-          "geometry_quality": "standard",
-          "pbr": true,
-          "quad": false,
-          "texture": true,
-          "texture_quality": "standard"
-        },
-        "usd": 0.24
-      },
-      {
-        "params": {
-          "geometry_quality": "standard",
-          "pbr": true,
-          "quad": false,
-          "texture": true,
-          "texture_quality": "detailed"
-        },
-        "usd": 0.36
-      },
-      {
-        "params": {
-          "geometry_quality": "standard",
-          "pbr": true,
-          "quad": true,
-          "texture": false,
-          "texture_quality": "standard"
         },
         "usd": 0.3
       },
       {
         "params": {
-          "geometry_quality": "standard",
-          "pbr": true,
-          "quad": true,
-          "texture": false,
-          "texture_quality": "detailed"
+          "texture_quality": "extreme"
         },
-        "usd": 0.42
-      },
-      {
-        "params": {
-          "geometry_quality": "standard",
-          "pbr": true,
-          "quad": true,
-          "texture": true,
-          "texture_quality": "standard"
-        },
-        "usd": 0.3
-      },
-      {
-        "params": {
-          "geometry_quality": "standard",
-          "pbr": true,
-          "quad": true,
-          "texture": true,
-          "texture_quality": "detailed"
-        },
-        "usd": 0.42
-      },
-      {
-        "params": {
-          "geometry_quality": "detailed",
-          "pbr": false,
-          "quad": false,
-          "texture": false,
-          "texture_quality": "standard"
-        },
-        "usd": 0.36
-      },
-      {
-        "params": {
-          "geometry_quality": "detailed",
-          "pbr": false,
-          "quad": false,
-          "texture": false,
-          "texture_quality": "detailed"
-        },
-        "usd": 0.36
-      },
-      {
-        "params": {
-          "geometry_quality": "detailed",
-          "pbr": false,
-          "quad": false,
-          "texture": true,
-          "texture_quality": "standard"
-        },
-        "usd": 0.48
-      },
-      {
-        "params": {
-          "geometry_quality": "detailed",
-          "pbr": false,
-          "quad": false,
-          "texture": true,
-          "texture_quality": "detailed"
-        },
-        "usd": 0.6
-      },
-      {
-        "params": {
-          "geometry_quality": "detailed",
-          "pbr": false,
-          "quad": true,
-          "texture": false,
-          "texture_quality": "standard"
-        },
-        "usd": 0.42
-      },
-      {
-        "params": {
-          "geometry_quality": "detailed",
-          "pbr": false,
-          "quad": true,
-          "texture": false,
-          "texture_quality": "detailed"
-        },
-        "usd": 0.42
-      },
-      {
-        "params": {
-          "geometry_quality": "detailed",
-          "pbr": false,
-          "quad": true,
-          "texture": true,
-          "texture_quality": "standard"
-        },
-        "usd": 0.54
-      },
-      {
-        "params": {
-          "geometry_quality": "detailed",
-          "pbr": false,
-          "quad": true,
-          "texture": true,
-          "texture_quality": "detailed"
-        },
-        "usd": 0.66
-      },
-      {
-        "params": {
-          "geometry_quality": "detailed",
-          "pbr": true,
-          "quad": false,
-          "texture": false,
-          "texture_quality": "standard"
-        },
-        "usd": 0.48
-      },
-      {
-        "params": {
-          "geometry_quality": "detailed",
-          "pbr": true,
-          "quad": false,
-          "texture": false,
-          "texture_quality": "detailed"
-        },
-        "usd": 0.6
-      },
-      {
-        "params": {
-          "geometry_quality": "detailed",
-          "pbr": true,
-          "quad": false,
-          "texture": true,
-          "texture_quality": "standard"
-        },
-        "usd": 0.48
-      },
-      {
-        "params": {
-          "geometry_quality": "detailed",
-          "pbr": true,
-          "quad": false,
-          "texture": true,
-          "texture_quality": "detailed"
-        },
-        "usd": 0.6
-      },
-      {
-        "params": {
-          "geometry_quality": "detailed",
-          "pbr": true,
-          "quad": true,
-          "texture": false,
-          "texture_quality": "standard"
-        },
-        "usd": 0.54
-      },
-      {
-        "params": {
-          "geometry_quality": "detailed",
-          "pbr": true,
-          "quad": true,
-          "texture": false,
-          "texture_quality": "detailed"
-        },
-        "usd": 0.66
-      },
-      {
-        "params": {
-          "geometry_quality": "detailed",
-          "pbr": true,
-          "quad": true,
-          "texture": true,
-          "texture_quality": "standard"
-        },
-        "usd": 0.54
-      },
-      {
-        "params": {
-          "geometry_quality": "detailed",
-          "pbr": true,
-          "quad": true,
-          "texture": true,
-          "texture_quality": "detailed"
-        },
-        "usd": 0.66
+        "usd": 0.4
       }
     ]
   },
@@ -495,7 +347,7 @@
       "default": true
     }
   ],
-  "readme": "# Tripo H3.1 Text to 3D\n\nTripo H3.1 turns a text prompt into a textured 3D model quickly and at low cost.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 1,024 characters. |\n| `pbr` | boolean | true | PBR materials. |\n| `quad` | boolean | false | Quad mesh output. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n| `texture` | boolean | true | Generate textures. |\n| `face_limit` | integer 1000–2000000 | — | Maximum face count. |\n| `negative_prompt` | string | — | What to avoid. |\n| `texture_quality` | `standard` / `detailed` | `standard` | Texture detail; higher costs more. |\n| `geometry_quality` | `standard` / `detailed` | `standard` | `detailed` adds mesh detail and cost. |\n\n## Billing\n\n$0.24 per textured model at standard quality, $0.36 detailed, $0.12 untextured; detailed geometry adds $0.24 and quad output $0.06.\n\n| Request | Price |\n|---|---|\n| Standard texture | $0.24 |\n| Detailed texture | $0.36 |\n| Untextured | $0.12 |\n| Standard + detailed geometry | $0.48 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nOther Tripo endpoints: `tripo3d/tripo-p2/text-to-3d`, `tripo3d/tripo-p2/image-to-3d`, `tripo3d/tripo-h3.1/image-to-3d`.\n",
+  "readme": "# Tripo H3.1 Text to 3D\nTripo H3.1 (v3.1-20260211) is Tripo's recommended high-detail model, with HD geometry, quad, smart low-poly and part generation.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text description of the 3D object to generate. Maximum 1024 characters. |\n| `negative_prompt` | string | — | What to avoid, up to 255 characters. |\n| `texture` | boolean | `true` | Generate textures. Set texture and pbr to false for bare geometry (cheaper). |\n| `pbr` | boolean | `true` | PBR material maps (base color, metallic, roughness, normal). true also turns texture on. |\n| `texture_quality` | `fast` / `standard` / `detailed` / `extreme` | `standard` | fast and standard cost the same; detailed (HD) and extreme (8K) are add-ons. |\n| `geometry_quality` | `standard` / `detailed` | `standard` | detailed (Ultra) adds mesh detail and is billed as an add-on. |\n| `quad` | boolean | `false` | Quad topology instead of triangles. Output becomes FBX; 10,000 faces when face_limit is unset. |\n| `smart_low_poly` | boolean | `false` | Hand-crafted style low-poly topology (500-20,000 faces). Best for simple objects; billed as an add-on. |\n| `generate_parts` | boolean | `false` | Editable segmented parts. Requires texture=false and pbr=false; billed as an add-on. |\n| `face_limit` | integer | — | Maximum face count, up to 2,000,000 (detailed geometry) or 1,500,000; 10,000-150,000 typical for quad. Adaptive when unset. |\n| `seed` | integer | — | Seed for geometry generation (Tripo model_seed). Same seed and input give the same mesh. |\n| `texture_seed` | integer | — | Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry. |\n| `image_seed` | integer | — | Seed for the internal text-to-image step. |\n| `texture_version` | `v3.5-20260815` / `v3.0-20250812` | — | Texture model. Default v3.5-20260815; v3.0-20250812 runs as v3.5. |\n| `delight` | boolean | `false` | Remove baked-in lighting from the reference image before texturing (texture v3.5). |\n| `export_uv` | boolean | `true` | UV-unwrap during generation. false is faster and smaller; UVs are then made during texturing. |\n| `export_orientation` | `+x` / `-x` / `+y` / `-y` | — | Forward axis of the exported model. Leave unset if you will post-process the model. |\n| `compress` | `geometry` | — | geometry applies meshopt compression to reduce file size. |\n| `auto_size` | boolean | `false` | Scale the model to real-world size in meters. |\n## Output\n- `url`: 3D model (GLB; FBX when quad is on).\n- `thumbnail`: Preview render.\n- `generated_image`: Reference image Tripo generated from the prompt.\n## Billing\n$0.20 textured (standard or fast texture), $0.10 untextured (texture and pbr false).\n| Add-on | Price |\n|---|---|\n| texture_quality = detailed | +$0.10 |\n| texture_quality = extreme | +$0.20 |\n| geometry_quality = detailed | +$0.20 |\n| quad | +$0.05 |\n| smart_low_poly | +$0.10 |\n| generate_parts | +$0.20 |\nFailed runs are not charged.\n",
   "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo-h3.1/text-to-3d/cover-flare-20261008044658.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo-h3.1/text-to-3d",
   "published_at": "2026-04-15T18:24:37.074Z",

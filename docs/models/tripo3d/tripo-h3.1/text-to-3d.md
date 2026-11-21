@@ -2,42 +2,35 @@
 
 `tripo3d/tripo-h3.1/text-to-3d` · image generation model · Tripo3D · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** from $0.12 to $0.66 per run, depending on parameters · **Modes:** async
+**Price:** from $0.2 to $0.4 per run, depending on parameters · **Modes:** async
 
 Tripo H3.1 is Tripo3D's text-to-3D AI model. Turn written descriptions into textured 3D objects with realistic geometry and materials.
 
 ## Pricing
 
-- Depends on parameters (`params.geometry_quality`, `params.pbr`, `params.quad`, `params.texture`, `params.texture_quality`).
+- Depends on parameters (`params.generate_parts`, `params.geometry_quality`, `params.pbr`, `params.quad`, `params.smart_low_poly`, `params.texture`, `params.texture_quality`).
 
 | parameters | USD |
 |---|---|
-| geometry_quality="standard", pbr=false, quad=false, texture=false, texture_quality="standard" | 0.12 |
-| geometry_quality="standard", pbr=false, quad=false, texture=false, texture_quality="detailed" | 0.12 |
-| geometry_quality="standard", pbr=false, quad=false, texture=true, texture_quality="standard" | 0.24 |
-| geometry_quality="standard", pbr=false, quad=false, texture=true, texture_quality="detailed" | 0.36 |
-| geometry_quality="standard", pbr=false, quad=true, texture=false, texture_quality="standard" | 0.18 |
-| geometry_quality="standard", pbr=false, quad=true, texture=false, texture_quality="detailed" | 0.18 |
-| geometry_quality="standard", pbr=false, quad=true, texture=true, texture_quality="standard" | 0.3 |
-| geometry_quality="standard", pbr=false, quad=true, texture=true, texture_quality="detailed" | 0.42 |
-| geometry_quality="standard", pbr=true, quad=false, texture=false, texture_quality="standard" | 0.24 |
-| geometry_quality="standard", pbr=true, quad=false, texture=false, texture_quality="detailed" | 0.36 |
-| geometry_quality="standard", pbr=true, quad=false, texture=true, texture_quality="standard" | 0.24 |
-| geometry_quality="standard", pbr=true, quad=false, texture=true, texture_quality="detailed" | 0.36 |
-| geometry_quality="standard", pbr=true, quad=true, texture=false, texture_quality="standard" | 0.3 |
-| geometry_quality="standard", pbr=true, quad=true, texture=false, texture_quality="detailed" | 0.42 |
-| geometry_quality="standard", pbr=true, quad=true, texture=true, texture_quality="standard" | 0.3 |
-| geometry_quality="standard", pbr=true, quad=true, texture=true, texture_quality="detailed" | 0.42 |
-| geometry_quality="detailed", pbr=false, quad=false, texture=false, texture_quality="standard" | 0.36 |
-| geometry_quality="detailed", pbr=false, quad=false, texture=false, texture_quality="detailed" | 0.36 |
-| geometry_quality="detailed", pbr=false, quad=false, texture=true, texture_quality="standard" | 0.48 |
-| geometry_quality="detailed", pbr=false, quad=false, texture=true, texture_quality="detailed" | 0.6 |
-| geometry_quality="detailed", pbr=false, quad=true, texture=false, texture_quality="standard" | 0.42 |
-| geometry_quality="detailed", pbr=false, quad=true, texture=false, texture_quality="detailed" | 0.42 |
-| geometry_quality="detailed", pbr=false, quad=true, texture=true, texture_quality="standard" | 0.54 |
-| geometry_quality="detailed", pbr=false, quad=true, texture=true, texture_quality="detailed" | 0.66 |
+| defaults | 0.2 |
+| generate_parts=false | 0.2 |
+| generate_parts=true | 0.4 |
+| geometry_quality="standard" | 0.2 |
+| geometry_quality="detailed" | 0.4 |
+| pbr=false | 0.2 |
+| pbr=true | 0.2 |
+| quad=false | 0.2 |
+| quad=true | 0.25 |
+| smart_low_poly=false | 0.2 |
+| smart_low_poly=true | 0.3 |
+| texture=false | 0.2 |
+| texture=true | 0.2 |
+| texture_quality="fast" | 0.2 |
+| texture_quality="standard" | 0.2 |
+| texture_quality="detailed" | 0.3 |
+| texture_quality="extreme" | 0.4 |
 
-Formula: `(((params.texture ?? true) || (params.pbr ?? true)) ? ((params.texture_quality ?? "standard") == "detailed" ? 0.36 : 0.24) : 0.12) + ((params.geometry_quality ?? "standard") == "detailed" ? 0.24 : 0.0) + ((params.quad ?? false) ? 0.06 : 0.0)`
+Formula: see the JSON record.
 
 ## Call it
 
@@ -90,50 +83,66 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 
 | name | type | required | description |
 |---|---|---|---|
-| `pbr` | boolean |  | Generate PBR materials (also enables texture). default `true` |
-| `quad` | boolean |  | Generate quad mesh topology instead of triangles. default `false` |
-| `seed` | integer |  | Seed for reproducible geometry generation.  |
+| `pbr` | boolean |  | PBR material maps (base color, metallic, roughness, normal). true also turns texture on. default `true` |
+| `quad` | boolean |  | Quad topology instead of triangles. Output becomes FBX; 10,000 faces when face_limit is unset. default `false` |
+| `seed` | integer |  | Seed for geometry generation (Tripo model_seed). Same seed and input give the same mesh.  |
 | `prompt` | string | yes | Text description of the 3D object to generate. Maximum 1024 characters.  |
-| `texture` | boolean |  | Generate textures. Set both texture and pbr to false for an untextured model. default `true` |
-| `face_limit` | integer |  | Target face count. Adaptive when unset. range 1000–2000000 |
-| `negative_prompt` | string |  | Features to avoid in the generated model.  |
-| `texture_quality` | string |  | standard or detailed (HD) textures. one of: `standard`, `detailed`; default `"standard"` |
-| `geometry_quality` | string |  | detailed geometry is billed as an add-on. one of: `standard`, `detailed`; default `"standard"` |
+| `delight` | boolean |  | Remove baked-in lighting from the reference image before texturing (texture v3.5). default `false` |
+| `texture` | boolean |  | Generate textures. Set texture and pbr to false for bare geometry (cheaper). default `true` |
+| `compress` | string |  | geometry applies meshopt compression to reduce file size. one of: `geometry` |
+| `auto_size` | boolean |  | Scale the model to real-world size in meters. default `false` |
+| `export_uv` | boolean |  | UV-unwrap during generation. false is faster and smaller; UVs are then made during texturing. default `true` |
+| `face_limit` | integer |  | Maximum face count, up to 2,000,000 (detailed geometry) or 1,500,000; 10,000-150,000 typical for quad. Adaptive when unset. range –2000000 |
+| `image_seed` | integer |  | Seed for the internal text-to-image step.  |
+| `texture_seed` | integer |  | Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry.  |
+| `generate_parts` | boolean |  | Editable segmented parts. Requires texture=false and pbr=false; billed as an add-on. default `false` |
+| `smart_low_poly` | boolean |  | Hand-crafted style low-poly topology (500-20,000 faces). Best for simple objects; billed as an add-on. default `false` |
+| `negative_prompt` | string |  | What to avoid, up to 255 characters.  |
+| `texture_quality` | string |  | fast and standard cost the same; detailed (HD) and extreme (8K) are add-ons. one of: `fast`, `standard`, `detailed`, `extreme`; default `"standard"` |
+| `texture_version` | string |  | Texture model. Default v3.5-20260815; v3.0-20250812 runs as v3.5. one of: `v3.5-20260815`, `v3.0-20250812` |
+| `geometry_quality` | string |  | detailed (Ultra) adds mesh detail and is billed as an add-on. one of: `standard`, `detailed`; default `"standard"` |
+| `export_orientation` | string |  | Forward axis of the exported model. Leave unset if you will post-process the model. one of: `+x`, `-x`, `+y`, `-y` |
 
 ## Details
 
-Tripo H3.1 turns a text prompt into a textured 3D model quickly and at low cost.
-
+Tripo H3.1 (v3.1-20260211) is Tripo's recommended high-detail model, with HD geometry, quad, smart low-poly and part generation.
 ### Fields
-
 | Field | Type | Default | Notes |
 |---|---|---|---|
-| `prompt` | string, required | — | Up to 1,024 characters. |
-| `pbr` | boolean | true | PBR materials. |
-| `quad` | boolean | false | Quad mesh output. |
-| `seed` | integer | random | Fix it to compare prompt changes. |
-| `texture` | boolean | true | Generate textures. |
-| `face_limit` | integer 1000–2000000 | — | Maximum face count. |
-| `negative_prompt` | string | — | What to avoid. |
-| `texture_quality` | `standard` / `detailed` | `standard` | Texture detail; higher costs more. |
-| `geometry_quality` | `standard` / `detailed` | `standard` | `detailed` adds mesh detail and cost. |
-
+| `prompt` | string, required | — | Text description of the 3D object to generate. Maximum 1024 characters. |
+| `negative_prompt` | string | — | What to avoid, up to 255 characters. |
+| `texture` | boolean | `true` | Generate textures. Set texture and pbr to false for bare geometry (cheaper). |
+| `pbr` | boolean | `true` | PBR material maps (base color, metallic, roughness, normal). true also turns texture on. |
+| `texture_quality` | `fast` / `standard` / `detailed` / `extreme` | `standard` | fast and standard cost the same; detailed (HD) and extreme (8K) are add-ons. |
+| `geometry_quality` | `standard` / `detailed` | `standard` | detailed (Ultra) adds mesh detail and is billed as an add-on. |
+| `quad` | boolean | `false` | Quad topology instead of triangles. Output becomes FBX; 10,000 faces when face_limit is unset. |
+| `smart_low_poly` | boolean | `false` | Hand-crafted style low-poly topology (500-20,000 faces). Best for simple objects; billed as an add-on. |
+| `generate_parts` | boolean | `false` | Editable segmented parts. Requires texture=false and pbr=false; billed as an add-on. |
+| `face_limit` | integer | — | Maximum face count, up to 2,000,000 (detailed geometry) or 1,500,000; 10,000-150,000 typical for quad. Adaptive when unset. |
+| `seed` | integer | — | Seed for geometry generation (Tripo model_seed). Same seed and input give the same mesh. |
+| `texture_seed` | integer | — | Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry. |
+| `image_seed` | integer | — | Seed for the internal text-to-image step. |
+| `texture_version` | `v3.5-20260815` / `v3.0-20250812` | — | Texture model. Default v3.5-20260815; v3.0-20250812 runs as v3.5. |
+| `delight` | boolean | `false` | Remove baked-in lighting from the reference image before texturing (texture v3.5). |
+| `export_uv` | boolean | `true` | UV-unwrap during generation. false is faster and smaller; UVs are then made during texturing. |
+| `export_orientation` | `+x` / `-x` / `+y` / `-y` | — | Forward axis of the exported model. Leave unset if you will post-process the model. |
+| `compress` | `geometry` | — | geometry applies meshopt compression to reduce file size. |
+| `auto_size` | boolean | `false` | Scale the model to real-world size in meters. |
+### Output
+- `url`: 3D model (GLB; FBX when quad is on).
+- `thumbnail`: Preview render.
+- `generated_image`: Reference image Tripo generated from the prompt.
 ### Billing
-
-$0.24 per textured model at standard quality, $0.36 detailed, $0.12 untextured; detailed geometry adds $0.24 and quad output $0.06.
-
-| Request | Price |
+$0.20 textured (standard or fast texture), $0.10 untextured (texture and pbr false).
+| Add-on | Price |
 |---|---|
-| Standard texture | $0.24 |
-| Detailed texture | $0.36 |
-| Untextured | $0.12 |
-| Standard + detailed geometry | $0.48 |
-
+| texture_quality = detailed | +$0.10 |
+| texture_quality = extreme | +$0.20 |
+| geometry_quality = detailed | +$0.20 |
+| quad | +$0.05 |
+| smart_low_poly | +$0.10 |
+| generate_parts | +$0.20 |
 Failed runs are not charged.
-
-### Also on SandBase
-
-Other Tripo endpoints: `tripo3d/tripo-p2/text-to-3d`, `tripo3d/tripo-p2/image-to-3d`, `tripo3d/tripo-h3.1/image-to-3d`.
 
 ---
 Machine-readable: [`catalog/models/tripo3d/tripo-h3.1/text-to-3d.json`](../../../../catalog/models/tripo3d/tripo-h3.1/text-to-3d.json) · Store page: https://www.sandbase.ai/model/tripo3d/tripo-h3.1/text-to-3d
