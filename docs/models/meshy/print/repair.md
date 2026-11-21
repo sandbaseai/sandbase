@@ -64,6 +64,7 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | `model_url` | string | yes | URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI.  |
 | `printer_type` | string |  | Printer that sets the minimum wall thickness. one of: `fdm`, `sla`, `full_color` |
 | `intended_print_height_mm` | number |  | Planned print height in millimeters (GLB input). range 1–1000 |
+| `intended_print_longest_side_mm` | number |  | Planned print size by its longest side in millimeters (exclusive with intended_print_height_mm). range 1–1000 |
 
 ## Details
 
@@ -74,6 +75,7 @@ Meshy Print Repair fixes holes, non-manifold geometry and thin walls so a 3D mod
 | `model_url` | string, required | — | URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI. |
 | `printer_type` | `fdm` / `sla` / `full_color` | — | Printer that sets the minimum wall thickness. |
 | `intended_print_height_mm` | number 1–1000 | — | Planned print height in millimeters (GLB input). |
+| `intended_print_longest_side_mm` | number 1–1000 | — | Planned print size by its longest side in millimeters (exclusive with intended_print_height_mm). |
 ### Output
 - `url`: Repaired GLB.
 - `thumbnail`: Preview image.

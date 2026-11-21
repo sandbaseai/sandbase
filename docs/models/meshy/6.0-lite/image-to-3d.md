@@ -76,10 +76,13 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 |---|---|---|---|
 | `image` | string | yes | Image URL or base64 data URI of the object. Supports .jpg, .jpeg and .png; AVIF and HEIF are converted automatically.  |
 | `topology` | string |  | quad for smooth surfaces, triangle for detail. one of: `quad`, `triangle`; default `"triangle"` |
+| `auto_size` | boolean |  | Estimate the object's real-world height and scale the model to it. The origin goes to the bottom unless origin_at is set. default `false` |
+| `origin_at` | string |  | Where to place the model origin. one of: `bottom`, `center` |
 | `pose_mode` | string |  | Generate the character in an A-pose or T-pose; empty for no specific pose. one of: `a-pose`, `t-pose`, ``; default `""` |
 | `enable_pbr` | boolean |  | Generate PBR maps (metallic, roughness, normal) in addition to base color. default `false` |
 | `symmetry_mode` | string |  | Symmetry enforcement: off, auto or on. one of: `off`, `auto`, `on`; default `"auto"` |
 | `texture_image` | string |  | Image URL to guide texturing.  |
+| `texture_model` | string |  | Texture model that paints the mesh; leave empty for the geometry model's default. meshy-n1 textures from the image only (no text prompt, no PBR, 2k only). one of: `meshy-7`, `meshy-n1` |
 | `enable_rigging` | boolean |  | Rig the model as a humanoid character. The rigged GLB is returned as rigged_glb. default `false` |
 | `should_texture` | boolean |  | Generate textures. Untextured meshes cost less. default `true` |
 | `texture_prompt` | string |  | Text prompt to guide texturing. Maximum 800 characters.  |
@@ -105,6 +108,9 @@ Meshy 6 Lite turns a single image into a 3D model at a lower price, with optiona
 | `enable_animation` | boolean | `false` | Apply an animation preset to the rigged character (billed together with rigging). The animated GLB is returned as animation_glb. |
 | `target_polycount` | integer 100–300000 | `30000` | Target polygon count (100–300,000). |
 | `animation_action_id` | integer 0–696 | `92` | Animation preset ID from Meshy's animation library (0 is Idle). Only used when animation is enabled. |
+| `texture_model` | `meshy-7` / `meshy-n1` | — | Texture model that paints the mesh; leave empty for the geometry model's default. meshy-n1 textures from the image only (no text prompt, no PBR, 2k only). |
+| `auto_size` | boolean | `false` | Estimate the object's real-world height and scale the model to it. The origin goes to the bottom unless origin_at is set. |
+| `origin_at` | `bottom` / `center` | — | Where to place the model origin. |
 ### Output
 - `url`: GLB model.
 - `thumbnail`: Preview image.

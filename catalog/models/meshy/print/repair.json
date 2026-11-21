@@ -49,6 +49,13 @@
         "maximum": 1000,
         "minimum": 1,
         "description": "Planned print height in millimeters (GLB input)."
+      },
+      "intended_print_longest_side_mm": {
+        "type": "number",
+        "title": "Print Longest Side (mm)",
+        "maximum": 1000,
+        "minimum": 1,
+        "description": "Planned print size by its longest side in millimeters (exclusive with intended_print_height_mm)."
       }
     }
   },
@@ -140,7 +147,7 @@
       ]
     }
   ],
-  "readme": "# Meshy Print Repair\nMeshy Print Repair fixes holes, non-manifold geometry and thin walls so a 3D model can be printed.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI. |\n| `printer_type` | `fdm` / `sla` / `full_color` | — | Printer that sets the minimum wall thickness. |\n| `intended_print_height_mm` | number 1–1000 | — | Planned print height in millimeters (GLB input). |\n## Output\n- `url`: Repaired GLB.\n- `thumbnail`: Preview image.\n## Billing\n$0.40 per model.\n",
+  "readme": "# Meshy Print Repair\nMeshy Print Repair fixes holes, non-manifold geometry and thin walls so a 3D model can be printed.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI. |\n| `printer_type` | `fdm` / `sla` / `full_color` | — | Printer that sets the minimum wall thickness. |\n| `intended_print_height_mm` | number 1–1000 | — | Planned print height in millimeters (GLB input). |\n| `intended_print_longest_side_mm` | number 1–1000 | — | Planned print size by its longest side in millimeters (exclusive with intended_print_height_mm). |\n## Output\n- `url`: Repaired GLB.\n- `thumbnail`: Preview image.\n## Billing\n$0.40 per model.\n",
   "cover_url": "https://static.sandbase.ai/covers/meshy/print/repair/cover-flare-20261120161438.webp",
   "page_url": "https://www.sandbase.ai/model/meshy/print/repair",
   "created_at": "2026-11-20T01:33:50.182Z"

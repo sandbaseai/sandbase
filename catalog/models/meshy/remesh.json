@@ -58,6 +58,12 @@
         "title": "Origin",
         "description": "Where to place the model origin."
       },
+      "resize_height": {
+        "type": "number",
+        "title": "Height (m)",
+        "minimum": 0,
+        "description": "Scale to this height in meters while remeshing (exclusive with resize_longest_side and auto_size)."
+      },
       "target_polycount": {
         "type": "integer",
         "title": "Target Polycount",
@@ -65,6 +71,12 @@
         "maximum": 300000,
         "minimum": 100,
         "description": "Target number of faces; the result can differ."
+      },
+      "resize_longest_side": {
+        "type": "number",
+        "title": "Longest Side (m)",
+        "minimum": 0,
+        "description": "Scale so the longest side is this many meters."
       }
     }
   },
@@ -157,7 +169,7 @@
       ]
     }
   ],
-  "readme": "# Meshy Remesh\nMeshy Remesh rebuilds an existing 3D model at a target face count, as triangles or quads.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI. |\n| `topology` | `triangle` / `quad` | `\"triangle\"` | Output face type. |\n| `target_polycount` | integer 100–300000 | `30000` | Target number of faces; the result can differ. |\n| `auto_size` | boolean | `false` | Estimate the object's real-world size and scale the model to it. |\n| `origin_at` | `bottom` / `center` | — | Where to place the model origin. |\n## Output\n- `url`: Remeshed GLB.\n- `thumbnail`: Preview image.\n## Billing\n$0.20 per model.\n",
+  "readme": "# Meshy Remesh\nMeshy Remesh rebuilds an existing 3D model at a target face count, as triangles or quads.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI. |\n| `topology` | `triangle` / `quad` | `\"triangle\"` | Output face type. |\n| `target_polycount` | integer 100–300000 | `30000` | Target number of faces; the result can differ. |\n| `auto_size` | boolean | `false` | Estimate the object's real-world size and scale the model to it. |\n| `origin_at` | `bottom` / `center` | — | Where to place the model origin. |\n| `resize_height` | number 0– | — | Scale to this height in meters while remeshing (exclusive with resize_longest_side and auto_size). |\n| `resize_longest_side` | number 0– | — | Scale so the longest side is this many meters. |\n## Output\n- `url`: Remeshed GLB.\n- `thumbnail`: Preview image.\n## Billing\n$0.20 per model.\n",
   "cover_url": "https://static.sandbase.ai/covers/meshy/remesh/cover-flare-20261120161250.webp",
   "page_url": "https://www.sandbase.ai/model/meshy/remesh",
   "created_at": "2026-11-20T01:26:12.107Z"

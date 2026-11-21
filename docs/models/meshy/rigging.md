@@ -72,6 +72,7 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 |---|---|---|---|
 | `model_url` | string | yes | URL of a humanoid character model in GLB format with clearly defined limbs. Works with models from Meshy, Hunyuan, Trellis or any other 3D tool.  |
 | `height_meters` | number |  | Approximate height of the character in meters. default `1.7` |
+| `animation_type` | string |  | biped for humanoid characters, quadruped for four-legged animals. skeleton_template and include_fingers apply to biped only. one of: `biped`, `quadruped`; default `"biped"` |
 | `include_fingers` | boolean |  | Rig the character's fingers. default `false` |
 | `enable_animation` | boolean |  | Also generate one animation clip on the rig. Returned as animation_glb / animation_fbx. default `false` |
 | `skeleton_template` | string |  | Skeleton template for the rig (e.g. mixamo, ue5_mannequin, unity_humanoid). Some models can only be rigged on meshyrig without fingers. one of: `mixamo`, `ue5_mannequin`, `unity_humanoid`, `maya_human_ik`, `blender_rigify_basic_human`, `max_biped`, `cc5_hd_neutral_base`, `daz_genesis9`, `meshyrig`; default `"meshyrig"` |
@@ -89,6 +90,7 @@ Meshy Rigging adds a humanoid skeleton to an existing character model and can al
 | `skeleton_template` | `mixamo` / `ue5_mannequin` / `unity_humanoid` / `maya_human_ik` / `blender_rigify_basic_human` / `max_biped` / `cc5_hd_neutral_base` / `daz_genesis9` / `meshyrig` | `meshyrig` | Skeleton template for the rig (e.g. mixamo, ue5_mannequin, unity_humanoid). Some models can only be rigged on meshyrig without fingers. |
 | `include_fingers` | boolean | `false` | Rig the character's fingers. |
 | `height_meters` | number | `1.7` | Approximate height of the character in meters. |
+| `animation_type` | `biped` / `quadruped` | `"biped"` | biped for humanoid characters, quadruped for four-legged animals. skeleton_template and include_fingers apply to biped only. |
 ### Output
 - `url`: Main 3D file (GLB unless another export format is selected).
 - `fbx`: Additional file returned by the provider.

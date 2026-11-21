@@ -41,6 +41,16 @@
         "description": "Approximate height of the character in meters.",
         "exclusiveMinimum": 0
       },
+      "animation_type": {
+        "enum": [
+          "biped",
+          "quadruped"
+        ],
+        "type": "string",
+        "title": "Skeleton Type",
+        "default": "biped",
+        "description": "biped for humanoid characters, quadruped for four-legged animals. skeleton_template and include_fingers apply to biped only."
+      },
       "include_fingers": {
         "type": "boolean",
         "title": "Include Fingers",
@@ -191,7 +201,7 @@
       "default": true
     }
   ],
-  "readme": "# Meshy Rigging Multi-Animation\nMeshy Rigging Multi-Animation rigs an existing humanoid character model and generates up to 10 animation clips on the same rig.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of a humanoid character model in GLB format with clearly defined limbs. Works with models from Meshy, Hunyuan, Trellis or any other 3D tool. |\n| `animation_action_ids` | array (1–10), required | — | 1 to 10 animation preset IDs from Meshy's animation library (0 is Idle). One clip is generated per ID, in request order; duplicates are merged. |\n| `skeleton_template` | `mixamo` / `ue5_mannequin` / `unity_humanoid` / `maya_human_ik` / `blender_rigify_basic_human` / `max_biped` / `cc5_hd_neutral_base` / `daz_genesis9` / `meshyrig` | `meshyrig` | Skeleton template for the rig (e.g. mixamo, ue5_mannequin, unity_humanoid). Some models can only be rigged on meshyrig without fingers. |\n| `include_fingers` | boolean | `false` | Rig the character's fingers. |\n| `height_meters` | number | `1.7` | Approximate height of the character in meters. |\n## Output\nOne output item per requested animation, in request order:\n- `url`: the animated character for that clip (GLB).\n- `animation_fbx`: the same clip as FBX.\n- `action_id`: the animation preset ID of the clip.\n- `rigged_glb` / `fbx`: the rigged character without animation (same on every item).\n## Billing\n$0.32 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| 1 animation action ids | $0.32 |\n| 2 animation action ids | $0.44 |\n| 4 animation action ids | $0.68 |\nFailed runs are not charged.\n## Also on SandBase\nOther Meshy 3D endpoints: `meshy/6.0-lite/retexture`, `meshy/6.0/retexture`, `meshy/7.0/image-to-3d`, `meshy/7.0/multi-image-to-3d`.\n",
+  "readme": "# Meshy Rigging Multi-Animation\nMeshy Rigging Multi-Animation rigs an existing humanoid character model and generates up to 10 animation clips on the same rig.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of a humanoid character model in GLB format with clearly defined limbs. Works with models from Meshy, Hunyuan, Trellis or any other 3D tool. |\n| `animation_action_ids` | array (1–10), required | — | 1 to 10 animation preset IDs from Meshy's animation library (0 is Idle). One clip is generated per ID, in request order; duplicates are merged. |\n| `skeleton_template` | `mixamo` / `ue5_mannequin` / `unity_humanoid` / `maya_human_ik` / `blender_rigify_basic_human` / `max_biped` / `cc5_hd_neutral_base` / `daz_genesis9` / `meshyrig` | `meshyrig` | Skeleton template for the rig (e.g. mixamo, ue5_mannequin, unity_humanoid). Some models can only be rigged on meshyrig without fingers. |\n| `include_fingers` | boolean | `false` | Rig the character's fingers. |\n| `height_meters` | number | `1.7` | Approximate height of the character in meters. |\n| `animation_type` | `biped` / `quadruped` | `\"biped\"` | biped for humanoid characters, quadruped for four-legged animals. skeleton_template and include_fingers apply to biped only. |\n## Output\nOne output item per requested animation, in request order:\n- `url`: the animated character for that clip (GLB).\n- `animation_fbx`: the same clip as FBX.\n- `action_id`: the animation preset ID of the clip.\n- `rigged_glb` / `fbx`: the rigged character without animation (same on every item).\n## Billing\n$0.32 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| 1 animation action ids | $0.32 |\n| 2 animation action ids | $0.44 |\n| 4 animation action ids | $0.68 |\nFailed runs are not charged.\n## Also on SandBase\nOther Meshy 3D endpoints: `meshy/6.0-lite/retexture`, `meshy/6.0/retexture`, `meshy/7.0/image-to-3d`, `meshy/7.0/multi-image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/meshy/rigging/multi-animation/cover-flare-20261111181024.webp",
   "page_url": "https://www.sandbase.ai/model/meshy/rigging/multi-animation",
   "published_at": "2026-06-12T21:40:43.99Z",

@@ -36,8 +36,8 @@
         "examples": [
           "A rustic, antique wooden treasure chest with a curved, domed lid, constructed from weathered, dark brown planks exhibiting prominent wood grain and subtle distress. It's heavily reinforced with broad, dark grey, oxidized metal bands secured by numerous circular rivets. Ornate, dark iron decorative elements featuring swirling foliate patterns and dragon motifs adorn the corners and lid. A prominent, circular, intricately carved metal lock plate with a central keyhole dominates the front, flanked by two large, dark metallic pull rings."
         ],
-        "maxLength": 600,
-        "description": "Describe what kind of object the 3D model is. Maximum 600 characters."
+        "maxLength": 800,
+        "description": "Describe what kind of object the 3D model is. Maximum 800 characters."
       },
       "topology": {
         "enum": [
@@ -48,6 +48,21 @@
         "title": "Topology",
         "default": "triangle",
         "description": "quad for smooth surfaces, triangle for detail."
+      },
+      "auto_size": {
+        "type": "boolean",
+        "title": "Auto Size",
+        "default": false,
+        "description": "Estimate the object's real-world height and scale the model to it. The origin goes to the bottom unless origin_at is set."
+      },
+      "origin_at": {
+        "enum": [
+          "bottom",
+          "center"
+        ],
+        "type": "string",
+        "title": "Origin",
+        "description": "Where to place the model origin."
       },
       "pose_mode": {
         "enum": [
@@ -100,8 +115,13 @@
       "texture_prompt": {
         "type": "string",
         "title": "Texture Prompt",
-        "maxLength": 600,
+        "maxLength": 800,
         "description": "Text prompt to guide texturing."
+      },
+      "remove_lighting": {
+        "type": "boolean",
+        "title": "Remove Lighting",
+        "description": "Remove baked highlights and shadows from the base color texture. Takes effect with the Meshy 6 texture model."
       },
       "enable_animation": {
         "type": "boolean",
@@ -116,6 +136,17 @@
         "maximum": 300000,
         "minimum": 100,
         "description": "Target polygon count (100–300,000)."
+      },
+      "texture_resolution": {
+        "enum": [
+          "2k",
+          "4k",
+          "8k"
+        ],
+        "type": "string",
+        "title": "Texture Resolution",
+        "default": "2k",
+        "description": "Base color texture resolution. 8k costs $0.20 more."
       },
       "geometry_resolution": {
         "enum": [
@@ -187,11 +218,12 @@
   "pricing": {
     "currency": "USD",
     "model": "formula",
-    "formula": "1.2 + ((params.geometry_resolution ?? \"standard\") != \"standard\" ? 0.2 : 0.0) + (((params.enable_rigging ?? false) || (params.enable_animation ?? false)) ? 0.2 : 0.0) + ((params.enable_animation ?? false) ? 0.12 : 0.0)",
+    "formula": "1.2 + ((params.geometry_resolution ?? \"standard\") != \"standard\" ? 0.2 : 0.0) + (((params.enable_rigging ?? false) || (params.enable_animation ?? false)) ? 0.2 : 0.0) + ((params.enable_animation ?? false) ? 0.12 : 0.0) + ((params.texture_resolution ?? \"2k\") == \"8k\" ? 0.2 : 0.0)",
     "formula_variables": [
       "params.enable_animation",
       "params.enable_rigging",
-      "params.geometry_resolution"
+      "params.geometry_resolution",
+      "params.texture_resolution"
     ],
     "reference_price": 1.2,
     "price_examples": [
@@ -199,7 +231,8 @@
         "params": {
           "enable_animation": false,
           "enable_rigging": false,
-          "geometry_resolution": "standard"
+          "geometry_resolution": "standard",
+          "texture_resolution": "2k"
         },
         "usd": 1.2
       },
@@ -207,7 +240,17 @@
         "params": {
           "enable_animation": false,
           "enable_rigging": false,
-          "geometry_resolution": "2k"
+          "geometry_resolution": "standard",
+          "texture_resolution": "4k"
+        },
+        "usd": 1.2
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": false,
+          "geometry_resolution": "standard",
+          "texture_resolution": "8k"
         },
         "usd": 1.4
       },
@@ -215,23 +258,53 @@
         "params": {
           "enable_animation": false,
           "enable_rigging": false,
-          "geometry_resolution": "4k"
+          "geometry_resolution": "2k",
+          "texture_resolution": "2k"
         },
         "usd": 1.4
       },
       {
         "params": {
           "enable_animation": false,
-          "enable_rigging": true,
-          "geometry_resolution": "standard"
+          "enable_rigging": false,
+          "geometry_resolution": "2k",
+          "texture_resolution": "4k"
         },
         "usd": 1.4
       },
       {
         "params": {
           "enable_animation": false,
-          "enable_rigging": true,
-          "geometry_resolution": "2k"
+          "enable_rigging": false,
+          "geometry_resolution": "2k",
+          "texture_resolution": "8k"
+        },
+        "usd": 1.6
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": false,
+          "geometry_resolution": "4k",
+          "texture_resolution": "2k"
+        },
+        "usd": 1.4
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": false,
+          "geometry_resolution": "4k",
+          "texture_resolution": "4k"
+        },
+        "usd": 1.4
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": false,
+          "geometry_resolution": "4k",
+          "texture_resolution": "8k"
         },
         "usd": 1.6
       },
@@ -239,15 +312,89 @@
         "params": {
           "enable_animation": false,
           "enable_rigging": true,
-          "geometry_resolution": "4k"
+          "geometry_resolution": "standard",
+          "texture_resolution": "2k"
+        },
+        "usd": 1.4
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": true,
+          "geometry_resolution": "standard",
+          "texture_resolution": "4k"
+        },
+        "usd": 1.4
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": true,
+          "geometry_resolution": "standard",
+          "texture_resolution": "8k"
         },
         "usd": 1.6
       },
       {
         "params": {
+          "enable_animation": false,
+          "enable_rigging": true,
+          "geometry_resolution": "2k",
+          "texture_resolution": "2k"
+        },
+        "usd": 1.6
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": true,
+          "geometry_resolution": "2k",
+          "texture_resolution": "4k"
+        },
+        "usd": 1.6
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": true,
+          "geometry_resolution": "2k",
+          "texture_resolution": "8k"
+        },
+        "usd": 1.8
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": true,
+          "geometry_resolution": "4k",
+          "texture_resolution": "2k"
+        },
+        "usd": 1.6
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": true,
+          "geometry_resolution": "4k",
+          "texture_resolution": "4k"
+        },
+        "usd": 1.6
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": true,
+          "geometry_resolution": "4k",
+          "texture_resolution": "8k"
+        },
+        "usd": 1.8
+      },
+      {
+        "params": {
           "enable_animation": true,
           "enable_rigging": false,
-          "geometry_resolution": "standard"
+          "geometry_resolution": "standard",
+          "texture_resolution": "2k"
         },
         "usd": 1.52
       },
@@ -255,7 +402,17 @@
         "params": {
           "enable_animation": true,
           "enable_rigging": false,
-          "geometry_resolution": "2k"
+          "geometry_resolution": "standard",
+          "texture_resolution": "4k"
+        },
+        "usd": 1.52
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": false,
+          "geometry_resolution": "standard",
+          "texture_resolution": "8k"
         },
         "usd": 1.72
       },
@@ -263,15 +420,62 @@
         "params": {
           "enable_animation": true,
           "enable_rigging": false,
-          "geometry_resolution": "4k"
+          "geometry_resolution": "2k",
+          "texture_resolution": "2k"
         },
         "usd": 1.72
       },
       {
         "params": {
           "enable_animation": true,
+          "enable_rigging": false,
+          "geometry_resolution": "2k",
+          "texture_resolution": "4k"
+        },
+        "usd": 1.72
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": false,
+          "geometry_resolution": "2k",
+          "texture_resolution": "8k"
+        },
+        "usd": 1.92
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": false,
+          "geometry_resolution": "4k",
+          "texture_resolution": "2k"
+        },
+        "usd": 1.72
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": false,
+          "geometry_resolution": "4k",
+          "texture_resolution": "4k"
+        },
+        "usd": 1.72
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": false,
+          "geometry_resolution": "4k",
+          "texture_resolution": "8k"
+        },
+        "usd": 1.92
+      },
+      {
+        "params": {
+          "enable_animation": true,
           "enable_rigging": true,
-          "geometry_resolution": "standard"
+          "geometry_resolution": "standard",
+          "texture_resolution": "2k"
         },
         "usd": 1.52
       },
@@ -279,7 +483,17 @@
         "params": {
           "enable_animation": true,
           "enable_rigging": true,
-          "geometry_resolution": "2k"
+          "geometry_resolution": "standard",
+          "texture_resolution": "4k"
+        },
+        "usd": 1.52
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": true,
+          "geometry_resolution": "standard",
+          "texture_resolution": "8k"
         },
         "usd": 1.72
       },
@@ -287,9 +501,55 @@
         "params": {
           "enable_animation": true,
           "enable_rigging": true,
-          "geometry_resolution": "4k"
+          "geometry_resolution": "2k",
+          "texture_resolution": "2k"
         },
         "usd": 1.72
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": true,
+          "geometry_resolution": "2k",
+          "texture_resolution": "4k"
+        },
+        "usd": 1.72
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": true,
+          "geometry_resolution": "2k",
+          "texture_resolution": "8k"
+        },
+        "usd": 1.92
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": true,
+          "geometry_resolution": "4k",
+          "texture_resolution": "2k"
+        },
+        "usd": 1.72
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": true,
+          "geometry_resolution": "4k",
+          "texture_resolution": "4k"
+        },
+        "usd": 1.72
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": true,
+          "geometry_resolution": "4k",
+          "texture_resolution": "8k"
+        },
+        "usd": 1.92
       }
     ]
   },
@@ -308,7 +568,7 @@
       "default": true
     }
   ],
-  "readme": "# Meshy 7.1 Text to 3D\n\nMeshy 7.1 turns a text prompt into a textured 3D model, optionally rigged and animated.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 600 characters. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n| `texture_prompt` | string | — | Optional texture description. |\n| `pose_mode` | `a-pose` / `t-pose` / `` | — | Force an A- or T-pose. |\n| `symmetry_mode` | `off` / `auto` / `on` | `auto` | Enforce symmetry. |\n| `enable_animation` | boolean | false | Add a walk/run animation (requires rigging). |\n| `enable_pbr` | boolean | false | PBR texture maps. |\n| `target_polycount` | integer 100–300000 | 30000 | Target polygon count. |\n| `topology` | `quad` / `triangle` | `triangle` | Quad or triangle mesh. |\n| `model_type` | `standard` | `standard` | Only `standard` is supported; use Meshy T2 / T2.5 for Smart Topology meshes. |\n| `enable_rigging` | boolean | false | Add a humanoid rig. |\n| `geometry_resolution` | `standard` / `2k` / `4k` | `standard` | Mesh detail; higher tiers cost more. |\n| `texture_image` | image URL | — | Optional texture reference image. |\n\n## Billing\n$1.20 per textured model; 2K or 4K geometry adds $0.20; rigging adds $0.20 and animation (includes rigging) another $0.12.\n| Request | Price |\n|---|---|\n| Textured | $1.20 |\n| Textured, 2K or 4K geometry | $1.40 |\n| Textured + rig + animation | $1.52 |\nFailed runs are not charged.\n## Prompting\n\n- Describe or show one object; plain backgrounds work best.\n\n## Also on SandBase\n\nOther Meshy 7.1 endpoints: `meshy/7.1/image-to-3d`, `meshy/7.1/multi-image-to-3d`.\n",
+  "readme": "# Meshy 7.1 Text to 3D\n\nMeshy 7.1 turns a text prompt into a textured 3D model, optionally rigged and animated.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 800 characters. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n| `texture_prompt` | string | — | Optional texture description. |\n| `pose_mode` | `a-pose` / `t-pose` / `` | — | Force an A- or T-pose. |\n| `symmetry_mode` | `off` / `auto` / `on` | `auto` | Enforce symmetry. |\n| `enable_animation` | boolean | false | Add a walk/run animation (requires rigging). |\n| `enable_pbr` | boolean | false | PBR texture maps. |\n| `target_polycount` | integer 100–300000 | 30000 | Target polygon count. |\n| `topology` | `quad` / `triangle` | `triangle` | Quad or triangle mesh. |\n| `model_type` | `standard` | `standard` | Only `standard` is supported; use Meshy T2 / T2.5 for Smart Topology meshes. |\n| `enable_rigging` | boolean | false | Add a humanoid rig. |\n| `geometry_resolution` | `standard` / `2k` / `4k` | `standard` | Mesh detail; higher tiers cost more. |\n| `texture_image` | image URL | — | Optional texture reference image. |\n\n| `texture_resolution` | `2k` / `4k` / `8k` | `\"2k\"` | Base color texture resolution. 8k costs $0.20 more. |\n| `auto_size` | boolean | `false` | Estimate the object's real-world height and scale the model to it. The origin goes to the bottom unless origin_at is set. |\n| `origin_at` | `bottom` / `center` | — | Where to place the model origin. |\n| `remove_lighting` | boolean | — | Remove baked highlights and shadows from the base color texture. Takes effect with the Meshy 6 texture model. |\n## Billing\n$1.20 per textured model; 2K or 4K geometry adds $0.20; rigging adds $0.20 and animation (includes rigging) another $0.12.\n| Request | Price |\n|---|---|\n| Textured | $1.20 |\n| Textured, 2K or 4K geometry | $1.40 |\n| Textured + rig + animation | $1.52 |\n8k textures add $0.20 (textured requests only).\nFailed runs are not charged.\n## Prompting\n\n- Describe or show one object; plain backgrounds work best.\n\n## Also on SandBase\n\nOther Meshy 7.1 endpoints: `meshy/7.1/image-to-3d`, `meshy/7.1/multi-image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/meshy/7.1/text-to-3d/cover-flare-20261008040707.webp",
   "page_url": "https://www.sandbase.ai/model/meshy/7.1/text-to-3d",
   "published_at": "2026-09-21T17:30:05.031Z",

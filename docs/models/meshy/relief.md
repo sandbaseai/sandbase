@@ -69,6 +69,7 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | `bend_angle` | number |  | Bend angle in degrees when bending is on. default `60`; range 0–360 |
 | `remove_base` | boolean |  | Cut away the background and build no base plate. default `false` |
 | `carving_mode` | string |  | 'emboss' makes nearer parts stand out; 'engrave' cuts them in. one of: `emboss`, `engrave`; default `"emboss"` |
+| `color_mapping` | boolean |  | Also produce a colored relief from the photo. default `false` |
 | `mesh_resolution` | integer |  | Mesh points along the long side. At 2048 the GLB reaches about 150 MB and the STL about 300 MB. default `1024`; range 512–2048 |
 | `carving_depth_mm` | number |  | Carving depth in millimeters. Defaults to 3 for 'low' and 6 for 'high'. range 0–60 |
 | `base_thickness_mm` | number |  | Base plate thickness in millimeters (default 1). Not allowed with remove_base. range 0.1–10 |
@@ -90,6 +91,7 @@ Meshy Relief turns a photo into a printable 3D relief (GLB and STL) with emboss 
 | `bend_axis` | `xz` / `yz` | `xz` | 'xz' curls the left and right edges, 'yz' the top and bottom. |
 | `bend_angle` | number 0–360 | `60` | Bend angle in degrees when bending is on. |
 | `mesh_resolution` | integer 512–2048 | `1024` | Mesh points along the long side. At 2048 the GLB reaches about 150 MB and the STL about 300 MB. |
+| `color_mapping` | boolean | `false` | Also produce a colored relief from the photo. |
 ### Output
 - `url`: Main 3D file (GLB unless another export format is selected).
 - `thumbnail`: Preview image rendered by the provider.

@@ -69,7 +69,9 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | `auto_size` | boolean |  | Estimate the object's real-world size and scale the model to it. default `false` |
 | `model_url` | string | yes | URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI.  |
 | `origin_at` | string |  | Where to place the model origin. one of: `bottom`, `center` |
+| `resize_height` | number |  | Scale to this height in meters while remeshing (exclusive with resize_longest_side and auto_size). range 0– |
 | `target_polycount` | integer |  | Target number of faces; the result can differ. default `30000`; range 100–300000 |
+| `resize_longest_side` | number |  | Scale so the longest side is this many meters. range 0– |
 
 ## Details
 
@@ -82,6 +84,8 @@ Meshy Remesh rebuilds an existing 3D model at a target face count, as triangles 
 | `target_polycount` | integer 100–300000 | `30000` | Target number of faces; the result can differ. |
 | `auto_size` | boolean | `false` | Estimate the object's real-world size and scale the model to it. |
 | `origin_at` | `bottom` / `center` | — | Where to place the model origin. |
+| `resize_height` | number 0– | — | Scale to this height in meters while remeshing (exclusive with resize_longest_side and auto_size). |
+| `resize_longest_side` | number 0– | — | Scale so the longest side is this many meters. |
 ### Output
 - `url`: Remeshed GLB.
 - `thumbnail`: Preview image.

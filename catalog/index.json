@@ -1,6 +1,6 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-20T12:27:20Z",
+ "generated_at": "2026-11-21T04:22:16Z",
  "base_url": "https://api.sandbase.ai",
  "count": 2807,
  "counts_by_type": {
@@ -49363,7 +49363,7 @@
    "price": {
     "model": "formula",
     "usd_from": 0.8,
-    "usd_to": 1.72
+    "usd_to": 1.92
    },
    "record": "catalog/models/meshy/7.0/image-to-3d.json"
   },
@@ -49383,7 +49383,7 @@
    "price": {
     "model": "formula",
     "usd_from": 0.8,
-    "usd_to": 1.72
+    "usd_to": 1.92
    },
    "record": "catalog/models/meshy/7.0/multi-image-to-3d.json"
   },
@@ -49423,7 +49423,7 @@
    "price": {
     "model": "formula",
     "usd_from": 0.8,
-    "usd_to": 1.72
+    "usd_to": 1.92
    },
    "record": "catalog/models/meshy/7.0/text-to-3d.json"
   },
@@ -49443,7 +49443,7 @@
    "price": {
     "model": "formula",
     "usd_from": 0.8,
-    "usd_to": 1.72
+    "usd_to": 1.52
    },
    "record": "catalog/models/meshy/7.1/image-to-3d.json"
   },
@@ -49463,7 +49463,7 @@
    "price": {
     "model": "formula",
     "usd_from": 0.8,
-    "usd_to": 1.72
+    "usd_to": 1.92
    },
    "record": "catalog/models/meshy/7.1/multi-image-to-3d.json"
   },
@@ -49483,7 +49483,7 @@
    "price": {
     "model": "formula",
     "usd_from": 1.2,
-    "usd_to": 1.72
+    "usd_to": 1.92
    },
    "record": "catalog/models/meshy/7.1/text-to-3d.json"
   },
@@ -49693,7 +49693,7 @@
    "price": {
     "model": "formula",
     "usd_from": 0.8,
-    "usd_to": 1.52
+    "usd_to": 1.72
    },
    "record": "catalog/models/meshy/meshy-v6.json"
   },
@@ -49713,7 +49713,7 @@
    "price": {
     "model": "formula",
     "usd_from": 0.8,
-    "usd_to": 1.52
+    "usd_to": 1.72
    },
    "record": "catalog/models/meshy/meshy-v6/multi-image-to-3d.json"
   },
@@ -49733,7 +49733,7 @@
    "price": {
     "model": "formula",
     "usd_from": 0.8,
-    "usd_to": 1.52
+    "usd_to": 1.72
    },
    "record": "catalog/models/meshy/meshy-v6/text-to-3d.json"
   },
@@ -49926,7 +49926,7 @@
    "price": {
     "model": "formula",
     "usd_from": 0.2,
-    "usd_to": 0.92
+    "usd_to": 1.12
    },
    "record": "catalog/models/meshy/t2.5/image-to-3d.json"
   },
@@ -49946,7 +49946,7 @@
    "price": {
     "model": "formula",
     "usd_from": 0.2,
-    "usd_to": 0.92
+    "usd_to": 1.12
    },
    "record": "catalog/models/meshy/t2.5/text-to-3d.json"
   },
@@ -49966,7 +49966,7 @@
    "price": {
     "model": "formula",
     "usd_from": 0.2,
-    "usd_to": 0.92
+    "usd_to": 1.12
    },
    "record": "catalog/models/meshy/t2/image-to-3d.json"
   },
@@ -49986,7 +49986,7 @@
    "price": {
     "model": "formula",
     "usd_from": 0.2,
-    "usd_to": 0.92
+    "usd_to": 1.12
    },
    "record": "catalog/models/meshy/t2/text-to-3d.json"
   },

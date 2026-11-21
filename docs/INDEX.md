@@ -1,6 +1,6 @@
 # SandBase capability index
 
-2807 capabilities · generated 2026-11-20T12:27:20Z
+2807 capabilities · generated 2026-11-21T04:22:16Z
 
 - [api](#api) (2247)
 - [audio](#audio) (32)
@@ -2392,13 +2392,13 @@
 | [`meshy/6.0-lite/retexture`](models/meshy/6.0-lite/retexture.md) | 0.4 / call | async | Meshy 6 Lite Retexture is the lower-cost Meshy retexturing model: repaint an existing 3D model from a text or image… |
 | [`meshy/6.0-lite/text-to-3d`](models/meshy/6.0-lite/text-to-3d.md) | 0.2–0.92 | async | Meshy 6 Lite turns a text prompt into a 3D model at a lower price: a preview mesh, then textures, with optional… |
 | [`meshy/6.0/retexture`](models/meshy/6.0/retexture.md) | 0.4–0.6 | async | Meshy 6 Retexture repaints an existing 3D model from a text or image style, with optional PBR maps and up to 8K… |
-| [`meshy/7.0/image-to-3d`](models/meshy/7.0/image-to-3d.md) | 0.8–1.72 | async | Meshy 7 turns a single image into a 3D model, with optional textures, PBR maps, 2K geometry, humanoid auto-rigging and… |
-| [`meshy/7.0/multi-image-to-3d`](models/meshy/7.0/multi-image-to-3d.md) | 0.8–1.72 | async | Meshy 7 reconstructs a 3D model from 1–4 views of the same object, with optional textures, PBR maps, 2K geometry,… |
+| [`meshy/7.0/image-to-3d`](models/meshy/7.0/image-to-3d.md) | 0.8–1.92 | async | Meshy 7 turns a single image into a 3D model, with optional textures, PBR maps, 2K geometry, humanoid auto-rigging and… |
+| [`meshy/7.0/multi-image-to-3d`](models/meshy/7.0/multi-image-to-3d.md) | 0.8–1.92 | async | Meshy 7 reconstructs a 3D model from 1–4 views of the same object, with optional textures, PBR maps, 2K geometry,… |
 | [`meshy/7.0/retexture`](models/meshy/7.0/retexture.md) | 0.4–0.6 | async | Meshy 7 Retexture repaints an existing 3D model from a text or image style, with optional PBR maps and up to 8K… |
-| [`meshy/7.0/text-to-3d`](models/meshy/7.0/text-to-3d.md) | 0.8–1.72 | async | Meshy 7 generates a 3D model from a text prompt, either as an untextured preview mesh or fully textured, with optional… |
-| [`meshy/7.1/image-to-3d`](models/meshy/7.1/image-to-3d.md) | 0.8–1.72 | async | Meshy 7.1 turns a single image into a textured, optionally rigged and animated 3D model. |
-| [`meshy/7.1/multi-image-to-3d`](models/meshy/7.1/multi-image-to-3d.md) | 0.8–1.72 | async | Meshy 7.1 reconstructs a textured, optionally rigged 3D model from 1–4 views of the same object. |
-| [`meshy/7.1/text-to-3d`](models/meshy/7.1/text-to-3d.md) | 1.2–1.72 | async | Meshy 7.1 generates a textured, optionally rigged and animated 3D model from a text prompt. |
+| [`meshy/7.0/text-to-3d`](models/meshy/7.0/text-to-3d.md) | 0.8–1.92 | async | Meshy 7 generates a 3D model from a text prompt, either as an untextured preview mesh or fully textured, with optional… |
+| [`meshy/7.1/image-to-3d`](models/meshy/7.1/image-to-3d.md) | 0.8–1.52 | async | Meshy 7.1 turns a single image into a textured, optionally rigged and animated 3D model. |
+| [`meshy/7.1/multi-image-to-3d`](models/meshy/7.1/multi-image-to-3d.md) | 0.8–1.92 | async | Meshy 7.1 reconstructs a textured, optionally rigged 3D model from 1–4 views of the same object. |
+| [`meshy/7.1/text-to-3d`](models/meshy/7.1/text-to-3d.md) | 1.2–1.92 | async | Meshy 7.1 generates a textured, optionally rigged and animated 3D model from a text prompt. |
 | [`meshy/convert`](models/meshy/convert.md) | 0.04 / call | async | Meshy Convert exports an existing 3D model to GLB, OBJ, FBX, STL, USDZ, BLEND or 3MF. |
 | [`meshy/creative-lab/brick-figure`](models/meshy/creative-lab/brick-figure.md) | 1.44 / call | async | Turns a photo into a textured brick-style minifigure. |
 | [`meshy/creative-lab/fidget-collapsible`](models/meshy/creative-lab/fidget-collapsible.md) | 0.24 / call | async | Turns a photo into a print-in-place collapsible fidget toy. |
@@ -2409,9 +2409,9 @@
 | [`meshy/creative-lab/keychain`](models/meshy/creative-lab/keychain.md) | 1.44 / call | async | Turns a photo into a 3D-printable keychain medallion, optionally with a name on its face. |
 | [`meshy/creative-lab/lamp`](models/meshy/creative-lab/lamp.md) | 1.44 / call | async | Turns a photo into a 3D-printable lithophane-style lampshade and base. |
 | [`meshy/creative-lab/vinyl-figure`](models/meshy/creative-lab/vinyl-figure.md) | 1.44 / call | async | Turns a photo into a textured big-head vinyl collectible figure. |
-| [`meshy/meshy-v6`](models/meshy/meshy-v6.md) | 0.8–1.52 | async | Meshy 6 turns a single image into a 3D model, with optional textures, PBR maps, humanoid auto-rigging and animation. |
-| [`meshy/meshy-v6/multi-image-to-3d`](models/meshy/meshy-v6/multi-image-to-3d.md) | 0.8–1.52 | async | Meshy 6 reconstructs a 3D model from 1–4 views of the same object, with optional textures, PBR maps, auto-rigging and… |
-| [`meshy/meshy-v6/text-to-3d`](models/meshy/meshy-v6/text-to-3d.md) | 0.8–1.52 | async | Meshy 6 generates a 3D model from a text prompt, either as an untextured preview mesh or fully textured, with optional… |
+| [`meshy/meshy-v6`](models/meshy/meshy-v6.md) | 0.8–1.72 | async | Meshy 6 turns a single image into a 3D model, with optional textures, PBR maps, humanoid auto-rigging and animation. |
+| [`meshy/meshy-v6/multi-image-to-3d`](models/meshy/meshy-v6/multi-image-to-3d.md) | 0.8–1.72 | async | Meshy 6 reconstructs a 3D model from 1–4 views of the same object, with optional textures, PBR maps, auto-rigging and… |
+| [`meshy/meshy-v6/text-to-3d`](models/meshy/meshy-v6/text-to-3d.md) | 0.8–1.72 | async | Meshy 6 generates a 3D model from a text prompt, either as an untextured preview mesh or fully textured, with optional… |
 | [`meshy/n1/retexture`](models/meshy/n1/retexture.md) | 0.4 / call | async | Meshy N1 Retexture repaints an existing 3D model from one reference image or up to four reference views, producing a… |
 | [`meshy/print/analyze`](models/meshy/print/analyze.md) | 0 / call | async | Meshy Analyze Printability checks a 3D model for watertightness, holes, non-manifold edges, degenerate faces and thin… |
 | [`meshy/print/multi-color`](models/meshy/print/multi-color.md) | 0.4 / call | async | Meshy Multi-Color Print turns a textured 3D model into color regions and returns a 3MF ready for a multi-color slicer. |
@@ -2421,10 +2421,10 @@
 | [`meshy/resize`](models/meshy/resize.md) | 0.04 / call | async | Meshy Resize scales an existing 3D model to a real-world height or longest side, or estimates the size automatically. |
 | [`meshy/rigging`](models/meshy/rigging.md) | 0.2–0.32 | async | Meshy Rigging adds a humanoid skeleton to an existing character model and can also apply one animation preset. |
 | [`meshy/rigging/multi-animation`](models/meshy/rigging/multi-animation.md) | 0.56 | async | Meshy Rigging Multi-Animation rigs an existing humanoid character model and generates up to 10 animation clips on the… |
-| [`meshy/t2.5/image-to-3d`](models/meshy/t2.5/image-to-3d.md) | 0.2–0.92 | async | Meshy T2.5 turns a single image into a clean Smart Topology triangle mesh (up to 30,000 triangles), with optional… |
-| [`meshy/t2.5/text-to-3d`](models/meshy/t2.5/text-to-3d.md) | 0.2–0.92 | async | Meshy T2.5 generates a clean Smart Topology triangle mesh (up to 30,000 triangles) from a text prompt, untextured in… |
-| [`meshy/t2/image-to-3d`](models/meshy/t2/image-to-3d.md) | 0.2–0.92 | async | Meshy T2 turns a single image into a clean Smart Topology triangle mesh (up to 15,000 triangles), with optional… |
-| [`meshy/t2/text-to-3d`](models/meshy/t2/text-to-3d.md) | 0.2–0.92 | async | Meshy T2 generates a clean Smart Topology triangle mesh (up to 15,000 triangles) from a text prompt, untextured in… |
+| [`meshy/t2.5/image-to-3d`](models/meshy/t2.5/image-to-3d.md) | 0.2–1.12 | async | Meshy T2.5 turns a single image into a clean Smart Topology triangle mesh (up to 30,000 triangles), with optional… |
+| [`meshy/t2.5/text-to-3d`](models/meshy/t2.5/text-to-3d.md) | 0.2–1.12 | async | Meshy T2.5 generates a clean Smart Topology triangle mesh (up to 30,000 triangles) from a text prompt, untextured in… |
+| [`meshy/t2/image-to-3d`](models/meshy/t2/image-to-3d.md) | 0.2–1.12 | async | Meshy T2 turns a single image into a clean Smart Topology triangle mesh (up to 15,000 triangles), with optional… |
+| [`meshy/t2/text-to-3d`](models/meshy/t2/text-to-3d.md) | 0.2–1.12 | async | Meshy T2 generates a clean Smart Topology triangle mesh (up to 15,000 triangles) from a text prompt, untextured in… |
 | [`meshy/text-to-motion`](models/meshy/text-to-motion.md) | 0.12–0.4 | async | Meshy Text to Motion generates a standalone character motion clip from a text prompt, as FBX (prime) or BVH (swift). |
 | [`meshy/uv-unwrap`](models/meshy/uv-unwrap.md) | 0.2 / call | async | Meshy UV Unwrap creates a clean UV layout for an existing 3D model before texturing. |
 | [`meta/sam-3/3d-align`](models/meta/sam-3/3d-align.md) | 0.024 / call | async | SAM 3D Align by Meta places a SAM 3D Body mesh into the scene of its source image, optionally combining it with a SAM… |

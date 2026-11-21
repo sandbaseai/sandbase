@@ -36,8 +36,8 @@
         "examples": [
           "A rustic, antique wooden treasure chest with a curved, domed lid, constructed from weathered, dark brown planks exhibiting prominent wood grain and subtle distress. It's heavily reinforced with broad, dark grey, oxidized metal bands secured by numerous circular rivets. Ornate, dark iron decorative elements featuring swirling foliate patterns and dragon motifs adorn the corners and lid. A prominent, circular, intricately carved metal lock plate with a central keyhole dominates the front, flanked by two large, dark metallic pull rings."
         ],
-        "maxLength": 600,
-        "description": "Describe the object to generate. Maximum 600 characters."
+        "maxLength": 800,
+        "description": "Describe the object to generate. Maximum 800 characters."
       },
       "topology": {
         "enum": [
@@ -48,6 +48,21 @@
         "title": "Topology",
         "default": "triangle",
         "description": "quad for smooth surfaces, triangle for detail."
+      },
+      "auto_size": {
+        "type": "boolean",
+        "title": "Auto Size",
+        "default": false,
+        "description": "Estimate the object's real-world height and scale the model to it. The origin goes to the bottom unless origin_at is set."
+      },
+      "origin_at": {
+        "enum": [
+          "bottom",
+          "center"
+        ],
+        "type": "string",
+        "title": "Origin",
+        "description": "Where to place the model origin."
       },
       "pose_mode": {
         "enum": [
@@ -287,7 +302,7 @@
       ]
     }
   ],
-  "readme": "# Meshy 6 Lite Text to 3D\nMeshy 6 Lite turns a text prompt into a 3D model at a lower price: a preview mesh, then textures, with optional humanoid rigging and animation.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `seed` | integer | — | Seed for reproducible geometry. |\n| `prompt` | string, required | — | Describe the object to generate. Maximum 600 characters. |\n| `topology` | `quad` / `triangle` | `\"triangle\"` | quad for smooth surfaces, triangle for detail. |\n| `pose_mode` | `a-pose` / `t-pose` / `` | `\"\"` | Generate the character in an A-pose or T-pose; empty for no specific pose. |\n| `enable_pbr` | boolean | `false` | Generate PBR maps (metallic, roughness, normal) in addition to base color. |\n| `symmetry_mode` | `off` / `auto` / `on` | `\"auto\"` | Symmetry enforcement: off, auto or on. |\n| `texture_image` | string | — | Image URL to guide texturing. |\n| `enable_rigging` | boolean | `false` | Rig the model as a humanoid character. The rigged GLB is returned as rigged_glb. |\n| `texture_prompt` | string | — | Text prompt to guide texturing. Maximum 800 characters. |\n| `generation_mode` | `preview` / `full` | `\"full\"` | 'preview' returns the untextured mesh only; 'full' also textures it. |\n| `enable_animation` | boolean | `false` | Apply an animation preset to the rigged character (billed together with rigging). The animated GLB is returned as animation_glb. |\n| `target_polycount` | integer 100–300000 | `30000` | Target polygon count (100–300,000). |\n| `animation_action_id` | integer 0–696 | `92` | Animation preset ID from Meshy's animation library (0 is Idle). Only used when animation is enabled. |\n## Output\n- `url`: GLB model.\n- `thumbnail`: Preview image.\n- `rigged_glb`: Rigged character (when rigging is enabled).\n- `animation_glb`: Animated character (when animation is enabled).\n## Billing\n$0.60 per textured model, $0.20 untextured (text-to-3d: `generation_mode=preview`). Rigging adds $0.20; animation adds $0.12 on top of rigging.\n",
+  "readme": "# Meshy 6 Lite Text to 3D\nMeshy 6 Lite turns a text prompt into a 3D model at a lower price: a preview mesh, then textures, with optional humanoid rigging and animation.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `seed` | integer | — | Seed for reproducible geometry. |\n| `prompt` | string, required | — | Describe the object to generate. Maximum 800 characters. |\n| `topology` | `quad` / `triangle` | `\"triangle\"` | quad for smooth surfaces, triangle for detail. |\n| `pose_mode` | `a-pose` / `t-pose` / `` | `\"\"` | Generate the character in an A-pose or T-pose; empty for no specific pose. |\n| `enable_pbr` | boolean | `false` | Generate PBR maps (metallic, roughness, normal) in addition to base color. |\n| `symmetry_mode` | `off` / `auto` / `on` | `\"auto\"` | Symmetry enforcement: off, auto or on. |\n| `texture_image` | string | — | Image URL to guide texturing. |\n| `enable_rigging` | boolean | `false` | Rig the model as a humanoid character. The rigged GLB is returned as rigged_glb. |\n| `texture_prompt` | string | — | Text prompt to guide texturing. Maximum 800 characters. |\n| `generation_mode` | `preview` / `full` | `\"full\"` | 'preview' returns the untextured mesh only; 'full' also textures it. |\n| `enable_animation` | boolean | `false` | Apply an animation preset to the rigged character (billed together with rigging). The animated GLB is returned as animation_glb. |\n| `target_polycount` | integer 100–300000 | `30000` | Target polygon count (100–300,000). |\n| `animation_action_id` | integer 0–696 | `92` | Animation preset ID from Meshy's animation library (0 is Idle). Only used when animation is enabled. |\n| `auto_size` | boolean | `false` | Estimate the object's real-world height and scale the model to it. The origin goes to the bottom unless origin_at is set. |\n| `origin_at` | `bottom` / `center` | — | Where to place the model origin. |\n## Output\n- `url`: GLB model.\n- `thumbnail`: Preview image.\n- `rigged_glb`: Rigged character (when rigging is enabled).\n- `animation_glb`: Animated character (when animation is enabled).\n## Billing\n$0.60 per textured model, $0.20 untextured (text-to-3d: `generation_mode=preview`). Rigging adds $0.20; animation adds $0.12 on top of rigging.\n",
   "cover_url": "https://static.sandbase.ai/covers/meshy/6.0-lite/text-to-3d/cover-flare-20261120161311.webp",
   "page_url": "https://www.sandbase.ai/model/meshy/6.0-lite/text-to-3d",
   "created_at": "2026-11-20T01:24:44.869Z"

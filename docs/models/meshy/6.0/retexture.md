@@ -74,7 +74,8 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | `model_url` | string | yes | 3D model to texture: .glb, .gltf, .obj, .fbx or .stl URL.  |
 | `enable_pbr` | boolean |  | Also generate metallic, roughness and normal maps. default `false` |
 | `image_style_url` | string |  | 2D image that guides the texture (JPG or PNG). Takes precedence over text_style_prompt.  |
-| `text_style_prompt` | string |  | Describe the texture style, up to 600 characters. Required when image_style_url is not set.  |
+| `remove_lighting` | boolean |  | Remove baked highlights and shadows from the base color texture. Takes effect with the Meshy 6 texture model.  |
+| `text_style_prompt` | string |  | Describe the texture style, up to 800 characters. Required when image_style_url is not set.  |
 | `enable_original_uv` | boolean |  | Use the model's existing UV layout instead of generating new UVs. default `true` |
 | `texture_resolution` | string |  | Base color resolution. 8k costs more; at 8k PBR maps are 4k. one of: `2k`, `4k`, `8k`; default `"2k"` |
 
@@ -85,11 +86,12 @@ Meshy 6 Retexture repaints an existing 3D model from a text or image style, with
 | Field | Type | Default | Notes |
 |---|---|---|---|
 | `model_url` | 3D model URL, required | — | .glb, .gltf, .obj, .fbx or .stl. |
-| `text_style_prompt` | string | — | Texture style, up to 600 characters. Required when `image_style_url` is not set. |
+| `text_style_prompt` | string | — | Texture style, up to 800 characters. Required when `image_style_url` is not set. |
 | `image_style_url` | image URL | — | JPG or PNG style reference; takes precedence over the text prompt. |
 | `texture_resolution` | `2k` / `4k` / `8k` | `2k` | Base color resolution; 8k costs more and its PBR maps are 4k. |
 | `enable_pbr` | boolean | false | Also generate metallic, roughness and normal maps. |
 | `enable_original_uv` | boolean | true | Keep the model's UV layout. |
+| `remove_lighting` | boolean | — | Remove baked highlights and shadows from the base color texture. Takes effect with the Meshy 6 texture model. |
 ### Billing
 $0.40 per retextured model at 2k or 4k, $0.60 at 8k; PBR maps are included.
 | Request | Price |

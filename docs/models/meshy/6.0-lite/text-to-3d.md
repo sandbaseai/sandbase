@@ -75,8 +75,10 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | name | type | required | description |
 |---|---|---|---|
 | `seed` | integer |  | Seed for reproducible geometry.  |
-| `prompt` | string | yes | Describe the object to generate. Maximum 600 characters.  |
+| `prompt` | string | yes | Describe the object to generate. Maximum 800 characters.  |
 | `topology` | string |  | quad for smooth surfaces, triangle for detail. one of: `quad`, `triangle`; default `"triangle"` |
+| `auto_size` | boolean |  | Estimate the object's real-world height and scale the model to it. The origin goes to the bottom unless origin_at is set. default `false` |
+| `origin_at` | string |  | Where to place the model origin. one of: `bottom`, `center` |
 | `pose_mode` | string |  | Generate the character in an A-pose or T-pose; empty for no specific pose. one of: `a-pose`, `t-pose`, ``; default `""` |
 | `enable_pbr` | boolean |  | Generate PBR maps (metallic, roughness, normal) in addition to base color. default `false` |
 | `symmetry_mode` | string |  | Symmetry enforcement: off, auto or on. one of: `off`, `auto`, `on`; default `"auto"` |
@@ -95,7 +97,7 @@ Meshy 6 Lite turns a text prompt into a 3D model at a lower price: a preview mes
 | Field | Type | Default | Notes |
 |---|---|---|---|
 | `seed` | integer | — | Seed for reproducible geometry. |
-| `prompt` | string, required | — | Describe the object to generate. Maximum 600 characters. |
+| `prompt` | string, required | — | Describe the object to generate. Maximum 800 characters. |
 | `topology` | `quad` / `triangle` | `"triangle"` | quad for smooth surfaces, triangle for detail. |
 | `pose_mode` | `a-pose` / `t-pose` / `` | `""` | Generate the character in an A-pose or T-pose; empty for no specific pose. |
 | `enable_pbr` | boolean | `false` | Generate PBR maps (metallic, roughness, normal) in addition to base color. |
@@ -107,6 +109,8 @@ Meshy 6 Lite turns a text prompt into a 3D model at a lower price: a preview mes
 | `enable_animation` | boolean | `false` | Apply an animation preset to the rigged character (billed together with rigging). The animated GLB is returned as animation_glb. |
 | `target_polycount` | integer 100–300000 | `30000` | Target polygon count (100–300,000). |
 | `animation_action_id` | integer 0–696 | `92` | Animation preset ID from Meshy's animation library (0 is Idle). Only used when animation is enabled. |
+| `auto_size` | boolean | `false` | Estimate the object's real-world height and scale the model to it. The origin goes to the bottom unless origin_at is set. |
+| `origin_at` | `bottom` / `center` | — | Where to place the model origin. |
 ### Output
 - `url`: GLB model.
 - `thumbnail`: Preview image.

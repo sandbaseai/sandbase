@@ -66,7 +66,7 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | `model_url` | string | yes | 3D model to texture: .glb, .gltf, .obj, .fbx or .stl URL.  |
 | `enable_pbr` | boolean |  | Also generate metallic, roughness and normal maps. default `false` |
 | `image_style_url` | string |  | 2D image that guides the texture (JPG or PNG). Takes precedence over text_style_prompt.  |
-| `text_style_prompt` | string |  | Describe the texture style, up to 600 characters. Required when image_style_url is not set.  |
+| `text_style_prompt` | string |  | Describe the texture style, up to 800 characters. Required when image_style_url is not set.  |
 | `enable_original_uv` | boolean |  | Use the model's existing UV layout instead of generating new UVs. default `true` |
 
 ## Details
@@ -76,7 +76,7 @@ Meshy 6 Lite Retexture is the lower-cost Meshy retexturing model: repaint an exi
 | Field | Type | Default | Notes |
 |---|---|---|---|
 | `model_url` | 3D model URL, required | — | .glb, .gltf, .obj, .fbx or .stl. |
-| `text_style_prompt` | string | — | Texture style, up to 600 characters. Required when `image_style_url` is not set. |
+| `text_style_prompt` | string | — | Texture style, up to 800 characters. Required when `image_style_url` is not set. |
 | `image_style_url` | image URL | — | JPG or PNG style reference; takes precedence over the text prompt. |
 | `enable_pbr` | boolean | false | Also generate metallic, roughness and normal maps. |
 | `enable_original_uv` | boolean | true | Keep the model's UV layout. |

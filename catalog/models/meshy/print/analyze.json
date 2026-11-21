@@ -49,6 +49,13 @@
         "maximum": 1000,
         "minimum": 1,
         "description": "Planned print height in millimeters (GLB input)."
+      },
+      "intended_print_longest_side_mm": {
+        "type": "number",
+        "title": "Print Longest Side (mm)",
+        "maximum": 1000,
+        "minimum": 1,
+        "description": "Planned print size by its longest side in millimeters (exclusive with intended_print_height_mm)."
       }
     }
   },
@@ -111,7 +118,7 @@
     "model": "free",
     "per_call": 0
   },
-  "readme": "# Meshy Analyze Printability\nMeshy Analyze Printability checks a 3D model for watertightness, holes, non-manifold edges, degenerate faces and thin walls before printing.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI. |\n| `printer_type` | `fdm` / `sla` / `full_color` | — | Printer that sets the minimum wall thickness. |\n| `intended_print_height_mm` | number 1–1000 | — | Planned print height in millimeters (GLB input). |\n## Output\n- `status`: `ok`, `warning` or `error`.\n- `issue_count / error_count / warning_count`: Issue counts.\n- `metrics`: is_watertight, volume, holes, non_manifold_edges, degenerate_faces.\n- `thin_walls`: Thin-wall check when a print size is given.\n## Billing\nFree (Meshy charges 0 credits).\n",
+  "readme": "# Meshy Analyze Printability\nMeshy Analyze Printability checks a 3D model for watertightness, holes, non-manifold edges, degenerate faces and thin walls before printing.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the 3D model (GLB, GLTF, FBX, OBJ or STL) as a public URL or data URI. |\n| `printer_type` | `fdm` / `sla` / `full_color` | — | Printer that sets the minimum wall thickness. |\n| `intended_print_height_mm` | number 1–1000 | — | Planned print height in millimeters (GLB input). |\n| `intended_print_longest_side_mm` | number 1–1000 | — | Planned print size by its longest side in millimeters (exclusive with intended_print_height_mm). |\n## Output\n- `status`: `ok`, `warning` or `error`.\n- `issue_count / error_count / warning_count`: Issue counts.\n- `metrics`: is_watertight, volume, holes, non_manifold_edges, degenerate_faces.\n- `thin_walls`: Thin-wall check when a print size is given.\n## Billing\nFree (Meshy charges 0 credits).\n",
   "cover_url": "https://static.sandbase.ai/covers/meshy/print/analyze/cover-flare-20261120181019.webp",
   "page_url": "https://www.sandbase.ai/model/meshy/print/analyze",
   "created_at": "2026-11-20T09:27:08.054Z"
