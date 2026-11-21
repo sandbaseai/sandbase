@@ -1,6 +1,6 @@
 # SandBase capability index
 
-2807 capabilities · generated 2026-11-21T04:22:16Z
+2807 capabilities · generated 2026-11-21T08:23:27Z
 
 - [api](#api) (2247)
 - [audio](#audio) (32)
@@ -1137,7 +1137,7 @@
 | [`instagram/v3/user-followers`](models/instagram/v3/user-followers.md) | 0.008 / call | sync | Returns a list of followers for a specified Instagram account. Supports pagination cursors and limits up to 100 users… |
 | [`instagram/v3/user-following`](models/instagram/v3/user-following.md) | 0.008 / call | sync | Returns a paginated list of accounts followed by a specified Instagram user. Supports filtering by username and custom… |
 | [`instagram/v3/user-highlights`](models/instagram/v3/user-highlights.md) | 0.008 / call | sync | Returns profile highlights for a specified Instagram account. Supports forward and backward cursor-based pagination to… |
-| [`instagram/v3/user-id-by-username`](models/instagram/v3/user-id-by-username.md) | 0.008 / call | sync | Convert an Instagram username into its numeric user ID, the internal identifier needed by most Instagram profile,… |
+| [`instagram/v3/user-id-by-username`](models/instagram/v3/user-id-by-username.md) | 0.008 / call (free quota) | sync | Convert an Instagram username into its numeric user ID, the internal identifier needed by most Instagram profile,… |
 | [`instagram/v3/user-id-to-username`](models/instagram/v3/user-id-to-username.md) | 0.008 / call | sync | Returns an Instagram profile's details, including username, full name, follower count, and media metrics using an… |
 | [`instagram/v3/user-posts`](models/instagram/v3/user-posts.md) | 0.008 / call | sync | Returns a list of posts from a specific Instagram account. Supports bidirectional cursor pagination using the account… |
 | [`instagram/v3/user-profile`](models/instagram/v3/user-profile.md) | 0.008 / call | sync | Returns complete profile details for an Instagram account, including follower counts, media metrics, and bio links… |

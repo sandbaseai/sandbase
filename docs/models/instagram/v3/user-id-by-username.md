@@ -2,13 +2,14 @@
 
 `instagram/v3/user-id-by-username` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.008 per call · **Modes:** sync
+**Price:** $0.008 per call (free daily quota) · **Modes:** sync
 
 Convert an Instagram username into its numeric user ID, the internal identifier needed by most Instagram profile, posts and followers APIs.
 
 ## Pricing
 
 - **$0.008 per call** (USD)
+- Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
 
@@ -61,12 +62,24 @@ Same call via the path form: `POST /v1/api/instagram/v3/user-id-by-username` wit
 
 ## Details
 
-Look up the numeric user ID (`pk`) of an Instagram account from its username. Most Instagram profile, posts, reels and followers APIs take this ID, and it stays the same when the account changes its username.
+Look up the numeric user ID (`pk`) of an Instagram account from its username. The ID stays the same when the account changes its username, so it is the safer key to store.
 
 ### Use cases
 
-- Resolve handles from links or bios into stable IDs before calling other Instagram APIs.
-- Keep tracking an account after it renames itself.
+- Store a stable key for each account you track, so your records survive a rename.
+- Get the ID that [Similar users](/apis/instagram/v3/similar-users) and [User brief](/apis/instagram/v3/user-brief) require.
+- Match accounts across datasets that store IDs, such as exports or third-party tools.
+
+### Username or user ID: which to use
+
+| | Username | User ID |
+|---|---|---|
+| Example | `nasa` | `528817151` |
+| Changes when the account renames | Yes | No |
+| Where you find it | Profile URL, bio, mentions | Not shown on the profile; returned by APIs |
+| Accepted by | [User profile](/apis/instagram/v3/user-profile), [User posts](/apis/instagram/v3/user-posts), [User reels](/apis/instagram/v3/user-reels), followers and following | [Similar users](/apis/instagram/v3/similar-users), [User brief](/apis/instagram/v3/user-brief) |
+
+Use the username for one-off requests, since most Instagram APIs here accept it directly. Save the user ID next to it when you track accounts over time. If a request by username starts failing, look the stored ID up with [Instagram ID to Username](/apis/instagram/v3/user-id-to-username) to find the new name. The [Instagram ID lookup guide](/guides/instagram-id-lookup) covers both directions.
 
 ### Request
 
@@ -112,9 +125,9 @@ $0.008 per successful call. Failed calls, including lookups whose target does no
 
 ### Related APIs
 
-- [Bulk translate comments](/apis/instagram/v3/bulk-translate-comments): Bulk translate Instagram comments Support translating multiple comments at once for better efficiency Comment IDs can be obtained from get_post_comments API.
-- [Get comment replies](/apis/instagram/v3/comment-replies): Get Instagram comment's child comments (replies) list Support pagination to fetch all replies Parent comment's comment_id can be obtained from get_post_comment…
-- [Get explore feed](/apis/instagram/v3/explore): V3 Explore provides a focused capability for applications, automation, and data workflows.
+- [Instagram ID to Username](/apis/instagram/v3/user-id-to-username): find the current username of a stored user ID.
+- [User profile](/apis/instagram/v3/user-profile): profile details, follower counts and bio by username.
+- [Similar users](/apis/instagram/v3/similar-users): accounts similar to a given user ID.
 
 ---
 Machine-readable: [`catalog/models/instagram/v3/user-id-by-username.json`](../../../../catalog/models/instagram/v3/user-id-by-username.json) · Store page: https://www.sandbase.ai/model/instagram/v3/user-id-by-username

@@ -1,6 +1,6 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-21T04:22:16Z",
+ "generated_at": "2026-11-21T08:23:27Z",
  "base_url": "https://api.sandbase.ai",
  "count": 2807,
  "counts_by_type": {
@@ -23603,7 +23603,8 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.008
+    "usd_per_call": 0.008,
+    "free_quota": true
    },
    "record": "catalog/models/instagram/v3/user-id-by-username.json"
   },
@@ -58910,7 +58911,7 @@
   }
  ],
  "free_quota": {
-  "apis": 423,
+  "apis": 424,
   "daily_calls_per_org": 100,
   "note": "Shared across all free-quota APIs per organization; resets 00:00 UTC."
  },

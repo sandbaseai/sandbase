@@ -1383,7 +1383,7 @@ instagram/v3/user-brief,api,Instagram,per_call,0.008,,,,,,sync,POST /v1/run
 instagram/v3/user-followers,api,Instagram,per_call,0.008,,,,,,sync,POST /v1/run
 instagram/v3/user-following,api,Instagram,per_call,0.008,,,,,,sync,POST /v1/run
 instagram/v3/user-highlights,api,Instagram,per_call,0.008,,,,,,sync,POST /v1/run
-instagram/v3/user-id-by-username,api,Instagram,per_call,0.008,,,,,,sync,POST /v1/run
+instagram/v3/user-id-by-username,api,Instagram,per_call,0.008,,,,,yes,sync,POST /v1/run
 instagram/v3/user-id-to-username,api,Instagram,per_call,0.008,,,,,,sync,POST /v1/run
 instagram/v3/user-posts,api,Instagram,per_call,0.008,,,,,,sync,POST /v1/run
 instagram/v3/user-profile,api,Instagram,per_call,0.008,,,,,,sync,POST /v1/run
