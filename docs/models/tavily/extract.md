@@ -2,13 +2,15 @@
 
 `tavily/extract` · data API · Tavily · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.012 per call · **Modes:** sync
+**Price:** about $0.0016 per call · **Modes:** sync
 
 Extracts clean text content from specified web pages using their URLs. Supports basic or advanced extraction depth and optional image inclusion.
 
 ## Pricing
 
-- **$0.012 per call** (USD)
+- Depends on parameters (`params.extract_depth`, `params.urls`).
+
+Formula: `0.0016 * ((params.extract_depth ?? "basic") == "advanced" ? 2.0 : 1.0) * ((output.results != nil ? len(output.results) : len(params.urls ?? [])) * 1.0)`
 
 ## Call it
 
@@ -136,7 +138,7 @@ Real response for the request above, trimmed: lists keep their first item and lo
 
 ### Pricing
 
-$0.012 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
+Billed like Tavily's pay-as-you-go price of $0.008 per credit, where 5 successful extractions use 1 credit (tavily.com, checked 2026-11-22 UTC): $0.0016 per successfully extracted URL with `extract_depth: "basic"` (the default), $0.0032 with `"advanced"`. 5 URLs cost $0.008. Tavily counts credits across calls, so a single URL is not rounded up to a full credit. URLs that fail to extract are not charged, and a call where every URL fails costs nothing. The estimate before a call assumes every URL succeeds. It is not part of the daily free quota, because its price varies with the request.
 
 ---
 Machine-readable: [`catalog/models/tavily/extract.json`](../../../catalog/models/tavily/extract.json) · Store page: https://www.sandbase.ai/model/tavily/extract

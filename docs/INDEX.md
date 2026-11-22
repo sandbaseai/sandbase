@@ -1,6 +1,6 @@
 # SandBase capability index
 
-2824 capabilities · generated 2026-11-21T20:21:29Z
+2824 capabilities · generated 2026-11-22T04:23:32Z
 
 - [api](#api) (2247)
 - [audio](#audio) (32)
@@ -1557,9 +1557,9 @@
 | [`target/product`](models/target/product.md) | ~0.00085 | sync | Fetch a Target.com product by URL and get title, price, brand, rating, description, and images in one normalized… |
 | [`target/reviews`](models/target/reviews.md) | ~0.00085 | sync | Pull a page of 10 customer reviews for any Target.com product by URL, newest first or by helpfulness or rating:… |
 | [`target/search`](models/target/search.md) | 0.015 / call | async | Search Target products by keyword with TCIN, brand, price, sale price, rating, reviews and pickup, delivery and… |
-| [`tavily/extract`](models/tavily/extract.md) | 0.012 / call | sync | Extracts clean text content from specified web pages using their URLs. Supports basic or advanced extraction depth and… |
-| [`tavily/map`](models/tavily/map.md) | 0.012 / call | sync | Discovers the URL structure of a target website without extracting full page content. Accepts a starting URL, maximum… |
-| [`tavily/search`](models/tavily/search.md) | 0.012 / call | sync | AI-optimized web search for agents and RAG: ranked results with titles, URLs and relevant content, depth control, news… |
+| [`tavily/extract`](models/tavily/extract.md) | ~0.0016 | sync | Extracts clean text content from specified web pages using their URLs. Supports basic or advanced extraction depth and… |
+| [`tavily/map`](models/tavily/map.md) | ~0.04 | sync | Discovers the URL structure of a target website without extracting full page content. Accepts a starting URL, maximum… |
+| [`tavily/search`](models/tavily/search.md) | 0.008–0.016 | sync | AI-optimized web search for agents and RAG: ranked results with titles, URLs and relevant content, depth control, news… |
 | [`telegram/web/batch-channel-info`](models/telegram/web/batch-channel-info.md) | 0.008 / call | sync | Returns basic channel profile details including title, description, and verified status for multiple public Telegram… |
 | [`telegram/web/channel-info`](models/telegram/web/channel-info.md) | 0.001 / call | sync | Returns public metadata for a Telegram channel, including title, description, verified status, and username, using the… |
 | [`telegram/web/channel-posts`](models/telegram/web/channel-posts.md) | 0.001 / call (free quota) | sync | Get a public Telegram channel's recent posts: text, media, forwards, replies, link previews, reactions, views and… |

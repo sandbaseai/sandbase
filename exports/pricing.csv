@@ -2019,9 +2019,9 @@ taobao/shop/items,api,Taobao,per_call,0.021429,,,,,,sync,POST /v1/run
 target/product,api,Target,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
 target/reviews,api,Target,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
 target/search,api,Target,per_call,0.015,,,,,,async,POST /v1/run
-tavily/extract,api,Tavily,per_call,0.012,,,,,,sync,POST /v1/run
-tavily/map,api,Tavily,per_call,0.012,,,,,,sync,POST /v1/run
-tavily/search,api,Tavily,per_call,0.012,,,,,,sync,POST /v1/run
+tavily/extract,api,Tavily,formula,,,,0.0016,0.0016,,sync,POST /v1/run
+tavily/map,api,Tavily,formula,,,,0.04,0.04,,sync,POST /v1/run
+tavily/search,api,Tavily,formula,,,,0.008,0.016,,sync,POST /v1/run
 telegram/web/batch-channel-info,api,Telegram,per_call,0.008,,,,,,sync,POST /v1/run
 telegram/web/channel-info,api,Telegram,per_call,0.001,,,,,,sync,POST /v1/run
 telegram/web/channel-posts,api,Telegram,per_call,0.001,,,,,yes,sync,POST /v1/run

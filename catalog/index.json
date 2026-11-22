@@ -1,6 +1,6 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-21T20:21:29Z",
+ "generated_at": "2026-11-22T04:23:32Z",
  "base_url": "https://api.sandbase.ai",
  "count": 2824,
  "counts_by_type": {
@@ -32270,8 +32270,8 @@
    ],
    "endpoint": "POST /v1/run",
    "price": {
-    "model": "per_call",
-    "usd_per_call": 0.012
+    "model": "formula",
+    "usd_reference": 0.0016
    },
    "record": "catalog/models/tavily/extract.json"
   },
@@ -32290,8 +32290,8 @@
    ],
    "endpoint": "POST /v1/run",
    "price": {
-    "model": "per_call",
-    "usd_per_call": 0.012
+    "model": "formula",
+    "usd_reference": 0.04
    },
    "record": "catalog/models/tavily/map.json"
   },
@@ -32311,8 +32311,9 @@
    ],
    "endpoint": "POST /v1/run",
    "price": {
-    "model": "per_call",
-    "usd_per_call": 0.012
+    "model": "formula",
+    "usd_from": 0.008,
+    "usd_to": 0.016
    },
    "record": "catalog/models/tavily/search.json"
   },

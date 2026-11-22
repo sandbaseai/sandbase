@@ -2,13 +2,15 @@
 
 `tavily/map` · data API · Tavily · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.012 per call · **Modes:** sync
+**Price:** about $0.04 per call · **Modes:** sync
 
 Discovers the URL structure of a target website without extracting full page content. Accepts a starting URL, maximum traversal depth, and URL discovery limits.
 
 ## Pricing
 
-- **$0.012 per call** (USD)
+- Depends on parameters (`params.instructions`, `params.limit`).
+
+Formula: `0.0008 * (((params.instructions ?? "") != "") ? 2.0 : 1.0) * ((output.results != nil ? len(output.results) : (params.limit ?? 50)) * 1.0)`
 
 ## Call it
 
@@ -129,7 +131,7 @@ Real response for the request above, trimmed: lists keep their first item and lo
 
 ### Pricing
 
-$0.012 per successful call. Failed calls are not charged.
+Billed like Tavily's pay-as-you-go price of $0.008 per credit, where 10 returned pages use 1 credit (tavily.com, checked 2026-11-22 UTC): $0.0008 per page returned, or $0.0016 per page when you pass natural-language `instructions`. A map that returns 23 pages costs $0.0184. Tavily counts credits across calls, so small maps are not rounded up to a full credit. The estimate before a call assumes `limit` pages are returned (50 by default, $0.04). Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/tavily/map.json`](../../../catalog/models/tavily/map.json) · Store page: https://www.sandbase.ai/model/tavily/map

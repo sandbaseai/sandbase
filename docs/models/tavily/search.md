@@ -2,13 +2,20 @@
 
 `tavily/search` · data API · Tavily · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.012 per call · **Modes:** sync
+**Price:** from $0.008 to $0.016 per run, depending on parameters · **Modes:** sync
 
 AI-optimized web search for agents and RAG: ranked results with titles, URLs and relevant content, depth control, news and finance topics, domain filters and an optional generated answer.
 
 ## Pricing
 
-- **$0.012 per call** (USD)
+- Depends on parameters (`params.auto_parameters`, `params.search_depth`).
+
+| parameters | USD |
+|---|---|
+| search_depth="basic" | 0.008 |
+| search_depth="advanced" | 0.016 |
+
+Formula: `(params.search_depth ?? (output.auto_parameters?.search_depth ?? ((params.auto_parameters ?? false) ? "advanced" : "basic"))) == "advanced" ? 0.016 : 0.008`
 
 ## Call it
 
@@ -150,7 +157,7 @@ Real response for the request above, trimmed: lists keep their first item and lo
 
 ### Pricing
 
-$0.012 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
+$0.008 per successful call with `search_depth: "basic"` (the default) and $0.016 with `"advanced"`. With `auto_parameters: true` and no `search_depth`, the charge follows the depth Tavily picked (shown in `auto_parameters.search_depth`); the estimate assumes advanced. This is the same as Tavily's pay-as-you-go price of $0.008 per credit (1 credit for basic, 2 for advanced; tavily.com, checked 2026-11-22 UTC). Failed calls are not charged. It is not part of the daily free quota, because its price varies with the request.
 
 ---
 Machine-readable: [`catalog/models/tavily/search.json`](../../../catalog/models/tavily/search.json) · Store page: https://www.sandbase.ai/model/tavily/search
