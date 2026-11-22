@@ -19,8 +19,8 @@ Thanks for helping. Issues, pull requests, commit messages and review comments i
 
 | SDK | Test |
 |---|---|
-| `sdk/python` | `python -c "import sys; sys.path.insert(0, 'sdk/python'); import sandbase"` |
-| `sdk/typescript` | `cd sdk/typescript && npm install && npm test` |
+| `sdk/python` | `python -m unittest discover -s sdk/python/tests -v` |
+| `sdk/typescript` | `cd sdk/typescript && npm ci && npm test` |
 | `sdk/go` | `cd sdk/go && go vet ./... && go test ./...` |
 
 The SDKs have no runtime dependencies. Please keep it that way. Unit tests must not call the live API.

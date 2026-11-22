@@ -16,17 +16,31 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
       - name: Go
         working-directory: sdk/go
         run: go vet ./... && go test ./...
       - name: TypeScript
         working-directory: sdk/typescript
-        run: npm install --no-audit --no-fund && npm test
-      - name: Python
-        run: python -c "import sys; sys.path.insert(0, 'sdk/python'); import sandbase; print(sandbase.__version__)"
+        run: npm ci --ignore-scripts --no-audit --no-fund && npm test
+
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.9", "3.12", "3.14"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install package
+        run: python -m pip install ./sdk/python
+      - name: Unit tests
+        run: python -m unittest discover -s sdk/python/tests -v
+      - name: Installed package smoke check
+        working-directory: /tmp
+        run: python -c "from sandbase import SandBase; assert SandBase(api_key='test-key').base_url == 'https://api.sandbase.ai'"
 
   secrets:
     runs-on: ubuntu-latest
