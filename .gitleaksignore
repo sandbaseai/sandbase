@@ -1,0 +1,39 @@
+# Reviewed historical documentation examples only (2026-11-22).
+# Exact fingerprints preserve scanning for every other finding and future change.
+# Do not add broad path, field-name, commit, or rule exclusions.
+
+
+# Public hotel property identifier returned by Properties API; not an authentication key.
+3ac008ddcdb42861d9c5fab9127ed4210a29ef8d:docs/models/google-hotels/price-calendar.md:generic-api-key:22
+3ac008ddcdb42861d9c5fab9127ed4210a29ef8d:docs/models/google-hotels/price-calendar.md:generic-api-key:30
+3ac008ddcdb42861d9c5fab9127ed4210a29ef8d:docs/models/google-hotels/price-calendar.md:generic-api-key:40
+3ac008ddcdb42861d9c5fab9127ed4210a29ef8d:docs/models/google-hotels/price-calendar.md:generic-api-key:52
+3ac008ddcdb42861d9c5fab9127ed4210a29ef8d:docs/models/google-hotels/price-calendar.md:generic-api-key:85
+3ac008ddcdb42861d9c5fab9127ed4210a29ef8d:docs/models/google-hotels/photos.md:generic-api-key:22
+3ac008ddcdb42861d9c5fab9127ed4210a29ef8d:docs/models/google-hotels/photos.md:generic-api-key:30
+3ac008ddcdb42861d9c5fab9127ed4210a29ef8d:docs/models/google-hotels/photos.md:generic-api-key:40
+3ac008ddcdb42861d9c5fab9127ed4210a29ef8d:docs/models/google-hotels/photos.md:generic-api-key:50
+3ac008ddcdb42861d9c5fab9127ed4210a29ef8d:docs/models/google-hotels/photos.md:generic-api-key:74
+a85bfeb1b9e4deb5ba08c75aa500bd723e37205b:docs/models/google-hotels/reviews.md:generic-api-key:22
+a85bfeb1b9e4deb5ba08c75aa500bd723e37205b:docs/models/google-hotels/reviews.md:generic-api-key:30
+a85bfeb1b9e4deb5ba08c75aa500bd723e37205b:docs/models/google-hotels/reviews.md:generic-api-key:40
+a85bfeb1b9e4deb5ba08c75aa500bd723e37205b:docs/models/google-hotels/reviews.md:generic-api-key:50
+a85bfeb1b9e4deb5ba08c75aa500bd723e37205b:docs/models/google-hotels/reviews.md:generic-api-key:78
+a85bfeb1b9e4deb5ba08c75aa500bd723e37205b:docs/platforms/google-hotels.md:generic-api-key:15
+
+# Example response key equals the record id; not the Apollo API credential.
+f19cdc00423c544a792250e84c101190b75d757f:docs/models/apollo/people-match.md:generic-api-key:130
+
+# Search-result callback identifier for rich results; not the Brave API credential.
+f19cdc00423c544a792250e84c101190b75d757f:docs/models/brave/web.md:generic-api-key:210
+
+# Response client cache keys identify media; not login or API credentials.
+f19cdc00423c544a792250e84c101190b75d757f:docs/models/instagram/v1/user-posts.md:generic-api-key:122
+f19cdc00423c544a792250e84c101190b75d757f:docs/models/instagram/v3/post-info.md:generic-api-key:118
+
+# Shorts UI entity identifier in an example response; not an API credential.
+f19cdc00423c544a792250e84c101190b75d757f:docs/models/youtube/web-v2/shorts-search.md:generic-api-key:178
+
+# Example public note references passed with note IDs, not account/session credentials.
+728ddb6d7615fac024b44c4d0b24e0ab718bed07:docs/models/xiaohongshu/app-v2/search-notes.md:generic-api-key:143
+728ddb6d7615fac024b44c4d0b24e0ab718bed07:docs/models/xiaohongshu/web-v3/note-detail.md:generic-api-key:82

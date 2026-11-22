@@ -20,6 +20,16 @@
 
 ---
 
+## 从这里开始
+
+| 使用方式 | 入口 |
+|---|---|
+| **在平台上使用** | [Quick Start：网页操作](https://www.sandbase.ai/docs/getting-started/quickstart#use-on-website)，浏览模型或 API，填写输入并查看结果 |
+| **通过 API 使用** | [Quick Start：API 调用](https://www.sandbase.ai/docs/getting-started/quickstart#call-api)，创建 Key，再选择 [Python](sdk/python)、[TypeScript](sdk/typescript) 或 [Go](sdk/go) |
+| **通过 Agent 使用** | [Quick Start：AI 工具接入](https://www.sandbase.ai/docs/getting-started/quickstart#use-in-ai-tool)和 [CLI / MCP](https://github.com/sandbaseai/cli) |
+
+这个仓库提供 SDK、示例和每日更新的 API 目录。安装与连接 AI 客户端请使用 CLI 仓库；工作流可参考 [Skills](https://www.sandbase.ai/skills)，网页实用工具见 [Tools](https://www.sandbase.ai/tools)。请先查看当前输入 Schema、价格和免费额度；执行示例可能使用账户余额。
+
 ## 一次调用，拥有你的个人 Agent
 
 创建一个 Agent，交给它任务，拿到结果。每个 Agent 都能自己找到并调用 SandBase 上的 2,000+ 模型和 API，在自己的沙箱里干活。Agent 和沙箱免费，只为 Agent 用到的模型和 API 付费。
@@ -39,7 +49,7 @@ reply = sb.run_agent(agent["id"], "今天 X 上大家怎么讨论 AI Agent？")
 print(reply["output"])
 ```
 
-实测中，Agent 自己找到了 X 的 API，读取了 schema 和价格，调用后返回三条真实帖子和链接。全程 45 秒，除了 key 不需要任何配置。
+Agent 可以发现 X API、读取输入 Schema 和价格，并调用它来生成带来源链接的回答。结果和完成时间取决于所选模型与上游服务。
 
 新建的 Agent 默认自带 SandBase 工具（discover、inspect、run），不需要配置。如果自己设置 `mcp_connections`，这个列表会替换默认值：要保留 SandBase 工具，就把 `{"connection_id": "builtin:sandbase", "server_label": "sandbase_builtin"}` 一起写进去；只想要纯对话、不带工具，就传 `[]`。
 

@@ -16,17 +16,32 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
       - name: Go
         working-directory: sdk/go
         run: go vet ./... && go test ./...
       - name: TypeScript
         working-directory: sdk/typescript
-        run: npm install --no-audit --no-fund && npm test
-      - name: Python
-        run: python -c "import sys; sys.path.insert(0, 'sdk/python'); import sandbase; print(sandbase.__version__)"
+        run: npm ci --ignore-scripts --no-audit --no-fund && npm test
+
+  python:
+    # Python 3.9 is the SDK minimum; ubuntu-latest no longer ships a build for it.
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.9", "3.12", "3.14"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install package
+        run: python -m pip install ./sdk/python
+      - name: Unit tests
+        run: python -m unittest discover -s sdk/python/tests -v
+      - name: Installed package smoke check
+        working-directory: /tmp
+        run: python -c "from sandbase import SandBase; assert SandBase(api_key='test-key').base_url == 'https://api.sandbase.ai'"
 
   secrets:
     runs-on: ubuntu-latest
@@ -35,4 +50,4 @@ jobs:
         with:
           fetch-depth: 0
       - name: gitleaks
-        run: docker run --rm -v "$PWD:/repo" ghcr.io/gitleaks/gitleaks:v8.21.2 git /repo --config /repo/.gitleaks.toml --redact --verbose
+        run: docker run --rm -v "$PWD:/repo" ghcr.io/gitleaks/gitleaks:v8.21.2 git /repo --config /repo/.gitleaks.toml --gitleaks-ignore-path /repo/.gitleaksignore --redact --verbose

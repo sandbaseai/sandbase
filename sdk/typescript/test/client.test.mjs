@@ -42,3 +42,51 @@ test("failed runs and HTTP errors reject", async () => {
   await assert.rejects(sb.run("m"), SandBaseError);
   await assert.rejects(sb.run("bad"), (e) => e instanceof SandBaseError && e.status === 400);
 });
+
+test("agent output preserves content order within each message and excludes previous turns", async () => {
+  const message = (...texts) => ({ type: "message", role: "assistant", content: texts.map(text => ({ type: "output_text", text })) });
+  const sb = new SandBase({ apiKey: "test-key", fetch: fakeFetch({
+    "POST /v1/agents/sessions": () => ({ body: { id: "s1" } }),
+    "GET /v1/agents/sessions/s1/turns": () => ({ body: { data: [{ id: "t1", status: "completed" }] } }),
+    "GET /v1/agents/sessions/s1/items": () => ({ body: { data: [
+      message("third", "fourth"), message("first", "second"),
+      { type: "message", role: "user", content: [] }, message("old"),
+    ] } }),
+  }) });
+  assert.equal((await sb.runAgent("a1", "hello")).output, "first\nsecond\nthird\nfourth");
+});
+
+test("request timeout aborts a stalled fetch without retrying the submission", async () => {
+  let calls = 0;
+  const sb = new SandBase({ apiKey: "test-key", requestTimeoutMs: 20, fetch: async (_url, init) => {
+    calls++;
+    return new Promise((_resolve, reject) => init.signal.addEventListener("abort", () => reject(new Error("aborted")), { once: true }));
+  } });
+  await assert.rejects(sb.submit("example"), error => error instanceof SandBaseError && /timed out.*check run history/.test(error.message));
+  assert.equal(calls, 1);
+});
+
+test("request timeout also covers a stalled response body", async () => {
+  const sb = new SandBase({ apiKey: "test-key", requestTimeoutMs: 20, fetch: async (_url, init) => ({
+    ok: true, status: 200,
+    text: () => new Promise((_resolve, reject) => init.signal.addEventListener("abort", () => reject(new Error("aborted")), { once: true })),
+  }) });
+  await assert.rejects(sb.get("r1"), /timed out/);
+});
+
+test("successful requests clear their abort timer", async () => {
+  let signal;
+  const sb = new SandBase({ apiKey: "test-key", requestTimeoutMs: 10, fetch: async (_url, init) => {
+    signal = init.signal;
+    return new Response(JSON.stringify({ id: "r1", status: "completed" }));
+  } });
+  await sb.get("r1");
+  await new Promise(resolve => setTimeout(resolve, 30));
+  assert.equal(signal.aborted, false);
+});
+
+test("rejects invalid request timeouts", () => {
+  for (const requestTimeoutMs of [0, -1, NaN, Infinity, 2_147_483_648]) {
+    assert.throws(() => new SandBase({ apiKey: "test-key", requestTimeoutMs }), /requestTimeoutMs/);
+  }
+});

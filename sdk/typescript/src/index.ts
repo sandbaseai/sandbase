@@ -1,6 +1,6 @@
 // SandBase client for Node 18+, Deno, Bun and browsers (global fetch). No dependencies.
 //
-//   import { SandBase } from "@sandbaseai/sdk";
+//   import { SandBase } from "./sandbase.js";              // copied source; see README
 //   const sb = new SandBase();                               // SANDBASE_API_KEY
 //   const r = await sb.run("exa/search", { query: "AI agents" });
 
@@ -41,6 +41,8 @@ export interface ClientOptions {
   apiKey?: string;
   baseUrl?: string;
   fetch?: typeof fetch;
+  /** Timeout for each HTTP request, including reading its response body. Default: 300 seconds. */
+  requestTimeoutMs?: number;
 }
 
 const env = (k: string): string | undefined =>
@@ -50,6 +52,7 @@ export class SandBase {
   readonly apiKey: string;
   readonly baseUrl: string;
   private readonly fetchImpl: typeof fetch;
+  private readonly requestTimeoutMs: number;
 
   constructor(opts: ClientOptions = {}) {
     const key = opts.apiKey ?? env("SANDBASE_API_KEY");
@@ -57,24 +60,38 @@ export class SandBase {
     this.apiKey = key;
     this.baseUrl = (opts.baseUrl ?? env("SANDBASE_BASE_URL") ?? DEFAULT_BASE_URL).replace(/\/+$/, "");
     this.fetchImpl = opts.fetch ?? fetch;
+    this.requestTimeoutMs = opts.requestTimeoutMs ?? 300_000;
+    if (!Number.isFinite(this.requestTimeoutMs) || this.requestTimeoutMs <= 0 || this.requestTimeoutMs > 2_147_483_647)
+      throw new SandBaseError("requestTimeoutMs must be a positive number no greater than 2147483647");
   }
 
   /** Call any endpoint, e.g. request("POST", "/v1/chat/completions", {...}). */
   async request<T = unknown>(method: string, path: string, body?: unknown, headers: Record<string, string> = {}): Promise<T> {
-    const res = await this.fetchImpl(this.baseUrl + path, {
-      method,
-      headers: { Authorization: `Bearer ${this.apiKey}`, "Content-Type": "application/json", ...headers },
-      body: body === undefined ? undefined : JSON.stringify(body),
-    });
-    const text = await res.text();
-    let parsed: unknown = text;
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), this.requestTimeoutMs);
     try {
-      parsed = text ? JSON.parse(text) : undefined;
-    } catch {
-      /* keep text */
+      const res = await this.fetchImpl(this.baseUrl + path, {
+        method,
+        signal: controller.signal,
+        headers: { Authorization: `Bearer ${this.apiKey}`, "Content-Type": "application/json", ...headers },
+        body: body === undefined ? undefined : JSON.stringify(body),
+      });
+      const text = await res.text();
+      let parsed: unknown = text;
+      try {
+        parsed = text ? JSON.parse(text) : undefined;
+      } catch {
+        /* keep text */
+      }
+      if (!res.ok) throw new SandBaseError(`HTTP ${res.status}: ${text.slice(0, 500)}`, res.status, parsed);
+      return parsed as T;
+    } catch (error) {
+      if (controller.signal.aborted)
+        throw new SandBaseError(`request ${method} ${path} timed out after ${this.requestTimeoutMs}ms; check run history before resubmitting work`);
+      throw error;
+    } finally {
+      clearTimeout(timer);
     }
-    if (!res.ok) throw new SandBaseError(`HTTP ${res.status}: ${text.slice(0, 500)}`, res.status, parsed);
-    return parsed as T;
   }
 
   /** POST /v1/run. Sync capabilities return the finished run; async ones return {id, status: "pending"}. */
@@ -195,13 +212,13 @@ export class SandBase {
 
   private async latestOutput(sessionId: string): Promise<string> {
     const items = (await this.request<{ data: SessionItem[] }>("GET", `/v1/agents/sessions/${sessionId}/items?order=desc&limit=50`)).data ?? [];
-    const texts: string[] = [];
+    const messages: string[][] = [];
     for (const item of items) {
       if (item.type === "message" && item.role === "user") break;
       if (item.type === "message" && item.role === "assistant")
-        for (const part of item.content ?? []) if (part.type === "output_text") texts.unshift(part.text ?? "");
+        messages.push((item.content ?? []).filter(part => part.type === "output_text").map(part => part.text ?? ""));
     }
-    return texts.join("\n");
+    return messages.reverse().flat().join("\n");
   }
 }
 
