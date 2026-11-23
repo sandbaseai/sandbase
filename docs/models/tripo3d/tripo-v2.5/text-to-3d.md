@@ -86,7 +86,7 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | `quad` | boolean |  | Quad topology instead of triangles. Output becomes FBX; 10,000 faces when face_limit is unset. default `false` |
 | `seed` | integer |  | Seed for geometry generation (Tripo model_seed). Same seed and input give the same mesh.  |
 | `prompt` | string | yes | Describe shape, material, style and scale. Up to 1,024 characters.  |
-| `delight` | boolean |  | Remove baked-in lighting from the reference image before texturing (texture v3.5). default `false` |
+| `delight` | boolean |  | Accepted for compatibility with Tripo; only the v3.5 texture model reads it, so it has no effect on v2.5. default `false` |
 | `texture` | boolean |  | Generate textures. Set texture and pbr to false for bare geometry (cheaper). default `true` |
 | `export_uv` | boolean |  | UV-unwrap during generation. false is faster and smaller; UVs are then made during texturing. default `true` |
 | `face_limit` | integer |  | Maximum face count, up to 500,000 (150,000 with quad). Adaptive when unset. range –500000 |
@@ -94,7 +94,7 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | `texture_seed` | integer |  | Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry.  |
 | `negative_prompt` | string |  | What to avoid, up to 255 characters.  |
 | `texture_quality` | string |  | fast and standard cost the same; detailed (HD) and extreme (8K) are add-ons. one of: `standard`, `detailed`; default `"standard"` |
-| `texture_version` | string |  | Texture model. Default v2.5-20250123; v3.5-20260815 uses the current texture model. one of: `v2.5-20250123`, `v3.5-20260815` |
+| `texture_version` | string |  | Accepted for compatibility with Tripo: v2.5 geometry is always textured with v2.5-20250123, whatever this field says. one of: `v3.5-20260815`, `v3.0-20250812`, `v2.5-20250123` |
 | `export_orientation` | string |  | Forward axis of the exported model. Leave unset if you will post-process the model. one of: `+x`, `-x`, `+y`, `-y` |
 
 ## Details
@@ -113,8 +113,8 @@ Tripo v2.5 (v2.5-20250123) is Tripo's legacy model, kept for older projects.
 | `seed` | integer | — | Seed for geometry generation (Tripo model_seed). Same seed and input give the same mesh. |
 | `texture_seed` | integer | — | Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry. |
 | `image_seed` | integer | — | Seed for the internal text-to-image step. |
-| `texture_version` | `v2.5-20250123` / `v3.5-20260815` | — | Texture model. Default v2.5-20250123; v3.5-20260815 uses the current texture model. |
-| `delight` | boolean | `false` | Remove baked-in lighting from the reference image before texturing (texture v3.5). |
+| `texture_version` | `v3.5-20260815` / `v3.0-20250812` / `v2.5-20250123` | — | Accepted for compatibility with Tripo: v2.5 geometry is always textured with v2.5-20250123, whatever this field says. |
+| `delight` | boolean | `false` | Accepted for compatibility with Tripo; only the v3.5 texture model reads it, so it has no effect on v2.5. |
 | `export_uv` | boolean | `true` | UV-unwrap during generation. false is faster and smaller; UVs are then made during texturing. |
 | `export_orientation` | `+x` / `-x` / `+y` / `-y` | — | Forward axis of the exported model. Leave unset if you will post-process the model. |
 ### Output

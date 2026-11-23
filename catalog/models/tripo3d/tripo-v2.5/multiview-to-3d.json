@@ -51,6 +51,12 @@
         ],
         "description": "Front view image URL."
       },
+      "delight": {
+        "type": "boolean",
+        "title": "Delight",
+        "default": false,
+        "description": "Accepted for compatibility with Tripo; only the v3.5 texture model reads it, so it has no effect on v2.5."
+      },
       "texture": {
         "enum": [
           "no",
@@ -114,6 +120,16 @@
         "title": "Texture Seed",
         "description": "Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry."
       },
+      "texture_version": {
+        "enum": [
+          "v3.5-20260815",
+          "v3.0-20250812",
+          "v2.5-20250123"
+        ],
+        "type": "string",
+        "title": "Texture Version",
+        "description": "Accepted for compatibility with Tripo: v2.5 geometry is always textured with v2.5-20250123, whatever this field says."
+      },
       "texture_alignment": {
         "enum": [
           "original_image",
@@ -123,6 +139,17 @@
         "title": "Texture Alignment",
         "default": "original_image",
         "description": "original_image keeps textures close to the input image; geometry favors the mesh."
+      },
+      "export_orientation": {
+        "enum": [
+          "+x",
+          "-x",
+          "+y",
+          "-y"
+        ],
+        "type": "string",
+        "title": "Export Orientation",
+        "description": "Forward axis of the exported model. Leave unset if you will post-process the model."
       }
     }
   },
@@ -306,7 +333,7 @@
       "default": true
     }
   ],
-  "readme": "# Tripo v2.5 Multiview to 3D\nTripo v2.5 by Tripo3D reconstructs a textured 3D mesh from a front view plus optional left, back and right views of the same object.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | string, required | — | Front view image URL. |\n| `left_image` | string | — | Optional left view image URL. |\n| `back_image` | string, required | — | Back view image URL. Front and back views are both required. |\n| `right_image` | string | — | Optional right view image URL. |\n| `texture` | `no` / `standard` / `HD` | `standard` | Texture quality: no (untextured), standard, or HD. |\n| `pbr` | boolean | `false` | Generate PBR materials. |\n| `quad` | boolean | `false` | Generate quad mesh topology (billed as an add-on). |\n| `face_limit` | integer 1000–500000 | — | Maximum face count (1,000-500,000). Adaptive when unset. |\n| `orientation` | `default` / `align_image` | `default` | Set to align_image to rotate the model to match the input image. |\n| `seed` | integer | — | Seed for reproducible geometry generation. |\n| `texture_seed` | integer | — | Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry. |\n| `export_uv` | boolean | `true` | UV-unwrap during generation. false is faster and smaller; UVs are then made during texturing. |\n| `texture_alignment` | `original_image` / `geometry` | `original_image` | original_image keeps textures close to the input image; geometry favors the mesh. |\n## Output\n- `url`: 3D model (GLB; FBX when quad is on).\n- `thumbnail`: Preview render.\n## Billing\n$0.30 textured, $0.20 untextured (texture = no and pbr off).\n| Add-on | Price |\n|---|---|\n| texture = HD | +$0.10 |\n| quad | +$0.05 |\nFailed runs are not charged.\n",
+  "readme": "# Tripo v2.5 Multiview to 3D\nTripo v2.5 by Tripo3D reconstructs a textured 3D mesh from a front view plus optional left, back and right views of the same object.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | string, required | — | Front view image URL. |\n| `left_image` | string | — | Optional left view image URL. |\n| `back_image` | string, required | — | Back view image URL. Front and back views are both required. |\n| `right_image` | string | — | Optional right view image URL. |\n| `texture` | `no` / `standard` / `HD` | `standard` | Texture quality: no (untextured), standard, or HD. |\n| `pbr` | boolean | `false` | Generate PBR materials. |\n| `quad` | boolean | `false` | Generate quad mesh topology (billed as an add-on). |\n| `face_limit` | integer 1000–500000 | — | Maximum face count (1,000-500,000). Adaptive when unset. |\n| `orientation` | `default` / `align_image` | `default` | Set to align_image to rotate the model to match the input image. |\n| `seed` | integer | — | Seed for reproducible geometry generation. |\n| `texture_seed` | integer | — | Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry. |\n| `texture_version` | `v3.5-20260815` / `v3.0-20250812` / `v2.5-20250123` | — | Accepted for compatibility with Tripo: v2.5 geometry is always textured with v2.5-20250123, whatever this field says. |\n| `delight` | boolean | `false` | Accepted for compatibility with Tripo; only the v3.5 texture model reads it, so it has no effect on v2.5. |\n| `export_orientation` | `+x` / `-x` / `+y` / `-y` | — | Forward axis of the exported model. Leave unset if you will post-process the model. |\n| `export_uv` | boolean | `true` | UV-unwrap during generation. false is faster and smaller; UVs are then made during texturing. |\n| `texture_alignment` | `original_image` / `geometry` | `original_image` | original_image keeps textures close to the input image; geometry favors the mesh. |\n## Output\n- `url`: 3D model (GLB; FBX when quad is on).\n- `thumbnail`: Preview render.\n## Billing\n$0.30 textured, $0.20 untextured (texture = no and pbr off).\n| Add-on | Price |\n|---|---|\n| texture = HD | +$0.10 |\n| quad | +$0.05 |\nFailed runs are not charged.\n",
   "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo-v2.5/multiview-to-3d/cover-flare-20261111181138.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo-v2.5/multiview-to-3d",
   "published_at": "2025-06-18T08:56:32.461Z",

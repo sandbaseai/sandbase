@@ -55,7 +55,7 @@
         "type": "boolean",
         "title": "Delight",
         "default": false,
-        "description": "Remove baked-in lighting from the reference image before texturing (texture v3.5)."
+        "description": "Accepted for compatibility with Tripo; only the v3.5 texture model reads it, so it has no effect on v2.5."
       },
       "texture": {
         "type": "boolean",
@@ -103,12 +103,13 @@
       },
       "texture_version": {
         "enum": [
-          "v2.5-20250123",
-          "v3.5-20260815"
+          "v3.5-20260815",
+          "v3.0-20250812",
+          "v2.5-20250123"
         ],
         "type": "string",
         "title": "Texture Version",
-        "description": "Texture model. Default v2.5-20250123; v3.5-20260815 uses the current texture model."
+        "description": "Accepted for compatibility with Tripo: v2.5 geometry is always textured with v2.5-20250123, whatever this field says."
       },
       "export_orientation": {
         "enum": [
@@ -335,7 +336,7 @@
       }
     ]
   },
-  "readme": "# Tripo v2.5 Text to 3D\nTripo v2.5 (v2.5-20250123) is Tripo's legacy model, kept for older projects.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Describe shape, material, style and scale. Up to 1,024 characters. |\n| `negative_prompt` | string | — | What to avoid, up to 255 characters. |\n| `texture` | boolean | `true` | Generate textures. Set texture and pbr to false for bare geometry (cheaper). |\n| `pbr` | boolean | `true` | PBR material maps (base color, metallic, roughness, normal). true also turns texture on. |\n| `texture_quality` | `standard` / `detailed` | `standard` | fast and standard cost the same; detailed (HD) and extreme (8K) are add-ons. |\n| `quad` | boolean | `false` | Quad topology instead of triangles. Output becomes FBX; 10,000 faces when face_limit is unset. |\n| `face_limit` | integer | — | Maximum face count, up to 500,000 (150,000 with quad). Adaptive when unset. |\n| `seed` | integer | — | Seed for geometry generation (Tripo model_seed). Same seed and input give the same mesh. |\n| `texture_seed` | integer | — | Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry. |\n| `image_seed` | integer | — | Seed for the internal text-to-image step. |\n| `texture_version` | `v2.5-20250123` / `v3.5-20260815` | — | Texture model. Default v2.5-20250123; v3.5-20260815 uses the current texture model. |\n| `delight` | boolean | `false` | Remove baked-in lighting from the reference image before texturing (texture v3.5). |\n| `export_uv` | boolean | `true` | UV-unwrap during generation. false is faster and smaller; UVs are then made during texturing. |\n| `export_orientation` | `+x` / `-x` / `+y` / `-y` | — | Forward axis of the exported model. Leave unset if you will post-process the model. |\n## Output\n- `url`: 3D model (GLB; FBX when quad is on).\n- `thumbnail`: Preview render.\n- `generated_image`: Reference image Tripo generated from the prompt.\n## Billing\n$0.20 textured (standard texture), $0.10 untextured (texture and pbr false).\n| Add-on | Price |\n|---|---|\n| texture_quality = detailed | +$0.10 |\n| quad | +$0.05 |\nFailed runs are not charged.\n",
+  "readme": "# Tripo v2.5 Text to 3D\nTripo v2.5 (v2.5-20250123) is Tripo's legacy model, kept for older projects.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Describe shape, material, style and scale. Up to 1,024 characters. |\n| `negative_prompt` | string | — | What to avoid, up to 255 characters. |\n| `texture` | boolean | `true` | Generate textures. Set texture and pbr to false for bare geometry (cheaper). |\n| `pbr` | boolean | `true` | PBR material maps (base color, metallic, roughness, normal). true also turns texture on. |\n| `texture_quality` | `standard` / `detailed` | `standard` | fast and standard cost the same; detailed (HD) and extreme (8K) are add-ons. |\n| `quad` | boolean | `false` | Quad topology instead of triangles. Output becomes FBX; 10,000 faces when face_limit is unset. |\n| `face_limit` | integer | — | Maximum face count, up to 500,000 (150,000 with quad). Adaptive when unset. |\n| `seed` | integer | — | Seed for geometry generation (Tripo model_seed). Same seed and input give the same mesh. |\n| `texture_seed` | integer | — | Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry. |\n| `image_seed` | integer | — | Seed for the internal text-to-image step. |\n| `texture_version` | `v3.5-20260815` / `v3.0-20250812` / `v2.5-20250123` | — | Accepted for compatibility with Tripo: v2.5 geometry is always textured with v2.5-20250123, whatever this field says. |\n| `delight` | boolean | `false` | Accepted for compatibility with Tripo; only the v3.5 texture model reads it, so it has no effect on v2.5. |\n| `export_uv` | boolean | `true` | UV-unwrap during generation. false is faster and smaller; UVs are then made during texturing. |\n| `export_orientation` | `+x` / `-x` / `+y` / `-y` | — | Forward axis of the exported model. Leave unset if you will post-process the model. |\n## Output\n- `url`: 3D model (GLB; FBX when quad is on).\n- `thumbnail`: Preview render.\n- `generated_image`: Reference image Tripo generated from the prompt.\n## Billing\n$0.20 textured (standard texture), $0.10 untextured (texture and pbr false).\n| Add-on | Price |\n|---|---|\n| texture_quality = detailed | +$0.10 |\n| quad | +$0.05 |\nFailed runs are not charged.\n",
   "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo-v2.5/text-to-3d/cover-flare-20261121203334.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo-v2.5/text-to-3d",
   "created_at": "2026-11-21T10:53:37.334Z"

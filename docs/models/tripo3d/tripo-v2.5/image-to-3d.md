@@ -82,12 +82,15 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | `quad` | boolean |  | Generate quad mesh topology (billed as an add-on). default `false` |
 | `seed` | integer |  | Seed for reproducible geometry generation.  |
 | `image` | string | yes | Input image URL for 3D model creation.  |
+| `delight` | boolean |  | Accepted for compatibility with Tripo; only the v3.5 texture model reads it, so it has no effect on v2.5. default `false` |
 | `texture` | string |  | Texture quality: no (untextured), standard, or HD. one of: `no`, `standard`, `HD`; default `"standard"` |
 | `export_uv` | boolean |  | UV-unwrap during generation. false is faster and smaller; UVs are then made during texturing. default `true` |
 | `face_limit` | integer |  | Maximum face count (1,000-500,000). Adaptive when unset. range 1000–500000 |
 | `orientation` | string |  | Set to align_image to rotate the model to match the input image. one of: `default`, `align_image`; default `"default"` |
 | `texture_seed` | integer |  | Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry.  |
+| `texture_version` | string |  | Accepted for compatibility with Tripo: v2.5 geometry is always textured with v2.5-20250123, whatever this field says. one of: `v3.5-20260815`, `v3.0-20250812`, `v2.5-20250123` |
 | `texture_alignment` | string |  | original_image keeps textures close to the input image; geometry favors the mesh. one of: `original_image`, `geometry`; default `"original_image"` |
+| `export_orientation` | string |  | Forward axis of the exported model. Leave unset if you will post-process the model. one of: `+x`, `-x`, `+y`, `-y` |
 | `enable_image_autofix` | boolean |  | Enhance the input image before generation. default `false` |
 
 ## Details
@@ -104,6 +107,9 @@ Tripo v2.5 by Tripo3D generates a textured 3D mesh from a single image, with opt
 | `orientation` | `default` / `align_image` | `default` | Set to align_image to rotate the model to match the input image. |
 | `seed` | integer | — | Seed for reproducible geometry generation. |
 | `texture_seed` | integer | — | Seed for texture generation. Keep seed and change texture_seed for new textures on the same geometry. |
+| `texture_version` | `v3.5-20260815` / `v3.0-20250812` / `v2.5-20250123` | — | Accepted for compatibility with Tripo: v2.5 geometry is always textured with v2.5-20250123, whatever this field says. |
+| `delight` | boolean | `false` | Accepted for compatibility with Tripo; only the v3.5 texture model reads it, so it has no effect on v2.5. |
+| `export_orientation` | `+x` / `-x` / `+y` / `-y` | — | Forward axis of the exported model. Leave unset if you will post-process the model. |
 | `export_uv` | boolean | `true` | UV-unwrap during generation. false is faster and smaller; UVs are then made during texturing. |
 | `texture_alignment` | `original_image` / `geometry` | `original_image` | original_image keeps textures close to the input image; geometry favors the mesh. |
 | `enable_image_autofix` | boolean | `false` | Enhance the input image before generation. |
