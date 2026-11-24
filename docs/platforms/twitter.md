@@ -1,9 +1,10 @@
-# Twitter API: 17 endpoints with pricing and code examples
+# Twitter API: 18 endpoints with pricing and code examples
 
-Call 17 Twitter endpoints through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 18 Twitter endpoints through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
+| [`twitter/bulk/tweet-search`](../models/twitter/bulk/tweet-search.md) | Scrape X (Twitter) tweets from search queries, profiles, lists, and tweet URLs at scale. | about $0.0006 per call |
 | [`twitter/post-comments`](../models/twitter/post-comments.md) | Get the latest comments for an X (Twitter) post identified by tweet ID, with cursor pagination. Use it to review recent discussion on a… | $0.014286 per call |
 | [`twitter/post-detail`](../models/twitter/post-detail.md) | Get the full detail of an X (Twitter) post identified by its tweet ID. Use it to inspect a known post after finding it through search, a… | $0.014286 per call |
 | [`twitter/search`](../models/twitter/search.md) | Search X (Twitter) by keyword across top, latest, media, people, or list result modes with cursor pagination. Use it to find public… | $0.014286 per call |
@@ -27,7 +28,7 @@ Call 17 Twitter endpoints through SandBase with one API key: no separate account
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "twitter/post-comments", "tweetId": "1585341984679469056"}'
+  -d '{"model": "twitter/bulk/tweet-search", "maxItems": 1}'
 ```
 
 Get a key at [sandbase.ai](https://www.sandbase.ai/console). Back to [all platforms](README.md).

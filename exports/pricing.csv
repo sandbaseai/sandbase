@@ -337,11 +337,14 @@ bytedance/seedance/2.0/fast/image-to-video,video,Bytedance,formula,,,,0.4,1.6,,a
 bytedance/seedance/2.0/fast/reference-to-video,video,Bytedance,formula,,,,1,1,,async,POST /v1/run
 bytedance/seedance/2.0/fast/text-to-video,video,Bytedance,formula,,,,0.4,1.6,,async,POST /v1/run
 bytedance/seedance/2.0/image-to-video,video,Bytedance,formula,,,,0.48,9.6,,async,POST /v1/run
+bytedance/seedance/2.0/image-to-video-hd,video,Bytedance,formula,,,,0.48,9.6,,async,POST /v1/run
 bytedance/seedance/2.0/mini/image-to-video,video,Bytedance,formula,,,,0.24,0.96,,async,POST /v1/run
 bytedance/seedance/2.0/mini/reference-to-video,video,Bytedance,formula,,,,0.6,0.6,,async,POST /v1/run
 bytedance/seedance/2.0/mini/text-to-video,video,Bytedance,formula,,,,0.24,0.96,,async,POST /v1/run
 bytedance/seedance/2.0/reference-to-video,video,Bytedance,formula,,,,1.2,1.2,,async,POST /v1/run
+bytedance/seedance/2.0/reference-to-video-hd,video,Bytedance,formula,,,,1.2,1.2,,async,POST /v1/run
 bytedance/seedance/2.0/text-to-video,video,Bytedance,formula,,,,0.48,9.6,,async,POST /v1/run
+bytedance/seedance/2.0/text-to-video-hd,video,Bytedance,formula,,,,0.48,9.6,,async,POST /v1/run
 bytedance/seedance/2.5/flash/image-to-video,video,Bytedance,formula,,,,0.48,1.92,,async,POST /v1/run
 bytedance/seedance/2.5/flash/reference-to-video,video,Bytedance,formula,,,,1.2,1.2,,async,POST /v1/run
 bytedance/seedance/2.5/flash/text-to-video,video,Bytedance,formula,,,,0.48,1.92,,async,POST /v1/run
@@ -2343,6 +2346,7 @@ twitch/live-streams,api,Twitch,per_call,0.03,,,,,,sync,POST /v1/run
 twitch/search-streamers,api,Twitch,per_call,0.03,,,,,,sync,POST /v1/run
 twitch/streamer-profile,api,Twitch,per_call,0.03,,,,,,sync,POST /v1/run
 twitter/article,api,X (Twitter),usage_based,,,,0.00054,0.00054,,sync,POST /v1/run
+twitter/bulk/tweet-search,api,Twitter,usage_based,,,,0.0006,0.0006,,async,POST /v1/run
 twitter/community,api,X (Twitter),usage_based,,,,0.0001,0.0001,,sync,POST /v1/run
 twitter/community-moderators,api,X (Twitter),usage_based,,,,0.0036,0.0036,,sync,POST /v1/run
 twitter/community-search-tweets,api,X (Twitter),usage_based,,,,0.003,0.003,,sync,POST /v1/run

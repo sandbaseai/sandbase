@@ -147,6 +147,7 @@ Real response for the request above, trimmed: lists keep their first item and lo
 
 ### Notes
 
+- The `about` block (`account_based_in`, `username_changes`, `verified_since`) is usually not returned. Most requests are served by a source that returns only the basic profile fields (`id`, `rest_id`, `profile`, `name`, `avatar`, `blue_verified`, `protected`, `status`). Check that `about` is present before you read it.
 - Pass the handle in `screen_name` without the @ sign, for example `elonmusk`.
 - Use the `rest_id` value with [Twitter Profiles by rest ids](/apis/twitter/web/user-profiles-by-rest-ids) to look up other users by ID.
 - For follower counts, bio and other profile details, call [Twitter (X) User Profile](/apis/twitter/web/user-profile).

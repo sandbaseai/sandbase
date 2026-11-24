@@ -1,12 +1,12 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-24T04:24:01Z",
+ "generated_at": "2026-11-24T16:23:40Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2827,
+ "count": 2831,
  "counts_by_type": {
-  "api": 2247,
+  "api": 2248,
   "image": 211,
-  "video": 203,
+  "video": 206,
   "llm": 132,
   "audio": 32,
   "embedding": 2
@@ -21619,7 +21619,7 @@
    "display_name": "Instagram Media Transcript",
    "type": "api",
    "vendor": "Instagram",
-   "description": "Get the spoken-audio transcript text for an Instagram post or reel by URL.",
+   "description": "Get the spoken-audio transcript text for an Instagram post or reel by URL. Videos up to 120 seconds only; for longer videos use Instagram Reel Transcript (instagram/reel-transcript).",
    "tags": [
     "api",
     "instagram",
@@ -37604,6 +37604,28 @@
     "usd_reference": 0.00054
    },
    "record": "catalog/models/twitter/article.json"
+  },
+  {
+   "name": "twitter/bulk/tweet-search",
+   "display_name": "Tweet Search",
+   "type": "api",
+   "vendor": "Twitter",
+   "description": "Scrape X (Twitter) tweets from search queries, profiles, lists, and tweet URLs at scale.",
+   "tags": [
+    "api",
+    "twitter",
+    "social-media",
+    "search"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0006
+   },
+   "record": "catalog/models/twitter/bulk/tweet-search.json"
   },
   {
    "name": "twitter/community",
@@ -56182,6 +56204,26 @@
    "record": "catalog/models/bytedance/seedance/2.0/image-to-video.json"
   },
   {
+   "name": "bytedance/seedance/2.0/image-to-video-hd",
+   "display_name": "Seedance 2.0 Image to Video HD",
+   "type": "video",
+   "vendor": "Bytedance",
+   "description": "ByteDance's most advanced image-to-video model transforming still images into cinematic video with native audio, multi-shot editing, and director-level camera control for professional-grade video creation.",
+   "tags": [
+    "image-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.48,
+    "usd_to": 9.6
+   },
+   "record": "catalog/models/bytedance/seedance/2.0/image-to-video-hd.json"
+  },
+  {
    "name": "bytedance/seedance/2.0/mini/image-to-video",
    "display_name": "Seedance 2.0 Mini Image to Video",
    "type": "video",
@@ -56260,6 +56302,25 @@
    "record": "catalog/models/bytedance/seedance/2.0/reference-to-video.json"
   },
   {
+   "name": "bytedance/seedance/2.0/reference-to-video-hd",
+   "display_name": "Seedance 2.0 Reference to Video HD",
+   "type": "video",
+   "vendor": "Bytedance",
+   "description": "ByteDance's most advanced reference-to-video model generating cinematic video guided by reference content, with native audio, multi-shot editing, and director-level camera control for professional-grade video creation.",
+   "tags": [
+    "reference-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 1.2
+   },
+   "record": "catalog/models/bytedance/seedance/2.0/reference-to-video-hd.json"
+  },
+  {
    "name": "bytedance/seedance/2.0/text-to-video",
    "display_name": "Seedance 2.0 Text to Video",
    "type": "video",
@@ -56278,6 +56339,26 @@
     "usd_to": 9.6
    },
    "record": "catalog/models/bytedance/seedance/2.0/text-to-video.json"
+  },
+  {
+   "name": "bytedance/seedance/2.0/text-to-video-hd",
+   "display_name": "Seedance 2.0 Text to Video HD",
+   "type": "video",
+   "vendor": "Bytedance",
+   "description": "ByteDance's most advanced text-to-video model delivering cinematic output, native audio, multi-shot editing, and director-level camera control for professional-grade video creation.",
+   "tags": [
+    "text-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.48,
+    "usd_to": 9.6
+   },
+   "record": "catalog/models/bytedance/seedance/2.0/text-to-video-hd.json"
   },
   {
    "name": "bytedance/seedance/2.5/flash/image-to-video",

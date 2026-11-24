@@ -1,0 +1,388 @@
+{
+  "name": "twitter/bulk/tweet-search",
+  "display_name": "Tweet Search",
+  "type": "api",
+  "vendor": "Twitter",
+  "vendor_slug": "twitter",
+  "description": "Scrape X (Twitter) tweets from search queries, profiles, lists, and tweet URLs at scale.",
+  "tags": [
+    "api",
+    "twitter",
+    "social-media",
+    "search"
+  ],
+  "capabilities": [
+    "api",
+    "twitter",
+    "social-media",
+    "search"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/twitter/bulk/tweet-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "maxItems"
+    ],
+    "properties": {
+      "end": {
+        "type": "string",
+        "title": "End date",
+        "description": "Returns tweets sent before the given date."
+      },
+      "sort": {
+        "enum": [
+          "Top",
+          "Latest",
+          "Latest + Top"
+        ],
+        "type": "string",
+        "title": "Sort By",
+        "description": "Sorts search results. If you are getting low results, try Top instead of Latest. Latest + Top runs both simultaneously to maximize results but may return some duplicate tweets."
+      },
+      "start": {
+        "type": "string",
+        "title": "Start date",
+        "description": "Returns tweets sent after the given date."
+      },
+      "author": {
+        "type": "string",
+        "title": "Tweet author",
+        "description": "Returns tweets sent by the given user. It should be a Twitter (X) Handle."
+      },
+      "geocode": {
+        "type": "string",
+        "title": "Geocode",
+        "description": "Returns tweets sent by users located within a given radius of the given latitude/longitude."
+      },
+      "maxItems": {
+        "type": "integer",
+        "title": "Maximum number of items on output",
+        "maximum": 1000,
+        "minimum": 1,
+        "description": "Maximum number of tweets to return (1-1000). Billed per returned tweet."
+      },
+      "inReplyTo": {
+        "type": "string",
+        "title": "In reply to",
+        "description": "Returns tweets that are replies to the given user. It should be a Twitter (X) Handle."
+      },
+      "onlyImage": {
+        "type": "boolean",
+        "title": "Only image",
+        "description": "If selected, only returns tweets that contain images."
+      },
+      "onlyQuote": {
+        "type": "boolean",
+        "title": "Only quote",
+        "description": "If selected, only returns tweets that are quotes."
+      },
+      "onlyVideo": {
+        "type": "boolean",
+        "title": "Only video",
+        "description": "If selected, only returns tweets that contain videos."
+      },
+      "startUrls": {
+        "type": "array",
+        "title": "Start URLs",
+        "description": "Twitter (X) URLs. Paste the URLs and get the results immediately. Tweet, Profile, Search or List URLs are supported."
+      },
+      "mentioning": {
+        "type": "string",
+        "title": "Mentioning",
+        "description": "Returns tweets mentioning the given user. It should be a Twitter (X) Handle."
+      },
+      "searchTerms": {
+        "type": "array",
+        "title": "Search Terms",
+        "description": "Search terms you want to search from Twitter (X). You can refer to https://github.com/igorbrigadir/twitter-advanced-search."
+      },
+      "withinRadius": {
+        "type": "string",
+        "title": "Within radius",
+        "description": "Returns tweets sent within the given radius of the given location."
+      },
+      "geotaggedNear": {
+        "type": "string",
+        "title": "Geotagged near",
+        "description": "Returns tweets sent near the given location."
+      },
+      "placeObjectId": {
+        "type": "string",
+        "title": "Place object ID",
+        "description": "Returns tweets tagged with the given place."
+      },
+      "tweetLanguage": {
+        "enum": [
+          "ab",
+          "aa",
+          "af",
+          "ak",
+          "sq",
+          "am",
+          "ar",
+          "an",
+          "hy",
+          "as",
+          "av",
+          "ae",
+          "ay",
+          "az",
+          "bm",
+          "ba",
+          "eu",
+          "be",
+          "bn",
+          "bi",
+          "bs",
+          "br",
+          "bg",
+          "my",
+          "ca",
+          "ch",
+          "ce",
+          "ny",
+          "zh",
+          "cu",
+          "cv",
+          "kw",
+          "co",
+          "cr",
+          "hr",
+          "cs",
+          "da",
+          "dv",
+          "nl",
+          "dz",
+          "en",
+          "eo",
+          "et",
+          "ee",
+          "fo",
+          "fj",
+          "fi",
+          "fr",
+          "fy",
+          "ff",
+          "gd",
+          "gl",
+          "lg",
+          "ka",
+          "de",
+          "el",
+          "kl",
+          "gn",
+          "gu",
+          "ht",
+          "ha",
+          "he",
+          "hz",
+          "hi",
+          "ho",
+          "hu",
+          "is",
+          "io",
+          "ig",
+          "id",
+          "ia",
+          "ie",
+          "iu",
+          "ik",
+          "ga",
+          "it",
+          "ja",
+          "jv",
+          "kn",
+          "kr",
+          "ks",
+          "kk",
+          "km",
+          "ki",
+          "rw",
+          "ky",
+          "kv",
+          "kg",
+          "ko",
+          "kj",
+          "ku",
+          "lo",
+          "la",
+          "lv",
+          "li",
+          "ln",
+          "lt",
+          "lu",
+          "lb",
+          "mk",
+          "mg",
+          "ms",
+          "ml",
+          "mt",
+          "gv",
+          "mi",
+          "mr",
+          "mh",
+          "mn",
+          "na",
+          "nv",
+          "nd",
+          "nr",
+          "ng",
+          "ne",
+          "no",
+          "nb",
+          "nn",
+          "ii",
+          "oc",
+          "oj",
+          "or",
+          "om",
+          "os",
+          "pi",
+          "ps",
+          "fa",
+          "pl",
+          "pt",
+          "pa",
+          "qu",
+          "ro",
+          "rm",
+          "rn",
+          "ru",
+          "se",
+          "sm",
+          "sg",
+          "sa",
+          "sc",
+          "sr",
+          "sn",
+          "sd",
+          "si",
+          "sk",
+          "sl",
+          "so",
+          "st",
+          "es",
+          "su",
+          "sw",
+          "ss",
+          "sv",
+          "tl",
+          "ty",
+          "tg",
+          "ta",
+          "tt",
+          "te",
+          "th",
+          "bo",
+          "ti",
+          "to",
+          "ts",
+          "tn",
+          "tr",
+          "tk",
+          "tw",
+          "ug",
+          "uk",
+          "ur",
+          "uz",
+          "ve",
+          "vi",
+          "vo",
+          "wa",
+          "cy",
+          "wo",
+          "xh",
+          "yi",
+          "yo",
+          "za",
+          "zu"
+        ],
+        "type": "string",
+        "title": "Tweet language",
+        "description": "Restricts tweets to the given language, given by an ISO 639-1 code."
+      },
+      "minimumReplies": {
+        "type": "integer",
+        "title": "Minimum replies",
+        "maximum": 9007199254740991,
+        "minimum": -9007199254740991,
+        "description": "Returns tweets with at least the given number of replies."
+      },
+      "twitterHandles": {
+        "type": "array",
+        "title": "Twitter handles",
+        "description": "Twitter handles that you want to search on Twitter (X)"
+      },
+      "conversationIds": {
+        "type": "array",
+        "title": "Conversation IDs",
+        "description": "Conversation IDs that you want to search on Twitter (X)"
+      },
+      "minimumRetweets": {
+        "type": "integer",
+        "title": "Minimum retweets",
+        "maximum": 9007199254740991,
+        "minimum": -9007199254740991,
+        "description": "Returns tweets with at least the given number of retweets."
+      },
+      "onlyTwitterBlue": {
+        "type": "boolean",
+        "title": "Only Twitter Blue",
+        "description": "If selected, only returns tweets by users who are Twitter Blue subscribers."
+      },
+      "minimumFavorites": {
+        "type": "integer",
+        "title": "Minimum favorites",
+        "maximum": 9007199254740991,
+        "minimum": -9007199254740991,
+        "description": "Returns tweets with at least the given number of favorites."
+      },
+      "onlyVerifiedUsers": {
+        "type": "boolean",
+        "title": "Only verified users",
+        "description": "If selected, only returns tweets by users who are verified."
+      },
+      "includeSearchTerms": {
+        "type": "boolean",
+        "title": "Include Search Terms",
+        "description": "If selected, a field will be added to each tweets about the search term that was used to find it."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0006
+  },
+  "readme": "# Tweet Search\n\nScrape X (Twitter) tweets from search queries, profiles, lists, and tweet URLs at scale.\n\n## Pricing\n\n- Inspect reference unit price: $0.0006 USD per result.\n- Final settlement uses the provider-reported actual cost after strict validation; the reference price is not used to infer the final charge.",
+  "page_url": "https://www.sandbase.ai/model/twitter/bulk/tweet-search",
+  "created_at": "2026-08-10T02:58:16.852Z"
+}

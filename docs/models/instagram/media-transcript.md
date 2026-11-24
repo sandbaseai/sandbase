@@ -4,7 +4,7 @@
 
 **Price:** about $0.0012 per call · **Modes:** sync
 
-Get the spoken-audio transcript text for an Instagram post or reel by URL.
+Get the spoken-audio transcript text for an Instagram post or reel by URL. Videos up to 120 seconds only; for longer videos use Instagram Reel Transcript (instagram/reel-transcript).
 
 ## Pricing
 
@@ -57,7 +57,7 @@ Same call via the path form: `POST /v1/api/instagram/media-transcript` with the 
 
 | name | type | required | description |
 |---|---|---|---|
-| `url` | string | yes | Instagram post or reel URL.  |
+| `url` | string | yes | Instagram post or reel URL. The video must be 120 seconds or shorter; a longer video fails with an error and is not charged. Use Instagram Reel Transcript (instagram/reel-transcript) for longer videos.  |
 | `requireFields` | array |  | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `durationSeconds`, and it is served only by a source that returns…  |
 
 ## Details
@@ -122,6 +122,7 @@ Real response for the request above, trimmed: lists keep their first item and lo
 
 ### Notes
 
+- Only videos up to 120 seconds can be transcribed. A longer video fails with an error that says so, and the call is not charged. For longer reels and video posts, use [Instagram Reel Transcript](/apis/instagram/reel-transcript), which also returns speaker labels and word timestamps. It is billed by audio length ($0.0015 per call plus $0.006 per audio minute), so it costs more than this API.
 - Copy the `url` from the Instagram post or reel page, for example `https://www.instagram.com/reel/DHsD6HGqJhp/`.
 - `durationSeconds` can be `null` with the default routing. Pass `requireFields: ["durationSeconds"]` to be served only by a source that returns it. This can raise the price.
 - To convert between `id` and `shortcode`, use [Instagram Shortcode to Media ID](/apis/instagram/v1/shortcode-to-media-id) or [Instagram Media ID to Shortcode (V1)](/apis/instagram/v1/media-id-to-shortcode).

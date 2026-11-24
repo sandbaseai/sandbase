@@ -1,13 +1,13 @@
 # SandBase capability index
 
-2827 capabilities · generated 2026-11-24T04:24:01Z
+2831 capabilities · generated 2026-11-24T16:23:40Z
 
-- [api](#api) (2247)
+- [api](#api) (2248)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
 - [image](#image) (211)
 - [llm](#llm) (132)
-- [video](#video) (203)
+- [video](#video) (206)
 
 ## api
 
@@ -1046,7 +1046,7 @@
 | [`instagram/hashtag-top-posts`](models/instagram/hashtag-top-posts.md) | ~0.0011 | sync | Instagram's own top-ranked posts for a hashtag, read from its live hashtag feed rather than a web search index, with… |
 | [`instagram/highlight-detail`](models/instagram/highlight-detail.md) | ~0.0012 | sync | Fetch the details and media items of a single Instagram story highlight by id. |
 | [`instagram/location-posts`](models/instagram/location-posts.md) | ~0.0012 | sync | List public Instagram posts tagged at a location, ranked or most recent, with cursor pagination. |
-| [`instagram/media-transcript`](models/instagram/media-transcript.md) | ~0.0012 | sync | Get the spoken-audio transcript text for an Instagram post or reel by URL. |
+| [`instagram/media-transcript`](models/instagram/media-transcript.md) | ~0.0012 | sync | Get the spoken-audio transcript text for an Instagram post or reel by URL. Videos up to 120 seconds only; for longer… |
 | [`instagram/post-comments`](models/instagram/post-comments.md) | 0.014286 / call | sync | Get top-level comments for an Instagram post by shortcode, with cursor pagination and popular or newest sorting. Use… |
 | [`instagram/post-detail`](models/instagram/post-detail.md) | 0.014286 / call | sync | Get an Instagram post by its shortcode. Use it to look up a known post before content review, archiving, comment… |
 | [`instagram/post-likers`](models/instagram/post-likers.md) | ~0.0024 | sync | List the accounts that liked a public Instagram post, one page of likers per call, with each liker's handle, display… |
@@ -1817,6 +1817,7 @@
 | [`twitch/search-streamers`](models/twitch/search-streamers.md) | 0.03 / call | sync | Search for Twitch channels/streamers by query. Returns matching channels with live status, follower counts, and… |
 | [`twitch/streamer-profile`](models/twitch/streamer-profile.md) | 0.03 / call | sync | Get detailed profile information for a Twitch streamer including followers, description, partner status, social links,… |
 | [`twitter/article`](models/twitter/article.md) | ~0.00054 | sync | Get a public X long-form article from its wrapper post URL, including its author, engagement, cover image, and… |
+| [`twitter/bulk/tweet-search`](models/twitter/bulk/tweet-search.md) | ~0.0006 | async | Scrape X (Twitter) tweets from search queries, profiles, lists, and tweet URLs at scale. |
 | [`twitter/community`](models/twitter/community.md) | ~0.0001 | sync | Fetch a Twitter/X community's public details (name, description, member count, join policy) by URL. |
 | [`twitter/community-moderators`](models/twitter/community-moderators.md) | ~0.0036 | sync | Moderators of an X Community by community ID, with profile details and cursor pagination. |
 | [`twitter/community-search-tweets`](models/twitter/community-search-tweets.md) | ~0.003 | sync | Search tweets posted in all X Communities by keyword, sorted by Latest or Top. |
@@ -2718,11 +2719,14 @@
 | [`bytedance/seedance/2.0/fast/reference-to-video`](models/bytedance/seedance/2.0/fast/reference-to-video.md) | ~1 | async | ByteDance's most advanced reference-to-video model in its fast tier delivering lower latency and cost without… |
 | [`bytedance/seedance/2.0/fast/text-to-video`](models/bytedance/seedance/2.0/fast/text-to-video.md) | 0.4–1.6 | async | ByteDance's most advanced text-to-video model in its fast tier delivering lower latency and cost without compromising… |
 | [`bytedance/seedance/2.0/image-to-video`](models/bytedance/seedance/2.0/image-to-video.md) | 0.48–9.6 | async | ByteDance's most advanced image-to-video model transforming still images into cinematic video with native audio,… |
+| [`bytedance/seedance/2.0/image-to-video-hd`](models/bytedance/seedance/2.0/image-to-video-hd.md) | 0.48–9.6 | async | ByteDance's most advanced image-to-video model transforming still images into cinematic video with native audio,… |
 | [`bytedance/seedance/2.0/mini/image-to-video`](models/bytedance/seedance/2.0/mini/image-to-video.md) | 0.24–0.96 | async | Seedance 2.0 Mini by Bytedance - animate still images into dynamic videos with AI. Transform photos into cinematic… |
 | [`bytedance/seedance/2.0/mini/reference-to-video`](models/bytedance/seedance/2.0/mini/reference-to-video.md) | ~0.6 | async | Seedance 2.0 Mini by Bytedance - animate still images into dynamic videos with AI. Transform photos into cinematic… |
 | [`bytedance/seedance/2.0/mini/text-to-video`](models/bytedance/seedance/2.0/mini/text-to-video.md) | 0.24–0.96 | async | Seedance 2.0 Mini is Bytedance's text-to-video AI model. Turn written scripts and prompts into professional-quality… |
 | [`bytedance/seedance/2.0/reference-to-video`](models/bytedance/seedance/2.0/reference-to-video.md) | ~1.2 | async | ByteDance's most advanced reference-to-video model generating cinematic video guided by reference content, with native… |
+| [`bytedance/seedance/2.0/reference-to-video-hd`](models/bytedance/seedance/2.0/reference-to-video-hd.md) | ~1.2 | async | ByteDance's most advanced reference-to-video model generating cinematic video guided by reference content, with native… |
 | [`bytedance/seedance/2.0/text-to-video`](models/bytedance/seedance/2.0/text-to-video.md) | 0.48–9.6 | async | ByteDance's most advanced text-to-video model delivering cinematic output, native audio, multi-shot editing, and… |
+| [`bytedance/seedance/2.0/text-to-video-hd`](models/bytedance/seedance/2.0/text-to-video-hd.md) | 0.48–9.6 | async | ByteDance's most advanced text-to-video model delivering cinematic output, native audio, multi-shot editing, and… |
 | [`bytedance/seedance/2.5/flash/image-to-video`](models/bytedance/seedance/2.5/flash/image-to-video.md) | 0.48–1.92 | async | ByteDance's Seedance 2.5 Flash image-to-video model, a faster and lower-cost tier of Seedance 2.5 that animates a… |
 | [`bytedance/seedance/2.5/flash/reference-to-video`](models/bytedance/seedance/2.5/flash/reference-to-video.md) | ~1.2 | async | ByteDance's Seedance 2.5 Flash reference-to-video model, a faster and lower-cost tier of Seedance 2.5 that generates… |
 | [`bytedance/seedance/2.5/flash/text-to-video`](models/bytedance/seedance/2.5/flash/text-to-video.md) | 0.48–1.92 | async | ByteDance's Seedance 2.5 Flash text-to-video model, a faster and lower-cost tier of Seedance 2.5 that generates native… |

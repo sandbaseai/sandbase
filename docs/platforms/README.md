@@ -22,9 +22,9 @@
 | [Meshy](meshy.md) | 40 | image generation model |
 | [Ahrefs](ahrefs.md) | 38 | data API |
 | [LinkedIn](linkedin.md) | 38 | data API |
+| [Bytedance](bytedance.md) | 36 | LLM, audio model, image generation model, video generation model |
 | [FRED](fred.md) | 35 | data API |
 | [Reddit](reddit.md) | 35 | data API |
-| [Bytedance](bytedance.md) | 33 | LLM, audio model, image generation model, video generation model |
 | [X (Twitter)](x-twitter.md) | 30 | data API |
 | [Tripo3D](tripo3d.md) | 29 | image generation model |
 | [Facebook](facebook.md) | 28 | data API |
@@ -37,11 +37,11 @@
 | [WeChat Channels](wechat-channels.md) | 22 | data API |
 | [xAI](xai.md) | 20 | LLM, audio model, image generation model, video generation model |
 | [Semrush](semrush.md) | 19 | data API |
+| [Twitter](twitter.md) | 18 | data API |
 | [WeChat MP](wechat-mp.md) | 18 | data API |
 | [IMDb](imdb.md) | 17 | data API |
 | [Nasdaq](nasdaq.md) | 17 | data API |
 | [Pipixia](pipixia.md) | 17 | data API |
-| [Twitter](twitter.md) | 17 | data API |
 | [Anthropic](anthropic.md) | 16 | LLM |
 | [GitHub](github.md) | 16 | data API |
 | [Lemon8](lemon8.md) | 16 | data API |
