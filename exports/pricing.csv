@@ -1497,9 +1497,9 @@ kwaivgi/kling-video/v4/flash/image-to-video,video,KwaiVGI,formula,,,,0.282,1.88,
 kwaivgi/kling-video/v4/flash/reference-to-video,video,KwaiVGI,formula,,,,0.47,0.47,,async,POST /v1/run
 kwaivgi/kling-video/v4/flash/text-to-video,video,KwaiVGI,formula,,,,0.282,1.88,,async,POST /v1/run
 kwaivgi/kling-video/v4/flash/video-edit,video,KwaiVGI,formula,,,,2.52,2.52,,async,POST /v1/run
-kwaivgi/kling-video/v4/image-to-video,video,KwaiVGI,formula,,,,0.471,7.05,,async,POST /v1/run
+kwaivgi/kling-video/v4/image-to-video,video,KwaiVGI,formula,,,,0.471,16.47,,async,POST /v1/run
 kwaivgi/kling-video/v4/reference-to-video,video,KwaiVGI,formula,,,,1.175,1.175,,async,POST /v1/run
-kwaivgi/kling-video/v4/text-to-video,video,KwaiVGI,formula,,,,0.471,7.05,,async,POST /v1/run
+kwaivgi/kling-video/v4/text-to-video,video,KwaiVGI,formula,,,,0.471,16.47,,async,POST /v1/run
 kwaivgi/kling-video/v4/video-edit,video,KwaiVGI,formula,,,,8.46,8.46,,async,POST /v1/run
 lemon8/app/discover-banners,api,Lemon8,per_call,0.001,,,,,,sync,POST /v1/run
 lemon8/app/discover-tab,api,Lemon8,per_call,0.001,,,,,,sync,POST /v1/run

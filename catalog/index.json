@@ -1,6 +1,6 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-24T00:38:36Z",
+ "generated_at": "2026-11-24T04:24:01Z",
  "base_url": "https://api.sandbase.ai",
  "count": 2827,
  "counts_by_type": {
@@ -57864,7 +57864,7 @@
    "display_name": "Kling V4",
    "type": "video",
    "vendor": "KwaiVGI",
-   "description": "Kling V4 by KwaiVGI in one endpoint: generate 3-30 second videos with native audio from text, start and end frames, reference images and reference videos, at 720p or 1080p.",
+   "description": "Kling V4 by KwaiVGI in one endpoint: generate 3-30 second videos with native audio from text, start and end frames, reference images and reference videos, at 720p, 1080p or 4K.",
    "tags": [
     "text-to-video",
     "image-to-video",
@@ -57974,7 +57974,7 @@
    "price": {
     "model": "formula",
     "usd_from": 0.471,
-    "usd_to": 7.05
+    "usd_to": 16.47
    },
    "record": "catalog/models/kwaivgi/kling-video/v4/image-to-video.json"
   },
@@ -58002,7 +58002,7 @@
    "display_name": "Kling V4 Text to Video",
    "type": "video",
    "vendor": "KwaiVGI",
-   "description": "Kling V4 Text to Video by Kuaishou turns a text prompt into a 3-30 second video at 720p or 1080p.",
+   "description": "Kling V4 Text to Video by Kuaishou turns a text prompt into a 3-30 second video at 720p, 1080p or 4K.",
    "tags": [
     "text-to-video"
    ],
@@ -58013,7 +58013,7 @@
    "price": {
     "model": "formula",
     "usd_from": 0.471,
-    "usd_to": 7.05
+    "usd_to": 16.47
    },
    "record": "catalog/models/kwaivgi/kling-video/v4/text-to-video.json"
   },

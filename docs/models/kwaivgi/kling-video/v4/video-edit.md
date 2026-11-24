@@ -10,7 +10,7 @@ Kling V4 Video Edit by Kuaishou edits a 3-30 second source video from a text ins
 
 - Depends on parameters (`params.resolution`, `params.video`, `usage.duration`).
 
-Formula: `((params.resolution ?? "1080p") == "720p" ? 0.094 : 0.141) * 2.0 * Math.min(30.0, usage.duration ?? media_duration(params.video) ?? 30.0)`
+Formula: `((params.resolution ?? "1080p") == "720p" ? 0.094 : (params.resolution ?? "1080p") == "4k" ? 0.329 : 0.141) * 2.0 * Math.min(30.0, usage.duration ?? media_duration(params.video) ?? 30.0)`
 
 ## Call it
 
@@ -68,7 +68,7 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | `video` | string | yes | Video to edit (3-30s, min 700x700 px, up to 300 MB). The output keeps its length.  |
 | `images` | array |  | Optional reference images, referenced as @Image1, @Image2, ...  |
 | `prompt` | string | yes | Edit instruction. Refer to the source video as @Video1 and reference images as @Image1, @Image2, ...  |
-| `resolution` | string |  | Output resolution. one of: `720p`, `1080p`; default `"1080p"` |
+| `resolution` | string |  | Output resolution. one of: `720p`, `1080p`, `4k`; default `"1080p"` |
 
 ## Details
 
@@ -79,13 +79,14 @@ Kling V4 video edit changes a 3–30 second source video from a text instruction
 | `prompt` | string, required | — | Edit instruction. Refer to the source as `@Video1` and images as `@Image1`, … |
 | `video` | video URL, required | — | 3–30s, min 700×700 px, up to 300 MB. |
 | `images` | image URL[] | — | Up to 10 reference images. |
-| `resolution` | `720p` / `1080p` | `1080p` | Output resolution. |
+| `resolution` | `720p` / `1080p` / `4k` | `1080p` | Output resolution. |
 ### Billing
-$0.094 (720p) or $0.141 (1080p) per second, counted on input plus output (2× the source length). Settlement uses the output length (it matches the source); the quote before submission assumes a 30 second source when the length cannot be read.
+$0.094 (720p), $0.141 (1080p) or $0.329 (4K) per second, counted on input plus output (2× the source length). Settlement uses the output length (it matches the source); the quote before submission assumes a 30 second source when the length cannot be read.
 | Source | Price |
 |---|---|
 | 6s, 1080p | $1.692 |
 | 10s, 720p | $1.88 |
+| 10s, 4K | $6.58 |
 | 30s, 1080p | $8.46 |
 Failed runs are not charged.
 ### Prompting

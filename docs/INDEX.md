@@ -1,6 +1,6 @@
 # SandBase capability index
 
-2827 capabilities · generated 2026-11-24T00:38:36Z
+2827 capabilities · generated 2026-11-24T04:24:01Z
 
 - [api](#api) (2247)
 - [audio](#audio) (32)
@@ -2808,9 +2808,9 @@
 | [`kwaivgi/kling-video/v4/flash/reference-to-video`](models/kwaivgi/kling-video/v4/flash/reference-to-video.md) | ~0.47 | async | Kling V4 Flash Reference to Video by Kuaishou generates a 3-20 second 720p video that keeps characters, objects and… |
 | [`kwaivgi/kling-video/v4/flash/text-to-video`](models/kwaivgi/kling-video/v4/flash/text-to-video.md) | 0.282–1.88 | async | Kling V4 Flash Text to Video by Kuaishou turns a text prompt into a 3-20 second 720p video at a lower price than Kling… |
 | [`kwaivgi/kling-video/v4/flash/video-edit`](models/kwaivgi/kling-video/v4/flash/video-edit.md) | ~2.52 | async | Kling V4 Flash Video Edit by Kuaishou edits a 3-20 second source video into a 720p result from a text instruction and… |
-| [`kwaivgi/kling-video/v4/image-to-video`](models/kwaivgi/kling-video/v4/image-to-video.md) | 0.471–7.05 | async | Kling V4 Image to Video by Kuaishou animates a start image, optionally toward an end image, into a 3-30 second video. |
+| [`kwaivgi/kling-video/v4/image-to-video`](models/kwaivgi/kling-video/v4/image-to-video.md) | 0.471–16.47 | async | Kling V4 Image to Video by Kuaishou animates a start image, optionally toward an end image, into a 3-30 second video. |
 | [`kwaivgi/kling-video/v4/reference-to-video`](models/kwaivgi/kling-video/v4/reference-to-video.md) | ~1.175 | async | Kling V4 Reference to Video by Kuaishou generates a 3-30 second video that keeps characters, objects and motion from… |
-| [`kwaivgi/kling-video/v4/text-to-video`](models/kwaivgi/kling-video/v4/text-to-video.md) | 0.471–7.05 | async | Kling V4 Text to Video by Kuaishou turns a text prompt into a 3-30 second video at 720p or 1080p. |
+| [`kwaivgi/kling-video/v4/text-to-video`](models/kwaivgi/kling-video/v4/text-to-video.md) | 0.471–16.47 | async | Kling V4 Text to Video by Kuaishou turns a text prompt into a 3-30 second video at 720p, 1080p or 4K. |
 | [`kwaivgi/kling-video/v4/video-edit`](models/kwaivgi/kling-video/v4/video-edit.md) | ~8.46 | async | Kling V4 Video Edit by Kuaishou edits a 3-30 second source video from a text instruction and optional reference images. |
 | [`lightricks/ltx-2.3-fast/image-to-video`](models/lightricks/ltx-2.3-fast/image-to-video.md) | 0.36–3.84 | async | Ltx 2.3 Fast is Lightricks's image-to-video AI model. Bring static images to life with fluid animation, consistent… |
 | [`lightricks/ltx-2.3-fast/text-to-video`](models/lightricks/ltx-2.3-fast/text-to-video.md) | 0.36–3.84 | async | Ltx 2.3 Fast by Lightricks - generate cinematic videos from text descriptions with AI. Create high-quality video… |

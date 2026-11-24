@@ -55,7 +55,8 @@
       "resolution": {
         "enum": [
           "720p",
-          "1080p"
+          "1080p",
+          "4k"
         ],
         "type": "string",
         "title": "Resolution",
@@ -121,7 +122,7 @@
   "pricing": {
     "currency": "USD",
     "model": "formula",
-    "formula": "(params.duration ?? 5) * ((params.resolution ?? \"1080p\") == \"720p\" ? 0.157 : 0.235)",
+    "formula": "(params.duration ?? 5) * ((params.resolution ?? \"1080p\") == \"720p\" ? 0.157 : (params.resolution ?? \"1080p\") == \"4k\" ? 0.549 : 0.235)",
     "formula_variables": [
       "params.duration",
       "params.resolution"
@@ -144,6 +145,13 @@
       },
       {
         "params": {
+          "duration": 3,
+          "resolution": "4k"
+        },
+        "usd": 1.647
+      },
+      {
+        "params": {
           "duration": 5,
           "resolution": "720p"
         },
@@ -158,6 +166,13 @@
       },
       {
         "params": {
+          "duration": 5,
+          "resolution": "4k"
+        },
+        "usd": 2.745
+      },
+      {
+        "params": {
           "duration": 30,
           "resolution": "720p"
         },
@@ -169,6 +184,13 @@
           "resolution": "1080p"
         },
         "usd": 7.05
+      },
+      {
+        "params": {
+          "duration": 30,
+          "resolution": "4k"
+        },
+        "usd": 16.47
       }
     ]
   },
@@ -197,7 +219,7 @@
       ]
     }
   ],
-  "readme": "# Kling V4 Image to Video\nKling V4 image-to-video animates a start image, optionally toward an end image, into a 3–30 second clip.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 2,500 characters. |\n| `image` | image URL, required | — | First frame. Min 300×300 px, aspect ratio 0.4–2.5, up to 30 MB. |\n| `end_image` | image URL | — | Optional last frame. |\n| `resolution` | `720p` / `1080p` | `1080p` | Output resolution. |\n| `duration` | 3–30 | 5 | Output length in seconds. |\n## Billing\nBilled per output second: $0.157 at 720p, $0.235 at 1080p.\n| Output | Price |\n|---|---|\n| 5s, 1080p (default) | $1.175 |\n| 5s, 720p | $0.785 |\n| 10s, 1080p | $2.35 |\n| 30s, 1080p | $7.05 |\nFailed runs are not charged.\n## Prompting\n- Describe what moves and how the camera moves; the image sets the look.\n## Limits\n- Clips are 3–30 seconds.\n## Also on SandBase\nOther Kling V4 endpoints: `kwaivgi/kling-video/v4/text-to-video`, `kwaivgi/kling-video/v4/image-to-video`, `kwaivgi/kling-video/v4/reference-to-video`, `kwaivgi/kling-video/v4/video-edit`.",
+  "readme": "# Kling V4 Image to Video\nKling V4 image-to-video animates a start image, optionally toward an end image, into a 3–30 second clip.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 2,500 characters. |\n| `image` | image URL, required | — | First frame. Min 300×300 px, aspect ratio 0.4–2.5, up to 30 MB. |\n| `end_image` | image URL | — | Optional last frame. |\n| `resolution` | `720p` / `1080p` / `4k` | `1080p` | Output resolution. |\n| `duration` | 3–30 | 5 | Output length in seconds. |\n## Billing\nBilled per output second: $0.157 at 720p, $0.235 at 1080p, $0.549 at 4K.\n| Output | Price |\n|---|---|\n| 5s, 1080p (default) | $1.175 |\n| 5s, 720p | $0.785 |\n| 5s, 4K | $2.745 |\n| 10s, 1080p | $2.35 |\n| 30s, 1080p | $7.05 |\nFailed runs are not charged.\n## Prompting\n- Describe what moves and how the camera moves; the image sets the look.\n## Limits\n- Clips are 3–30 seconds.\n## Also on SandBase\nOther Kling V4 endpoints: `kwaivgi/kling-video/v4/text-to-video`, `kwaivgi/kling-video/v4/image-to-video`, `kwaivgi/kling-video/v4/reference-to-video`, `kwaivgi/kling-video/v4/video-edit`.",
   "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/v4/image-to-video/cover-flare-20261022111134.webp",
   "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/v4/image-to-video",
   "published_at": "2026-10-21T15:09:19.097Z",

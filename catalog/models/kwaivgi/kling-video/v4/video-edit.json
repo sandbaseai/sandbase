@@ -51,7 +51,8 @@
       "resolution": {
         "enum": [
           "720p",
-          "1080p"
+          "1080p",
+          "4k"
         ],
         "type": "string",
         "title": "Resolution",
@@ -117,7 +118,7 @@
   "pricing": {
     "currency": "USD",
     "model": "formula",
-    "formula": "((params.resolution ?? \"1080p\") == \"720p\" ? 0.094 : 0.141) * 2.0 * Math.min(30.0, usage.duration ?? media_duration(params.video) ?? 30.0)",
+    "formula": "((params.resolution ?? \"1080p\") == \"720p\" ? 0.094 : (params.resolution ?? \"1080p\") == \"4k\" ? 0.329 : 0.141) * 2.0 * Math.min(30.0, usage.duration ?? media_duration(params.video) ?? 30.0)",
     "formula_variables": [
       "params.resolution",
       "params.video",
@@ -150,7 +151,7 @@
       ]
     }
   ],
-  "readme": "# Kling V4 Video Edit\nKling V4 video edit changes a 3–30 second source video from a text instruction, with optional reference images. The output keeps the source length.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Edit instruction. Refer to the source as `@Video1` and images as `@Image1`, … |\n| `video` | video URL, required | — | 3–30s, min 700×700 px, up to 300 MB. |\n| `images` | image URL[] | — | Up to 10 reference images. |\n| `resolution` | `720p` / `1080p` | `1080p` | Output resolution. |\n## Billing\n$0.094 (720p) or $0.141 (1080p) per second, counted on input plus output (2× the source length). Settlement uses the output length (it matches the source); the quote before submission assumes a 30 second source when the length cannot be read.\n| Source | Price |\n|---|---|\n| 6s, 1080p | $1.692 |\n| 10s, 720p | $1.88 |\n| 30s, 1080p | $8.46 |\nFailed runs are not charged.\n## Prompting\n- State what to change and what to keep, e.g. \"replace the jacket in @Video1 with the coat in @Image1\".\n## Limits\n- Source videos are 3–30 seconds.\n## Also on SandBase\nOther Kling V4 endpoints: `kwaivgi/kling-video/v4/text-to-video`, `kwaivgi/kling-video/v4/image-to-video`, `kwaivgi/kling-video/v4/reference-to-video`, `kwaivgi/kling-video/v4/video-edit`.",
+  "readme": "# Kling V4 Video Edit\nKling V4 video edit changes a 3–30 second source video from a text instruction, with optional reference images. The output keeps the source length.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Edit instruction. Refer to the source as `@Video1` and images as `@Image1`, … |\n| `video` | video URL, required | — | 3–30s, min 700×700 px, up to 300 MB. |\n| `images` | image URL[] | — | Up to 10 reference images. |\n| `resolution` | `720p` / `1080p` / `4k` | `1080p` | Output resolution. |\n## Billing\n$0.094 (720p), $0.141 (1080p) or $0.329 (4K) per second, counted on input plus output (2× the source length). Settlement uses the output length (it matches the source); the quote before submission assumes a 30 second source when the length cannot be read.\n| Source | Price |\n|---|---|\n| 6s, 1080p | $1.692 |\n| 10s, 720p | $1.88 |\n| 10s, 4K | $6.58 |\n| 30s, 1080p | $8.46 |\nFailed runs are not charged.\n## Prompting\n- State what to change and what to keep, e.g. \"replace the jacket in @Video1 with the coat in @Image1\".\n## Limits\n- Source videos are 3–30 seconds.\n## Also on SandBase\nOther Kling V4 endpoints: `kwaivgi/kling-video/v4/text-to-video`, `kwaivgi/kling-video/v4/image-to-video`, `kwaivgi/kling-video/v4/reference-to-video`, `kwaivgi/kling-video/v4/video-edit`.",
   "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/v4/video-edit/cover-flare-20261022111134.webp",
   "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/v4/video-edit",
   "published_at": "2026-10-21T15:22:41.948Z",

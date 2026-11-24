@@ -2,7 +2,7 @@
 
 `kwaivgi/kling-video/v4/image-to-video` · video generation model · KwaiVGI · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** from $0.471 to $7.05 per run, depending on parameters · **Modes:** async
+**Price:** from $0.471 to $16.47 per run, depending on parameters · **Modes:** async
 
 Kling V4 Image to Video by Kuaishou animates a start image, optionally toward an end image, into a 3-30 second video.
 
@@ -14,12 +14,15 @@ Kling V4 Image to Video by Kuaishou animates a start image, optionally toward an
 |---|---|
 | duration=3, resolution="720p" | 0.471 |
 | duration=3, resolution="1080p" | 0.705 |
+| duration=3, resolution="4k" | 1.647 |
 | duration=5, resolution="720p" | 0.785 |
 | duration=5, resolution="1080p" | 1.175 |
+| duration=5, resolution="4k" | 2.745 |
 | duration=30, resolution="720p" | 4.71 |
 | duration=30, resolution="1080p" | 7.05 |
+| duration=30, resolution="4k" | 16.47 |
 
-Formula: `(params.duration ?? 5) * ((params.resolution ?? "1080p") == "720p" ? 0.157 : 0.235)`
+Formula: `(params.duration ?? 5) * ((params.resolution ?? "1080p") == "720p" ? 0.157 : (params.resolution ?? "1080p") == "4k" ? 0.549 : 0.235)`
 
 ## Call it
 
@@ -78,7 +81,7 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | `prompt` | string | yes | Describe subject, action, camera and light.  |
 | `duration` | integer |  | Output length in seconds (3-30). default `5`; range 3–30 |
 | `end_image` | string |  | Optional last frame.  |
-| `resolution` | string |  | Output resolution. one of: `720p`, `1080p`; default `"1080p"` |
+| `resolution` | string |  | Output resolution. one of: `720p`, `1080p`, `4k`; default `"1080p"` |
 
 ## Details
 
@@ -89,14 +92,15 @@ Kling V4 image-to-video animates a start image, optionally toward an end image, 
 | `prompt` | string, required | — | Up to 2,500 characters. |
 | `image` | image URL, required | — | First frame. Min 300×300 px, aspect ratio 0.4–2.5, up to 30 MB. |
 | `end_image` | image URL | — | Optional last frame. |
-| `resolution` | `720p` / `1080p` | `1080p` | Output resolution. |
+| `resolution` | `720p` / `1080p` / `4k` | `1080p` | Output resolution. |
 | `duration` | 3–30 | 5 | Output length in seconds. |
 ### Billing
-Billed per output second: $0.157 at 720p, $0.235 at 1080p.
+Billed per output second: $0.157 at 720p, $0.235 at 1080p, $0.549 at 4K.
 | Output | Price |
 |---|---|
 | 5s, 1080p (default) | $1.175 |
 | 5s, 720p | $0.785 |
+| 5s, 4K | $2.745 |
 | 10s, 1080p | $2.35 |
 | 30s, 1080p | $7.05 |
 Failed runs are not charged.
