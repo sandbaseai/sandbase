@@ -39,6 +39,33 @@
         "minimum": 0,
         "description": "Film grain amount (0.0-0.1). Default varies by model."
       },
+      "model": {
+        "enum": [
+          "Proteus",
+          "Artemis HQ",
+          "Artemis MQ",
+          "Artemis LQ",
+          "Gaia HQ",
+          "Gaia CG",
+          "Gaia 2",
+          "Nyx",
+          "Nyx Fast",
+          "Nyx XL",
+          "Nyx HF",
+          "Starlight Precise 2.5",
+          "Starlight HQ",
+          "Starlight Mini",
+          "Starlight Sharp",
+          "Starlight Fast 2",
+          "Starlight Precise 1",
+          "Starlight Precise 2",
+          "Starlight Fast 1"
+        ],
+        "type": "string",
+        "title": "Model",
+        "default": "Proteus",
+        "description": "Video enhancement model, grouped by family. Precision: Proteus fits most footage, Artemis denoises and sharpens degraded sources, Gaia HQ/CG refine rendered content, Gaia 2 handles animation and motion graphics at 2x. Denoise: Nyx models are dedicated noise reduction. Generative: Starlight models use diffusion for restoration and upscaling. Starlight Precise 1, Starlight Precise 2 and Starlight Fast 1 are deprecated by Topaz; prefer Starlight Precise 2.5 or Starlight Fast 2."
+      },
       "noise": {
         "type": "number",
         "title": "Noise",

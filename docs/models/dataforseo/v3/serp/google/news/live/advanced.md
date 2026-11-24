@@ -53,7 +53,7 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/serp/google/news/live/a
 
 | name | type | required | description |
 |---|---|---|---|
-| `depth` | string |  | Number of results to return.  |
+| `depth` | integer |  | Number of results to return.  |
 | `keyword` | string |  | Search query.  |
 | `language_code` | string |  | Language code, e.g. "en".  |
 | `location_code` | integer |  | DataForSEO location code, e.g. 2840 for the United States.  |
@@ -84,7 +84,7 @@ The result is returned in `outputs[0]`.
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `depth` | string | No | Number of results to return. |
+| `depth` | integer | No | Number of results to return. |
 | `keyword` | string | No | Search query. |
 | `language_code` | string | No | Language code, e.g. "en". |
 | `location_code` | integer | No | DataForSEO location code, e.g. 2840 for the United States. |
@@ -167,10 +167,11 @@ Real response for the request above, trimmed: lists keep their first item and lo
 | `tasks[].data.keyword / location_code / language_code` | The query settings that were used for the search. |
 
 ### Notes
+- Google now wraps some result links in a `google.com/goto` redirect. When that happens, `domain` is `google.com` and `url` is the redirect, so read the result's own site from `breadcrumb` (its first part, e.g. `https://example.com`). Checked 2026-11-24: every organic result for "deepseek harness vs hermes" (US, English) came back this way.
 
 - Results sit in `tasks[].result[].items[]`. Check `status_code` (`20000` means `Ok.`) at the top level and inside each task.
 - Use `location_code` for the country or area, for example `2840` for the United States. Use `language_code` for the language, for example `en`.
-- Use `depth` to ask for more results. It is a string in the request schema.
+- Use `depth` to ask for more results. Send it as a number, for example `"depth": 20`.
 - `timestamp` uses the format `YYYY-MM-DD HH:MM:SS +00:00`, so you can sort results by date.
 
 ### Pricing

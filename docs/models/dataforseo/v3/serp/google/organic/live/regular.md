@@ -184,6 +184,7 @@ Real response for the request above, trimmed: lists keep their first item and lo
 | `tasks[].result[].items[].breadcrumb` | The path line Google shows under the title. For some results it holds other text, such as a comment count and age. |
 
 ### Notes
+- Google now wraps some result links in a `google.com/goto` redirect. When that happens, `domain` is `google.com` and `url` is the redirect, so read the result's own site from `breadcrumb` (its first part, e.g. `https://example.com`). Checked 2026-11-24: every organic result for "deepseek harness vs hermes" (US, English) came back this way.
 
 - `location_code` 2840 is the United States. `language_code` takes a code such as `en`.
 - `depth` sets how many results you ask for. In this response `depth` was 20 and `items_count` was 16, so check `items_count` rather than assuming the full depth.

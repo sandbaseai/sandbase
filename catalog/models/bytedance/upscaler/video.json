@@ -43,15 +43,27 @@
         "default": "high",
         "description": "The enhancement intensity. 'high' applies mild enhancement while keeping visual texture close to the source video. 'medium' provides a balanced image quality enhancement."
       },
+      "bit_depth": {
+        "enum": [
+          8,
+          10,
+          12
+        ],
+        "type": "integer",
+        "title": "Bit Depth",
+        "default": 8,
+        "description": "The color bit depth of the output video. 10-bit and 12-bit output require the Pro enhancement tier."
+      },
       "target_fps": {
         "enum": [
+          "24fps",
           "30fps",
           "60fps"
         ],
         "type": "string",
         "title": "Target Fps",
         "default": "30fps",
-        "description": "The target FPS of the video to upscale."
+        "description": "The target FPS of the video to upscale. Use 24fps to keep the frame rate of 24fps sources such as Seedance output."
       },
       "scale_ratio": {
         "type": "number",

@@ -1,13 +1,13 @@
 # SandBase capability index
 
-2824 capabilities · generated 2026-11-23T16:23:30Z
+2827 capabilities · generated 2026-11-24T00:38:36Z
 
 - [api](#api) (2247)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
 - [image](#image) (211)
 - [llm](#llm) (132)
-- [video](#video) (200)
+- [video](#video) (203)
 
 ## api
 
@@ -2731,6 +2731,7 @@
 | [`bytedance/seedance/2.5/text-to-video`](models/bytedance/seedance/2.5/text-to-video.md) | 0.72–7.2 | async | ByteDance's next-generation text-to-video model, generating native single-shot clips up to 30 seconds at 720p with… |
 | [`bytedance/seedvr/upscale/video`](models/bytedance/seedvr/upscale/video.md) | ~0.31104 | async | Seedvr Upscale Video by Bytedance - AI-powered video editing and transformation. Apply style transfer, motion control,… |
 | [`bytedance/upscaler/video`](models/bytedance/upscaler/video.md) | ~0.036 | async | Bytedance Video Upscaler upscales videos to 4K resolution with AI-powered enhancement. Supports multiple quality tiers… |
+| [`clarityai/crystal-video-upscaler`](models/clarityai/crystal-video-upscaler.md) | ~1.037 | async | Crystal Video Upscaler by ClarityAI - AI-powered video editing and transformation. Apply style transfer, motion… |
 | [`elevenlabs/dubbing`](models/elevenlabs/dubbing.md) | ~0.6 | async | ElevenLabs Dubbing translates the speech in a video into another language while preserving each speaker's voice,… |
 | [`google/gemini-omni-flash/1.1/edit`](models/google/gemini-omni-flash/1.1/edit.md) | ~1.12 | async | Gemini Omni Flash 1.1 Edit by Google applies natural-language edits to an existing video of up to ten seconds, such as… |
 | [`google/gemini-omni-flash/1.1/image-to-video`](models/google/gemini-omni-flash/1.1/image-to-video.md) | 0.09–3 | async | Gemini Omni Flash 1.1 by Google - animate still images into dynamic videos with AI. Transform photos into cinematic… |
@@ -2838,8 +2839,10 @@
 | [`minimax/hailuo/2.3/pro/text-to-video`](models/minimax/hailuo/2.3/pro/text-to-video.md) | 0.49 / call | async | MiniMax Hailuo 2.3 Pro by MiniMax turns a text prompt into a 6-second 1080P video with realistic motion and strong… |
 | [`minimax/hailuo/2.3/standard/image-to-video`](models/minimax/hailuo/2.3/standard/image-to-video.md) | 0.28–0.56 | async | MiniMax Hailuo 2.3 Standard by MiniMax animates a still image into a 6 or 10 second 768P video with realistic motion. |
 | [`minimax/hailuo/2.3/standard/text-to-video`](models/minimax/hailuo/2.3/standard/text-to-video.md) | 0.28–0.56 | async | MiniMax Hailuo 2.3 Standard by MiniMax turns a text prompt into a 6 or 10 second 768P video with realistic motion. |
+| [`openimaginglab/flashvsr-plus`](models/openimaginglab/flashvsr-plus.md) | ~0.156 | async | Flashvsr Plus is openimaginglab's video-to-video AI model. Transform, enhance, and edit video content using text… |
 | [`pixverse/c1/image-to-video`](models/pixverse/c1/image-to-video.md) | 0.03–1.8 | async | C1 is PixVerse's image-to-video AI model. Bring static images to life with fluid animation, consistent character… |
 | [`pixverse/v6/image-to-video`](models/pixverse/v6/image-to-video.md) | 0.025–1.725 | async | V6 is PixVerse's image-to-video AI model. Bring static images to life with fluid animation, consistent character… |
+| [`sandbase-ai/video-upscaler`](models/sandbase-ai/video-upscaler.md) | ~0.249 | async | Video Upscaler by SandBase AI - AI-powered video editing and transformation. Apply style transfer, motion control,… |
 | [`sync/lipsync/3.0/image-to-video`](models/sync/lipsync/3.0/image-to-video.md) | ~0.675 | async | Sync 3 animates the face in a still image so it speaks the provided audio; the output matches the audio length. |
 | [`sync/lipsync/3.0/video-to-video`](models/sync/lipsync/3.0/video-to-video.md) | ~0.675 | async | Sync 3 by sync. re-animates the speaker's lips in an existing video to match new audio, with studio-grade identity… |
 | [`tencent/hunyuan-video/1.5/text-to-video`](models/tencent/hunyuan-video/1.5/text-to-video.md) | ~0.375 | async | Hunyuan Video 1.5 is Tencent's text-to-video AI model. Turn written scripts and prompts into professional-quality… |

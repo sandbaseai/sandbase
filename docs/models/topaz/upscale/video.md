@@ -65,6 +65,7 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 |---|---|---|---|
 | `halo` | number |  | Halo reduction level (0.0-1.0). Default varies by model. range 0–1 |
 | `grain` | number |  | Film grain amount (0.0-0.1). Default varies by model. range 0–0.1 |
+| `model` | string |  | Video enhancement model, grouped by family. Precision: Proteus fits most footage, Artemis denoises and sharpens degraded sources, Gaia HQ/CG refine rendered content, Gaia 2 handles animation and motion graphics at 2x.… one of: `Proteus`, `Artemis HQ`, `Artemis MQ`, `Artemis LQ`, `Gaia HQ`, `Gaia CG`, `Gaia 2`, `Nyx`, `Nyx Fast`, `Nyx XL`, `Nyx HF`, `Starlight Precise 2.5` …; default `"Proteus"` |
 | `noise` | number |  | Noise reduction level (0.0-1.0). Default varies by model. range 0–1 |
 | `video` | string | yes | URL of the video to upscale  |
 | `target_fps` | integer |  | Target FPS for frame interpolation. If set, frame interpolation will be enabled. range 16–60 |

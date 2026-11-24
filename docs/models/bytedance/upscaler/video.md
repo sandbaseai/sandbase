@@ -65,7 +65,8 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 |---|---|---|---|
 | `video` | string | yes | The URL of the video to upscale.  |
 | `fidelity` | string |  | The enhancement intensity. 'high' applies mild enhancement while keeping visual texture close to the source video. 'medium' provides a balanced image quality enhancement. one of: `high`, `medium`; default `"high"` |
-| `target_fps` | string |  | The target FPS of the video to upscale. one of: `30fps`, `60fps`; default `"30fps"` |
+| `bit_depth` | integer |  | The color bit depth of the output video. 10-bit and 12-bit output require the Pro enhancement tier. one of: `8`, `10`, `12`; default `8` |
+| `target_fps` | string |  | The target FPS of the video to upscale. Use 24fps to keep the frame rate of 24fps sources such as Seedance output. one of: `24fps`, `30fps`, `60fps`; default `"30fps"` |
 | `scale_ratio` | number |  | The scaling ratio for the output video resolution. When set, overrides target_resolution and scales the input resolution by this factor (e.g., 2.0 doubles the resolution). Range: 1.1 to 10.0. Please note that this is… range 1.1–10 |
 | `enhancement_tier` | string |  | The enhancement quality tier. 'fast' provides essential upscaling with good speed, 'standard' uses adaptive algorithms for better visual texture, 'pro' uses large-model restoration for cinematic quality (longer… one of: `fast`, `standard`, `pro`; default `"standard"` |
 | `target_resolution` | string |  | The target resolution of the video to upscale. one of: `1080p`, `2k`, `4k`; default `"1080p"` |

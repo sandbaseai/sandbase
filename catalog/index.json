@@ -1,12 +1,12 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-23T16:23:30Z",
+ "generated_at": "2026-11-24T00:38:36Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2824,
+ "count": 2827,
  "counts_by_type": {
   "api": 2247,
   "image": 211,
-  "video": 200,
+  "video": 203,
   "llm": 132,
   "audio": 32,
   "embedding": 2
@@ -56436,6 +56436,25 @@
    "record": "catalog/models/bytedance/upscaler/video.json"
   },
   {
+   "name": "clarityai/crystal-video-upscaler",
+   "display_name": "Crystal Video Upscaler",
+   "type": "video",
+   "vendor": "ClarityAI",
+   "description": "Crystal Video Upscaler by ClarityAI - AI-powered video editing and transformation. Apply style transfer, motion control, lip-sync, and visual effects to existing videos with natural language instructions.",
+   "tags": [
+    "video-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 1.037
+   },
+   "record": "catalog/models/clarityai/crystal-video-upscaler.json"
+  },
+  {
    "name": "elevenlabs/dubbing",
    "display_name": "ElevenLabs Dubbing",
    "type": "video",
@@ -58550,6 +58569,25 @@
    "record": "catalog/models/minimax/hailuo/2.3/standard/text-to-video.json"
   },
   {
+   "name": "openimaginglab/flashvsr-plus",
+   "display_name": "FlashVSR+",
+   "type": "video",
+   "vendor": "openimaginglab",
+   "description": "Flashvsr Plus is openimaginglab's video-to-video AI model. Transform, enhance, and edit video content using text prompts - from style changes to object manipulation and scene modification.",
+   "tags": [
+    "video-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 0.156
+   },
+   "record": "catalog/models/openimaginglab/flashvsr-plus.json"
+  },
+  {
    "name": "pixverse/c1/image-to-video",
    "display_name": "PixVerse C1 Image to Video",
    "type": "video",
@@ -58588,6 +58626,25 @@
     "usd_to": 1.725
    },
    "record": "catalog/models/pixverse/v6/image-to-video.json"
+  },
+  {
+   "name": "sandbase-ai/video-upscaler",
+   "display_name": "Video Upscaler",
+   "type": "video",
+   "vendor": "SandBase AI",
+   "description": "Video Upscaler by SandBase AI - AI-powered video editing and transformation. Apply style transfer, motion control, lip-sync, and visual effects to existing videos with natural language instructions.",
+   "tags": [
+    "video-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 0.249
+   },
+   "record": "catalog/models/sandbase-ai/video-upscaler.json"
   },
   {
    "name": "sync/lipsync/3.0/image-to-video",

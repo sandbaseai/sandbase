@@ -1,0 +1,118 @@
+{
+  "name": "clarityai/crystal-video-upscaler",
+  "display_name": "Crystal Video Upscaler",
+  "type": "video",
+  "vendor": "ClarityAI",
+  "vendor_slug": "clarityai",
+  "description": "Crystal Video Upscaler by ClarityAI - AI-powered video editing and transformation. Apply style transfer, motion control, lip-sync, and visual effects to existing videos with natural language instructions.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "video": {
+        "type": "string",
+        "title": "Video Url",
+        "examples": [
+          "https://storage.googleapis.com/falserverless/example_inputs/crystal_upscaler/video_upscaling/video_in.mp4"
+        ],
+        "description": "URL to the input video."
+      },
+      "scale_factor": {
+        "type": "number",
+        "title": "Scale Factor",
+        "default": 2,
+        "maximum": 200,
+        "minimum": 1,
+        "examples": [
+          2
+        ],
+        "description": "Scale factor. The scale factor must be chosen such that the upscaled video does not exceed 5K resolution."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://storage.googleapis.com/falserverless/example_outputs/crystal_upscaler/video_upscaling/video_out.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(usage.duration ?? media_duration(params.video) ?? 5.0) * (((usage.width ?? 1920.0) * (usage.height ?? 1080.0)) <= 1000000.0 ? 0.0922 : ((usage.width ?? 1920.0) * (usage.height ?? 1080.0)) <= 2500000.0 ? 0.2074 : ((usage.width ?? 1920.0) * (usage.height ?? 1080.0)) <= 5000000.0 ? 0.3687 : 0.8295) * Math.ceil((usage.fps ?? 30.0) / 30.0)",
+    "formula_variables": [
+      "params.video",
+      "usage.duration",
+      "usage.fps",
+      "usage.height",
+      "usage.width"
+    ],
+    "reference_price": 1.037
+  },
+  "page_url": "https://www.sandbase.ai/model/clarityai/crystal-video-upscaler",
+  "created_at": "2026-11-23T23:04:50.497Z"
+}

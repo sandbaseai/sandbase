@@ -1,0 +1,187 @@
+{
+  "name": "openimaginglab/flashvsr-plus",
+  "display_name": "FlashVSR+",
+  "type": "video",
+  "vendor": "openimaginglab",
+  "vendor_slug": "openimaginglab",
+  "description": "Flashvsr Plus is openimaginglab's video-to-video AI model. Transform, enhance, and edit video content using text prompts - from style changes to object manipulation and scene modification.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "The random seed used for the generation process."
+      },
+      "model": {
+        "enum": [
+          "turbo",
+          "base",
+          "v1"
+        ],
+        "type": "string",
+        "title": "Model",
+        "default": "turbo",
+        "description": "turbo: fastest (hybrid sliding attention). base: highest quality. v1: FlashVSR v1.1 weights with the base configuration."
+      },
+      "video": {
+        "type": "string",
+        "title": "Video Url",
+        "examples": [
+          "https://storage.googleapis.com/falserverless/example_inputs/birefnet-video-input.mp4"
+        ],
+        "description": "The input video to upscale."
+      },
+      "color_fix": {
+        "type": "boolean",
+        "title": "Color Fix",
+        "default": false,
+        "description": "Apply low-frequency wavelet color correction."
+      },
+      "video_quality": {
+        "enum": [
+          "low",
+          "medium",
+          "high",
+          "maximum"
+        ],
+        "type": "string",
+        "title": "Video Quality",
+        "default": "high",
+        "description": "Output encoding quality."
+      },
+      "preserve_audio": {
+        "type": "boolean",
+        "title": "Preserve Audio",
+        "default": true,
+        "description": "Copy the input audio track into the output."
+      },
+      "upscale_factor": {
+        "type": "number",
+        "title": "Upscale Factor",
+        "default": 2,
+        "maximum": 4,
+        "minimum": 1,
+        "description": "Spatial upscaling factor. Output is capped at about 4K."
+      },
+      "video_write_mode": {
+        "enum": [
+          "fast",
+          "balanced",
+          "small"
+        ],
+        "type": "string",
+        "title": "Video Write Mode",
+        "default": "balanced",
+        "description": "Output write mode."
+      },
+      "video_output_type": {
+        "enum": [
+          "X264 (.mp4)",
+          "VP9 (.webm)",
+          "PRORES4444 (.mov)",
+          "GIF (.gif)"
+        ],
+        "type": "string",
+        "title": "Video Output Type",
+        "default": "X264 (.mp4)",
+        "description": "Output container/codec."
+      },
+      "temporal_compression": {
+        "enum": [
+          1,
+          2,
+          4
+        ],
+        "type": "integer",
+        "title": "Temporal Compression",
+        "default": 4,
+        "description": "Input frames per latent frame. Use 2 or 1 for large motion; inference cost rises about 2x or 4x."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(usage.duration ?? media_duration(params.video) ?? 5.0) * (((usage.width ?? 1920.0) * (usage.height ?? 1080.0)) <= 1000000.0 ? 0.0139 : ((usage.width ?? 1920.0) * (usage.height ?? 1080.0)) <= 2500000.0 ? 0.0312 : ((usage.width ?? 1920.0) * (usage.height ?? 1080.0)) <= 5000000.0 ? 0.0553 : 0.1245) * ((params.temporal_compression ?? 4) == 1 ? 4.0 : (params.temporal_compression ?? 4) == 2 ? 2.0 : 1.0)",
+    "formula_variables": [
+      "params.temporal_compression",
+      "params.video",
+      "usage.duration",
+      "usage.height",
+      "usage.width"
+    ],
+    "reference_price": 0.156
+  },
+  "page_url": "https://www.sandbase.ai/model/openimaginglab/flashvsr-plus",
+  "published_at": "2026-11-10T17:18:04.635Z",
+  "created_at": "2026-11-23T23:09:21.905Z"
+}

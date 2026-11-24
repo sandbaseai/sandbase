@@ -1,6 +1,6 @@
 # Platforms
 
-227 platforms and model makers, each reachable with one SandBase API key.
+229 platforms and model makers, each reachable with one SandBase API key.
 
 | Platform | Capabilities | Types |
 |---|---|---|
@@ -162,6 +162,7 @@
 | [Apple Maps](apple-maps.md) | 2 | data API |
 | [ASOS](asos.md) | 2 | data API |
 | [Bing Shopping](bing-shopping.md) | 2 | data API |
+| [ClarityAI](clarityai.md) | 2 | image generation model, video generation model |
 | [Hunter](hunter.md) | 2 | data API |
 | [IKEA](ikea.md) | 2 | data API |
 | [Indeed](indeed.md) | 2 | data API |
@@ -192,7 +193,6 @@
 | [Built In](built-in.md) | 1 | data API |
 | [ChatGPT](chatgpt.md) | 1 | data API |
 | [China Social Media](china-social-media.md) | 1 | data API |
-| [ClarityAI](clarityai.md) | 1 | image generation model |
 | [Cloudsway](cloudsway.md) | 1 | data API |
 | [DoorDash](doordash.md) | 1 | data API |
 | [EDINET](edinet.md) | 1 | data API |
@@ -208,12 +208,14 @@
 | [Midjourney](midjourney.md) | 1 | image generation model |
 | [NAPA](napa.md) | 1 | data API |
 | [Nextdoor](nextdoor.md) | 1 | data API |
+| [openimaginglab](openimaginglab.md) | 1 | video generation model |
 | [OpenTable](opentable.md) | 1 | data API |
 | [Perplexity](perplexity.md) | 1 | data API |
 | [Pexels](pexels.md) | 1 | data API |
 | [pixal3d](pixal3d.md) | 1 | image generation model |
 | [Querit](querit.md) | 1 | data API |
 | [reconviagen](reconviagen.md) | 1 | image generation model |
+| [SandBase AI](sandbase-ai.md) | 1 | video generation model |
 | [sandbase-ai](sandbase-ai.md) | 1 | image generation model |
 | [SEC EDGAR](sec-edgar.md) | 1 | data API |
 | [Segari](segari.md) | 1 | data API |

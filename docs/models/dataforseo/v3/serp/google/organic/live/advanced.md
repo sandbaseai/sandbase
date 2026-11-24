@@ -65,7 +65,7 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/serp/google/organic/liv
 
 | name | type | required | description |
 |---|---|---|---|
-| `depth` | string |  | Number of results to return (default 100).  |
+| `depth` | integer |  | Number of results to return (default 100).  |
 | `keyword` | string |  | Search query, e.g. "openai api".  |
 | `language_code` | string |  | Language code, e.g. "en".  |
 | `location_code` | integer |  | DataForSEO location code, e.g. 2840 for the United States.  |
@@ -95,7 +95,7 @@ The result is returned in `outputs[0]`.
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `depth` | string | No | Number of results to return (default 100). |
+| `depth` | integer | No | Number of results to return (default 100). |
 | `keyword` | string | No | Search query, e.g. "openai api". |
 | `language_code` | string | No | Language code, e.g. "en". |
 | `location_code` | integer | No | DataForSEO location code, e.g. 2840 for the United States. |
@@ -154,7 +154,7 @@ Real response for the request above, trimmed: lists keep their first item and lo
 ### Notes
 
 - `depth` sets how many results are fetched; the cost grows with the number of result pages.
-- Some organic `url` values come back as `google.com/goto?url=...` redirect links, as Google serves them; follow the redirect to get the destination.
+- Some organic `url` values come back as `google.com/goto?url=...` redirect links, as Google serves them; follow the redirect to get the destination. For those results `domain` is `google.com`; the site itself is the first part of `breadcrumb` (e.g. `https://example.com`). Checked 2026-11-24: all organic results for "deepseek harness vs hermes" (US, English) came back this way.
 - `location_code` 2840 is the United States; use `location_name` such as "London,England,United Kingdom" for cities.
 - The response keeps DataForSEO's original JSON; results are under `tasks[0].result[0]`.
 

@@ -380,6 +380,7 @@ channel3/websites,api,Channel3,formula,,,,0,0,,async,POST /v1/run
 channel3/websites-search,api,Channel3,formula,,,,0,0,,async,POST /v1/run
 chatgpt/search,api,ChatGPT,usage_based,,,,0.0018,0.0018,,sync,POST /v1/run
 clarity-ai/clarity-upscaler,image,ClarityAI,per_call,0.03,,,,,,async,POST /v1/run
+clarityai/crystal-video-upscaler,video,ClarityAI,formula,,,,1.037,1.037,,async,POST /v1/run
 cloudsway/search,api,Cloudsway,per_call,0.005,,,,,,sync,POST /v1/run
 clutch/company-locations,api,Clutch,per_call,0.01,,,,,,async,POST /v1/run
 clutch/company-portfolio,api,Clutch,per_call,0.01,,,,,,async,POST /v1/run
@@ -1770,6 +1771,7 @@ openai/gpt-image-2/edit,image,OpenAI,formula,,,,0.02,0.73,,async,POST /v1/run
 openai/gpt-oss-120b,llm,OpenAI,per_token,,0.039,0.18,,,,sync,POST /v1/chat/completions
 openai/text-embedding-3-large,embedding,OpenAI,per_token,,0.13,0,,,,sync,POST /v1/embeddings
 openai/wizper,audio,OpenAI,per_call,0.006,,,,,,async,POST /v1/run
+openimaginglab/flashvsr-plus,video,openimaginglab,formula,,,,0.156,0.156,,async,POST /v1/run
 opentable/reviews,api,OpenTable,per_call,0.01,,,,,,sync,POST /v1/run
 opoint/search,api,Opoint,per_call,0.06,,,,,,async,POST /v1/run
 opoint/search-advanced,api,Opoint,per_call,0.06,,,,,,async,POST /v1/run
@@ -1907,6 +1909,7 @@ redfin/search,api,Redfin,per_call,0.00015,,,,,,async,POST /v1/run
 sams-club/product,api,Sam's Club,usage_based,,,,0.00319,0.00319,,sync,POST /v1/run
 sams-club/search,api,Sam's Club,usage_based,,,,0.00319,0.00319,,sync,POST /v1/run
 sandbase-ai/cat-vton,image,sandbase-ai,per_call,0.00125,,,,,,async,POST /v1/run
+sandbase-ai/video-upscaler,video,SandBase AI,formula,,,,0.249,0.249,,async,POST /v1/run
 scholar/search-mixed,api,Scholar,per_call,0.0036,,,,,,sync,POST /v1/run
 scholar/search-scholar,api,Scholar,per_call,0.0036,,,,,,sync,POST /v1/run
 scholar/search-web,api,Scholar,per_call,0.0036,,,,,,sync,POST /v1/run
