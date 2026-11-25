@@ -35,7 +35,7 @@
       "image": {
         "type": "string",
         "title": "First Frame",
-        "description": "Public HTTPS URL of the first frame. JPEG, PNG, WebP, BMP, TIFF, GIF or HEIC, under 30 MB."
+        "description": "First frame (upload or public HTTPS URL). JPEG, PNG, WebP, BMP, TIFF, GIF or HEIC, under 30 MB."
       },
       "prompt": {
         "type": "string",
@@ -58,7 +58,7 @@
       "end_image": {
         "type": "string",
         "title": "Last Frame",
-        "description": "Optional public HTTPS URL of the last frame."
+        "description": "Optional last frame (upload or public HTTPS URL)."
       },
       "resolution": {
         "enum": [

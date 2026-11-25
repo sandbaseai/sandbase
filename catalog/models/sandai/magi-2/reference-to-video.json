@@ -39,7 +39,7 @@
         },
         "title": "Reference Audio",
         "maxItems": 5,
-        "description": "Up to 5 WAV/MP3 URLs, 2-30 s each and 30 s in total, up to 15 MB each."
+        "description": "Up to 5 WAV/MP3 files or URLs, 2-30 s each and 30 s in total, up to 15 MB each."
       },
       "images": {
         "type": "array",
@@ -48,7 +48,7 @@
         },
         "title": "Reference Images",
         "maxItems": 10,
-        "description": "Up to 10 public HTTPS image URLs, each under 30 MB."
+        "description": "Up to 10 images (upload or public HTTPS URL), each under 30 MB."
       },
       "prompt": {
         "type": "string",
@@ -62,7 +62,7 @@
         },
         "title": "Reference Videos",
         "maxItems": 5,
-        "description": "Up to 5 MP4/MOV URLs, 2-30 s each and 30 s in total, up to 200 MB each."
+        "description": "Up to 5 MP4/MOV files or URLs, 2-30 s each and 30 s in total, up to 200 MB each."
       },
       "duration": {
         "type": "integer",

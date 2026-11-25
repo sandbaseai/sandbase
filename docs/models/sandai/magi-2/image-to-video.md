@@ -76,10 +76,10 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | name | type | required | description |
 |---|---|---|---|
 | `seed` | integer |  | Random seed for reproducibility (0-4294967295). Omit for a random seed. range 0–4294967295 |
-| `image` | string | yes | Public HTTPS URL of the first frame. JPEG, PNG, WebP, BMP, TIFF, GIF or HEIC, under 30 MB.  |
+| `image` | string | yes | First frame (upload or public HTTPS URL). JPEG, PNG, WebP, BMP, TIFF, GIF or HEIC, under 30 MB.  |
 | `prompt` | string |  | Optional. Describe the motion and sound.  |
 | `duration` | integer |  | Output video duration in seconds (4-30). Billed per second. default `5`; range 4–30 |
-| `end_image` | string |  | Optional public HTTPS URL of the last frame.  |
+| `end_image` | string |  | Optional last frame (upload or public HTTPS URL).  |
 | `resolution` | string |  | Output resolution. MAGI-2 renders 1080p only. one of: `1080p`; default `"1080p"` |
 | `aspect_ratio` | string |  | Output aspect ratio. one of: `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9`; default `"16:9"` |
 | `generate_audio` | boolean |  | Generate a native audio track with the video. Included in the price. default `true` |

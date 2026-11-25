@@ -79,10 +79,10 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | name | type | required | description |
 |---|---|---|---|
 | `seed` | integer |  | Random seed for reproducibility (0-4294967295). Omit for a random seed. range 0–4294967295 |
-| `audios` | array |  | Up to 5 WAV/MP3 URLs, 2-30 s each and 30 s in total, up to 15 MB each.  |
-| `images` | array |  | Up to 10 public HTTPS image URLs, each under 30 MB.  |
+| `audios` | array |  | Up to 5 WAV/MP3 files or URLs, 2-30 s each and 30 s in total, up to 15 MB each.  |
+| `images` | array |  | Up to 10 images (upload or public HTTPS URL), each under 30 MB.  |
 | `prompt` | string | yes | Describe how to use the references, the scene, motion and sound.  |
-| `videos` | array |  | Up to 5 MP4/MOV URLs, 2-30 s each and 30 s in total, up to 200 MB each.  |
+| `videos` | array |  | Up to 5 MP4/MOV files or URLs, 2-30 s each and 30 s in total, up to 200 MB each.  |
 | `duration` | integer |  | Output video duration in seconds (4-30). Billed per second. default `5`; range 4–30 |
 | `resolution` | string |  | Output resolution. MAGI-2 renders 1080p only. one of: `1080p`; default `"1080p"` |
 | `aspect_ratio` | string |  | Output aspect ratio. one of: `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9`; default `"16:9"` |
