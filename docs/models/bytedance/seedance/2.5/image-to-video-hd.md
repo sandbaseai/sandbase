@@ -2,7 +2,7 @@
 
 `bytedance/seedance/2.5/image-to-video-hd` · video generation model · Bytedance · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** from $0.72 to $14.4 per run, depending on parameters · **Modes:** async
+**Price:** from $0.398188 to $7.153 per run, depending on parameters · **Modes:** async
 
 ByteDance's next-generation image-to-video model, animating a single still into a native clip up to 30 seconds at 720p with continuous, coherent motion, native audio, and director-level camera control.
 
@@ -12,30 +12,30 @@ ByteDance's next-generation image-to-video model, animating a single still into 
 
 | parameters | USD |
 |---|---|
-| duration=4, resolution="480p" | 0.72 * |
-| duration=4, resolution="720p" | 1.44 * |
-| duration=4, resolution="1080p" | 3.6 * |
-| duration=4, resolution="4k" | 7.2 * |
-| duration=5, resolution="480p" | 0.9 * |
-| duration=5, resolution="720p" | 1.8 * |
-| duration=5, resolution="1080p" | 4.5 * |
-| duration=5, resolution="4k" | 9 * |
-| duration=6, resolution="480p" | 1.08 * |
-| duration=6, resolution="720p" | 2.16 * |
-| duration=6, resolution="1080p" | 5.4 * |
-| duration=6, resolution="4k" | 10.8 * |
-| duration=7, resolution="480p" | 1.26 * |
-| duration=7, resolution="720p" | 2.52 * |
-| duration=7, resolution="1080p" | 6.3 * |
-| duration=7, resolution="4k" | 12.6 * |
-| duration=8, resolution="480p" | 1.44 * |
-| duration=8, resolution="720p" | 2.88 * |
-| duration=8, resolution="1080p" | 7.2 * |
-| duration=8, resolution="4k" | 14.4 * |
+| duration=4, resolution="480p" | 0.398188 * |
+| duration=4, resolution="720p" | 0.897328 * |
+| duration=4, resolution="1080p" | 2.220892 * |
+| duration=4, resolution="4k" | 3.5765 * |
+| duration=5, resolution="480p" | 0.497735 * |
+| duration=5, resolution="720p" | 1.12166 * |
+| duration=5, resolution="1080p" | 2.776115 * |
+| duration=5, resolution="4k" | 4.470625 * |
+| duration=6, resolution="480p" | 0.597282 * |
+| duration=6, resolution="720p" | 1.345992 * |
+| duration=6, resolution="1080p" | 3.331338 * |
+| duration=6, resolution="4k" | 5.36475 * |
+| duration=7, resolution="480p" | 0.696829 * |
+| duration=7, resolution="720p" | 1.570324 * |
+| duration=7, resolution="1080p" | 3.886561 * |
+| duration=7, resolution="4k" | 6.258875 * |
+| duration=8, resolution="480p" | 0.796376 * |
+| duration=8, resolution="720p" | 1.794656 * |
+| duration=8, resolution="1080p" | 4.441784 * |
+| duration=8, resolution="4k" | 7.153 * |
 
 \* estimate: assumes output duration equals requested duration.
 
-Formula: `((params.duration ?? 5) == 'auto' ? Math.round(usage.duration ?? 30.0) : (params.duration ?? 5)) * ((params.resolution ?? '720p') == '480p' ? 0.18 : (params.resolution ?? '720p') == '720p' ? 0.36 : (params.resolution ?? '720p') == '1080p' ? 0.90 : (params.resolution ?? '720p') == '4k' ? 1.80 : (0 / 0))`
+Formula: `((params.duration ?? 5) == 'auto' ? Math.round(usage.duration ?? 15.0) : (params.duration ?? 5)) * ((params.resolution ?? '720p') == '4k' ? 0.894125 : (params.resolution ?? '720p') == '1080p' ? 0.555223 : (params.resolution ?? '720p') == '720p' ? 0.224332 : 0.099547)`
 
 ## Call it
 

@@ -307,6 +307,13 @@
   "output_cost_per_token": 1.2e-06,
   "max_input_tokens": 1048576
  },
+ "sandbase/deepseek/deepseek-v4.1-flash:free": {
+  "litellm_provider": "openai",
+  "mode": "chat",
+  "input_cost_per_token": 0.0,
+  "output_cost_per_token": 0.0,
+  "max_input_tokens": 1048576
+ },
  "sandbase/google/gemini-2.5-flash": {
   "litellm_provider": "openai",
   "mode": "chat",

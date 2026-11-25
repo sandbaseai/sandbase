@@ -1,0 +1,201 @@
+{
+  "name": "sandai/magi-2/text-to-video",
+  "display_name": "MAGI-2 Text to Video",
+  "type": "video",
+  "vendor": "Sand AI",
+  "vendor_slug": "sandai",
+  "description": "MAGI-2 by Sand AI turns a text prompt into a 1080p video of 4 to 30 seconds with native audio, with strong instruction following, complex composition and long-shot stability.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "maximum": 4294967295,
+        "minimum": 0,
+        "description": "Random seed for reproducibility (0-4294967295). Omit for a random seed."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "At dawn, waves break gently against the rocks as the camera slowly moves forward."
+        ],
+        "description": "Describe the scene, motion and sound. Up to 15,000 characters."
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "maximum": 30,
+        "minimum": 4,
+        "examples": [
+          5,
+          10,
+          30
+        ],
+        "description": "Output video duration in seconds (4-30). Billed per second."
+      },
+      "resolution": {
+        "enum": [
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1080p",
+        "description": "Output resolution. MAGI-2 renders 1080p only."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16",
+          "1:1",
+          "4:3",
+          "3:4",
+          "21:9"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "Output aspect ratio."
+      },
+      "generate_audio": {
+        "type": "boolean",
+        "title": "Generate Audio",
+        "default": true,
+        "description": "Generate a native audio track with the video. Included in the price."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 5) * 0.08",
+    "formula_variables": [
+      "params.duration"
+    ],
+    "reference_price": 0.4,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 4
+        },
+        "usd": 0.32
+      },
+      {
+        "params": {
+          "duration": 5
+        },
+        "usd": 0.4
+      },
+      {
+        "params": {
+          "duration": 30
+        },
+        "usd": 2.4
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "duration": 5,
+        "prompt": "Follow a woman under a clear umbrella on a rainy night street as the shot moves from a three-quarter view to her profile, then cuts in close."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/7b14644a-2110-4c80-951a-b216233e04fb/output/81ab85dd-8eae-43d9-8814-5d97a8f60dd1.mp4"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "duration": 5,
+        "prompt": "At dawn, waves break gently against the rocks as the camera slowly moves forward."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/1d4200c9-6604-4441-b072-5feeb88645eb/output/bfda1c1e-129c-4484-8491-2eedb9ca3e87.mp4"
+        }
+      ]
+    }
+  ],
+  "cover_url": "https://static.sandbase.ai/blog/covers-v2/model-sandai-magi-2-text-to-video-0cd0197ecb5f.webp",
+  "page_url": "https://www.sandbase.ai/model/sandai/magi-2/text-to-video",
+  "published_at": "2026-11-25T00:00:00Z",
+  "created_at": "2026-11-25T04:03:53.316Z"
+}

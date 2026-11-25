@@ -1,13 +1,13 @@
 # SandBase capability index
 
-2833 capabilities · generated 2026-11-25T04:24:27Z
+2837 capabilities · generated 2026-11-25T08:26:59Z
 
 - [api](#api) (2247)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
 - [image](#image) (211)
-- [llm](#llm) (132)
-- [video](#video) (209)
+- [llm](#llm) (133)
+- [video](#video) (212)
 
 ## api
 
@@ -2569,6 +2569,7 @@
 | [`deepseek/deepseek-v4-pro-0813`](models/deepseek/deepseek-v4-pro-0813.md) | 1.32 / 3.96 per 1M tok | sync | DeepSeek V4 Pro 0813 is the pinned GA release of DeepSeek V4 Pro from August 2026, for workloads that need a fixed… |
 | [`deepseek/deepseek-v4.1-flash`](models/deepseek/deepseek-v4.1-flash.md) | 0.3 / 1.2 per 1M tok | sync | DeepSeek V4.1 Flash is the smallest model in DeepSeek's V4.1 architecture family, released in September 2026 with… |
 | [`deepseek/deepseek-v4.1-flash-economy`](models/deepseek/deepseek-v4.1-flash-economy.md) | 0.3 / 1.2 per 1M tok | sync | DeepSeek V4.1 Flash Economy is a lower-cost service tier of the October 17, 2026 snapshot of DeepSeek V4.1 Flash,… |
+| [`deepseek/deepseek-v4.1-flash:free`](models/deepseek/deepseek-v4.1-flash:free.md) | 0 / 0 per 1M tok | sync | DeepSeek V4.1 Flash is the smallest model in DeepSeek's V4.1 architecture family, released in September 2026 with… |
 | [`google/gemini-2.5-flash`](models/google/gemini-2.5-flash.md) | 0.3 / 2.5 per 1M tok | sync | Gemini 2.5 Flash is the workhorse model of Google's Gemini 2.5 family, a thinking model released as stable in June… |
 | [`google/gemini-2.5-flash-lite`](models/google/gemini-2.5-flash-lite.md) | 0.1 / 0.4 per 1M tok | sync | Gemini 2.5 Flash-Lite is the lightweight tier of Google's Gemini 2.5 family, released in July 2025 and described by… |
 | [`google/gemini-2.5-pro`](models/google/gemini-2.5-pro.md) | 1.25 / 10 per 1M tok | sync | Gemini 2.5 Pro is the Pro-tier thinking model of Google's Gemini 2.5 family, released as stable in June 2025 and… |
@@ -2718,23 +2719,23 @@
 | [`bytedance/seedance/2.0/fast/reference-to-video`](models/bytedance/seedance/2.0/fast/reference-to-video.md) | ~1 | async | ByteDance's most advanced reference-to-video model in its fast tier delivering lower latency and cost without… |
 | [`bytedance/seedance/2.0/fast/text-to-video`](models/bytedance/seedance/2.0/fast/text-to-video.md) | 0.4–1.6 | async | ByteDance's most advanced text-to-video model in its fast tier delivering lower latency and cost without compromising… |
 | [`bytedance/seedance/2.0/image-to-video`](models/bytedance/seedance/2.0/image-to-video.md) | 0.48–9.6 | async | ByteDance's most advanced image-to-video model transforming still images into cinematic video with native audio,… |
-| [`bytedance/seedance/2.0/image-to-video-hd`](models/bytedance/seedance/2.0/image-to-video-hd.md) | 0.48–9.6 | async | ByteDance's most advanced image-to-video model transforming still images into cinematic video with native audio,… |
+| [`bytedance/seedance/2.0/image-to-video-hd`](models/bytedance/seedance/2.0/image-to-video-hd.md) | 0.2742–5.999288 | async | ByteDance's most advanced image-to-video model transforming still images into cinematic video with native audio,… |
 | [`bytedance/seedance/2.0/mini/image-to-video`](models/bytedance/seedance/2.0/mini/image-to-video.md) | 0.24–0.96 | async | Seedance 2.0 Mini by Bytedance - animate still images into dynamic videos with AI. Transform photos into cinematic… |
 | [`bytedance/seedance/2.0/mini/reference-to-video`](models/bytedance/seedance/2.0/mini/reference-to-video.md) | ~0.6 | async | Seedance 2.0 Mini by Bytedance - animate still images into dynamic videos with AI. Transform photos into cinematic… |
 | [`bytedance/seedance/2.0/mini/text-to-video`](models/bytedance/seedance/2.0/mini/text-to-video.md) | 0.24–0.96 | async | Seedance 2.0 Mini is Bytedance's text-to-video AI model. Turn written scripts and prompts into professional-quality… |
 | [`bytedance/seedance/2.0/reference-to-video`](models/bytedance/seedance/2.0/reference-to-video.md) | ~1.2 | async | ByteDance's most advanced reference-to-video model generating cinematic video guided by reference content, with native… |
-| [`bytedance/seedance/2.0/reference-to-video-hd`](models/bytedance/seedance/2.0/reference-to-video-hd.md) | ~1.2 | async | ByteDance's most advanced reference-to-video model generating cinematic video guided by reference content, with native… |
+| [`bytedance/seedance/2.0/reference-to-video-hd`](models/bytedance/seedance/2.0/reference-to-video-hd.md) | ~0.73709 | async | ByteDance's most advanced reference-to-video model generating cinematic video guided by reference content, with native… |
 | [`bytedance/seedance/2.0/text-to-video`](models/bytedance/seedance/2.0/text-to-video.md) | 0.48–9.6 | async | ByteDance's most advanced text-to-video model delivering cinematic output, native audio, multi-shot editing, and… |
-| [`bytedance/seedance/2.0/text-to-video-hd`](models/bytedance/seedance/2.0/text-to-video-hd.md) | 0.48–9.6 | async | ByteDance's most advanced text-to-video model delivering cinematic output, native audio, multi-shot editing, and… |
+| [`bytedance/seedance/2.0/text-to-video-hd`](models/bytedance/seedance/2.0/text-to-video-hd.md) | 0.2742–5.999288 | async | ByteDance's most advanced text-to-video model delivering cinematic output, native audio, multi-shot editing, and… |
 | [`bytedance/seedance/2.5/flash/image-to-video`](models/bytedance/seedance/2.5/flash/image-to-video.md) | 0.48–1.92 | async | ByteDance's Seedance 2.5 Flash image-to-video model, a faster and lower-cost tier of Seedance 2.5 that animates a… |
 | [`bytedance/seedance/2.5/flash/reference-to-video`](models/bytedance/seedance/2.5/flash/reference-to-video.md) | ~1.2 | async | ByteDance's Seedance 2.5 Flash reference-to-video model, a faster and lower-cost tier of Seedance 2.5 that generates… |
 | [`bytedance/seedance/2.5/flash/text-to-video`](models/bytedance/seedance/2.5/flash/text-to-video.md) | 0.48–1.92 | async | ByteDance's Seedance 2.5 Flash text-to-video model, a faster and lower-cost tier of Seedance 2.5 that generates native… |
 | [`bytedance/seedance/2.5/image-to-video`](models/bytedance/seedance/2.5/image-to-video.md) | 0.72–7.2 | async | ByteDance's next-generation image-to-video model, animating a single still into a native clip up to 30 seconds at 720p… |
-| [`bytedance/seedance/2.5/image-to-video-hd`](models/bytedance/seedance/2.5/image-to-video-hd.md) | 0.72–14.4 | async | ByteDance's next-generation image-to-video model, animating a single still into a native clip up to 30 seconds at 720p… |
+| [`bytedance/seedance/2.5/image-to-video-hd`](models/bytedance/seedance/2.5/image-to-video-hd.md) | 0.398188–7.153 | async | ByteDance's next-generation image-to-video model, animating a single still into a native clip up to 30 seconds at 720p… |
 | [`bytedance/seedance/2.5/reference-to-video`](models/bytedance/seedance/2.5/reference-to-video.md) | ~1.8 | async | ByteDance's next-generation reference-to-video model, generating video from multimodal references (images, videos,… |
-| [`bytedance/seedance/2.5/reference-to-video-hd`](models/bytedance/seedance/2.5/reference-to-video-hd.md) | ~1.8 | async | ByteDance's next-generation reference-to-video model, generating video from multimodal references (images, videos,… |
+| [`bytedance/seedance/2.5/reference-to-video-hd`](models/bytedance/seedance/2.5/reference-to-video-hd.md) | ~1.12166 | async | ByteDance's next-generation reference-to-video model, generating video from multimodal references (images, videos,… |
 | [`bytedance/seedance/2.5/text-to-video`](models/bytedance/seedance/2.5/text-to-video.md) | 0.72–7.2 | async | ByteDance's next-generation text-to-video model, generating native single-shot clips up to 30 seconds at 720p with… |
-| [`bytedance/seedance/2.5/text-to-video-hd`](models/bytedance/seedance/2.5/text-to-video-hd.md) | 0.72–14.4 | async | ByteDance's next-generation text-to-video model, generating native single-shot clips up to 30 seconds at 720p with… |
+| [`bytedance/seedance/2.5/text-to-video-hd`](models/bytedance/seedance/2.5/text-to-video-hd.md) | 0.398188–7.153 | async | ByteDance's next-generation text-to-video model, generating native single-shot clips up to 30 seconds at 720p with… |
 | [`bytedance/seedvr/upscale/video`](models/bytedance/seedvr/upscale/video.md) | ~0.31104 | async | Seedvr Upscale Video by Bytedance - AI-powered video editing and transformation. Apply style transfer, motion control,… |
 | [`bytedance/upscaler/video`](models/bytedance/upscaler/video.md) | ~0.036 | async | Bytedance Video Upscaler upscales videos to 4K resolution with AI-powered enhancement. Supports multiple quality tiers… |
 | [`clarityai/crystal-video-upscaler`](models/clarityai/crystal-video-upscaler.md) | ~1.037 | async | Crystal Video Upscaler by ClarityAI - AI-powered video editing and transformation. Apply style transfer, motion… |
@@ -2848,6 +2849,9 @@
 | [`openimaginglab/flashvsr-plus`](models/openimaginglab/flashvsr-plus.md) | ~0.156 | async | Flashvsr Plus is openimaginglab's video-to-video AI model. Transform, enhance, and edit video content using text… |
 | [`pixverse/c1/image-to-video`](models/pixverse/c1/image-to-video.md) | 0.03–1.8 | async | C1 is PixVerse's image-to-video AI model. Bring static images to life with fluid animation, consistent character… |
 | [`pixverse/v6/image-to-video`](models/pixverse/v6/image-to-video.md) | 0.025–1.725 | async | V6 is PixVerse's image-to-video AI model. Bring static images to life with fluid animation, consistent character… |
+| [`sandai/magi-2/image-to-video`](models/sandai/magi-2/image-to-video.md) | 0.32–2.4 | async | MAGI-2 by Sand AI animates a first frame, or a first and last frame, into a 1080p video of 4 to 30 seconds with native… |
+| [`sandai/magi-2/reference-to-video`](models/sandai/magi-2/reference-to-video.md) | 0.32–2.4 | async | MAGI-2 by Sand AI creates a 1080p video of 4 to 30 seconds with native audio, guided by up to 10 reference images, 5… |
+| [`sandai/magi-2/text-to-video`](models/sandai/magi-2/text-to-video.md) | 0.32–2.4 | async | MAGI-2 by Sand AI turns a text prompt into a 1080p video of 4 to 30 seconds with native audio, with strong instruction… |
 | [`sandbase-ai/video-upscaler`](models/sandbase-ai/video-upscaler.md) | ~0.249 | async | Video Upscaler by SandBase AI - AI-powered video editing and transformation. Apply style transfer, motion control,… |
 | [`sync/lipsync/3.0/image-to-video`](models/sync/lipsync/3.0/image-to-video.md) | ~0.675 | async | Sync 3 animates the face in a still image so it speaks the provided audio; the output matches the audio length. |
 | [`sync/lipsync/3.0/video-to-video`](models/sync/lipsync/3.0/video-to-video.md) | ~0.675 | async | Sync 3 by sync. re-animates the speaker's lips in an existing video to match new audio, with studio-grade identity… |

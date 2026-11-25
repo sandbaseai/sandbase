@@ -183,20 +183,20 @@
   "pricing": {
     "currency": "USD",
     "model": "formula",
-    "formula": "((params.duration ?? 5) == 'auto' ? Math.round(usage.duration ?? 30.0) : (params.duration ?? 5)) * ((params.resolution ?? '720p') == '480p' ? 0.18 : (params.resolution ?? '720p') == '720p' ? 0.36 : (params.resolution ?? '720p') == '1080p' ? 0.90 : (params.resolution ?? '720p') == '4k' ? 1.80 : (0 / 0))",
+    "formula": "((params.duration ?? 5) == 'auto' ? Math.round(usage.duration ?? 15.0) : (params.duration ?? 5)) * ((params.resolution ?? '720p') == '4k' ? 0.894125 : (params.resolution ?? '720p') == '1080p' ? 0.555223 : (params.resolution ?? '720p') == '720p' ? 0.224332 : 0.099547)",
     "formula_variables": [
       "params.duration",
       "params.resolution",
       "usage.duration"
     ],
-    "reference_price": 1.8,
+    "reference_price": 1.12166,
     "price_examples": [
       {
         "params": {
           "duration": 4,
           "resolution": "480p"
         },
-        "usd": 0.72,
+        "usd": 0.398188,
         "estimate": "assumes output duration equals requested duration"
       },
       {
@@ -204,7 +204,7 @@
           "duration": 4,
           "resolution": "720p"
         },
-        "usd": 1.44,
+        "usd": 0.897328,
         "estimate": "assumes output duration equals requested duration"
       },
       {
@@ -212,7 +212,7 @@
           "duration": 4,
           "resolution": "1080p"
         },
-        "usd": 3.6,
+        "usd": 2.220892,
         "estimate": "assumes output duration equals requested duration"
       },
       {
@@ -220,7 +220,7 @@
           "duration": 4,
           "resolution": "4k"
         },
-        "usd": 7.2,
+        "usd": 3.5765,
         "estimate": "assumes output duration equals requested duration"
       },
       {
@@ -228,7 +228,7 @@
           "duration": 5,
           "resolution": "480p"
         },
-        "usd": 0.9,
+        "usd": 0.497735,
         "estimate": "assumes output duration equals requested duration"
       },
       {
@@ -236,7 +236,7 @@
           "duration": 5,
           "resolution": "720p"
         },
-        "usd": 1.8,
+        "usd": 1.12166,
         "estimate": "assumes output duration equals requested duration"
       },
       {
@@ -244,7 +244,7 @@
           "duration": 5,
           "resolution": "1080p"
         },
-        "usd": 4.5,
+        "usd": 2.776115,
         "estimate": "assumes output duration equals requested duration"
       },
       {
@@ -252,7 +252,7 @@
           "duration": 5,
           "resolution": "4k"
         },
-        "usd": 9,
+        "usd": 4.470625,
         "estimate": "assumes output duration equals requested duration"
       },
       {
@@ -260,7 +260,7 @@
           "duration": 6,
           "resolution": "480p"
         },
-        "usd": 1.08,
+        "usd": 0.597282,
         "estimate": "assumes output duration equals requested duration"
       },
       {
@@ -268,7 +268,7 @@
           "duration": 6,
           "resolution": "720p"
         },
-        "usd": 2.16,
+        "usd": 1.345992,
         "estimate": "assumes output duration equals requested duration"
       },
       {
@@ -276,7 +276,7 @@
           "duration": 6,
           "resolution": "1080p"
         },
-        "usd": 5.4,
+        "usd": 3.331338,
         "estimate": "assumes output duration equals requested duration"
       },
       {
@@ -284,7 +284,7 @@
           "duration": 6,
           "resolution": "4k"
         },
-        "usd": 10.8,
+        "usd": 5.36475,
         "estimate": "assumes output duration equals requested duration"
       },
       {
@@ -292,7 +292,7 @@
           "duration": 7,
           "resolution": "480p"
         },
-        "usd": 1.26,
+        "usd": 0.696829,
         "estimate": "assumes output duration equals requested duration"
       },
       {
@@ -300,7 +300,7 @@
           "duration": 7,
           "resolution": "720p"
         },
-        "usd": 2.52,
+        "usd": 1.570324,
         "estimate": "assumes output duration equals requested duration"
       },
       {
@@ -308,7 +308,7 @@
           "duration": 7,
           "resolution": "1080p"
         },
-        "usd": 6.3,
+        "usd": 3.886561,
         "estimate": "assumes output duration equals requested duration"
       },
       {
@@ -316,7 +316,7 @@
           "duration": 7,
           "resolution": "4k"
         },
-        "usd": 12.6,
+        "usd": 6.258875,
         "estimate": "assumes output duration equals requested duration"
       },
       {
@@ -324,7 +324,7 @@
           "duration": 8,
           "resolution": "480p"
         },
-        "usd": 1.44,
+        "usd": 0.796376,
         "estimate": "assumes output duration equals requested duration"
       },
       {
@@ -332,7 +332,7 @@
           "duration": 8,
           "resolution": "720p"
         },
-        "usd": 2.88,
+        "usd": 1.794656,
         "estimate": "assumes output duration equals requested duration"
       },
       {
@@ -340,7 +340,7 @@
           "duration": 8,
           "resolution": "1080p"
         },
-        "usd": 7.2,
+        "usd": 4.441784,
         "estimate": "assumes output duration equals requested duration"
       },
       {
@@ -348,7 +348,7 @@
           "duration": 8,
           "resolution": "4k"
         },
-        "usd": 14.4,
+        "usd": 7.153,
         "estimate": "assumes output duration equals requested duration"
       }
     ]

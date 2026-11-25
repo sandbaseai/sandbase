@@ -337,23 +337,23 @@ bytedance/seedance/2.0/fast/image-to-video,video,Bytedance,formula,,,,0.4,1.6,,a
 bytedance/seedance/2.0/fast/reference-to-video,video,Bytedance,formula,,,,1,1,,async,POST /v1/run
 bytedance/seedance/2.0/fast/text-to-video,video,Bytedance,formula,,,,0.4,1.6,,async,POST /v1/run
 bytedance/seedance/2.0/image-to-video,video,Bytedance,formula,,,,0.48,9.6,,async,POST /v1/run
-bytedance/seedance/2.0/image-to-video-hd,video,Bytedance,formula,,,,0.48,9.6,,async,POST /v1/run
+bytedance/seedance/2.0/image-to-video-hd,video,Bytedance,formula,,,,0.2742,5.999288,,async,POST /v1/run
 bytedance/seedance/2.0/mini/image-to-video,video,Bytedance,formula,,,,0.24,0.96,,async,POST /v1/run
 bytedance/seedance/2.0/mini/reference-to-video,video,Bytedance,formula,,,,0.6,0.6,,async,POST /v1/run
 bytedance/seedance/2.0/mini/text-to-video,video,Bytedance,formula,,,,0.24,0.96,,async,POST /v1/run
 bytedance/seedance/2.0/reference-to-video,video,Bytedance,formula,,,,1.2,1.2,,async,POST /v1/run
-bytedance/seedance/2.0/reference-to-video-hd,video,Bytedance,formula,,,,1.2,1.2,,async,POST /v1/run
+bytedance/seedance/2.0/reference-to-video-hd,video,Bytedance,formula,,,,0.73709,0.73709,,async,POST /v1/run
 bytedance/seedance/2.0/text-to-video,video,Bytedance,formula,,,,0.48,9.6,,async,POST /v1/run
-bytedance/seedance/2.0/text-to-video-hd,video,Bytedance,formula,,,,0.48,9.6,,async,POST /v1/run
+bytedance/seedance/2.0/text-to-video-hd,video,Bytedance,formula,,,,0.2742,5.999288,,async,POST /v1/run
 bytedance/seedance/2.5/flash/image-to-video,video,Bytedance,formula,,,,0.48,1.92,,async,POST /v1/run
 bytedance/seedance/2.5/flash/reference-to-video,video,Bytedance,formula,,,,1.2,1.2,,async,POST /v1/run
 bytedance/seedance/2.5/flash/text-to-video,video,Bytedance,formula,,,,0.48,1.92,,async,POST /v1/run
 bytedance/seedance/2.5/image-to-video,video,Bytedance,formula,,,,0.72,7.2,,async,POST /v1/run
-bytedance/seedance/2.5/image-to-video-hd,video,Bytedance,formula,,,,0.72,14.4,,async,POST /v1/run
+bytedance/seedance/2.5/image-to-video-hd,video,Bytedance,formula,,,,0.398188,7.153,,async,POST /v1/run
 bytedance/seedance/2.5/reference-to-video,video,Bytedance,formula,,,,1.8,1.8,,async,POST /v1/run
-bytedance/seedance/2.5/reference-to-video-hd,video,Bytedance,formula,,,,1.8,1.8,,async,POST /v1/run
+bytedance/seedance/2.5/reference-to-video-hd,video,Bytedance,formula,,,,1.12166,1.12166,,async,POST /v1/run
 bytedance/seedance/2.5/text-to-video,video,Bytedance,formula,,,,0.72,7.2,,async,POST /v1/run
-bytedance/seedance/2.5/text-to-video-hd,video,Bytedance,formula,,,,0.72,14.4,,async,POST /v1/run
+bytedance/seedance/2.5/text-to-video-hd,video,Bytedance,formula,,,,0.398188,7.153,,async,POST /v1/run
 bytedance/seedream/4.5,image,Bytedance,per_call,0.04,,,,,,async,POST /v1/run
 bytedance/seedream/4.5/edit,image,Bytedance,per_call,0.04,,,,,,async,POST /v1/run
 bytedance/seedream/5.0/flash,image,Bytedance,per_call,0.018,,,,,,async,POST /v1/run
@@ -579,6 +579,7 @@ deepseek/deepseek-v4-pro,llm,DeepSeek,per_token,,1.32,3.96,,,,sync,POST /v1/chat
 deepseek/deepseek-v4-pro-0813,llm,DeepSeek,per_token,,1.32,3.96,,,,sync,POST /v1/chat/completions
 deepseek/deepseek-v4.1-flash,llm,DeepSeek,per_token,,0.3,1.2,,,,sync,POST /v1/chat/completions
 deepseek/deepseek-v4.1-flash-economy,llm,DeepSeek,per_token,,0.3,1.2,,,,sync,POST /v1/chat/completions
+deepseek/deepseek-v4.1-flash:free,llm,DeepSeek,per_token,,0,0,,,,sync,POST /v1/chat/completions
 doordash/search,api,DoorDash,per_call,0.01,,,,,,sync,POST /v1/run
 douban/movie-comments,api,Douban,per_call,0.014286,,,,,,sync,POST /v1/run
 douban/movie-review-detail,api,Douban,per_call,0.014286,,,,,,sync,POST /v1/run
@@ -1914,6 +1915,9 @@ redfin/property,api,Redfin,usage_based,,,,0.0008,0.0008,,sync,POST /v1/run
 redfin/search,api,Redfin,per_call,0.00015,,,,,,async,POST /v1/run
 sams-club/product,api,Sam's Club,usage_based,,,,0.00319,0.00319,,sync,POST /v1/run
 sams-club/search,api,Sam's Club,usage_based,,,,0.00319,0.00319,,sync,POST /v1/run
+sandai/magi-2/image-to-video,video,Sand AI,formula,,,,0.32,2.4,,async,POST /v1/run
+sandai/magi-2/reference-to-video,video,Sand AI,formula,,,,0.32,2.4,,async,POST /v1/run
+sandai/magi-2/text-to-video,video,Sand AI,formula,,,,0.32,2.4,,async,POST /v1/run
 sandbase-ai/cat-vton,image,sandbase-ai,per_call,0.00125,,,,,,async,POST /v1/run
 sandbase-ai/video-upscaler,video,SandBase AI,formula,,,,0.249,0.249,,async,POST /v1/run
 scholar/search-mixed,api,Scholar,per_call,0.0036,,,,,,sync,POST /v1/run

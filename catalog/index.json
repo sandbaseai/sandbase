@@ -1,13 +1,13 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-25T04:24:27Z",
+ "generated_at": "2026-11-25T08:26:59Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2833,
+ "count": 2837,
  "counts_by_type": {
   "api": 2247,
+  "video": 212,
   "image": 211,
-  "video": 209,
-  "llm": 132,
+  "llm": 133,
   "audio": 32,
   "embedding": 2
  },
@@ -52799,6 +52799,32 @@
    "record": "catalog/models/deepseek/deepseek-v4.1-flash-economy.json"
   },
   {
+   "name": "deepseek/deepseek-v4.1-flash:free",
+   "display_name": "DeepSeek: DeepSeek V4.1 Flash (free)",
+   "type": "llm",
+   "vendor": "DeepSeek",
+   "description": "DeepSeek V4.1 Flash is the smallest model in DeepSeek's V4.1 architecture family, released in September 2026 with native visual understanding. It is a 552B-parameter mixture-of-experts model using a Causal Encoder-Decoder design that activates 8B parameters for input and 16B…",
+   "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/chat/completions",
+   "price": {
+    "model": "per_token",
+    "usd_per_million_tokens": {
+     "input": 0,
+     "output": 0
+    }
+   },
+   "record": "catalog/models/deepseek/deepseek-v4.1-flash:free.json"
+  },
+  {
    "name": "google/gemini-2.5-flash",
    "display_name": "Google: Gemini 2.5 Flash",
    "type": "llm",
@@ -56197,8 +56223,8 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_from": 0.48,
-    "usd_to": 9.6
+    "usd_from": 0.2742,
+    "usd_to": 5.999288
    },
    "record": "catalog/models/bytedance/seedance/2.0/image-to-video-hd.json"
   },
@@ -56295,7 +56321,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_reference": 1.2
+    "usd_reference": 0.73709
    },
    "record": "catalog/models/bytedance/seedance/2.0/reference-to-video-hd.json"
   },
@@ -56334,8 +56360,8 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_from": 0.48,
-    "usd_to": 9.6
+    "usd_from": 0.2742,
+    "usd_to": 5.999288
    },
    "record": "catalog/models/bytedance/seedance/2.0/text-to-video-hd.json"
   },
@@ -56433,8 +56459,8 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_from": 0.72,
-    "usd_to": 14.4
+    "usd_from": 0.398188,
+    "usd_to": 7.153
    },
    "record": "catalog/models/bytedance/seedance/2.5/image-to-video-hd.json"
   },
@@ -56472,7 +56498,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_reference": 1.8
+    "usd_reference": 1.12166
    },
    "record": "catalog/models/bytedance/seedance/2.5/reference-to-video-hd.json"
   },
@@ -56511,8 +56537,8 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_from": 0.72,
-    "usd_to": 14.4
+    "usd_from": 0.398188,
+    "usd_to": 7.153
    },
    "record": "catalog/models/bytedance/seedance/2.5/text-to-video-hd.json"
   },
@@ -58745,6 +58771,66 @@
     "usd_to": 1.725
    },
    "record": "catalog/models/pixverse/v6/image-to-video.json"
+  },
+  {
+   "name": "sandai/magi-2/image-to-video",
+   "display_name": "MAGI-2 Image to Video",
+   "type": "video",
+   "vendor": "Sand AI",
+   "description": "MAGI-2 by Sand AI animates a first frame, or a first and last frame, into a 1080p video of 4 to 30 seconds with native audio.",
+   "tags": [
+    "image-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.32,
+    "usd_to": 2.4
+   },
+   "record": "catalog/models/sandai/magi-2/image-to-video.json"
+  },
+  {
+   "name": "sandai/magi-2/reference-to-video",
+   "display_name": "MAGI-2 Reference to Video",
+   "type": "video",
+   "vendor": "Sand AI",
+   "description": "MAGI-2 by Sand AI creates a 1080p video of 4 to 30 seconds with native audio, guided by up to 10 reference images, 5 video clips and 5 audio clips.",
+   "tags": [
+    "reference-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.32,
+    "usd_to": 2.4
+   },
+   "record": "catalog/models/sandai/magi-2/reference-to-video.json"
+  },
+  {
+   "name": "sandai/magi-2/text-to-video",
+   "display_name": "MAGI-2 Text to Video",
+   "type": "video",
+   "vendor": "Sand AI",
+   "description": "MAGI-2 by Sand AI turns a text prompt into a 1080p video of 4 to 30 seconds with native audio, with strong instruction following, complex composition and long-shot stability.",
+   "tags": [
+    "text-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.32,
+    "usd_to": 2.4
+   },
+   "record": "catalog/models/sandai/magi-2/text-to-video.json"
   },
   {
    "name": "sandbase-ai/video-upscaler",

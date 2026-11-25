@@ -2,7 +2,7 @@
 
 `bytedance/seedance/2.5/reference-to-video-hd` · video generation model · Bytedance · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** about $1.8 per call · **Modes:** async
+**Price:** about $1.12166 per call · **Modes:** async
 
 ByteDance's next-generation reference-to-video model, generating video from multimodal references (images, videos, audio) and locking a character, set, and palette across a full take up to 30 seconds for production-grade consistency.
 

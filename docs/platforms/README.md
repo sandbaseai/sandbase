@@ -1,6 +1,6 @@
 # Platforms
 
-229 platforms and model makers, each reachable with one SandBase API key.
+230 platforms and model makers, each reachable with one SandBase API key.
 
 | Platform | Capabilities | Types |
 |---|---|---|
@@ -58,11 +58,11 @@
 | [Channel3](channel3.md) | 11 | data API |
 | [Eastmoney](eastmoney.md) | 11 | data API |
 | [Brave](brave.md) | 10 | data API |
+| [DeepSeek](deepseek.md) | 10 | LLM |
 | [ESPN](espn.md) | 10 | data API |
 | [GetApp](getapp.md) | 10 | data API |
 | [HeyGen](heygen.md) | 10 | audio model, video generation model |
 | [Temu](temu.md) | 10 | data API |
-| [DeepSeek](deepseek.md) | 9 | LLM |
 | [SECForm4](secform4.md) | 9 | data API |
 | [Threads](threads.md) | 9 | data API |
 | [Web3.career](web3-career.md) | 9 | data API |
@@ -145,6 +145,7 @@
 | [Kelley Blue Book](kelley-blue-book.md) | 3 | data API |
 | [MeiGen-AI](meigen-ai.md) | 3 | video generation model |
 | [Mercari](mercari.md) | 3 | data API |
+| [Sand AI](sand-ai.md) | 3 | video generation model |
 | [Scholar](scholar.md) | 3 | data API |
 | [Target](target.md) | 3 | data API |
 | [Tavily](tavily.md) | 3 | data API |
