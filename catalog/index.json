@@ -1,6 +1,6 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-25T08:26:59Z",
+ "generated_at": "2026-11-25T12:28:49Z",
  "base_url": "https://api.sandbase.ai",
  "count": 2837,
  "counts_by_type": {
@@ -48984,7 +48984,7 @@
    "price": {
     "model": "formula",
     "usd_from": 0.063,
-    "usd_to": 1.4175
+    "usd_to": 1.413
    },
    "record": "catalog/models/kwaivgi/kling-image/v4.json"
   },
@@ -49003,8 +49003,8 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_from": 0.06615,
-    "usd_to": 1.42065
+    "usd_from": 0.066,
+    "usd_to": 1.416
    },
    "record": "catalog/models/kwaivgi/kling-image/v4/edit.json"
   },
@@ -49024,7 +49024,7 @@
    "price": {
     "model": "formula",
     "usd_from": 0.235,
-    "usd_to": 0.8617
+    "usd_to": 0.862
    },
    "record": "catalog/models/kwaivgi/kling-image/v4/long-image.json"
   },

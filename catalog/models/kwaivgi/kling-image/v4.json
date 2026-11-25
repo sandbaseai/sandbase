@@ -131,7 +131,7 @@
   "pricing": {
     "currency": "USD",
     "model": "formula",
-    "formula": "(params.num_images ?? 1) * ((params.resolution ?? \"2K\") == \"8K\" ? 0.1575 : (params.resolution ?? \"2K\") == \"4K\" ? 0.0945 : 0.063)",
+    "formula": "(params.num_images ?? 1) * ((params.resolution ?? \"2K\") == \"8K\" ? 0.157 : (params.resolution ?? \"2K\") == \"4K\" ? 0.094 : 0.063)",
     "formula_variables": [
       "params.num_images",
       "params.resolution"
@@ -150,14 +150,14 @@
           "num_images": 1,
           "resolution": "4K"
         },
-        "usd": 0.0945
+        "usd": 0.094
       },
       {
         "params": {
           "num_images": 1,
           "resolution": "8K"
         },
-        "usd": 0.1575
+        "usd": 0.157
       },
       {
         "params": {
@@ -171,14 +171,14 @@
           "num_images": 9,
           "resolution": "4K"
         },
-        "usd": 0.8505
+        "usd": 0.846
       },
       {
         "params": {
           "num_images": 9,
           "resolution": "8K"
         },
-        "usd": 1.4175
+        "usd": 1.413
       }
     ]
   },
@@ -207,7 +207,7 @@
       ]
     }
   ],
-  "readme": "# Kling Image V4\nKling Image V4 generates photorealistic images from a text prompt at native 2K, 4K or 8K, with sharp in-image text (up to about 2,000 characters, multilingual) and dense layouts.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Put any text to render in quotation marks. |\n| `aspect_ratio` | `auto` / `16:9` / `9:16` / `1:1` / `4:3` / `3:4` / `3:2` / `2:3` / `21:9` | `auto` | `auto` picks a shape from the prompt and references. |\n| `resolution` | `2K` / `4K` / `8K` | `2K` | Native output resolution. |\n| `num_images` | 1–9 | 1 | Independent images, each billed. |\n## Billing\nBilled per output image by resolution.\n| Resolution | Per image |\n|---|---|\n| 2K (default) | $0.063 |\n| 4K | $0.0945 |\n| 8K | $0.1575 |\nFailed runs are not charged.\n## Prompting\n- Quote the exact text you want rendered, e.g. a poster title \"SUMMER SALE\".\n- Describe subject, material, light and camera in order.\n## Also on SandBase\nOther Kling Image V4 endpoints: `kwaivgi/kling-image/v4`, `kwaivgi/kling-image/v4/edit`, `kwaivgi/kling-image/v4/long-image`.",
+  "readme": "# Kling Image V4\nKling Image V4 generates photorealistic images from a text prompt at native 2K, 4K or 8K, with sharp in-image text (up to about 2,000 characters, multilingual) and dense layouts.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Put any text to render in quotation marks. |\n| `aspect_ratio` | `auto` / `16:9` / `9:16` / `1:1` / `4:3` / `3:4` / `3:2` / `2:3` / `21:9` | `auto` | `auto` picks a shape from the prompt and references. |\n| `resolution` | `2K` / `4K` / `8K` | `2K` | Native output resolution. |\n| `num_images` | 1–9 | 1 | Independent images, each billed. |\n## Billing\nBilled per output image by resolution.\n| Resolution | Per image |\n|---|---|\n| 2K (default) | $0.063 |\n| 4K | $0.094 |\n| 8K | $0.157 |\nFailed runs are not charged.\n## Prompting\n- Quote the exact text you want rendered, e.g. a poster title \"SUMMER SALE\".\n- Describe subject, material, light and camera in order.\n## Also on SandBase\nOther Kling Image V4 endpoints: `kwaivgi/kling-image/v4`, `kwaivgi/kling-image/v4/edit`, `kwaivgi/kling-image/v4/long-image`.",
   "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-image/v4/cover-flare-20261119193338.webp",
   "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-image/v4",
   "published_at": "2026-11-18T00:00:00Z",

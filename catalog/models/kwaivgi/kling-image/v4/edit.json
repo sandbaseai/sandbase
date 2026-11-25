@@ -142,55 +142,55 @@
   "pricing": {
     "currency": "USD",
     "model": "formula",
-    "formula": "(params.num_images ?? 1) * ((params.resolution ?? \"2K\") == \"8K\" ? 0.1575 : (params.resolution ?? \"2K\") == \"4K\" ? 0.0945 : 0.063) + len(params.images ?? []) * 0.00315",
+    "formula": "(params.num_images ?? 1) * ((params.resolution ?? \"2K\") == \"8K\" ? 0.157 : (params.resolution ?? \"2K\") == \"4K\" ? 0.094 : 0.063) + len(params.images ?? []) * 0.003",
     "formula_variables": [
       "params.images",
       "params.num_images",
       "params.resolution"
     ],
-    "reference_price": 0.06615,
+    "reference_price": 0.066,
     "price_examples": [
       {
         "params": {
           "num_images": 1,
           "resolution": "2K"
         },
-        "usd": 0.06615
+        "usd": 0.066
       },
       {
         "params": {
           "num_images": 1,
           "resolution": "4K"
         },
-        "usd": 0.09765
+        "usd": 0.097
       },
       {
         "params": {
           "num_images": 1,
           "resolution": "8K"
         },
-        "usd": 0.16065
+        "usd": 0.16
       },
       {
         "params": {
           "num_images": 9,
           "resolution": "2K"
         },
-        "usd": 0.57015
+        "usd": 0.57
       },
       {
         "params": {
           "num_images": 9,
           "resolution": "4K"
         },
-        "usd": 0.85365
+        "usd": 0.849
       },
       {
         "params": {
           "num_images": 9,
           "resolution": "8K"
         },
-        "usd": 1.42065
+        "usd": 1.416
       }
     ]
   },
@@ -226,7 +226,7 @@
       ]
     }
   ],
-  "readme": "# Kling Image V4 Edit\nKling Image V4 Edit edits or recomposes 1–10 reference images from a text instruction, at native 2K, 4K or 8K.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Refer to inputs as `@Image1`, `@Image2`, … |\n| `images` | image URL[], required | — | 1–10 images (JPG/PNG, up to 30 MB, at least 300 px per side, aspect ratio 2:5–5:2). |\n| `aspect_ratio` | `auto` / `16:9` / `9:16` / `1:1` / `4:3` / `3:4` / `3:2` / `2:3` / `21:9` | `auto` | `auto` picks a shape from the prompt and references. |\n| `resolution` | `2K` / `4K` / `8K` | `2K` | Native output resolution. |\n| `num_images` | 1–9 | 1 | Independent images, each billed. |\n## Billing\nPer output image by resolution, plus $0.00315 per reference image.\n| Request | Price |\n|---|---|\n| 1 reference, 2K (default) | $0.06615 |\n| 3 references, 4K | $0.10395 |\n| 1 reference, 8K | $0.16065 |\nFailed runs are not charged.\n## Prompting\n- Say what to change and what to keep, e.g. \"put the bottle from @Image1 on the table in @Image2, keep its label\".\n## Also on SandBase\nOther Kling Image V4 endpoints: `kwaivgi/kling-image/v4`, `kwaivgi/kling-image/v4/edit`, `kwaivgi/kling-image/v4/long-image`.",
+  "readme": "# Kling Image V4 Edit\nKling Image V4 Edit edits or recomposes 1–10 reference images from a text instruction, at native 2K, 4K or 8K.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Refer to inputs as `@Image1`, `@Image2`, … |\n| `images` | image URL[], required | — | 1–10 images (JPG/PNG, up to 30 MB, at least 300 px per side, aspect ratio 2:5–5:2). |\n| `aspect_ratio` | `auto` / `16:9` / `9:16` / `1:1` / `4:3` / `3:4` / `3:2` / `2:3` / `21:9` | `auto` | `auto` picks a shape from the prompt and references. |\n| `resolution` | `2K` / `4K` / `8K` | `2K` | Native output resolution. |\n| `num_images` | 1–9 | 1 | Independent images, each billed. |\n## Billing\nPer output image by resolution, plus $0.003 per reference image.\n| Request | Price |\n|---|---|\n| 1 reference, 2K (default) | $0.066 |\n| 3 references, 4K | $0.103 |\n| 1 reference, 8K | $0.160 |\nFailed runs are not charged.\n## Prompting\n- Say what to change and what to keep, e.g. \"put the bottle from @Image1 on the table in @Image2, keep its label\".\n## Also on SandBase\nOther Kling Image V4 endpoints: `kwaivgi/kling-image/v4`, `kwaivgi/kling-image/v4/edit`, `kwaivgi/kling-image/v4/long-image`.",
   "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-image/v4/edit/cover-flare-20261119193346.webp",
   "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-image/v4/edit",
   "published_at": "2026-11-18T00:00:00Z",

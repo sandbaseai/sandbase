@@ -1459,9 +1459,9 @@ kuaishou/web/user-info,api,Kuaishou,per_call,0.002,,,,,yes,sync,POST /v1/run
 kuaishou/web/user-live-replay,api,Kuaishou,per_call,0.01,,,,,,sync,POST /v1/run
 kwaivgi/kling-image/o3,image,KwaiVGI,formula,,,,0.028,0.056,,async,POST /v1/run
 kwaivgi/kling-image/o3/edit,image,KwaiVGI,formula,,,,0.028,0.056,,async,POST /v1/run
-kwaivgi/kling-image/v4,image,KwaiVGI,formula,,,,0.063,1.4175,,async,POST /v1/run
-kwaivgi/kling-image/v4/edit,image,KwaiVGI,formula,,,,0.06615,1.42065,,async,POST /v1/run
-kwaivgi/kling-image/v4/long-image,image,KwaiVGI,formula,,,,0.235,0.8617,,async,POST /v1/run
+kwaivgi/kling-image/v4,image,KwaiVGI,formula,,,,0.063,1.413,,async,POST /v1/run
+kwaivgi/kling-image/v4/edit,image,KwaiVGI,formula,,,,0.066,1.416,,async,POST /v1/run
+kwaivgi/kling-image/v4/long-image,image,KwaiVGI,formula,,,,0.235,0.862,,async,POST /v1/run
 kwaivgi/kling-video/3.0/omni/pro/image-to-video,video,KwaiVGI,formula,,,,0.336,0.896,,async,POST /v1/run
 kwaivgi/kling-video/3.0/omni/pro/reference-to-video,video,KwaiVGI,formula,,,,0.336,0.896,,async,POST /v1/run
 kwaivgi/kling-video/3.0/omni/pro/video-to-video/edit,video,KwaiVGI,formula,,,,0.84,0.84,,async,POST /v1/run

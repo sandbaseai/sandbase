@@ -2,7 +2,7 @@
 
 `kwaivgi/kling-image/v4/edit` · image generation model · KwaiVGI · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** from $0.06615 to $1.42065 per run, depending on parameters · **Modes:** async
+**Price:** from $0.066 to $1.416 per run, depending on parameters · **Modes:** async
 
 Kling Image V4 Edit by Kuaishou edits or recomposes 1 to 10 reference images from a text instruction at native 2K, 4K or 8K resolution.
 
@@ -12,14 +12,14 @@ Kling Image V4 Edit by Kuaishou edits or recomposes 1 to 10 reference images fro
 
 | parameters | USD |
 |---|---|
-| num_images=1, resolution="2K" | 0.06615 |
-| num_images=1, resolution="4K" | 0.09765 |
-| num_images=1, resolution="8K" | 0.16065 |
-| num_images=9, resolution="2K" | 0.57015 |
-| num_images=9, resolution="4K" | 0.85365 |
-| num_images=9, resolution="8K" | 1.42065 |
+| num_images=1, resolution="2K" | 0.066 |
+| num_images=1, resolution="4K" | 0.097 |
+| num_images=1, resolution="8K" | 0.16 |
+| num_images=9, resolution="2K" | 0.57 |
+| num_images=9, resolution="4K" | 0.849 |
+| num_images=9, resolution="8K" | 1.416 |
 
-Formula: `(params.num_images ?? 1) * ((params.resolution ?? "2K") == "8K" ? 0.1575 : (params.resolution ?? "2K") == "4K" ? 0.0945 : 0.063) + len(params.images ?? []) * 0.00315`
+Formula: `(params.num_images ?? 1) * ((params.resolution ?? "2K") == "8K" ? 0.157 : (params.resolution ?? "2K") == "4K" ? 0.094 : 0.063) + len(params.images ?? []) * 0.003`
 
 ## Call it
 
@@ -96,12 +96,12 @@ Kling Image V4 Edit edits or recomposes 1–10 reference images from a text inst
 | `resolution` | `2K` / `4K` / `8K` | `2K` | Native output resolution. |
 | `num_images` | 1–9 | 1 | Independent images, each billed. |
 ### Billing
-Per output image by resolution, plus $0.00315 per reference image.
+Per output image by resolution, plus $0.003 per reference image.
 | Request | Price |
 |---|---|
-| 1 reference, 2K (default) | $0.06615 |
-| 3 references, 4K | $0.10395 |
-| 1 reference, 8K | $0.16065 |
+| 1 reference, 2K (default) | $0.066 |
+| 3 references, 4K | $0.103 |
+| 1 reference, 8K | $0.160 |
 Failed runs are not charged.
 ### Prompting
 - Say what to change and what to keep, e.g. "put the bottle from @Image1 on the table in @Image2, keep its label".

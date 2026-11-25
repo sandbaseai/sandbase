@@ -2,7 +2,7 @@
 
 `kwaivgi/kling-image/v4/long-image` · image generation model · KwaiVGI · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** from $0.235 to $0.8617 per run, depending on parameters · **Modes:** async
+**Price:** from $0.235 to $0.862 per run, depending on parameters · **Modes:** async
 
 Kling Image V4 Long Image by Kuaishou designs one complete ultra-tall image, such as an ecommerce product detail page from 1 to 3 product photos or a full webpage visual.
 
@@ -12,18 +12,18 @@ Kling Image V4 Long Image by Kuaishou designs one complete ultra-tall image, suc
 
 | parameters | USD |
 |---|---|
-| length="short", resolution="1K", skill="webpage" | 0.5483 |
+| length="short", resolution="1K", skill="webpage" | 0.549 |
 | length="short", resolution="1K", skill="ecommerce" | 0.235 |
-| length="short", resolution="2K", skill="webpage" | 0.5953 |
+| length="short", resolution="2K", skill="webpage" | 0.596 |
 | length="short", resolution="2K", skill="ecommerce" | 0.282 |
-| length="medium", resolution="1K", skill="webpage" | 0.5483 |
+| length="medium", resolution="1K", skill="webpage" | 0.549 |
 | length="medium", resolution="1K", skill="ecommerce" | 0.47 |
-| length="medium", resolution="2K", skill="webpage" | 0.5953 |
-| length="medium", resolution="2K", skill="ecommerce" | 0.5483 |
-| length="long", resolution="1K", skill="webpage" | 0.5483 |
-| length="long", resolution="1K", skill="ecommerce" | 0.7833 |
-| length="long", resolution="2K", skill="webpage" | 0.5953 |
-| length="long", resolution="2K", skill="ecommerce" | 0.8617 |
+| length="medium", resolution="2K", skill="webpage" | 0.596 |
+| length="medium", resolution="2K", skill="ecommerce" | 0.549 |
+| length="long", resolution="1K", skill="webpage" | 0.549 |
+| length="long", resolution="1K", skill="ecommerce" | 0.784 |
+| length="long", resolution="2K", skill="webpage" | 0.596 |
+| length="long", resolution="2K", skill="ecommerce" | 0.862 |
 
 Formula: see the JSON record.
 
@@ -100,13 +100,13 @@ Kling Image V4 Long Image designs one complete ultra-tall image: an ecommerce pr
 | `length` | `short` / `medium` / `long` | `medium` | ecommerce only: about 2–5, 6–10 or 11–18 sections. |
 | `resolution` | `1K` / `2K` | `1K` | Output resolution. |
 ### Billing
-Per long image, plus $0.00315 per input image.
+Per long image, plus $0.003 per input image.
 | Request | 1K | 2K |
 |---|---|---|
-| webpage | $0.5483 | $0.5953 |
+| webpage | $0.549 | $0.596 |
 | ecommerce, short | $0.235 | $0.282 |
-| ecommerce, medium | $0.47 | $0.5483 |
-| ecommerce, long | $0.7833 | $0.8617 |
+| ecommerce, medium | $0.47 | $0.549 |
+| ecommerce, long | $0.784 | $0.862 |
 Failed runs are not charged.
 ### Prompting
 - For ecommerce, list only real product facts; the model builds the key visual, selling points and usage scenes.
