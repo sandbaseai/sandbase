@@ -2,13 +2,13 @@
 
 `douyin/search/video-search-v1` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.01 per call · **Modes:** sync, async
+**Price:** $0.015 per call · **Modes:** sync, async
 
 Search Douyin videos by keyword: descriptions, authors and play, like, comment and share counts, with sort, publish-time, duration and content-type filters.
 
 ## Pricing
 
-- **$0.01 per call** (USD)
+- **$0.015 per call** (USD)
 
 ## Call it
 
@@ -253,7 +253,7 @@ Real response for the request above, trimmed: lists keep their first item and lo
 
 ### Pricing
 
-$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
+$0.015 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -8,9 +8,9 @@ Kling V4 Reference to Video by Kuaishou generates a 3-30 second video that keeps
 
 ## Pricing
 
-- Depends on parameters (`params.duration`, `params.resolution`, `params.videos`).
+- Depends on parameters (`params.duration`, `params.dynamic_range`, `params.resolution`, `params.videos`).
 
-Formula: `len(params.videos ?? []) > 0 ? ((params.resolution ?? "1080p") == "720p" ? 0.094 : (params.resolution ?? "1080p") == "4k" ? 0.329 : 0.141) * ((params.duration ?? 5) * 1.0 + Math.max((params.duration ?? 5) * 1.0, media_duration(params.videos) ?? 30.0)) : (params.duration ?? 5) * ((params.resolution ?? "1080p") == "720p" ? 0.157 : (params.resolution ?? "1080p") == "4k" ? 0.549 : 0.235)`
+Formula: see the JSON record.
 
 ## Call it
 
@@ -76,6 +76,7 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | `voice_ids` | array |  | Up to 2 custom voice IDs so characters speak in that voice. Create one by uploading a 5-30s voice recording at https://www.sandbase.ai/model/kwaivgi/kling-video/create-voice (Kling Create Voice). Cannot be combined…  |
 | `resolution` | string |  | Output resolution. one of: `720p`, `1080p`, `4k`; default `"1080p"` |
 | `aspect_ratio` | string |  | Output frame shape. Leave empty to follow the references (adaptive). one of: `21:9`, `16:9`, `9:16`, `1:1` |
+| `dynamic_range` | string |  | hdr outputs 10-bit HDR video; 1080p and 4k only. one of: `sdr`, `hdr`; default `"sdr"` |
 
 ## Details
 
@@ -89,15 +90,18 @@ Kling V4 reference-to-video keeps characters, objects and motion from reference 
 | `voice_ids` | string[] | — | Up to 2 custom voice IDs. Create one at [Kling Create Voice](https://www.sandbase.ai/model/kwaivgi/kling-video/create-voice). Not combinable with `videos`. |
 | `aspect_ratio` | `21:9` / `16:9` / `9:16` / `1:1` | — | Leave empty to follow the references. |
 | `resolution` | `720p` / `1080p` / `4k` | `1080p` | Output resolution. |
+| `dynamic_range` | `sdr` / `hdr` | `sdr` | `hdr` outputs 10-bit HDR video. 1080p and 4k only. |
 | `duration` | 3–30 | 5 | Output length in seconds. |
 ### Billing
 Without reference videos: $0.157 per output second at 720p, $0.235 at 1080p, $0.549 at 4K.
 With reference videos: $0.094 (720p), $0.141 (1080p) or $0.329 (4K) per second of output plus input, where the input side counts at least as long as the output. The quote before submission assumes 30 seconds of reference video when the length cannot be read.
+HDR adds $0.047 per output second at 1080p and $0.078 at 4K.
 | Request | Price |
 |---|---|
 | 5s, 1080p, images only (default) | $1.175 |
 | 5s, 720p, images only | $0.785 |
 | 5s, 4K, images only | $2.745 |
+| 5s, 4K, images only, HDR | $3.135 |
 | 5s, 1080p, 8s reference video | $1.833 |
 | 10s, 720p, 4s reference video | $1.88 |
 Failed runs are not charged.

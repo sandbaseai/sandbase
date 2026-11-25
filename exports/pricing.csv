@@ -751,8 +751,8 @@ douyin/search/search-suggest,api,Douyin,per_call,0.01,,,,,,sync,POST /v1/run
 douyin/search/search-suggest-v2,api,Douyin,per_call,0.01,,,,,,sync,POST /v1/run
 douyin/search/user-search,api,Douyin,per_call,0.01,,,,,,sync,POST /v1/run
 douyin/search/user-search-v2,api,Douyin,per_call,0.001,,,,,yes,sync,POST /v1/run
-douyin/search/video-search-v1,api,Douyin,per_call,0.01,,,,,,sync async,POST /v1/run
-douyin/search/video-search-v2,api,Douyin,per_call,0.01,,,,,,sync,POST /v1/run
+douyin/search/video-search-v1,api,Douyin,per_call,0.015,,,,,,sync async,POST /v1/run
+douyin/search/video-search-v2,api,Douyin,per_call,0.015,,,,,,sync,POST /v1/run
 douyin/search/video-search-v3,api,Douyin,per_call,0.01,,,,,,sync,POST /v1/run
 douyin/search/video-search-v4,api,Douyin,per_call,0.01,,,,,,sync,POST /v1/run
 douyin/user-detail,api,Douyin,per_call,0.014286,,,,,,sync,POST /v1/run
@@ -1503,9 +1503,9 @@ kwaivgi/kling-video/v4/flash/image-to-video,video,KwaiVGI,formula,,,,0.282,1.88,
 kwaivgi/kling-video/v4/flash/reference-to-video,video,KwaiVGI,formula,,,,0.47,0.47,,async,POST /v1/run
 kwaivgi/kling-video/v4/flash/text-to-video,video,KwaiVGI,formula,,,,0.282,1.88,,async,POST /v1/run
 kwaivgi/kling-video/v4/flash/video-edit,video,KwaiVGI,formula,,,,2.52,2.52,,async,POST /v1/run
-kwaivgi/kling-video/v4/image-to-video,video,KwaiVGI,formula,,,,0.471,16.47,,async,POST /v1/run
+kwaivgi/kling-video/v4/image-to-video,video,KwaiVGI,formula,,,,0.471,18.81,,async,POST /v1/run
 kwaivgi/kling-video/v4/reference-to-video,video,KwaiVGI,formula,,,,1.175,1.175,,async,POST /v1/run
-kwaivgi/kling-video/v4/text-to-video,video,KwaiVGI,formula,,,,0.471,16.47,,async,POST /v1/run
+kwaivgi/kling-video/v4/text-to-video,video,KwaiVGI,formula,,,,0.471,18.81,,async,POST /v1/run
 kwaivgi/kling-video/v4/video-edit,video,KwaiVGI,formula,,,,8.46,8.46,,async,POST /v1/run
 lemon8/app/discover-banners,api,Lemon8,per_call,0.001,,,,,,sync,POST /v1/run
 lemon8/app/discover-tab,api,Lemon8,per_call,0.001,,,,,,sync,POST /v1/run

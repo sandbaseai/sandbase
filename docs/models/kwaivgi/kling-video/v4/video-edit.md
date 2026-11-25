@@ -8,9 +8,9 @@ Kling V4 Video Edit by Kuaishou edits a 3-30 second source video from a text ins
 
 ## Pricing
 
-- Depends on parameters (`params.resolution`, `params.video`, `usage.duration`).
+- Depends on parameters (`params.dynamic_range`, `params.resolution`, `params.video`, `usage.duration`).
 
-Formula: `((params.resolution ?? "1080p") == "720p" ? 0.094 : (params.resolution ?? "1080p") == "4k" ? 0.329 : 0.141) * 2.0 * Math.min(30.0, usage.duration ?? media_duration(params.video) ?? 30.0)`
+Formula: `(((params.resolution ?? "1080p") == "720p" ? 0.094 : (params.resolution ?? "1080p") == "4k" ? 0.329 : 0.141) * 2.0 + ((params.dynamic_range ?? "sdr") == "hdr" ? ((params.resolution ?? "1080p") == "4k" ? 0.078 : (params.resolution ?? "1080p") == "1080p" ? 0.047 : 0.0) : 0.0)) * Math.min(30.0, usage.duration ?? media_duration(params.video) ?? 30.0)`
 
 ## Call it
 
@@ -69,6 +69,7 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | `images` | array |  | Optional reference images, referenced as @Image1, @Image2, ...  |
 | `prompt` | string | yes | Edit instruction. Refer to the source video as @Video1 and reference images as @Image1, @Image2, ...  |
 | `resolution` | string |  | Output resolution. one of: `720p`, `1080p`, `4k`; default `"1080p"` |
+| `dynamic_range` | string |  | hdr outputs 10-bit HDR video; 1080p and 4k only. one of: `sdr`, `hdr`; default `"sdr"` |
 
 ## Details
 
@@ -80,13 +81,16 @@ Kling V4 video edit changes a 3–30 second source video from a text instruction
 | `video` | video URL, required | — | 3–30s, min 700×700 px, up to 300 MB. |
 | `images` | image URL[] | — | Up to 10 reference images. |
 | `resolution` | `720p` / `1080p` / `4k` | `1080p` | Output resolution. |
+| `dynamic_range` | `sdr` / `hdr` | `sdr` | `hdr` outputs 10-bit HDR video. 1080p and 4k only. |
 ### Billing
 $0.094 (720p), $0.141 (1080p) or $0.329 (4K) per second, counted on input plus output (2× the source length). Settlement uses the output length (it matches the source); the quote before submission assumes a 30 second source when the length cannot be read.
+HDR adds $0.047 per output second at 1080p and $0.078 at 4K.
 | Source | Price |
 |---|---|
 | 6s, 1080p | $1.692 |
 | 10s, 720p | $1.88 |
 | 10s, 4K | $6.58 |
+| 10s, 4K, HDR | $7.36 |
 | 30s, 1080p | $8.46 |
 Failed runs are not charged.
 ### Prompting

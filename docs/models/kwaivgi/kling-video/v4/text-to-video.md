@@ -2,27 +2,36 @@
 
 `kwaivgi/kling-video/v4/text-to-video` · video generation model · KwaiVGI · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** from $0.471 to $16.47 per run, depending on parameters · **Modes:** async
+**Price:** from $0.471 to $18.81 per run, depending on parameters · **Modes:** async
 
 Kling V4 Text to Video by Kuaishou turns a text prompt into a 3-30 second video at 720p, 1080p or 4K.
 
 ## Pricing
 
-- Depends on parameters (`params.duration`, `params.resolution`).
+- Depends on parameters (`params.duration`, `params.dynamic_range`, `params.resolution`).
 
 | parameters | USD |
 |---|---|
-| duration=3, resolution="720p" | 0.471 |
-| duration=3, resolution="1080p" | 0.705 |
-| duration=3, resolution="4k" | 1.647 |
-| duration=5, resolution="720p" | 0.785 |
-| duration=5, resolution="1080p" | 1.175 |
-| duration=5, resolution="4k" | 2.745 |
-| duration=30, resolution="720p" | 4.71 |
-| duration=30, resolution="1080p" | 7.05 |
-| duration=30, resolution="4k" | 16.47 |
+| duration=3, dynamic_range="sdr", resolution="720p" | 0.471 |
+| duration=3, dynamic_range="sdr", resolution="1080p" | 0.705 |
+| duration=3, dynamic_range="sdr", resolution="4k" | 1.647 |
+| duration=3, dynamic_range="hdr", resolution="720p" | 0.471 |
+| duration=3, dynamic_range="hdr", resolution="1080p" | 0.846 |
+| duration=3, dynamic_range="hdr", resolution="4k" | 1.881 |
+| duration=5, dynamic_range="sdr", resolution="720p" | 0.785 |
+| duration=5, dynamic_range="sdr", resolution="1080p" | 1.175 |
+| duration=5, dynamic_range="sdr", resolution="4k" | 2.745 |
+| duration=5, dynamic_range="hdr", resolution="720p" | 0.785 |
+| duration=5, dynamic_range="hdr", resolution="1080p" | 1.41 |
+| duration=5, dynamic_range="hdr", resolution="4k" | 3.135 |
+| duration=30, dynamic_range="sdr", resolution="720p" | 4.71 |
+| duration=30, dynamic_range="sdr", resolution="1080p" | 7.05 |
+| duration=30, dynamic_range="sdr", resolution="4k" | 16.47 |
+| duration=30, dynamic_range="hdr", resolution="720p" | 4.71 |
+| duration=30, dynamic_range="hdr", resolution="1080p" | 8.46 |
+| duration=30, dynamic_range="hdr", resolution="4k" | 18.81 |
 
-Formula: `(params.duration ?? 5) * ((params.resolution ?? "1080p") == "720p" ? 0.157 : (params.resolution ?? "1080p") == "4k" ? 0.549 : 0.235)`
+Formula: `(params.duration ?? 5) * (((params.resolution ?? "1080p") == "720p" ? 0.157 : (params.resolution ?? "1080p") == "4k" ? 0.549 : 0.235) + ((params.dynamic_range ?? "sdr") == "hdr" ? ((params.resolution ?? "1080p") == "4k" ? 0.078 : (params.resolution ?? "1080p") == "1080p" ? 0.047 : 0.0) : 0.0))`
 
 ## Call it
 
@@ -81,6 +90,7 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | `duration` | integer |  | Output length in seconds (3-30). default `5`; range 3–30 |
 | `resolution` | string |  | Output resolution. one of: `720p`, `1080p`, `4k`; default `"1080p"` |
 | `aspect_ratio` | string |  | Output frame shape. one of: `16:9`, `9:16`, `1:1`, `21:9`; default `"16:9"` |
+| `dynamic_range` | string |  | hdr outputs 10-bit HDR video; 1080p and 4k only. one of: `sdr`, `hdr`; default `"sdr"` |
 
 ## Details
 
@@ -91,14 +101,17 @@ Kling V4 text-to-video: write a scene and get back a 3–30 second clip at 720p,
 | `prompt` | string, required | — | Up to 2,500 characters. |
 | `aspect_ratio` | `16:9` / `9:16` / `1:1` / `21:9` | `16:9` | Output frame shape. |
 | `resolution` | `720p` / `1080p` / `4k` | `1080p` | Output resolution. |
+| `dynamic_range` | `sdr` / `hdr` | `sdr` | `hdr` outputs 10-bit HDR video. 1080p and 4k only. |
 | `duration` | 3–30 | 5 | Output length in seconds. |
 ### Billing
 Billed per output second: $0.157 at 720p, $0.235 at 1080p, $0.549 at 4K.
+HDR adds $0.047 per output second at 1080p and $0.078 at 4K.
 | Output | Price |
 |---|---|
 | 5s, 1080p (default) | $1.175 |
 | 5s, 720p | $0.785 |
 | 5s, 4K | $2.745 |
+| 5s, 4K, HDR | $3.135 |
 | 10s, 1080p | $2.35 |
 | 30s, 1080p | $7.05 |
 Failed runs are not charged.

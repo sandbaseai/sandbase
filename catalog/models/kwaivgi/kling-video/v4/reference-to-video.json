@@ -89,6 +89,16 @@
         "type": "string",
         "title": "Aspect Ratio",
         "description": "Output frame shape. Leave empty to follow the references (adaptive)."
+      },
+      "dynamic_range": {
+        "enum": [
+          "sdr",
+          "hdr"
+        ],
+        "type": "string",
+        "title": "Dynamic Range",
+        "default": "sdr",
+        "description": "hdr outputs 10-bit HDR video; 1080p and 4k only."
       }
     }
   },
@@ -149,9 +159,10 @@
   "pricing": {
     "currency": "USD",
     "model": "formula",
-    "formula": "len(params.videos ?? []) > 0 ? ((params.resolution ?? \"1080p\") == \"720p\" ? 0.094 : (params.resolution ?? \"1080p\") == \"4k\" ? 0.329 : 0.141) * ((params.duration ?? 5) * 1.0 + Math.max((params.duration ?? 5) * 1.0, media_duration(params.videos) ?? 30.0)) : (params.duration ?? 5) * ((params.resolution ?? \"1080p\") == \"720p\" ? 0.157 : (params.resolution ?? \"1080p\") == \"4k\" ? 0.549 : 0.235)",
+    "formula": "len(params.videos ?? []) > 0 ? ((params.resolution ?? \"1080p\") == \"720p\" ? 0.094 : (params.resolution ?? \"1080p\") == \"4k\" ? 0.329 : 0.141) * ((params.duration ?? 5) * 1.0 + Math.max((params.duration ?? 5) * 1.0, media_duration(params.videos) ?? 30.0)) + (params.duration ?? 5) * ((params.dynamic_range ?? \"sdr\") == \"hdr\" ? ((params.resolution ?? \"1080p\") == \"4k\" ? 0.078 : (params.resolution ?? \"1080p\") == \"1080p\" ? 0.047 : 0.0) : 0.0) : (params.duration ?? 5) * (((params.resolution ?? \"1080p\") == \"720p\" ? 0.157 : (params.resolution ?? \"1080p\") == \"4k\" ? 0.549 : 0.235) + ((params.dynamic_range ?? \"sdr\") == \"hdr\" ? ((params.resolution ?? \"1080p\") == \"4k\" ? 0.078 : (params.resolution ?? \"1080p\") == \"1080p\" ? 0.047 : 0.0) : 0.0))",
     "formula_variables": [
       "params.duration",
+      "params.dynamic_range",
       "params.resolution",
       "params.videos"
     ],
@@ -188,7 +199,7 @@
       ]
     }
   ],
-  "readme": "# Kling V4 Reference to Video\nKling V4 reference-to-video keeps characters, objects and motion from reference images and videos in a new 3–30 second clip.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Refer to inputs as `@Image1`, `@Video1`, … |\n| `images` | image URL[] | — | Up to 10 reference images. |\n| `videos` | video URL[] | — | Up to 5 reference videos, 3–30s each, 30s combined. |\n| `voice_ids` | string[] | — | Up to 2 custom voice IDs. Create one at [Kling Create Voice](https://www.sandbase.ai/model/kwaivgi/kling-video/create-voice). Not combinable with `videos`. |\n| `aspect_ratio` | `21:9` / `16:9` / `9:16` / `1:1` | — | Leave empty to follow the references. |\n| `resolution` | `720p` / `1080p` / `4k` | `1080p` | Output resolution. |\n| `duration` | 3–30 | 5 | Output length in seconds. |\n## Billing\nWithout reference videos: $0.157 per output second at 720p, $0.235 at 1080p, $0.549 at 4K.\nWith reference videos: $0.094 (720p), $0.141 (1080p) or $0.329 (4K) per second of output plus input, where the input side counts at least as long as the output. The quote before submission assumes 30 seconds of reference video when the length cannot be read.\n| Request | Price |\n|---|---|\n| 5s, 1080p, images only (default) | $1.175 |\n| 5s, 720p, images only | $0.785 |\n| 5s, 4K, images only | $2.745 |\n| 5s, 1080p, 8s reference video | $1.833 |\n| 10s, 720p, 4s reference video | $1.88 |\nFailed runs are not charged.\n## Prompting\n- Name each reference in the prompt, e.g. \"@Image1 walks into the scene from @Video1\".\n- To make a character speak in a cloned voice, upload a 5–30 second recording at [Kling Create Voice](https://www.sandbase.ai/model/kwaivgi/kling-video/create-voice) to get a `voice_id`, pass its ID in `voice_ids`, and write the line in the prompt, e.g. \"The man from @Image1 says: \\\"Welcome back.\\\"\". Every clip has a soundtrack; without `voice_ids` the voice is chosen by the model.\n## Limits\n- Clips are 3–30 seconds; reference videos 3–30 seconds.\n## Also on SandBase\nOther Kling V4 endpoints: `kwaivgi/kling-video/v4/text-to-video`, `kwaivgi/kling-video/v4/image-to-video`, `kwaivgi/kling-video/v4/reference-to-video`, `kwaivgi/kling-video/v4/video-edit`.",
+  "readme": "# Kling V4 Reference to Video\nKling V4 reference-to-video keeps characters, objects and motion from reference images and videos in a new 3–30 second clip.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Refer to inputs as `@Image1`, `@Video1`, … |\n| `images` | image URL[] | — | Up to 10 reference images. |\n| `videos` | video URL[] | — | Up to 5 reference videos, 3–30s each, 30s combined. |\n| `voice_ids` | string[] | — | Up to 2 custom voice IDs. Create one at [Kling Create Voice](https://www.sandbase.ai/model/kwaivgi/kling-video/create-voice). Not combinable with `videos`. |\n| `aspect_ratio` | `21:9` / `16:9` / `9:16` / `1:1` | — | Leave empty to follow the references. |\n| `resolution` | `720p` / `1080p` / `4k` | `1080p` | Output resolution. |\n| `dynamic_range` | `sdr` / `hdr` | `sdr` | `hdr` outputs 10-bit HDR video. 1080p and 4k only. |\n| `duration` | 3–30 | 5 | Output length in seconds. |\n## Billing\nWithout reference videos: $0.157 per output second at 720p, $0.235 at 1080p, $0.549 at 4K.\nWith reference videos: $0.094 (720p), $0.141 (1080p) or $0.329 (4K) per second of output plus input, where the input side counts at least as long as the output. The quote before submission assumes 30 seconds of reference video when the length cannot be read.\nHDR adds $0.047 per output second at 1080p and $0.078 at 4K.\n| Request | Price |\n|---|---|\n| 5s, 1080p, images only (default) | $1.175 |\n| 5s, 720p, images only | $0.785 |\n| 5s, 4K, images only | $2.745 |\n| 5s, 4K, images only, HDR | $3.135 |\n| 5s, 1080p, 8s reference video | $1.833 |\n| 10s, 720p, 4s reference video | $1.88 |\nFailed runs are not charged.\n## Prompting\n- Name each reference in the prompt, e.g. \"@Image1 walks into the scene from @Video1\".\n- To make a character speak in a cloned voice, upload a 5–30 second recording at [Kling Create Voice](https://www.sandbase.ai/model/kwaivgi/kling-video/create-voice) to get a `voice_id`, pass its ID in `voice_ids`, and write the line in the prompt, e.g. \"The man from @Image1 says: \\\"Welcome back.\\\"\". Every clip has a soundtrack; without `voice_ids` the voice is chosen by the model.\n## Limits\n- Clips are 3–30 seconds; reference videos 3–30 seconds.\n## Also on SandBase\nOther Kling V4 endpoints: `kwaivgi/kling-video/v4/text-to-video`, `kwaivgi/kling-video/v4/image-to-video`, `kwaivgi/kling-video/v4/reference-to-video`, `kwaivgi/kling-video/v4/video-edit`.",
   "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/v4/reference-to-video/cover-flare-20261022111304.webp",
   "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/v4/reference-to-video",
   "published_at": "2026-10-21T15:09:12.01Z",

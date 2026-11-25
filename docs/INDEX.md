@@ -1,6 +1,6 @@
 # SandBase capability index
 
-2833 capabilities · generated 2026-11-25T00:42:02Z
+2833 capabilities · generated 2026-11-25T04:24:27Z
 
 - [api](#api) (2247)
 - [audio](#audio) (32)
@@ -594,8 +594,8 @@
 | [`douyin/search/search-suggest-v2`](models/douyin/search/search-suggest-v2.md) | 0.01 / call | sync | Fetch search keyword suggestions V2 on Douyin. Returns the platform data as structured JSON. |
 | [`douyin/search/user-search`](models/douyin/search/user-search.md) | 0.01 / call | sync | Returns a list of Douyin users matching search keywords. Supports filtering by fan count and user type with… |
 | [`douyin/search/user-search-v2`](models/douyin/search/user-search-v2.md) | 0.001 / call (free quota) | sync | Searches for Douyin users matching specified search keywords and returns user metrics such as follower and like… |
-| [`douyin/search/video-search-v1`](models/douyin/search/video-search-v1.md) | 0.01 / call | sync, async | Search Douyin videos by keyword: descriptions, authors and play, like, comment and share counts, with sort,… |
-| [`douyin/search/video-search-v2`](models/douyin/search/video-search-v2.md) | 0.01 / call | sync | Search Douyin videos by keyword and get descriptions, authors and play, like, comment and share counts. Filter by sort… |
+| [`douyin/search/video-search-v1`](models/douyin/search/video-search-v1.md) | 0.015 / call | sync, async | Search Douyin videos by keyword: descriptions, authors and play, like, comment and share counts, with sort,… |
+| [`douyin/search/video-search-v2`](models/douyin/search/video-search-v2.md) | 0.015 / call | sync | Search Douyin videos by keyword and get descriptions, authors and play, like, comment and share counts. Filter by sort… |
 | [`douyin/search/video-search-v3`](models/douyin/search/video-search-v3.md) | 0.01 / call | sync | Fetch video search V3 on Douyin. Returns the platform data as structured JSON. |
 | [`douyin/search/video-search-v4`](models/douyin/search/video-search-v4.md) | 0.01 / call | sync | Fetch video search V4 on Douyin. Returns the platform data as structured JSON. |
 | [`douyin/user-detail`](models/douyin/user-detail.md) | 0.014286 / call | sync | Get a Douyin (TikTok China) user profile by secUid. Use it to review a known creator or account before monitoring… |
@@ -2814,9 +2814,9 @@
 | [`kwaivgi/kling-video/v4/flash/reference-to-video`](models/kwaivgi/kling-video/v4/flash/reference-to-video.md) | ~0.47 | async | Kling V4 Flash Reference to Video by Kuaishou generates a 3-20 second 720p video that keeps characters, objects and… |
 | [`kwaivgi/kling-video/v4/flash/text-to-video`](models/kwaivgi/kling-video/v4/flash/text-to-video.md) | 0.282–1.88 | async | Kling V4 Flash Text to Video by Kuaishou turns a text prompt into a 3-20 second 720p video at a lower price than Kling… |
 | [`kwaivgi/kling-video/v4/flash/video-edit`](models/kwaivgi/kling-video/v4/flash/video-edit.md) | ~2.52 | async | Kling V4 Flash Video Edit by Kuaishou edits a 3-20 second source video into a 720p result from a text instruction and… |
-| [`kwaivgi/kling-video/v4/image-to-video`](models/kwaivgi/kling-video/v4/image-to-video.md) | 0.471–16.47 | async | Kling V4 Image to Video by Kuaishou animates a start image, optionally toward an end image, into a 3-30 second video. |
+| [`kwaivgi/kling-video/v4/image-to-video`](models/kwaivgi/kling-video/v4/image-to-video.md) | 0.471–18.81 | async | Kling V4 Image to Video by Kuaishou animates a start image, optionally toward an end image, into a 3-30 second video. |
 | [`kwaivgi/kling-video/v4/reference-to-video`](models/kwaivgi/kling-video/v4/reference-to-video.md) | ~1.175 | async | Kling V4 Reference to Video by Kuaishou generates a 3-30 second video that keeps characters, objects and motion from… |
-| [`kwaivgi/kling-video/v4/text-to-video`](models/kwaivgi/kling-video/v4/text-to-video.md) | 0.471–16.47 | async | Kling V4 Text to Video by Kuaishou turns a text prompt into a 3-30 second video at 720p, 1080p or 4K. |
+| [`kwaivgi/kling-video/v4/text-to-video`](models/kwaivgi/kling-video/v4/text-to-video.md) | 0.471–18.81 | async | Kling V4 Text to Video by Kuaishou turns a text prompt into a 3-30 second video at 720p, 1080p or 4K. |
 | [`kwaivgi/kling-video/v4/video-edit`](models/kwaivgi/kling-video/v4/video-edit.md) | ~8.46 | async | Kling V4 Video Edit by Kuaishou edits a 3-30 second source video from a text instruction and optional reference images. |
 | [`lightricks/ltx-2.3-fast/image-to-video`](models/lightricks/ltx-2.3-fast/image-to-video.md) | 0.36–3.84 | async | Ltx 2.3 Fast is Lightricks's image-to-video AI model. Bring static images to life with fluid animation, consistent… |
 | [`lightricks/ltx-2.3-fast/text-to-video`](models/lightricks/ltx-2.3-fast/text-to-video.md) | 0.36–3.84 | async | Ltx 2.3 Fast by Lightricks - generate cinematic videos from text descriptions with AI. Create high-quality video… |

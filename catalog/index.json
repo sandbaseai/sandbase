@@ -1,6 +1,6 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-25T00:42:02Z",
+ "generated_at": "2026-11-25T04:24:27Z",
  "base_url": "https://api.sandbase.ai",
  "count": 2833,
  "counts_by_type": {
@@ -12128,7 +12128,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.01
+    "usd_per_call": 0.015
    },
    "record": "catalog/models/douyin/search/video-search-v1.json"
   },
@@ -12148,7 +12148,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "per_call",
-    "usd_per_call": 0.01
+    "usd_per_call": 0.015
    },
    "record": "catalog/models/douyin/search/video-search-v2.json"
   },
@@ -58093,7 +58093,7 @@
    "price": {
     "model": "formula",
     "usd_from": 0.471,
-    "usd_to": 16.47
+    "usd_to": 18.81
    },
    "record": "catalog/models/kwaivgi/kling-video/v4/image-to-video.json"
   },
@@ -58132,7 +58132,7 @@
    "price": {
     "model": "formula",
     "usd_from": 0.471,
-    "usd_to": 16.47
+    "usd_to": 18.81
    },
    "record": "catalog/models/kwaivgi/kling-video/v4/text-to-video.json"
   },
