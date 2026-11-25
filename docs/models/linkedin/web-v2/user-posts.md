@@ -19,7 +19,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "linkedin/web-v2/user-posts", "url": "<url>"}'
+  -d '{"model": "linkedin/web-v2/user-posts", "url": "https://www.linkedin.com/in/williamhgates/"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('linkedin/web-v2/user-posts', {'url': '<url>'})
+result = SandBase().run('linkedin/web-v2/user-posts', {'url': 'https://www.linkedin.com/in/williamhgates/'})
 print(result["outputs"])
 ```
 
@@ -37,7 +37,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("linkedin/web-v2/user-posts", {
-  "url": "<url>"
+  "url": "https://www.linkedin.com/in/williamhgates/"
 });
 console.log(result.outputs);
 ```
@@ -47,7 +47,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "linkedin/web-v2/user-posts", sandbase.Params{
-	"url": "<url>",
+	"url": "https://www.linkedin.com/in/williamhgates/",
 })
 ```
 
@@ -78,7 +78,7 @@ Retrieve post and activity history for a specific profile using the `url` parame
 curl -X POST "https://api.sandbase.ai/v1/api/linkedin/web-v2/user-posts" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"url": "<url>"}'
+  -d '{"url": "https://www.linkedin.com/in/williamhgates/"}'
 ```
 
 ### Parameters

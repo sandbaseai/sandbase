@@ -152,6 +152,7 @@ Real response for the request above, trimmed: lists keep their first item and lo
 
 ### Notes
 
+- A `target not found` error usually means the account has no active stories right now (stories expire after 24 hours) or is private. The call is not charged.
 - Pass the profile name as `username`, for example `instagram`.
 - Fields such as `taken_at`, `expiring_at`, `like_count`, `comment_count` and `view_count` came back as `null` for these stories, so do not rely on them.
 - Use [Instagram User Highlights (V3)](/apis/instagram/v3/user-highlights) to get the profile's highlights.

@@ -169,6 +169,7 @@ Real response for the request above, trimmed: lists keep their first item and lo
 
 ### Notes
 
+- A domain that Similarweb has no traffic data for (usually a small or new site) returns HTTP 404, and the call is not charged.
 - Metrics you do not request come back as `null` in each `data[]` row, so set `metrics` to the ones you need.
 - Send `start_date` and `end_date` as `YYYY-MM`. The response echoes them as full dates, such as `2026-09-01` and `2026-09-30`.
 - Set `web_source` to `desktop`, `mobile_web` or `total` to pick the traffic source. `country` accepts only `ww` (worldwide) and `granularity` accepts only `monthly`.

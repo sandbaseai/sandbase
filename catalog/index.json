@@ -1,12 +1,12 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-24T16:23:40Z",
+ "generated_at": "2026-11-25T00:42:02Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2831,
+ "count": 2833,
  "counts_by_type": {
-  "api": 2248,
+  "api": 2247,
   "image": 211,
-  "video": 206,
+  "video": 209,
   "llm": 132,
   "audio": 32,
   "embedding": 2
@@ -37670,27 +37670,6 @@
    "record": "catalog/models/twitter/community-moderators.json"
   },
   {
-   "name": "twitter/community-search-tweets",
-   "display_name": "X (Twitter) Search Tweets Across Communities",
-   "type": "api",
-   "vendor": "X (Twitter)",
-   "description": "Search tweets posted in all X Communities by keyword, sorted by Latest or Top.",
-   "tags": [
-    "api",
-    "twitter",
-    "social-media"
-   ],
-   "modes": [
-    "sync"
-   ],
-   "endpoint": "POST /v1/run",
-   "price": {
-    "model": "usage_based",
-    "usd_reference": 0.003
-   },
-   "record": "catalog/models/twitter/community-search-tweets.json"
-  },
-  {
    "name": "twitter/community-tweets",
    "display_name": "X (Twitter) Twitter Community Tweets",
    "type": "api",
@@ -56440,6 +56419,26 @@
    "record": "catalog/models/bytedance/seedance/2.5/image-to-video.json"
   },
   {
+   "name": "bytedance/seedance/2.5/image-to-video-hd",
+   "display_name": "Seedance 2.5 Image to Video HD",
+   "type": "video",
+   "vendor": "Bytedance",
+   "description": "ByteDance's next-generation image-to-video model, animating a single still into a native clip up to 30 seconds at 720p with continuous, coherent motion, native audio, and director-level camera control.",
+   "tags": [
+    "image-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.72,
+    "usd_to": 14.4
+   },
+   "record": "catalog/models/bytedance/seedance/2.5/image-to-video-hd.json"
+  },
+  {
    "name": "bytedance/seedance/2.5/reference-to-video",
    "display_name": "Seedance 2.5 Reference to Video",
    "type": "video",
@@ -56457,6 +56456,25 @@
     "usd_reference": 1.8
    },
    "record": "catalog/models/bytedance/seedance/2.5/reference-to-video.json"
+  },
+  {
+   "name": "bytedance/seedance/2.5/reference-to-video-hd",
+   "display_name": "Seedance 2.5 Reference to Video HD",
+   "type": "video",
+   "vendor": "Bytedance",
+   "description": "ByteDance's next-generation reference-to-video model, generating video from multimodal references (images, videos, audio) and locking a character, set, and palette across a full take up to 30 seconds for production-grade consistency.",
+   "tags": [
+    "reference-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 1.8
+   },
+   "record": "catalog/models/bytedance/seedance/2.5/reference-to-video-hd.json"
   },
   {
    "name": "bytedance/seedance/2.5/text-to-video",
@@ -56477,6 +56495,26 @@
     "usd_to": 7.2
    },
    "record": "catalog/models/bytedance/seedance/2.5/text-to-video.json"
+  },
+  {
+   "name": "bytedance/seedance/2.5/text-to-video-hd",
+   "display_name": "Seedance 2.5 Text to Video HD",
+   "type": "video",
+   "vendor": "Bytedance",
+   "description": "ByteDance's next-generation text-to-video model, generating native single-shot clips up to 30 seconds at 720p with coherent motion, native audio, and director-level camera control for professional-grade video creation.",
+   "tags": [
+    "text-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.72,
+    "usd_to": 14.4
+   },
+   "record": "catalog/models/bytedance/seedance/2.5/text-to-video-hd.json"
   },
   {
    "name": "bytedance/seedvr/upscale/video",

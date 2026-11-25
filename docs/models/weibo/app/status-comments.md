@@ -160,6 +160,7 @@ Real response for the request above, trimmed: lists keep their first item and lo
 
 ### Notes
 
+- A post with no comments returns a `target not found` error instead of an empty list, and the call is not charged. To skip those posts, check `comments_count` with [Weibo Post Detail](/apis/weibo/web-v2/post-detail) first.
 - Leave out `max_id` on the first call. For later pages, copy the value from `moreInfo.params.max_id`.
 - `status_id` is the numeric post or video ID, such as `5258708168476831`. It also appears as `mid` inside `analysis_extra`.
 - The response mixes card types in `items`. Filter on `type` equal to `comment` to keep only comments.

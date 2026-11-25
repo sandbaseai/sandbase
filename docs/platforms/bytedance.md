@@ -1,6 +1,6 @@
-# Bytedance models API: 36 endpoints with pricing and code examples
+# Bytedance models API: 39 endpoints with pricing and code examples
 
-Call 36 Bytedance models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 39 Bytedance models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
@@ -25,8 +25,11 @@ Call 36 Bytedance models through SandBase with one API key: no separate account,
 | [`bytedance/seedance/2.5/flash/reference-to-video`](../models/bytedance/seedance/2.5/flash/reference-to-video.md) | ByteDance's Seedance 2.5 Flash reference-to-video model, a faster and lower-cost tier of Seedance 2.5 that generates up to 30 seconds of… | about $1.2 per call |
 | [`bytedance/seedance/2.5/flash/text-to-video`](../models/bytedance/seedance/2.5/flash/text-to-video.md) | ByteDance's Seedance 2.5 Flash text-to-video model, a faster and lower-cost tier of Seedance 2.5 that generates native single-shot clips… | from $0.48 to $1.92 per run, depending on parameters |
 | [`bytedance/seedance/2.5/image-to-video`](../models/bytedance/seedance/2.5/image-to-video.md) | ByteDance's next-generation image-to-video model, animating a single still into a native clip up to 30 seconds at 720p with continuous,… | from $0.72 to $7.2 per run, depending on parameters |
+| [`bytedance/seedance/2.5/image-to-video-hd`](../models/bytedance/seedance/2.5/image-to-video-hd.md) | ByteDance's next-generation image-to-video model, animating a single still into a native clip up to 30 seconds at 720p with continuous,… | from $0.72 to $14.4 per run, depending on parameters |
 | [`bytedance/seedance/2.5/reference-to-video`](../models/bytedance/seedance/2.5/reference-to-video.md) | ByteDance's next-generation reference-to-video model, generating video from multimodal references (images, videos, audio) and locking a… | about $1.8 per call |
+| [`bytedance/seedance/2.5/reference-to-video-hd`](../models/bytedance/seedance/2.5/reference-to-video-hd.md) | ByteDance's next-generation reference-to-video model, generating video from multimodal references (images, videos, audio) and locking a… | about $1.8 per call |
 | [`bytedance/seedance/2.5/text-to-video`](../models/bytedance/seedance/2.5/text-to-video.md) | ByteDance's next-generation text-to-video model, generating native single-shot clips up to 30 seconds at 720p with coherent motion, native… | from $0.72 to $7.2 per run, depending on parameters |
+| [`bytedance/seedance/2.5/text-to-video-hd`](../models/bytedance/seedance/2.5/text-to-video-hd.md) | ByteDance's next-generation text-to-video model, generating native single-shot clips up to 30 seconds at 720p with coherent motion, native… | from $0.72 to $14.4 per run, depending on parameters |
 | [`bytedance/seedream/4.5`](../models/bytedance/seedream/4.5.md) | A new-generation image creation model from ByteDance, Seedream 4.5 integrates text-to-image generation and image editing into a single… | $0.04 per call |
 | [`bytedance/seedream/4.5/edit`](../models/bytedance/seedream/4.5/edit.md) | A new-generation image creation model from ByteDance, Seedream 4.5 integrates text-to-image generation and image editing into a single… | $0.04 per call |
 | [`bytedance/seedream/5.0/flash`](../models/bytedance/seedream/5.0/flash.md) | Seedream 5.0 Flash is ByteDance's fast, low-cost Seedream 5.0 tier for high-volume text-to-image generation, with roughly 15–20 second… | $0.018 per call |

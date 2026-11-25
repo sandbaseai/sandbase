@@ -349,8 +349,11 @@ bytedance/seedance/2.5/flash/image-to-video,video,Bytedance,formula,,,,0.48,1.92
 bytedance/seedance/2.5/flash/reference-to-video,video,Bytedance,formula,,,,1.2,1.2,,async,POST /v1/run
 bytedance/seedance/2.5/flash/text-to-video,video,Bytedance,formula,,,,0.48,1.92,,async,POST /v1/run
 bytedance/seedance/2.5/image-to-video,video,Bytedance,formula,,,,0.72,7.2,,async,POST /v1/run
+bytedance/seedance/2.5/image-to-video-hd,video,Bytedance,formula,,,,0.72,14.4,,async,POST /v1/run
 bytedance/seedance/2.5/reference-to-video,video,Bytedance,formula,,,,1.8,1.8,,async,POST /v1/run
+bytedance/seedance/2.5/reference-to-video-hd,video,Bytedance,formula,,,,1.8,1.8,,async,POST /v1/run
 bytedance/seedance/2.5/text-to-video,video,Bytedance,formula,,,,0.72,7.2,,async,POST /v1/run
+bytedance/seedance/2.5/text-to-video-hd,video,Bytedance,formula,,,,0.72,14.4,,async,POST /v1/run
 bytedance/seedream/4.5,image,Bytedance,per_call,0.04,,,,,,async,POST /v1/run
 bytedance/seedream/4.5/edit,image,Bytedance,per_call,0.04,,,,,,async,POST /v1/run
 bytedance/seedream/5.0/flash,image,Bytedance,per_call,0.018,,,,,,async,POST /v1/run
@@ -2349,7 +2352,6 @@ twitter/article,api,X (Twitter),usage_based,,,,0.00054,0.00054,,sync,POST /v1/ru
 twitter/bulk/tweet-search,api,Twitter,usage_based,,,,0.0006,0.0006,,async,POST /v1/run
 twitter/community,api,X (Twitter),usage_based,,,,0.0001,0.0001,,sync,POST /v1/run
 twitter/community-moderators,api,X (Twitter),usage_based,,,,0.0036,0.0036,,sync,POST /v1/run
-twitter/community-search-tweets,api,X (Twitter),usage_based,,,,0.003,0.003,,sync,POST /v1/run
 twitter/community-tweets,api,X (Twitter),usage_based,,,,0.00045,0.00045,,sync,POST /v1/run
 twitter/followers,api,X (Twitter),usage_based,,,,0.00045,0.00045,,sync,POST /v1/run
 twitter/following,api,X (Twitter),usage_based,,,,0.00045,0.00045,,sync,POST /v1/run

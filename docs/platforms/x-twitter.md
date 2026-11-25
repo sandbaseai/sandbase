@@ -1,13 +1,12 @@
-# X (Twitter) API: 30 endpoints with pricing and code examples
+# X (Twitter) API: 29 endpoints with pricing and code examples
 
-Call 30 X (Twitter) endpoints through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 29 X (Twitter) endpoints through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
 | [`twitter/article`](../models/twitter/article.md) | Get a public X long-form article from its wrapper post URL, including its author, engagement, cover image, and structured content blocks. | about $0.00054 per call |
 | [`twitter/community`](../models/twitter/community.md) | Fetch a Twitter/X community's public details (name, description, member count, join policy) by URL. | about $0.0001 per call |
 | [`twitter/community-moderators`](../models/twitter/community-moderators.md) | Moderators of an X Community by community ID, with profile details and cursor pagination. | about $0.0036 per call |
-| [`twitter/community-search-tweets`](../models/twitter/community-search-tweets.md) | Search tweets posted in all X Communities by keyword, sorted by Latest or Top. | about $0.003 per call |
 | [`twitter/community-tweets`](../models/twitter/community-tweets.md) | List recent tweets posted in a Twitter/X community by URL. | about $0.00045 per call |
 | [`twitter/followers`](../models/twitter/followers.md) | Fetch the follower list of any public X (Twitter) account by username with cursor pagination. Limit is a per-page maximum and a native… | about $0.00045 per call |
 | [`twitter/following`](../models/twitter/following.md) | List the accounts a public X (Twitter) account follows by username with cursor pagination. Limit is a per-page maximum; follow the… | about $0.00045 per call |
