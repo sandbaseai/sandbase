@@ -88,5 +88,34 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | `aspect_ratio` | string |  | Output aspect ratio. one of: `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9`; default `"16:9"` |
 | `generate_audio` | boolean |  | Generate a native audio track with the video. Included in the price. default `true` |
 
+## Details
+
+MAGI-2 reference-to-video: guide a new clip with up to 10 reference images, 5 reference videos and 5 reference audio clips to hold a character, a motion or a sound.
+### Fields
+| Field | Type | Default | Notes |
+|---|---|---|---|
+| `prompt` | string, required | — | Describe how to use the references, the scene, motion and sound. |
+| `images` | string[] (≤10) | — | Up to 10 images (upload or public HTTPS URL), each under 30 MB. |
+| `videos` | string[] (≤5) | — | Up to 5 MP4/MOV files or URLs, 2-30 s each and 30 s in total, up to 200 MB each. |
+| `audios` | string[] (≤5) | — | Up to 5 WAV/MP3 files or URLs, 2-30 s each and 30 s in total, up to 15 MB each. |
+| `duration` | integer 4–30 | 5 | Output video duration in seconds (4-30). Billed per second. |
+| `aspect_ratio` | `16:9` / `9:16` / `1:1` / `4:3` / `3:4` / `21:9` | 16:9 | Output aspect ratio. |
+| `resolution` | `1080p` | 1080p | Output resolution. MAGI-2 renders 1080p only. |
+| `generate_audio` | boolean | true | Generate a native audio track with the video. Included in the price. |
+| `seed` | integer 0–4294967295 | random | Random seed for reproducibility (0-4294967295). Omit for a random seed. |
+### Billing
+$0.08 per second of output video, with native audio included in the price. Resolution is fixed at 1080p. Failed runs are not billed.
+| Output length | Price |
+|---|---|
+| 4s | $0.32 |
+| 5s (default) | $0.40 |
+| 10s | $0.80 |
+| 30s | $2.40 |
+### See what people made
+Browse the most-liked MAGI-2 videos on X, credited to the people who made them: [MAGI-2 videos from X](https://www.sandbase.ai/lab/ai-videos/magi-2). Short films, ads and anime.
+### Other MAGI-2 modes
+- [MAGI-2 Text to Video](/models/sandai/magi-2/text-to-video)
+- [MAGI-2 Image to Video](/models/sandai/magi-2/image-to-video)
+
 ---
 Machine-readable: [`catalog/models/sandai/magi-2/reference-to-video.json`](../../../../catalog/models/sandai/magi-2/reference-to-video.json) · Store page: https://www.sandbase.ai/model/sandai/magi-2/reference-to-video
