@@ -1,6 +1,6 @@
 # SandBase capability index
 
-2837 capabilities · generated 2026-11-26T08:26:25Z
+2837 capabilities · generated 2026-11-26T16:23:27Z
 
 - [api](#api) (2247)
 - [audio](#audio) (32)
