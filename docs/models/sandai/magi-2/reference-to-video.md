@@ -90,7 +90,39 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 
 ## Details
 
-MAGI-2 reference-to-video: guide a new clip with up to 10 reference images, 5 reference videos and 5 reference audio clips to hold a character, a motion or a sound.
+MAGI-2 reference-to-video API by Sand AI: guide a 1080p video of 4 to 30 seconds with up to 10 reference images, 5 videos and 5 audio clips, to keep a character, a location, a camera move or a voice consistent. Sound is generated with the picture. Use it through SandBase with one API key, pay per second of output, and switch providers automatically if one is unavailable.
+### Quickstart
+```bash
+curl https://api.sandbase.ai/v1/run \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "sandai/magi-2/reference-to-video",
+    "prompt": "Use the woman in image 1 as the lead and keep her face, hair and outfit the same. She walks into a sunlit flower market, picks up white tulips, turns to the camera and says: \"These are for you.\" Slow tracking shot. Sound: soft market chatter and her voice from audio 1.",
+    "images": [
+      "https://example.com/character.jpg"
+    ],
+    "audios": [
+      "https://example.com/voice.wav"
+    ],
+    "duration": 5,
+    "aspect_ratio": "16:9"
+  }'
+```
+The response contains an `id`. Poll the run every 10 seconds until `status` is `completed`, then download `outputs[0].url`:
+```bash
+curl https://api.sandbase.ai/v1/run/$RUN_ID \
+  -H "Authorization: Bearer $SANDBASE_API_KEY"
+```
+Stop polling when `status` is `failed` and read the error message. You can also run the same request in the Playground on this page without writing code.
+### Two ways to call MAGI-2
+| | This model (SandBase API) | [MAGI-2, Sand AI format](/models/sandai/magi-2) |
+|---|---|---|
+| Request | `POST /v1/run` with `"model": "sandai/magi-2/reference-to-video"` and the fields below | `POST /api/v3/contents/generations/tasks` with `"model": "magi-2"` and a `content` array |
+| Inputs | Reference images, videos and audio | Text, first and last frame, or references, all in one model |
+| Providers | Switches to another provider if one is unavailable | One provider |
+| Price | $0.08 per second | $0.08 per second |
+Use this model for new integrations: it takes the same request format as other SandBase models. Use [MAGI-2 in the Sand AI format](/models/sandai/magi-2) if your code already calls Sand AI's API or the Ark SDK. [Compare both on the MAGI-2 page](/models/magi-2).
 ### Fields
 | Field | Type | Default | Notes |
 |---|---|---|---|
@@ -103,6 +135,12 @@ MAGI-2 reference-to-video: guide a new clip with up to 10 reference images, 5 re
 | `resolution` | `1080p` | 1080p | Output resolution. MAGI-2 renders 1080p only. |
 | `generate_audio` | boolean | true | Generate a native audio track with the video. Included in the price. |
 | `seed` | integer 0–4294967295 | random | Random seed for reproducibility (0-4294967295). Omit for a random seed. |
+### Prompt tips
+- Refer to each reference by type and order: image 1, image 2, video 1, audio 1.
+- Say what each reference controls, for example `keep the face and outfit from image 1`, `use the location in image 2`, `follow the camera move in video 1` or `use the voice in audio 1`.
+- Use clear, well-lit reference images of the character and the location, and describe them in the prompt as well.
+- Keep one or two actions and one camera move per clip, and put spoken lines in quotes.
+- References cannot be combined with a first or last frame. To start from a specific image, use [MAGI-2 Image to Video](/models/sandai/magi-2/image-to-video).
 ### Billing
 $0.08 per second of output video, with native audio included in the price. Resolution is fixed at 1080p. Failed runs are not billed.
 | Output length | Price |
@@ -111,6 +149,19 @@ $0.08 per second of output video, with native audio included in the price. Resol
 | 5s (default) | $0.40 |
 | 10s | $0.80 |
 | 30s | $2.40 |
+### FAQ
+#### How many reference files can I use?
+Up to 10 images, 5 videos and 5 audio clips in one request. Each video or audio clip must be 2 to 30 seconds long, and all clips of one type together at most 30 seconds. Reference files do not change the price.
+#### Which file formats are supported?
+Images: JPEG, PNG, WebP and other common formats under 30 MB. Videos: MP4 or MOV up to 200 MB. Audio: WAV or MP3 up to 15 MB. Upload them in the Playground or pass public HTTPS URLs.
+#### How long can a MAGI-2 video be?
+Any whole number of seconds from 4 to 30, set with `duration`. The video is rendered at 1080p and 25 fps in one of six aspect ratios: 16:9, 9:16, 1:1, 4:3, 3:4 or 21:9.
+#### Does MAGI-2 generate sound?
+Yes. Dialogue, sound effects, ambience and music are generated together with the picture. Set `generate_audio` to `false` for a silent video; the price is the same.
+#### How is MAGI-2 billed?
+$0.08 per second of output video, from your SandBase balance. A 5-second clip costs $0.40 and a 30-second clip $2.40. Failed runs, including ones rejected by content moderation, are not billed.
+#### Can I use Sand AI's API format instead?
+Yes. If your code already calls Sand AI's API or the Ark SDK, use [MAGI-2 in the Sand AI format](/models/sandai/magi-2) with `"model": "magi-2"` at `https://api.sandbase.ai/api/v3`. [Compare both ways](/models/magi-2).
 ### See what people made
 Browse the most-liked MAGI-2 videos on X, credited to the people who made them: [MAGI-2 videos from X](https://www.sandbase.ai/lab/ai-videos/magi-2). Short films, ads and anime.
 ### Other MAGI-2 modes

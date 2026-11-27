@@ -83,7 +83,7 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 
 [MAGI-2](https://sand.ai/blog/magi-2/) by [Sand AI](https://sand.ai/) generates a 1080p video of 4 to 30 seconds from text, a first and last frame, or reference images, videos and audio, with dialogue, sound effects and music generated together with the picture. [See MAGI-2 results](https://www.sandbase.ai/lab/ai-videos/magi-2) first if you want to judge the quality.
 
-Use the form on this page, call `sandai/magi-2` through `/v1/run`, or use the Volcengine Ark compatible API below with the request body Sand AI documents.
+Use the form on this page, or the Volcengine Ark compatible API below with the request body Sand AI documents. For SandBase's own API format, see [Two ways to call MAGI-2](#two-ways-to-call-magi-2).
 ### Inputs
 Pick one way to guide the video:
 - **Text only**: a prompt.
@@ -137,7 +137,7 @@ The response is `{"id": "..."}`. Poll `GET /api/v3/contents/generations/tasks/{i
 Requests and responses use the format in the [Sand AI documentation](https://platform.sand.ai/docs/ark-generations/). Media URLs can be public HTTPS or `data:` URLs: images JPEG, PNG, WebP, GIF, BMP, TIFF, HEIC or HEIF under 30,000,000 bytes, audio MP3 or WAV up to 15,000,000 bytes. A request body can be up to 64,000,000 bytes, of which at most 2 MiB is not media; put `model` near the start of large requests. Also note:
 - `X-Request-Id` is returned only when a task is created.
 - References are sent to the model grouped by type (images, then videos, then audio); the order within each type is kept.
-- MAGI-2 runs on one provider here. The per-mode models below can switch providers.
+- MAGI-2 runs on one provider here. The SandBase API models can switch providers.
 ### Billing
 $0.08 per second of output video, with native audio included in the price. Resolution is fixed at 1080p. Failed runs are not billed.
 | Output length | Price |
@@ -146,14 +146,17 @@ $0.08 per second of output video, with native audio included in the price. Resol
 | 5s (default) | $0.40 |
 | 10s | $0.80 |
 | 30s | $2.40 |
-### One mode at a time
-These models take one input mode each and can switch between providers if one is unavailable:
-- [MAGI-2 Text to Video](/models/sandai/magi-2/text-to-video)
-- [MAGI-2 Image to Video](/models/sandai/magi-2/image-to-video)
-- [MAGI-2 Reference to Video](/models/sandai/magi-2/reference-to-video)
+### Two ways to call MAGI-2
+| | This model (Sand AI format) | SandBase API |
+|---|---|---|
+| Request | `POST /api/v3/contents/generations/tasks` with `"model": "magi-2"` and a `content` array | `POST /v1/run` with the fields of each model |
+| Models | `magi-2` for every kind of input | [Text to Video](/models/sandai/magi-2/text-to-video), [Image to Video](/models/sandai/magi-2/image-to-video), [Reference to Video](/models/sandai/magi-2/reference-to-video) |
+| Providers | One provider | Switches to another provider if one is unavailable |
+| Price | $0.08 per second | $0.08 per second |
+Use this model if your code already calls Sand AI's API or the Ark SDK: change the base URL and API key, keep the request body. Use the SandBase API models for new integrations: they take the same request format as other SandBase models and keep working if a provider is unavailable. [Compare both on the MAGI-2 page](/models/magi-2).
 ### See what MAGI-2 can do
 - [MAGI-2 videos from X](https://www.sandbase.ai/lab/ai-videos/magi-2): the most-liked MAGI-2 clips, credited to the people who made them. Short films, ads and anime.
-- Open a mode page above to try it and see its examples.
+- Open a SandBase API model page above to see its examples.
 ### Learn more
 - [Sand AI Ark compatibility API](https://platform.sand.ai/docs/ark-generations/): the official request and response reference, to compare with SandBase.
 - [MAGI-2 announcement from Sand AI](https://sand.ai/blog/magi-2/): model overview and release notes.
