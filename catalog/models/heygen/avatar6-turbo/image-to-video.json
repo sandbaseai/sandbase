@@ -1,0 +1,154 @@
+{
+  "name": "heygen/avatar6-turbo/image-to-video",
+  "display_name": "HeyGen Avatar 6 Turbo Image to Video",
+  "type": "video",
+  "vendor": "HeyGen",
+  "vendor_slug": "heygen",
+  "description": "HeyGen Avatar 6 Turbo by HeyGen turns a photo of a person and a speech track into a lifelike talking video. Turbo is the faster, lower-cost tier.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image",
+      "audio"
+    ],
+    "properties": {
+      "audio": {
+        "type": "string",
+        "title": "Audio",
+        "description": "Speech audio, file or URL. It sets the video length."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://storage.googleapis.com/falserverless/example_inputs/omnihuman.png"
+        ],
+        "description": "Photo of the person to animate, file or URL. The face should be clearly visible."
+      },
+      "resolution": {
+        "enum": [
+          "1080p",
+          "2k"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1080p",
+        "description": "Output resolution; 2k is billed at a higher per-second rate."
+      },
+      "motion_prompt": {
+        "type": "string",
+        "title": "Motion Prompt",
+        "description": "Optional direction for the avatar's motion and expression."
+      },
+      "motion_expressiveness": {
+        "enum": [
+          "default",
+          "less"
+        ],
+        "type": "string",
+        "title": "Motion Expressiveness",
+        "default": "default",
+        "description": "less gives fewer, smaller gestures and calmer expressions."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/heygen/heygen-avatar4/image-to-video/output_url_1.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(usage.duration ?? media_duration(params.audio) ?? 5.0) * ((params.resolution ?? \"1080p\") == \"2k\" ? 0.0875 : 0.06)",
+    "formula_variables": [
+      "params.audio",
+      "params.resolution",
+      "usage.duration"
+    ],
+    "reference_price": 0.3
+  },
+  "examples": [
+    {
+      "input": {
+        "audio": "https://static.sandbase.ai/examples/d5971b7a-1eb9-423e-b169-66fc98d4bf87/input/ece18167-f8ab-49d2-b162-eeda05bde2f8.mp3",
+        "image": "https://static.sandbase.ai/examples/d5971b7a-1eb9-423e-b169-66fc98d4bf87/input/9f3fd320-f150-4261-ad2a-f16e4c22ff3b.png"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/d5971b7a-1eb9-423e-b169-66fc98d4bf87/output/a9934477-6c7e-40b1-b38f-7a27644ea1b7.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# HeyGen Avatar 6 Turbo Image to Video\nHeyGen Avatar 6 Turbo turns one photo of a person and a speech track into a talking video with natural motion and lip-sync. Turbo is the faster, lower-cost tier.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image file or URL, required | — | Front-facing photo. |\n| `audio` | audio file or URL, required | — | Sets the video length. |\n| `motion_prompt` | string | — | Direction for motion and expression. |\n| `motion_expressiveness` | `default` / `less` | `default` | `less` for calmer motion. |\n| `resolution` | `1080p` / `2k` | `1080p` | Sets the per-second rate. |\n## Billing\n$0.06 per output second at 1080p, $0.0875 at 2k. Length follows the speech audio; the quote before submission assumes 5 seconds.\n| Output | 1080p | 2k |\n|---|---|---|\n| 10s | $0.60 | $0.875 |\n| 60s | $3.60 | $5.25 |\nFailed runs are not charged.\n## Also on SandBase\nRelated: `heygen/avatar6-turbo/ref-video-to-video`, `heygen/avatar6-turbo/identity-to-video`, `heygen/avatar5/digital-twin`.\n",
+  "page_url": "https://www.sandbase.ai/model/heygen/avatar6-turbo/image-to-video",
+  "created_at": "2026-11-27T15:52:07.859Z"
+}

@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <!-- counts:zh --><b>2,000+ 个模型和 API</b> · 550+ 个 AI 模型 · 2,200+ 个数据 API，来自 150+ 个平台<br><b>每天 100 次免费 API 调用</b> · <b>沙箱免费</b> · <b>Agent 免费</b><!-- /counts:zh -->
+  <!-- counts:zh --><b>2,000+ 个模型和 API</b> · 600+ 个 AI 模型 · 2,200+ 个数据 API，来自 150+ 个平台<br><b>每天 100 次免费 API 调用</b> · <b>沙箱免费</b> · <b>Agent 免费</b><!-- /counts:zh -->
 </p>
 
 <p align="center">
@@ -113,7 +113,7 @@ TypeScript 和 Go 的用法一样，见 [`sdk/typescript`](sdk/typescript) 和 [
 <!-- inside:zh -->
 | | 数量 | 包括 |
 |---|---|---|
-| **AI 模型** | 550+ | LLM 100+、视频 200+、图像 200+、音频 30+：Alibaba, Google, OpenAI, Kling, Meshy, ByteDance, Tripo3D, Tencent 等 |
+| **AI 模型** | 600+ | LLM 100+、视频 200+、图像 200+、音频 30+：Alibaba, Google, OpenAI, Kling, Meshy, ByteDance, Tripo3D, Tencent 等 |
 | 社媒与内容 | 1,200+ | Douyin, TikTok, Instagram, Xiaohongshu, Weibo, YouTube, Zhihu, Bilibili, Kuaishou, LinkedIn 等 |
 | 搜索、SEO 与网页数据 | 250+ | DataForSEO, Ahrefs, Google, Similarweb, Brave, Bing, DuckDuckGo, Firecrawl, Artificial Analysis, arXiv 等 |
 | 电商、应用与点评 | 150+ | 1688, Amazon, GetApp, Temu, Google Maps, Taobao, TikTok Shop, Clutch, Google Play, JD.com 等 |

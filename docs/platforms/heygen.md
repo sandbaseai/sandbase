@@ -1,10 +1,15 @@
-# HeyGen models API: 10 endpoints with pricing and code examples
+# HeyGen models API: 15 endpoints with pricing and code examples
 
-Call 10 HeyGen models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 15 HeyGen models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
 | [`heygen/avatar5/digital-twin`](../models/heygen/avatar5/digital-twin.md) | Avatar5 Digital Twin by HeyGen - generate cinematic videos from text descriptions with AI. Create high-quality video content with natural… | about $0.6 per call |
+| [`heygen/avatar6-turbo/image-to-video`](../models/heygen/avatar6-turbo/image-to-video.md) | HeyGen Avatar 6 Turbo by HeyGen turns a photo of a person and a speech track into a lifelike talking video. Turbo is the faster,… | about $0.3 per call |
+| [`heygen/avatar6-turbo/ref-video-to-video`](../models/heygen/avatar6-turbo/ref-video-to-video.md) | HeyGen Avatar 6 Turbo by HeyGen animates an illustrated or animated character from a reference video, lip-synced to speech audio. Turbo is… | about $0.3 per call |
+| [`heygen/avatar6/identity-to-video`](../models/heygen/avatar6/identity-to-video.md) | HeyGen Avatar 6 by HeyGen creates a talking video with a public HeyGen avatar from a script or speech audio. | about $0.6 per call |
+| [`heygen/avatar6/image-to-video`](../models/heygen/avatar6/image-to-video.md) | HeyGen Avatar 6 by HeyGen turns a photo of a person and a speech track into a lifelike talking video. | about $0.6 per call |
+| [`heygen/avatar6/ref-video-to-video`](../models/heygen/avatar6/ref-video-to-video.md) | HeyGen Avatar 6 by HeyGen animates an illustrated or animated character from a reference video, lip-synced to speech audio. | about $0.6 per call |
 | [`heygen/heygen-avatar4/image-to-video`](../models/heygen/heygen-avatar4/image-to-video.md) | Heygen Avatar4 is HeyGen's image-to-video AI model. Bring static images to life with fluid animation, consistent character motion, and… | about $0.5 per call |
 | [`heygen/heygen-video/image-to-video`](../models/heygen/heygen-video/image-to-video.md) | HeyGen Video Image to Video animates a first-frame image into a 5-15 second video at up to 2K resolution. | from $0.1 to $1.5 per run, depending on parameters |
 | [`heygen/heygen-video/reference-to-video`](../models/heygen/heygen-video/reference-to-video.md) | HeyGen Video Reference to Video generates a 5-15 second video guided by reference images, videos and audio. | from $0.35 to $2.7 per run, depending on parameters |

@@ -1,0 +1,191 @@
+{
+  "name": "ideogram/4.6",
+  "display_name": "Ideogram 4.6 Text to Image",
+  "type": "image",
+  "vendor": "Ideogram",
+  "vendor_slug": "ideogram",
+  "description": "Ideogram 4.6 generates images with reliable text rendering and polished graphic design, with four quality levels from very_low to high.",
+  "tags": [
+    "text-to-image"
+  ],
+  "capabilities": [
+    "text-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed. Omit to choose automatically."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A colorful storefront with a sign reading hello"
+        ],
+        "maxLength": 10000,
+        "minLength": 1,
+        "description": "The generation or editing prompt."
+      },
+      "quality": {
+        "enum": [
+          "very_low",
+          "low",
+          "medium",
+          "high"
+        ],
+        "type": "string",
+        "title": "Quality",
+        "default": "medium",
+        "description": "Text-to-image quality."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.quality ?? \"medium\") == \"high\" ? 0.10 : (params.quality ?? \"medium\") == \"low\" ? 0.03 : (params.quality ?? \"medium\") == \"very_low\" ? 0.008 : 0.06",
+    "formula_variables": [
+      "params.quality"
+    ],
+    "reference_price": 0.06,
+    "price_examples": [
+      {
+        "params": {
+          "quality": "very_low"
+        },
+        "usd": 0.008
+      },
+      {
+        "params": {
+          "quality": "low"
+        },
+        "usd": 0.03
+      },
+      {
+        "params": {
+          "quality": "medium"
+        },
+        "usd": 0.06
+      },
+      {
+        "params": {
+          "quality": "high"
+        },
+        "usd": 0.1
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "prompt": "A vintage travel poster for Kyoto with the headline \"KYOTO\" in bold art deco letters, pagoda and cherry blossoms"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/5a577634-9f9c-493f-ab0a-1f9219840587/output/33806469-db48-4570-b5ae-19d138e0b1dd.png"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "prompt": "A colorful storefront with a sign reading hello"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/e9afa139-f07b-4980-84e8-7c3a84fadbd9/output/1169e373-a7b4-4a93-bff9-9fa95b970522.png"
+        }
+      ]
+    }
+  ],
+  "readme": "# Ideogram 4.6 Text to Image\n\nIdeogram 4.6 generates images with reliable text rendering and polished graphic design, at four quality levels.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 10,000 characters. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Output shape. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n| `quality` | `very_low` / `low` / `medium` / `high` | `medium` | Sets the per-image rate. |\n\n## Billing\nPer image: $0.008 very_low, $0.03 low, $0.06 medium, $0.10 high.\n| Quality | Price |\n|---|---|\n| very_low | $0.008 |\n| low | $0.03 |\n| medium | $0.06 |\n| high | $0.10 |\nFailed runs are not charged.\n## Prompting\n\n- Quote all text that must appear.\n\n## Limits\n\n- One image per request.\n\n## Also on SandBase\nRelated: `ideogram/4.6/edit`, `ideogram/4.5`.\n",
+  "page_url": "https://www.sandbase.ai/model/ideogram/4.6",
+  "created_at": "2026-11-27T15:26:01.782Z"
+}

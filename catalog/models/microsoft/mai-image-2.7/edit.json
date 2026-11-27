@@ -1,0 +1,195 @@
+{
+  "name": "microsoft/mai-image-2.7/edit",
+  "display_name": "MAI Image 2.7 Edit",
+  "type": "image",
+  "vendor": "Microsoft",
+  "vendor_slug": "microsoft",
+  "description": "MAI Image 2.7 Edit by Microsoft edits images from a text instruction, combining up to five reference images.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "images",
+      "prompt"
+    ],
+    "properties": {
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Images",
+        "examples": [
+          [
+            "https://storage.googleapis.com/falserverless/example_inputs/nano-banana-edit-input.png"
+          ]
+        ],
+        "maxItems": 5,
+        "minItems": 1,
+        "description": "Images to edit or use as references, 1 to 5 files or URLs."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Make the teapot bright blue."
+        ],
+        "description": "Instruction describing the edit."
+      },
+      "background": {
+        "enum": [
+          "opaque",
+          "transparent"
+        ],
+        "type": "string",
+        "title": "Background",
+        "default": "opaque",
+        "description": "transparent returns an alpha channel (png or webp output)."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "Output shape. Leave unset to stay close to the input image."
+      },
+      "output_format": {
+        "enum": [
+          "png",
+          "jpeg",
+          "webp"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "Image file format."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.07 + 0.01 * (len(params.images ?? []) > 1 ? float(len(params.images ?? []) - 1) : 0.0)",
+    "formula_variables": [
+      "params.images"
+    ],
+    "reference_price": 0.07,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.07
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "images": [
+          "https://static.sandbase.ai/examples/e59fb24e-627f-4fef-8b4f-7204133fa825/input/44cb197d-5421-4f05-8f21-445006099792.png"
+        ],
+        "prompt": "Place this figure on a wooden desk next to a cup of coffee, soft morning light."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/e59fb24e-627f-4fef-8b4f-7204133fa825/output/2a16760b-c9af-4372-99e7-2aaeec36fcc7.png"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "images": [
+          "https://static.sandbase.ai/examples/432ff23b-217a-4ae0-8cba-954e500fd336/input/7913545c-2f31-4b90-b076-f9b259396351.png"
+        ],
+        "prompt": "Turn this into a watercolor painting."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/432ff23b-217a-4ae0-8cba-954e500fd336/output/fcf9228b-4e18-4c8e-9f80-e96c491167df.png"
+        }
+      ]
+    }
+  ],
+  "readme": "# MAI Image 2.7 Edit\nMAI Image 2.7 Edit changes one or more input images from a text instruction. Up to five images can be combined as references.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `images` | image files or URLs, required | — | 1 to 5 images. |\n| `prompt` | string, required | — | The edit to make. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Unset keeps a size close to the input. |\n| `background` | `opaque` / `transparent` | `opaque` | `transparent` needs png or webp. |\n| `output_format` | `png` / `jpeg` / `webp` | `png` | File format. |\n## Billing\n$0.07 per image with one input image, plus $0.01 for each additional input image.\n| Input images | Price |\n|---|---|\n| 1 | $0.07 |\n| 5 | $0.11 |\nFailed runs are not charged.\n## Also on SandBase\nRelated: `microsoft/mai-image-2.7`, `microsoft/mai-image-2.5/edit`.\n",
+  "page_url": "https://www.sandbase.ai/model/microsoft/mai-image-2.7/edit",
+  "created_at": "2026-11-27T15:34:59.031Z"
+}

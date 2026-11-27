@@ -1,12 +1,12 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-27T12:28:21Z",
+ "generated_at": "2026-11-27T16:23:13Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2843,
+ "count": 2854,
  "counts_by_type": {
   "api": 2247,
-  "image": 216,
-  "video": 213,
+  "image": 222,
+  "video": 218,
   "llm": 133,
   "audio": 32,
   "embedding": 2
@@ -48929,6 +48929,46 @@
    "record": "catalog/models/ideogram/4.5/edit.json"
   },
   {
+   "name": "ideogram/4.6",
+   "display_name": "Ideogram 4.6 Text to Image",
+   "type": "image",
+   "vendor": "Ideogram",
+   "description": "Ideogram 4.6 generates images with reliable text rendering and polished graphic design, with four quality levels from very_low to high.",
+   "tags": [
+    "text-to-image"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.008,
+    "usd_to": 0.1
+   },
+   "record": "catalog/models/ideogram/4.6.json"
+  },
+  {
+   "name": "ideogram/4.6/edit",
+   "display_name": "Ideogram 4.6 Edit",
+   "type": "image",
+   "vendor": "Ideogram",
+   "description": "Ideogram 4.6 Edit changes an image from a text instruction, with optional mask and reference images, keeping text rendering sharp.",
+   "tags": [
+    "image-to-image"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.008,
+    "usd_to": 0.22
+   },
+   "record": "catalog/models/ideogram/4.6/edit.json"
+  },
+  {
    "name": "kwaivgi/kling-image/o3",
    "display_name": "Kling Image O3 Text to Image",
    "type": "image",
@@ -49926,6 +49966,86 @@
    "record": "catalog/models/microsoft/mai-image-2.5/edit.json"
   },
   {
+   "name": "microsoft/mai-image-2.7",
+   "display_name": "MAI Image 2.7 Text to Image",
+   "type": "image",
+   "vendor": "Microsoft",
+   "description": "MAI Image 2.7 by Microsoft turns a text prompt into a high-quality image, with optional transparent background.",
+   "tags": [
+    "text-to-image"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.07,
+    "usd_to": 0.07
+   },
+   "record": "catalog/models/microsoft/mai-image-2.7.json"
+  },
+  {
+   "name": "microsoft/mai-image-2.7-flash",
+   "display_name": "MAI Image 2.7 Flash Text to Image",
+   "type": "image",
+   "vendor": "Microsoft",
+   "description": "MAI Image 2.7 Flash by Microsoft turns a text prompt into a high-quality image, with optional transparent background.",
+   "tags": [
+    "text-to-image"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.025,
+    "usd_to": 0.025
+   },
+   "record": "catalog/models/microsoft/mai-image-2.7-flash.json"
+  },
+  {
+   "name": "microsoft/mai-image-2.7-flash/edit",
+   "display_name": "MAI Image 2.7 Flash Edit",
+   "type": "image",
+   "vendor": "Microsoft",
+   "description": "MAI Image 2.7 Flash Edit by Microsoft edits images from a text instruction, combining up to five reference images.",
+   "tags": [
+    "image-to-image"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.025,
+    "usd_to": 0.025
+   },
+   "record": "catalog/models/microsoft/mai-image-2.7-flash/edit.json"
+  },
+  {
+   "name": "microsoft/mai-image-2.7/edit",
+   "display_name": "MAI Image 2.7 Edit",
+   "type": "image",
+   "vendor": "Microsoft",
+   "description": "MAI Image 2.7 Edit by Microsoft edits images from a text instruction, combining up to five reference images.",
+   "tags": [
+    "image-to-image"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.07,
+    "usd_to": 0.07
+   },
+   "record": "catalog/models/microsoft/mai-image-2.7/edit.json"
+  },
+  {
    "name": "microsoft/moge-2",
    "display_name": "MoGe-2",
    "type": "image",
@@ -50616,8 +50736,8 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_from": 0.525,
-    "usd_to": 0.675
+    "usd_from": 0.6,
+    "usd_to": 1.4
    },
    "record": "catalog/models/tencent/hunyuan-3d/3.6/image-to-3d.json"
   },
@@ -50636,8 +50756,8 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_from": 0.525,
-    "usd_to": 0.675
+    "usd_from": 0.8,
+    "usd_to": 2
    },
    "record": "catalog/models/tencent/hunyuan-3d/3.6/text-to-3d.json"
   },
@@ -57233,6 +57353,101 @@
     "usd_reference": 0.6
    },
    "record": "catalog/models/heygen/avatar5/digital-twin.json"
+  },
+  {
+   "name": "heygen/avatar6-turbo/image-to-video",
+   "display_name": "HeyGen Avatar 6 Turbo Image to Video",
+   "type": "video",
+   "vendor": "HeyGen",
+   "description": "HeyGen Avatar 6 Turbo by HeyGen turns a photo of a person and a speech track into a lifelike talking video. Turbo is the faster, lower-cost tier.",
+   "tags": [
+    "image-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 0.3
+   },
+   "record": "catalog/models/heygen/avatar6-turbo/image-to-video.json"
+  },
+  {
+   "name": "heygen/avatar6-turbo/ref-video-to-video",
+   "display_name": "HeyGen Avatar 6 Turbo Reference Video to Video",
+   "type": "video",
+   "vendor": "HeyGen",
+   "description": "HeyGen Avatar 6 Turbo by HeyGen animates an illustrated or animated character from a reference video, lip-synced to speech audio. Turbo is the faster, lower-cost tier.",
+   "tags": [
+    "video-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 0.3
+   },
+   "record": "catalog/models/heygen/avatar6-turbo/ref-video-to-video.json"
+  },
+  {
+   "name": "heygen/avatar6/identity-to-video",
+   "display_name": "HeyGen Avatar 6 Identity to Video",
+   "type": "video",
+   "vendor": "HeyGen",
+   "description": "HeyGen Avatar 6 by HeyGen creates a talking video with a public HeyGen avatar from a script or speech audio.",
+   "tags": [
+    "text-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 0.6
+   },
+   "record": "catalog/models/heygen/avatar6/identity-to-video.json"
+  },
+  {
+   "name": "heygen/avatar6/image-to-video",
+   "display_name": "HeyGen Avatar 6 Image to Video",
+   "type": "video",
+   "vendor": "HeyGen",
+   "description": "HeyGen Avatar 6 by HeyGen turns a photo of a person and a speech track into a lifelike talking video.",
+   "tags": [
+    "image-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 0.6
+   },
+   "record": "catalog/models/heygen/avatar6/image-to-video.json"
+  },
+  {
+   "name": "heygen/avatar6/ref-video-to-video",
+   "display_name": "HeyGen Avatar 6 Reference Video to Video",
+   "type": "video",
+   "vendor": "HeyGen",
+   "description": "HeyGen Avatar 6 by HeyGen animates an illustrated or animated character from a reference video, lip-synced to speech audio.",
+   "tags": [
+    "video-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 0.6
+   },
+   "record": "catalog/models/heygen/avatar6/ref-video-to-video.json"
   },
   {
    "name": "heygen/heygen-avatar4/image-to-video",

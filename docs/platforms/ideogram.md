@@ -1,6 +1,6 @@
-# Ideogram models API: 4 endpoints with pricing and code examples
+# Ideogram models API: 6 endpoints with pricing and code examples
 
-Call 4 Ideogram models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 6 Ideogram models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
@@ -8,6 +8,8 @@ Call 4 Ideogram models through SandBase with one API key: no separate account, o
 | [`ideogram-ai/ideogram-v3/edit`](../models/ideogram-ai/ideogram-v3/edit.md) | Ideogram V3 Edit by ideogram-ai - AI-powered image editing, style transfer, and transformation. Edit photos with natural language… | from $0.03 to $0.09 per run, depending on parameters |
 | [`ideogram/4.5`](../models/ideogram/4.5.md) | Ideogram 4.5 generates images from a text prompt, with reliable text rendering and polished graphic design output. | from $0.03 to $0.22 per run, depending on parameters |
 | [`ideogram/4.5/edit`](../models/ideogram/4.5/edit.md) | Ideogram 4.5 edits an image from a text instruction, with an optional mask and style references, with reliable text rendering and polished… | from $0.008 to $0.22 per run, depending on parameters |
+| [`ideogram/4.6`](../models/ideogram/4.6.md) | Ideogram 4.6 generates images with reliable text rendering and polished graphic design, with four quality levels from very_low to high. | from $0.008 to $0.1 per run, depending on parameters |
+| [`ideogram/4.6/edit`](../models/ideogram/4.6/edit.md) | Ideogram 4.6 Edit changes an image from a text instruction, with optional mask and reference images, keeping text rendering sharp. | from $0.008 to $0.22 per run, depending on parameters |
 
 ## Quick start
 

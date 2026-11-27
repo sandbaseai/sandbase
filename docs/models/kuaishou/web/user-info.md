@@ -58,7 +58,7 @@ Same call via the path form: `POST /v1/api/kuaishou/web/user-info` with the body
 
 | name | type | required | description |
 |---|---|---|---|
-| `user_id` | string | yes | 用户 ID (eid)/User ID (eid)  |
+| `user_id` | string | yes | Kuaishou user eid, the ID in the profile URL (e.g. https://www.kuaishou.com/profile/3xz63mn6fngqtiq). Numeric user IDs are not accepted.  |
 
 ## Details
 

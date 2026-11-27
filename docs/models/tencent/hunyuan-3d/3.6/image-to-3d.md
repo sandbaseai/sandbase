@@ -2,26 +2,20 @@
 
 `tencent/hunyuan-3d/3.6/image-to-3d` · image generation model · Tencent · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** from $0.525 to $0.675 per run, depending on parameters · **Modes:** async
+**Price:** from $0.6 to $1.4 per run, depending on parameters · **Modes:** async
 
 Hunyuan 3D 3.6 (Hy3D 3.6) is Tencent's newest native 3D generation model. Turn a reference image, with optional extra views, into a detailed high-poly 3D model with PBR materials, up to 2,000,000 faces.
 
 ## Pricing
 
-- Depends on parameters (`params.back_image`, `params.bottom_image`, `params.enable_pbr`, `params.face_count`, `params.generate_type`, `params.left_front_image`, `params.left_image`, `params.right_front_image`, `params.right_image`, `params.top_image`).
+- Depends on parameters (`params.back_image`, `params.bottom_image`, `params.generate_type`, `params.left_front_image`, `params.left_image`, `params.right_front_image`, `params.right_image`, `params.top_image`).
 
 | parameters | USD |
 |---|---|
-| enable_pbr=false, face_count=40000, generate_type="Normal" | 0.525 |
-| enable_pbr=false, face_count=40000, generate_type="Geometry" | 0.525 |
-| enable_pbr=false, face_count=2000000, generate_type="Normal" | 0.525 |
-| enable_pbr=false, face_count=2000000, generate_type="Geometry" | 0.525 |
-| enable_pbr=true, face_count=40000, generate_type="Normal" | 0.675 |
-| enable_pbr=true, face_count=40000, generate_type="Geometry" | 0.525 |
-| enable_pbr=true, face_count=2000000, generate_type="Normal" | 0.675 |
-| enable_pbr=true, face_count=2000000, generate_type="Geometry" | 0.525 |
+| generate_type="Normal" | 1.4 |
+| generate_type="Geometry" | 0.6 |
 
-Formula: see the JSON record.
+Formula: `(((params.back_image ?? "") != "" || (params.left_image ?? "") != "" || (params.right_image ?? "") != "" || (params.top_image ?? "") != "" || (params.bottom_image ?? "") != "" || (params.left_front_image ?? "") != "" || (params.right_front_image ?? "") != "") ? ((params.generate_type ?? "Normal") == "Geometry" ? 0.80 : 2.00) : ((params.generate_type ?? "Normal") == "Geometry" ? 0.60 : 1.40))`
 
 ## Call it
 
@@ -78,7 +72,7 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | `top_image` | string |  | Optional top view image file or URL for multi-view reconstruction.  |
 | `back_image` | string |  | Optional back view image file or URL for multi-view reconstruction.  |
 | `enable_pbr` | boolean |  | Generate PBR materials (metallic, roughness, normal). Ignored for Geometry output. default `false` |
-| `face_count` | integer |  | Target polygon face count, 40,000 to 2,000,000 (custom face count is billed as an add-on). range 40000–2000000 |
+| `face_count` | integer |  | Target polygon face count, 40,000 to 2,000,000. range 40000–2000000 |
 | `left_image` | string |  | Optional left view image file or URL for multi-view reconstruction.  |
 | `right_image` | string |  | Optional right view image file or URL for multi-view reconstruction.  |
 | `bottom_image` | string |  | Optional bottom view image file or URL for multi-view reconstruction.  |
@@ -107,17 +101,13 @@ Hunyuan 3D 3.6 (Hy3D 3.6) is Tencent's newest native 3D model, released 2026-11-
 | `right_front_image` | image file or URL | — | Optional extra view. |
 
 ### Billing
-
-$0.375 per model; PBR, a custom face count, and extra views each add $0.15.
-
 | Request | Price |
 |---|---|
-| Default | $0.375 |
-| With PBR | $0.525 |
-| With custom face count | $0.525 |
-
-Failed runs are not charged.
-
+| Single image, textured | $1.40 |
+| Single image, geometry only | $0.60 |
+| With extra views, textured | $2.00 |
+| With extra views, geometry only | $0.80 |
+PBR materials and a custom face count do not change the price. Failed runs are not charged.
 ### Also on SandBase
 Other Hunyuan 3D endpoints: `tencent/hunyuan-3d/3.6/text-to-3d`, `tencent/hunyuan-3d/3.1/pro/image-to-3d`.
 

@@ -1,0 +1,156 @@
+{
+  "name": "heygen/avatar6/ref-video-to-video",
+  "display_name": "HeyGen Avatar 6 Reference Video to Video",
+  "type": "video",
+  "vendor": "HeyGen",
+  "vendor_slug": "heygen",
+  "description": "HeyGen Avatar 6 by HeyGen animates an illustrated or animated character from a reference video, lip-synced to speech audio.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "video",
+      "audio"
+    ],
+    "properties": {
+      "audio": {
+        "type": "string",
+        "title": "Audio",
+        "description": "Speech audio, file or URL. It sets the video length."
+      },
+      "image": {
+        "type": "string",
+        "title": "Reference Image",
+        "description": "Optional photo of the same character, file or URL."
+      },
+      "video": {
+        "type": "string",
+        "title": "Reference Video",
+        "description": "Reference video of an animated or illustrated character, file or URL. Videos of real people are not supported."
+      },
+      "resolution": {
+        "enum": [
+          "1080p",
+          "2k"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1080p",
+        "description": "Output resolution; 2k is billed at a higher per-second rate."
+      },
+      "motion_prompt": {
+        "type": "string",
+        "title": "Motion Prompt",
+        "description": "Optional direction for the avatar's motion and expression."
+      },
+      "motion_expressiveness": {
+        "enum": [
+          "default",
+          "less"
+        ],
+        "type": "string",
+        "title": "Motion Expressiveness",
+        "default": "default",
+        "description": "less gives fewer, smaller gestures and calmer expressions."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/heygen/heygen-avatar4/image-to-video/output_url_1.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(usage.duration ?? media_duration(params.audio) ?? 5.0) * ((params.resolution ?? \"1080p\") == \"2k\" ? 0.145 : 0.12)",
+    "formula_variables": [
+      "params.audio",
+      "params.resolution",
+      "usage.duration"
+    ],
+    "reference_price": 0.6
+  },
+  "examples": [
+    {
+      "input": {
+        "audio": "https://static.sandbase.ai/examples/066e4736-9a15-4d9c-b82c-d3806dd2e5cd/input/b9af0346-4dbd-4712-9e0e-050d760130af.mp3",
+        "video": "https://static.sandbase.ai/examples/066e4736-9a15-4d9c-b82c-d3806dd2e5cd/input/fcedf500-676d-45b3-97fd-8ee642060590.mp4"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/066e4736-9a15-4d9c-b82c-d3806dd2e5cd/output/3131422c-7d5f-4ce2-84d1-e62486ae4c4d.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# HeyGen Avatar 6 Reference Video to Video\nHeyGen Avatar 6 animates an illustrated or animated character from a reference video, lip-synced to a speech track.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `video` | video file or URL, required | — | Animated or illustrated character only. |\n| `audio` | audio file or URL, required | — | Sets the video length. |\n| `image` | image file or URL | — | Optional extra reference. |\n| `motion_prompt` | string | — | Direction for motion and expression. |\n| `motion_expressiveness` | `default` / `less` | `default` | `less` for calmer motion. |\n| `resolution` | `1080p` / `2k` | `1080p` | Sets the per-second rate. |\n## Billing\n$0.12 per output second at 1080p, $0.145 at 2k. Length follows the speech audio; the quote before submission assumes 5 seconds.\n| Output | 1080p | 2k |\n|---|---|---|\n| 10s | $1.20 | $1.450 |\n| 60s | $7.20 | $8.70 |\nFailed runs are not charged.\n## Also on SandBase\nRelated: `heygen/avatar6/image-to-video`, `heygen/avatar6/identity-to-video`, `heygen/avatar5/digital-twin`.\n",
+  "page_url": "https://www.sandbase.ai/model/heygen/avatar6/ref-video-to-video",
+  "created_at": "2026-11-27T15:46:31.258Z"
+}

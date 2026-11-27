@@ -52,10 +52,17 @@
         "description": "Results per page"
       },
       "search_type": {
+        "enum": [
+          "video",
+          "user",
+          "live",
+          "article",
+          "bili_user"
+        ],
         "type": "string",
         "title": "Search Type",
         "default": "video",
-        "description": "Search type"
+        "description": "Search type: \"video\" (default), \"user\", \"live\" or \"article\". \"bili_user\" is accepted as an alias of \"user\"."
       }
     }
   },

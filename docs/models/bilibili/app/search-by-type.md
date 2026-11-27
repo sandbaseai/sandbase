@@ -70,7 +70,7 @@ Same call via the path form: `POST /v1/api/bilibili/app/search-by-type` with the
 | `cursor` | string |  | Pagination cursor. Leave empty for the first page; for the next page pass default `""` |
 | `keyword` | string | yes | Search keyword (required)  |
 | `page_size` | integer |  | Results per page default `20` |
-| `search_type` | string |  | Search type default `"video"` |
+| `search_type` | string |  | Search type: "video" (default), "user", "live" or "article". "bili_user" is accepted as an alias of "user". one of: `video`, `user`, `live`, `article`, `bili_user`; default `"video"` |
 
 ## Details
 

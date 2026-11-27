@@ -30,7 +30,9 @@
       "user_id": {
         "type": "string",
         "title": "用户 ID (eid)/User ID (eid)",
-        "example": "3xz63mn6fngqtiq"
+        "example": "3xz63mn6fngqtiq",
+        "minLength": 1,
+        "description": "Kuaishou user eid, the ID in the profile URL (e.g. https://www.kuaishou.com/profile/3xz63mn6fngqtiq). Numeric user IDs are not accepted."
       }
     }
   },

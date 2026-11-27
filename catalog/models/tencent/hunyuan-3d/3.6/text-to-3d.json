@@ -45,7 +45,7 @@
         "title": "Face Count",
         "maximum": 2000000,
         "minimum": 40000,
-        "description": "Target polygon face count, 40,000 to 2,000,000 (custom face count is billed as an add-on)."
+        "description": "Target polygon face count, 40,000 to 2,000,000."
       },
       "generate_type": {
         "enum": [
@@ -116,77 +116,23 @@
   "pricing": {
     "currency": "USD",
     "model": "formula",
-    "formula": "0.375 + ((params.enable_pbr ?? false) && (params.generate_type ?? \"Normal\") != \"Geometry\" ? 0.15 : 0.0) + ((params.face_count ?? 0) > 0 ? 0.15 : 0.0)",
+    "formula": "((params.generate_type ?? \"Normal\") == \"Geometry\" ? 0.80 : 2.00)",
     "formula_variables": [
-      "params.enable_pbr",
-      "params.face_count",
       "params.generate_type"
     ],
-    "reference_price": 0.375,
+    "reference_price": 2,
     "price_examples": [
       {
         "params": {
-          "enable_pbr": false,
-          "face_count": 40000,
           "generate_type": "Normal"
         },
-        "usd": 0.525
+        "usd": 2
       },
       {
         "params": {
-          "enable_pbr": false,
-          "face_count": 40000,
           "generate_type": "Geometry"
         },
-        "usd": 0.525
-      },
-      {
-        "params": {
-          "enable_pbr": false,
-          "face_count": 2000000,
-          "generate_type": "Normal"
-        },
-        "usd": 0.525
-      },
-      {
-        "params": {
-          "enable_pbr": false,
-          "face_count": 2000000,
-          "generate_type": "Geometry"
-        },
-        "usd": 0.525
-      },
-      {
-        "params": {
-          "enable_pbr": true,
-          "face_count": 40000,
-          "generate_type": "Normal"
-        },
-        "usd": 0.675
-      },
-      {
-        "params": {
-          "enable_pbr": true,
-          "face_count": 40000,
-          "generate_type": "Geometry"
-        },
-        "usd": 0.525
-      },
-      {
-        "params": {
-          "enable_pbr": true,
-          "face_count": 2000000,
-          "generate_type": "Normal"
-        },
-        "usd": 0.675
-      },
-      {
-        "params": {
-          "enable_pbr": true,
-          "face_count": 2000000,
-          "generate_type": "Geometry"
-        },
-        "usd": 0.525
+        "usd": 0.8
       }
     ]
   },
@@ -220,7 +166,7 @@
       ]
     }
   ],
-  "readme": "# Hunyuan 3D 3.6 Text to 3D\n\nHunyuan 3D 3.6 (Hy3D 3.6) is Tencent's newest native 3D model, released 2026-11-27. It learns geometry, textures and materials directly from 3D assets, with cleaner surfaces, sharper hard-surface structure and higher-quality PBR textures than 3.1. It turns a text prompt into a textured or geometry-only model of up to 2,000,000 faces.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 1,024 characters. |\n| `enable_pbr` | boolean | false | PBR materials. |\n| `face_count` | integer 40000–2000000 | — | Target face count. |\n| `generate_type` | `Normal` / `Geometry` | `Normal` | `Normal` textured or `Geometry` (untextured). |\n\n## Billing\n\n$0.375 per model; PBR, a custom face count, and extra views each add $0.15.\n\n| Request | Price |\n|---|---|\n| Default | $0.375 |\n| With PBR | $0.525 |\n| With custom face count | $0.525 |\n\nFailed runs are not charged.\n\n## Also on SandBase\nOther Hunyuan 3D endpoints: `tencent/hunyuan-3d/3.6/image-to-3d`, `tencent/hunyuan-3d/3.1/pro/text-to-3d`.\n",
+  "readme": "# Hunyuan 3D 3.6 Text to 3D\n\nHunyuan 3D 3.6 (Hy3D 3.6) is Tencent's newest native 3D model, released 2026-11-27. It learns geometry, textures and materials directly from 3D assets, with cleaner surfaces, sharper hard-surface structure and higher-quality PBR textures than 3.1. It turns a text prompt into a textured or geometry-only model of up to 2,000,000 faces.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 1,024 characters. |\n| `enable_pbr` | boolean | false | PBR materials. |\n| `face_count` | integer 40000–2000000 | — | Target face count. |\n| `generate_type` | `Normal` / `Geometry` | `Normal` | `Normal` textured or `Geometry` (untextured). |\n\n## Billing\n| Request | Price |\n|---|---|\n| Textured (`generate_type` = `Normal`) | $2.00 |\n| Geometry only (`generate_type` = `Geometry`) | $0.80 |\nPBR materials and a custom face count do not change the price. Failed runs are not charged.\n## Also on SandBase\nOther Hunyuan 3D endpoints: `tencent/hunyuan-3d/3.6/image-to-3d`, `tencent/hunyuan-3d/3.1/pro/text-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/tencent/hunyuan-3d/3.6/text-to-3d/cover-ed4d71fd0475.webp",
   "page_url": "https://www.sandbase.ai/model/tencent/hunyuan-3d/3.6/text-to-3d",
   "created_at": "2026-11-27T07:57:51.265Z"

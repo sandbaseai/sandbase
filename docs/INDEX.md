@@ -1,13 +1,13 @@
 # SandBase capability index
 
-2843 capabilities · generated 2026-11-27T12:28:21Z
+2854 capabilities · generated 2026-11-27T16:23:13Z
 
 - [api](#api) (2247)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
-- [image](#image) (216)
+- [image](#image) (222)
 - [llm](#llm) (133)
-- [video](#video) (213)
+- [video](#video) (218)
 
 ## api
 
@@ -2382,6 +2382,8 @@
 | [`ideogram-ai/ideogram-v3/edit`](models/ideogram-ai/ideogram-v3/edit.md) | 0.03–0.09 | async | Ideogram V3 Edit by ideogram-ai - AI-powered image editing, style transfer, and transformation. Edit photos with… |
 | [`ideogram/4.5`](models/ideogram/4.5.md) | 0.03–0.22 | async | Ideogram 4.5 generates images from a text prompt, with reliable text rendering and polished graphic design output. |
 | [`ideogram/4.5/edit`](models/ideogram/4.5/edit.md) | 0.008–0.22 | async | Ideogram 4.5 edits an image from a text instruction, with an optional mask and style references, with reliable text… |
+| [`ideogram/4.6`](models/ideogram/4.6.md) | 0.008–0.1 | async | Ideogram 4.6 generates images with reliable text rendering and polished graphic design, with four quality levels from… |
+| [`ideogram/4.6/edit`](models/ideogram/4.6/edit.md) | 0.008–0.22 | async | Ideogram 4.6 Edit changes an image from a text instruction, with optional mask and reference images, keeping text… |
 | [`kwaivgi/kling-image/o3`](models/kwaivgi/kling-image/o3.md) | 0.028–0.056 | async | Kling Image O3 by Kuaishou generates images from a text prompt at 1K, 2K, or 4K resolution in common aspect ratios. |
 | [`kwaivgi/kling-image/o3/edit`](models/kwaivgi/kling-image/o3/edit.md) | 0.028–0.056 | async | Kling Image O3 Edit by Kuaishou edits or recomposes images from a text instruction using up to 10 reference images,… |
 | [`kwaivgi/kling-image/v4`](models/kwaivgi/kling-image/v4.md) | 0.063–1.413 | async | Kling Image V4 by Kuaishou generates photorealistic images with accurate text rendering from a text prompt at native… |
@@ -2433,6 +2435,10 @@
 | [`meta/sam-3/image`](models/meta/sam-3/image.md) | 0.005 / call | async | SAM 3 Image is Meta's segmentation model. It finds objects in an image from a text, point, or box prompt and returns… |
 | [`microsoft/mai-image-2.5-pro/edit`](models/microsoft/mai-image-2.5-pro/edit.md) | 0.29 | async | Mai Image 2.5 Pro Edit by Microsoft - AI-powered image editing, style transfer, and transformation. Edit photos with… |
 | [`microsoft/mai-image-2.5/edit`](models/microsoft/mai-image-2.5/edit.md) | 0.05 / call | async | Mai Image 2.5 Edit by Microsoft - AI-powered image editing, style transfer, and transformation. Edit photos with… |
+| [`microsoft/mai-image-2.7`](models/microsoft/mai-image-2.7.md) | 0.07 | async | MAI Image 2.7 by Microsoft turns a text prompt into a high-quality image, with optional transparent background. |
+| [`microsoft/mai-image-2.7-flash`](models/microsoft/mai-image-2.7-flash.md) | 0.025 | async | MAI Image 2.7 Flash by Microsoft turns a text prompt into a high-quality image, with optional transparent background. |
+| [`microsoft/mai-image-2.7-flash/edit`](models/microsoft/mai-image-2.7-flash/edit.md) | 0.025 | async | MAI Image 2.7 Flash Edit by Microsoft edits images from a text instruction, combining up to five reference images. |
+| [`microsoft/mai-image-2.7/edit`](models/microsoft/mai-image-2.7/edit.md) | 0.07 | async | MAI Image 2.7 Edit by Microsoft edits images from a text instruction, combining up to five reference images. |
 | [`microsoft/moge-2`](models/microsoft/moge-2.md) | 0.05 / call | async | MoGe-2 by Microsoft estimates metric 3D geometry from a single image and returns a textured GLB mesh, a PLY point… |
 | [`microsoft/moge-3`](models/microsoft/moge-3.md) | 0.075 / call | async | MoGe-3 by Microsoft estimates metric 3D geometry from a single image, refining depth with a sparse 3D refiner, and… |
 | [`midjourney/midjourney-v8.1`](models/midjourney/midjourney-v8.1.md) | 0.08–0.12 | async | Midjourney V8.1 text-to-image generation. |
@@ -2466,8 +2472,8 @@
 | [`tencent/hunyuan-3d/3.1/rapid/image-to-3d`](models/tencent/hunyuan-3d/3.1/rapid/image-to-3d.md) | 0.27–0.375 | async | Hunyuan 3D 3.1 Rapid by Tencent quickly turns a single image into a textured or geometry-only 3D model. |
 | [`tencent/hunyuan-3d/3.1/rapid/text-to-3d`](models/tencent/hunyuan-3d/3.1/rapid/text-to-3d.md) | 0.27–0.375 | async | Hunyuan 3D 3.1 Rapid by Tencent quickly generates a textured or geometry-only 3D model from a text prompt. |
 | [`tencent/hunyuan-3d/3.1/smart-topology`](models/tencent/hunyuan-3d/3.1/smart-topology.md) | 0.75 / call | async | Hunyuan 3D 3.1 Smart Topology by Tencent retopologizes a GLB or OBJ model into a clean triangle or quad mesh at a… |
-| [`tencent/hunyuan-3d/3.6/image-to-3d`](models/tencent/hunyuan-3d/3.6/image-to-3d.md) | 0.525–0.675 | async | Hunyuan 3D 3.6 (Hy3D 3.6) is Tencent's newest native 3D generation model. Turn a reference image, with optional extra… |
-| [`tencent/hunyuan-3d/3.6/text-to-3d`](models/tencent/hunyuan-3d/3.6/text-to-3d.md) | 0.525–0.675 | async | Hunyuan 3D 3.6 (Hy3D 3.6) is Tencent's newest native 3D generation model. Turn a text prompt into a detailed high-poly… |
+| [`tencent/hunyuan-3d/3.6/image-to-3d`](models/tencent/hunyuan-3d/3.6/image-to-3d.md) | 0.6–1.4 | async | Hunyuan 3D 3.6 (Hy3D 3.6) is Tencent's newest native 3D generation model. Turn a reference image, with optional extra… |
+| [`tencent/hunyuan-3d/3.6/text-to-3d`](models/tencent/hunyuan-3d/3.6/text-to-3d.md) | 0.8–2 | async | Hunyuan 3D 3.6 (Hy3D 3.6) is Tencent's newest native 3D generation model. Turn a text prompt into a detailed high-poly… |
 | [`tencent/hunyuan-3d/v2`](models/tencent/hunyuan-3d/v2.md) | 0.16–0.48 | async | Hunyuan3D 2.0 by Tencent generates a 3D mesh from a single image, as a white mesh or with textures. |
 | [`tencent/hunyuan-3d/v2/mini`](models/tencent/hunyuan-3d/v2/mini.md) | 0.1–0.3 | async | Hunyuan3D 2.0 Mini by Tencent, a smaller and cheaper version of Hunyuan3D 2.0, generates a 3D mesh from a single… |
 | [`tencent/hunyuan-3d/v2/mini-turbo`](models/tencent/hunyuan-3d/v2/mini-turbo.md) | 0.08–0.24 | async | Hunyuan3D 2.0 Mini Turbo by Tencent, the fast variant of Hunyuan3D 2.0 Mini, generates a 3D mesh from a single image,… |
@@ -2771,6 +2777,11 @@
 | [`google/veo3.1/text-to-video`](models/google/veo3.1/text-to-video.md) | 0.8–4.8 | async | Veo3.1 by Google - generate cinematic videos from text descriptions with AI. Create high-quality video content with… |
 | [`google/veo3.1/video-extend`](models/google/veo3.1/video-extend.md) | 1.4–2.8 | async | Veo3.1 Extend Video is Google's video-to-video AI model. Transform, enhance, and edit video content using text prompts… |
 | [`heygen/avatar5/digital-twin`](models/heygen/avatar5/digital-twin.md) | ~0.6 | async | Avatar5 Digital Twin by HeyGen - generate cinematic videos from text descriptions with AI. Create high-quality video… |
+| [`heygen/avatar6-turbo/image-to-video`](models/heygen/avatar6-turbo/image-to-video.md) | ~0.3 | async | HeyGen Avatar 6 Turbo by HeyGen turns a photo of a person and a speech track into a lifelike talking video. Turbo is… |
+| [`heygen/avatar6-turbo/ref-video-to-video`](models/heygen/avatar6-turbo/ref-video-to-video.md) | ~0.3 | async | HeyGen Avatar 6 Turbo by HeyGen animates an illustrated or animated character from a reference video, lip-synced to… |
+| [`heygen/avatar6/identity-to-video`](models/heygen/avatar6/identity-to-video.md) | ~0.6 | async | HeyGen Avatar 6 by HeyGen creates a talking video with a public HeyGen avatar from a script or speech audio. |
+| [`heygen/avatar6/image-to-video`](models/heygen/avatar6/image-to-video.md) | ~0.6 | async | HeyGen Avatar 6 by HeyGen turns a photo of a person and a speech track into a lifelike talking video. |
+| [`heygen/avatar6/ref-video-to-video`](models/heygen/avatar6/ref-video-to-video.md) | ~0.6 | async | HeyGen Avatar 6 by HeyGen animates an illustrated or animated character from a reference video, lip-synced to speech… |
 | [`heygen/heygen-avatar4/image-to-video`](models/heygen/heygen-avatar4/image-to-video.md) | ~0.5 | async | Heygen Avatar4 is HeyGen's image-to-video AI model. Bring static images to life with fluid animation, consistent… |
 | [`heygen/heygen-video/image-to-video`](models/heygen/heygen-video/image-to-video.md) | 0.1–1.5 | async | HeyGen Video Image to Video animates a first-frame image into a 5-15 second video at up to 2K resolution. |
 | [`heygen/heygen-video/reference-to-video`](models/heygen/heygen-video/reference-to-video.md) | 0.35–2.7 | async | HeyGen Video Reference to Video generates a 5-15 second video guided by reference images, videos and audio. |

@@ -46,6 +46,7 @@
 | [GitHub](github.md) | 16 | data API |
 | [Lemon8](lemon8.md) | 16 | data API |
 | [1688](1688.md) | 15 | data API |
+| [HeyGen](heygen.md) | 15 | audio model, video generation model |
 | [Amazon](amazon.md) | 14 | data API |
 | [AAA](aaa.md) | 13 | data API |
 | [MarketBeat](marketbeat.md) | 13 | data API |
@@ -61,7 +62,6 @@
 | [DeepSeek](deepseek.md) | 10 | LLM |
 | [ESPN](espn.md) | 10 | data API |
 | [GetApp](getapp.md) | 10 | data API |
-| [HeyGen](heygen.md) | 10 | audio model, video generation model |
 | [Temu](temu.md) | 10 | data API |
 | [SECForm4](secform4.md) | 9 | data API |
 | [Threads](threads.md) | 9 | data API |
@@ -70,6 +70,7 @@
 | [Apollo](apollo.md) | 8 | data API |
 | [Google Maps](google-maps.md) | 8 | data API |
 | [Levels.fyi](levels-fyi.md) | 8 | data API |
+| [Microsoft](microsoft.md) | 8 | image generation model |
 | [Shop](shop.md) | 8 | data API |
 | [Taobao](taobao.md) | 8 | data API |
 | [TikTok Shop](tiktok-shop.md) | 8 | data API |
@@ -88,6 +89,7 @@
 | [Douban](douban.md) | 6 | data API |
 | [DuckDuckGo](duckduckgo.md) | 6 | data API |
 | [Google Play](google-play.md) | 6 | data API |
+| [Ideogram](ideogram.md) | 6 | image generation model |
 | [JD.com](jd-com.md) | 6 | data API |
 | [StockAnalysis](stockanalysis.md) | 6 | data API |
 | [Trustpilot](trustpilot.md) | 6 | data API |
@@ -117,10 +119,8 @@
 | [Foreplay](foreplay.md) | 4 | data API |
 | [Google Flights](google-flights.md) | 4 | data API |
 | [Hacker News](hacker-news.md) | 4 | data API |
-| [Ideogram](ideogram.md) | 4 | image generation model |
 | [IQAir](iqair.md) | 4 | data API |
 | [Kalshi](kalshi.md) | 4 | data API |
-| [Microsoft](microsoft.md) | 4 | image generation model |
 | [Minimax](minimax.md) | 4 | LLM |
 | [Moonshotai](moonshotai.md) | 4 | LLM |
 | [Pinterest](pinterest.md) | 4 | data API |

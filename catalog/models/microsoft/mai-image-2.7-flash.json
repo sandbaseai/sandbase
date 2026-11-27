@@ -1,0 +1,172 @@
+{
+  "name": "microsoft/mai-image-2.7-flash",
+  "display_name": "MAI Image 2.7 Flash Text to Image",
+  "type": "image",
+  "vendor": "Microsoft",
+  "vendor_slug": "microsoft",
+  "description": "MAI Image 2.7 Flash by Microsoft turns a text prompt into a high-quality image, with optional transparent background.",
+  "tags": [
+    "text-to-image"
+  ],
+  "capabilities": [
+    "text-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A ceramic teapot beside a sunlit window, realistic photography."
+        ],
+        "description": "Text description of the image."
+      },
+      "background": {
+        "enum": [
+          "opaque",
+          "transparent"
+        ],
+        "type": "string",
+        "title": "Background",
+        "default": "opaque",
+        "description": "transparent returns an alpha channel (png or webp output)."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "1:1",
+        "description": "Output shape, about 1-2 megapixels."
+      },
+      "output_format": {
+        "enum": [
+          "png",
+          "jpeg",
+          "webp"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "Image file format."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.025",
+    "formula_variables": [],
+    "reference_price": 0.025,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.025
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "prompt": "A golden retriever wearing a yellow raincoat on a rainy city street, cinematic photo"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/5b0ff56f-0b2e-44fc-87d4-07fc1d4d9809/output/e3e7121e-9509-46b5-a467-57937984fb29.png"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "prompt": "A ceramic teapot beside a sunlit window, realistic photography."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/180e1a85-838f-4592-a1d1-c7cff1d8f2f7/output/37bb8eb5-457f-457c-a044-c8970986cfe6.png"
+        }
+      ]
+    }
+  ],
+  "readme": "# MAI Image 2.7 Flash Text to Image\nMAI Image 2.7 Flash is the faster, lower-cost tier of Microsoft's MAI-Image-2.7 model. It turns a text prompt into a photorealistic or illustrated image, with optional transparent background.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | What to draw. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | `1:1` | Output shape. |\n| `background` | `opaque` / `transparent` | `opaque` | `transparent` needs png or webp. |\n| `output_format` | `png` / `jpeg` / `webp` | `png` | File format. |\n## Billing\n$0.025 per image. Failed runs are not charged.\n## Also on SandBase\nRelated: `microsoft/mai-image-2.7-flash/edit`, `microsoft/mai-image-2.5/edit`.\n",
+  "page_url": "https://www.sandbase.ai/model/microsoft/mai-image-2.7-flash",
+  "created_at": "2026-11-27T15:37:27.22Z"
+}

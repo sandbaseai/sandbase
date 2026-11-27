@@ -1225,6 +1225,11 @@ hacker-news/search,api,Hacker News,usage_based,,,,0.0015,0.0015,,sync,POST /v1/r
 hacker-news/story,api,Hacker News,usage_based,,,,0.0015,0.0015,,sync,POST /v1/run
 hacker-news/story-comments,api,Hacker News,usage_based,,,,0.0015,0.0015,,sync,POST /v1/run
 heygen/avatar5/digital-twin,video,HeyGen,formula,,,,0.6,0.6,,async,POST /v1/run
+heygen/avatar6-turbo/image-to-video,video,HeyGen,formula,,,,0.3,0.3,,async,POST /v1/run
+heygen/avatar6-turbo/ref-video-to-video,video,HeyGen,formula,,,,0.3,0.3,,async,POST /v1/run
+heygen/avatar6/identity-to-video,video,HeyGen,formula,,,,0.6,0.6,,async,POST /v1/run
+heygen/avatar6/image-to-video,video,HeyGen,formula,,,,0.6,0.6,,async,POST /v1/run
+heygen/avatar6/ref-video-to-video,video,HeyGen,formula,,,,0.6,0.6,,async,POST /v1/run
 heygen/heygen-avatar4/image-to-video,video,HeyGen,formula,,,,0.5,0.5,,async,POST /v1/run
 heygen/heygen-video/image-to-video,video,HeyGen,formula,,,,0.1,1.5,,async,POST /v1/run
 heygen/heygen-video/reference-to-video,video,HeyGen,formula,,,,0.35,2.7,,async,POST /v1/run
@@ -1270,6 +1275,8 @@ ideogram-ai/ideogram-v3,image,Ideogram,formula,,,,0.03,0.09,,async,POST /v1/run
 ideogram-ai/ideogram-v3/edit,image,Ideogram,formula,,,,0.03,0.09,,async,POST /v1/run
 ideogram/4.5,image,Ideogram,formula,,,,0.03,0.22,,async,POST /v1/run
 ideogram/4.5/edit,image,Ideogram,formula,,,,0.008,0.22,,async,POST /v1/run
+ideogram/4.6,image,Ideogram,formula,,,,0.008,0.1,,async,POST /v1/run
+ideogram/4.6/edit,image,Ideogram,formula,,,,0.008,0.22,,async,POST /v1/run
 ikea/product,api,IKEA,per_call,0.00015,,,,,,async,POST /v1/run
 ikea/search,api,IKEA,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
 imdb/news-by-category-query,api,IMDb,per_call,0.007143,,,,,,sync,POST /v1/run
@@ -1649,6 +1656,10 @@ meta/sam-3/3d-objects,image,Meta,formula,,,,0.024,0.024,,async,POST /v1/run
 meta/sam-3/image,image,Meta,per_call,0.005,,,,,,async,POST /v1/run
 microsoft/mai-image-2.5-pro/edit,image,Microsoft,formula,,,,0.29,0.29,,async,POST /v1/run
 microsoft/mai-image-2.5/edit,image,Microsoft,per_call,0.05,,,,,,async,POST /v1/run
+microsoft/mai-image-2.7,image,Microsoft,formula,,,,0.07,0.07,,async,POST /v1/run
+microsoft/mai-image-2.7-flash,image,Microsoft,formula,,,,0.025,0.025,,async,POST /v1/run
+microsoft/mai-image-2.7-flash/edit,image,Microsoft,formula,,,,0.025,0.025,,async,POST /v1/run
+microsoft/mai-image-2.7/edit,image,Microsoft,formula,,,,0.07,0.07,,async,POST /v1/run
 microsoft/moge-2,image,Microsoft,per_call,0.05,,,,,,async,POST /v1/run
 microsoft/moge-3,image,Microsoft,per_call,0.075,,,,,,async,POST /v1/run
 midjourney/midjourney-v8.1,image,Midjourney,formula,,,,0.08,0.12,,async,POST /v1/run
@@ -2063,8 +2074,8 @@ tencent/hunyuan-3d/3.1/pro/text-to-3d,image,Tencent,formula,,,,0.525,0.675,,asyn
 tencent/hunyuan-3d/3.1/rapid/image-to-3d,image,Tencent,formula,,,,0.27,0.375,,async,POST /v1/run
 tencent/hunyuan-3d/3.1/rapid/text-to-3d,image,Tencent,formula,,,,0.27,0.375,,async,POST /v1/run
 tencent/hunyuan-3d/3.1/smart-topology,image,Tencent,per_call,0.75,,,,,,async,POST /v1/run
-tencent/hunyuan-3d/3.6/image-to-3d,image,Tencent,formula,,,,0.525,0.675,,async,POST /v1/run
-tencent/hunyuan-3d/3.6/text-to-3d,image,Tencent,formula,,,,0.525,0.675,,async,POST /v1/run
+tencent/hunyuan-3d/3.6/image-to-3d,image,Tencent,formula,,,,0.6,1.4,,async,POST /v1/run
+tencent/hunyuan-3d/3.6/text-to-3d,image,Tencent,formula,,,,0.8,2,,async,POST /v1/run
 tencent/hunyuan-3d/v2,image,Tencent,formula,,,,0.16,0.48,,async,POST /v1/run
 tencent/hunyuan-3d/v2/mini,image,Tencent,formula,,,,0.1,0.3,,async,POST /v1/run
 tencent/hunyuan-3d/v2/mini-turbo,image,Tencent,formula,,,,0.08,0.24,,async,POST /v1/run

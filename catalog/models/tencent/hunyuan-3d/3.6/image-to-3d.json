@@ -54,7 +54,7 @@
         "title": "Face Count",
         "maximum": 2000000,
         "minimum": 40000,
-        "description": "Target polygon face count, 40,000 to 2,000,000 (custom face count is billed as an add-on)."
+        "description": "Target polygon face count, 40,000 to 2,000,000."
       },
       "left_image": {
         "type": "string",
@@ -150,12 +150,10 @@
   "pricing": {
     "currency": "USD",
     "model": "formula",
-    "formula": "0.375 + ((params.enable_pbr ?? false) && (params.generate_type ?? \"Normal\") != \"Geometry\" ? 0.15 : 0.0) + ((params.face_count ?? 0) > 0 ? 0.15 : 0.0) + (((params.back_image ?? \"\") != \"\" || (params.left_image ?? \"\") != \"\" || (params.right_image ?? \"\") != \"\" || (params.top_image ?? \"\") != \"\" || (params.bottom_image ?? \"\") != \"\" || (params.left_front_image ?? \"\") != \"\" || (params.right_front_image ?? \"\") != \"\") ? 0.15 : 0.0)",
+    "formula": "(((params.back_image ?? \"\") != \"\" || (params.left_image ?? \"\") != \"\" || (params.right_image ?? \"\") != \"\" || (params.top_image ?? \"\") != \"\" || (params.bottom_image ?? \"\") != \"\" || (params.left_front_image ?? \"\") != \"\" || (params.right_front_image ?? \"\") != \"\") ? ((params.generate_type ?? \"Normal\") == \"Geometry\" ? 0.80 : 2.00) : ((params.generate_type ?? \"Normal\") == \"Geometry\" ? 0.60 : 1.40))",
     "formula_variables": [
       "params.back_image",
       "params.bottom_image",
-      "params.enable_pbr",
-      "params.face_count",
       "params.generate_type",
       "params.left_front_image",
       "params.left_image",
@@ -163,71 +161,19 @@
       "params.right_image",
       "params.top_image"
     ],
-    "reference_price": 0.375,
+    "reference_price": 1.4,
     "price_examples": [
       {
         "params": {
-          "enable_pbr": false,
-          "face_count": 40000,
           "generate_type": "Normal"
         },
-        "usd": 0.525
+        "usd": 1.4
       },
       {
         "params": {
-          "enable_pbr": false,
-          "face_count": 40000,
           "generate_type": "Geometry"
         },
-        "usd": 0.525
-      },
-      {
-        "params": {
-          "enable_pbr": false,
-          "face_count": 2000000,
-          "generate_type": "Normal"
-        },
-        "usd": 0.525
-      },
-      {
-        "params": {
-          "enable_pbr": false,
-          "face_count": 2000000,
-          "generate_type": "Geometry"
-        },
-        "usd": 0.525
-      },
-      {
-        "params": {
-          "enable_pbr": true,
-          "face_count": 40000,
-          "generate_type": "Normal"
-        },
-        "usd": 0.675
-      },
-      {
-        "params": {
-          "enable_pbr": true,
-          "face_count": 40000,
-          "generate_type": "Geometry"
-        },
-        "usd": 0.525
-      },
-      {
-        "params": {
-          "enable_pbr": true,
-          "face_count": 2000000,
-          "generate_type": "Normal"
-        },
-        "usd": 0.675
-      },
-      {
-        "params": {
-          "enable_pbr": true,
-          "face_count": 2000000,
-          "generate_type": "Geometry"
-        },
-        "usd": 0.525
+        "usd": 0.6
       }
     ]
   },
@@ -261,7 +207,7 @@
       ]
     }
   ],
-  "readme": "# Hunyuan 3D 3.6 Image to 3D\n\nHunyuan 3D 3.6 (Hy3D 3.6) is Tencent's newest native 3D model, released 2026-11-27. It learns geometry, textures and materials directly from 3D assets, with cleaner surfaces, sharper hard-surface structure and higher-quality PBR textures than 3.1. It turns an image (plus up to six extra views) into a textured or geometry-only model of up to 2,000,000 faces.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image file or URL, required | — | Front view. JPEG, PNG, or WebP. |\n| `top_image` | image file or URL | — | Optional extra view. |\n| `back_image` | image file or URL | — | Optional extra view. |\n| `enable_pbr` | boolean | false | PBR materials. |\n| `face_count` | integer 40000–2000000 | — | Target face count. |\n| `left_image` | image file or URL | — | Optional extra view. |\n| `right_image` | image file or URL | — | Optional extra view. |\n| `bottom_image` | image file or URL | — | Optional extra view. |\n| `generate_type` | `Normal` / `Geometry` | `Normal` | `Normal` textured or `Geometry` (untextured). |\n| `left_front_image` | image file or URL | — | Optional extra view. |\n| `right_front_image` | image file or URL | — | Optional extra view. |\n\n## Billing\n\n$0.375 per model; PBR, a custom face count, and extra views each add $0.15.\n\n| Request | Price |\n|---|---|\n| Default | $0.375 |\n| With PBR | $0.525 |\n| With custom face count | $0.525 |\n\nFailed runs are not charged.\n\n## Also on SandBase\nOther Hunyuan 3D endpoints: `tencent/hunyuan-3d/3.6/text-to-3d`, `tencent/hunyuan-3d/3.1/pro/image-to-3d`.\n",
+  "readme": "# Hunyuan 3D 3.6 Image to 3D\n\nHunyuan 3D 3.6 (Hy3D 3.6) is Tencent's newest native 3D model, released 2026-11-27. It learns geometry, textures and materials directly from 3D assets, with cleaner surfaces, sharper hard-surface structure and higher-quality PBR textures than 3.1. It turns an image (plus up to six extra views) into a textured or geometry-only model of up to 2,000,000 faces.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image file or URL, required | — | Front view. JPEG, PNG, or WebP. |\n| `top_image` | image file or URL | — | Optional extra view. |\n| `back_image` | image file or URL | — | Optional extra view. |\n| `enable_pbr` | boolean | false | PBR materials. |\n| `face_count` | integer 40000–2000000 | — | Target face count. |\n| `left_image` | image file or URL | — | Optional extra view. |\n| `right_image` | image file or URL | — | Optional extra view. |\n| `bottom_image` | image file or URL | — | Optional extra view. |\n| `generate_type` | `Normal` / `Geometry` | `Normal` | `Normal` textured or `Geometry` (untextured). |\n| `left_front_image` | image file or URL | — | Optional extra view. |\n| `right_front_image` | image file or URL | — | Optional extra view. |\n\n## Billing\n| Request | Price |\n|---|---|\n| Single image, textured | $1.40 |\n| Single image, geometry only | $0.60 |\n| With extra views, textured | $2.00 |\n| With extra views, geometry only | $0.80 |\nPBR materials and a custom face count do not change the price. Failed runs are not charged.\n## Also on SandBase\nOther Hunyuan 3D endpoints: `tencent/hunyuan-3d/3.6/text-to-3d`, `tencent/hunyuan-3d/3.1/pro/image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/tencent/hunyuan-3d/3.6/image-to-3d/cover-9a5672db6c67.webp",
   "page_url": "https://www.sandbase.ai/model/tencent/hunyuan-3d/3.6/image-to-3d",
   "created_at": "2026-11-27T07:59:13.969Z"
