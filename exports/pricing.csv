@@ -2317,6 +2317,9 @@ tripo3d/tripo-h3.0/text-to-3d,image,Tripo3D,formula,,,,0.2,0.4,,async,POST /v1/r
 tripo3d/tripo-h3.1/image-to-3d,image,Tripo3D,formula,,,,0.3,0.5,,async,POST /v1/run
 tripo3d/tripo-h3.1/multiview-to-3d,image,Tripo3D,formula,,,,0.3,0.5,,async,POST /v1/run
 tripo3d/tripo-h3.1/text-to-3d,image,Tripo3D,formula,,,,0.2,0.4,,async,POST /v1/run
+tripo3d/tripo-h3.5-preview/image-to-3d,image,Tripo3D,formula,,,,0.3,0.75,,async,POST /v1/run
+tripo3d/tripo-h3.5-preview/multiview-to-3d,image,Tripo3D,formula,,,,0.3,0.75,,async,POST /v1/run
+tripo3d/tripo-h3.5-preview/text-to-3d,image,Tripo3D,formula,,,,0.3,0.75,,async,POST /v1/run
 tripo3d/tripo-p1/image-to-3d,image,Tripo3D,formula,,,,0.4,0.7,,async,POST /v1/run
 tripo3d/tripo-p1/multiview-to-3d,image,Tripo3D,formula,,,,0.4,0.7,,async,POST /v1/run
 tripo3d/tripo-p1/text-to-3d,image,Tripo3D,formula,,,,0.3,0.6,,async,POST /v1/run

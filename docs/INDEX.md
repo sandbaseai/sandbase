@@ -1,11 +1,11 @@
 # SandBase capability index
 
-2837 capabilities · generated 2026-11-26T16:23:27Z
+2840 capabilities · generated 2026-11-27T00:40:52Z
 
 - [api](#api) (2247)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
-- [image](#image) (211)
+- [image](#image) (214)
 - [llm](#llm) (133)
 - [video](#video) (212)
 
@@ -2491,6 +2491,9 @@
 | [`tripo3d/tripo-h3.1/image-to-3d`](models/tripo3d/tripo-h3.1/image-to-3d.md) | 0.3–0.5 | async | Tripo H3.1 by Tripo3D - convert 2D images into 3D models with AI. Generate textured 3D assets from single photos for… |
 | [`tripo3d/tripo-h3.1/multiview-to-3d`](models/tripo3d/tripo-h3.1/multiview-to-3d.md) | 0.3–0.5 | async | Tripo H3.1 Multiview To 3d by Tripo3D - convert 2D images into 3D models with AI. Generate textured 3D assets from… |
 | [`tripo3d/tripo-h3.1/text-to-3d`](models/tripo3d/tripo-h3.1/text-to-3d.md) | 0.2–0.4 | async | Tripo H3.1 is Tripo3D's text-to-3D AI model. Turn written descriptions into textured 3D objects with realistic… |
+| [`tripo3d/tripo-h3.5-preview/image-to-3d`](models/tripo3d/tripo-h3.5-preview/image-to-3d.md) | 0.3–0.75 | async | Tripo H3.5 Preview is Tripo3D's newest high-fidelity image-to-3D model. Turn a single image into a detailed, textured… |
+| [`tripo3d/tripo-h3.5-preview/multiview-to-3d`](models/tripo3d/tripo-h3.5-preview/multiview-to-3d.md) | 0.3–0.75 | async | Tripo H3.5 Preview is Tripo3D's newest high-fidelity multiview-to-3D model. Turn 2 to 4 views of the same object into… |
+| [`tripo3d/tripo-h3.5-preview/text-to-3d`](models/tripo3d/tripo-h3.5-preview/text-to-3d.md) | 0.3–0.75 | async | Tripo H3.5 Preview is Tripo3D's newest high-fidelity text-to-3D model. Turn written descriptions into detailed,… |
 | [`tripo3d/tripo-p1/image-to-3d`](models/tripo3d/tripo-p1/image-to-3d.md) | 0.4–0.7 | async | Tripo P1 is Tripo3D's image-to-3D model. It reconstructs a 3D mesh with optional textures from a single image. |
 | [`tripo3d/tripo-p1/multiview-to-3d`](models/tripo3d/tripo-p1/multiview-to-3d.md) | 0.4–0.7 | async | Tripo P1 Multiview to 3D by Tripo3D: build a textured 3D model from 2 to 4 views of the same object. |
 | [`tripo3d/tripo-p1/text-to-3d`](models/tripo3d/tripo-p1/text-to-3d.md) | 0.3–0.6 | async | Tripo P1 is Tripo3D's text-to-3D model. It generates a 3D mesh with optional textures from a text description. |

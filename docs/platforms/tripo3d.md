@@ -1,6 +1,6 @@
-# Tripo3D models API: 29 endpoints with pricing and code examples
+# Tripo3D models API: 32 endpoints with pricing and code examples
 
-Call 29 Tripo3D models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 32 Tripo3D models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
@@ -10,6 +10,9 @@ Call 29 Tripo3D models through SandBase with one API key: no separate account, o
 | [`tripo3d/tripo-h3.1/image-to-3d`](../models/tripo3d/tripo-h3.1/image-to-3d.md) | Tripo H3.1 by Tripo3D - convert 2D images into 3D models with AI. Generate textured 3D assets from single photos for games, AR/VR,… | from $0.3 to $0.5 per run, depending on parameters |
 | [`tripo3d/tripo-h3.1/multiview-to-3d`](../models/tripo3d/tripo-h3.1/multiview-to-3d.md) | Tripo H3.1 Multiview To 3d by Tripo3D - convert 2D images into 3D models with AI. Generate textured 3D assets from single photos for… | from $0.3 to $0.5 per run, depending on parameters |
 | [`tripo3d/tripo-h3.1/text-to-3d`](../models/tripo3d/tripo-h3.1/text-to-3d.md) | Tripo H3.1 is Tripo3D's text-to-3D AI model. Turn written descriptions into textured 3D objects with realistic geometry and materials. | from $0.2 to $0.4 per run, depending on parameters |
+| [`tripo3d/tripo-h3.5-preview/image-to-3d`](../models/tripo3d/tripo-h3.5-preview/image-to-3d.md) | Tripo H3.5 Preview is Tripo3D's newest high-fidelity image-to-3D model. Turn a single image into a detailed, textured 3D model that keeps… | from $0.3 to $0.75 per run, depending on parameters |
+| [`tripo3d/tripo-h3.5-preview/multiview-to-3d`](../models/tripo3d/tripo-h3.5-preview/multiview-to-3d.md) | Tripo H3.5 Preview is Tripo3D's newest high-fidelity multiview-to-3D model. Turn 2 to 4 views of the same object into a detailed, textured… | from $0.3 to $0.75 per run, depending on parameters |
+| [`tripo3d/tripo-h3.5-preview/text-to-3d`](../models/tripo3d/tripo-h3.5-preview/text-to-3d.md) | Tripo H3.5 Preview is Tripo3D's newest high-fidelity text-to-3D model. Turn written descriptions into detailed, textured 3D models for 3D… | from $0.3 to $0.75 per run, depending on parameters |
 | [`tripo3d/tripo-p1/image-to-3d`](../models/tripo3d/tripo-p1/image-to-3d.md) | Tripo P1 is Tripo3D's image-to-3D model. It reconstructs a 3D mesh with optional textures from a single image. | from $0.4 to $0.7 per run, depending on parameters |
 | [`tripo3d/tripo-p1/multiview-to-3d`](../models/tripo3d/tripo-p1/multiview-to-3d.md) | Tripo P1 Multiview to 3D by Tripo3D: build a textured 3D model from 2 to 4 views of the same object. | from $0.4 to $0.7 per run, depending on parameters |
 | [`tripo3d/tripo-p1/text-to-3d`](../models/tripo3d/tripo-p1/text-to-3d.md) | Tripo P1 is Tripo3D's text-to-3D model. It generates a 3D mesh with optional textures from a text description. | from $0.3 to $0.6 per run, depending on parameters |

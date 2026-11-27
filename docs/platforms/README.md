@@ -25,7 +25,7 @@
 | [LinkedIn](linkedin.md) | 38 | data API |
 | [FRED](fred.md) | 35 | data API |
 | [Reddit](reddit.md) | 35 | data API |
-| [Tripo3D](tripo3d.md) | 29 | image generation model |
+| [Tripo3D](tripo3d.md) | 32 | image generation model |
 | [X (Twitter)](x-twitter.md) | 29 | data API |
 | [Facebook](facebook.md) | 28 | data API |
 | [MiniMax](minimax.md) | 27 | audio model, image generation model, video generation model |
