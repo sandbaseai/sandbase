@@ -1,13 +1,13 @@
 # SandBase capability index
 
-2840 capabilities · generated 2026-11-27T00:40:52Z
+2843 capabilities · generated 2026-11-27T08:26:03Z
 
 - [api](#api) (2247)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
-- [image](#image) (214)
+- [image](#image) (216)
 - [llm](#llm) (133)
-- [video](#video) (212)
+- [video](#video) (213)
 
 ## api
 
@@ -2466,6 +2466,8 @@
 | [`tencent/hunyuan-3d/3.1/rapid/image-to-3d`](models/tencent/hunyuan-3d/3.1/rapid/image-to-3d.md) | 0.27–0.375 | async | Hunyuan 3D 3.1 Rapid by Tencent quickly turns a single image into a textured or geometry-only 3D model. |
 | [`tencent/hunyuan-3d/3.1/rapid/text-to-3d`](models/tencent/hunyuan-3d/3.1/rapid/text-to-3d.md) | 0.27–0.375 | async | Hunyuan 3D 3.1 Rapid by Tencent quickly generates a textured or geometry-only 3D model from a text prompt. |
 | [`tencent/hunyuan-3d/3.1/smart-topology`](models/tencent/hunyuan-3d/3.1/smart-topology.md) | 0.75 / call | async | Hunyuan 3D 3.1 Smart Topology by Tencent retopologizes a GLB or OBJ model into a clean triangle or quad mesh at a… |
+| [`tencent/hunyuan-3d/3.6/image-to-3d`](models/tencent/hunyuan-3d/3.6/image-to-3d.md) | 0.525–0.675 | async | Hunyuan 3D 3.6 (Hy3D 3.6) is Tencent's newest native 3D generation model. Turn a reference image, with optional extra… |
+| [`tencent/hunyuan-3d/3.6/text-to-3d`](models/tencent/hunyuan-3d/3.6/text-to-3d.md) | 0.525–0.675 | async | Hunyuan 3D 3.6 (Hy3D 3.6) is Tencent's newest native 3D generation model. Turn a text prompt into a detailed high-poly… |
 | [`tencent/hunyuan-3d/v2`](models/tencent/hunyuan-3d/v2.md) | 0.16–0.48 | async | Hunyuan3D 2.0 by Tencent generates a 3D mesh from a single image, as a white mesh or with textures. |
 | [`tencent/hunyuan-3d/v2/mini`](models/tencent/hunyuan-3d/v2/mini.md) | 0.1–0.3 | async | Hunyuan3D 2.0 Mini by Tencent, a smaller and cheaper version of Hunyuan3D 2.0, generates a 3D mesh from a single… |
 | [`tencent/hunyuan-3d/v2/mini-turbo`](models/tencent/hunyuan-3d/v2/mini-turbo.md) | 0.08–0.24 | async | Hunyuan3D 2.0 Mini Turbo by Tencent, the fast variant of Hunyuan3D 2.0 Mini, generates a 3D mesh from a single image,… |
@@ -2852,6 +2854,7 @@
 | [`openimaginglab/flashvsr-plus`](models/openimaginglab/flashvsr-plus.md) | ~0.156 | async | Flashvsr Plus is openimaginglab's video-to-video AI model. Transform, enhance, and edit video content using text… |
 | [`pixverse/c1/image-to-video`](models/pixverse/c1/image-to-video.md) | 0.03–1.8 | async | C1 is PixVerse's image-to-video AI model. Bring static images to life with fluid animation, consistent character… |
 | [`pixverse/v6/image-to-video`](models/pixverse/v6/image-to-video.md) | 0.025–1.725 | async | V6 is PixVerse's image-to-video AI model. Bring static images to life with fluid animation, consistent character… |
+| [`sandai/magi-2`](models/sandai/magi-2.md) | 0.32–2.4 | async | MAGI-2 by Sand AI turns text, a first and last frame, or reference images, videos and audio into a 1080p video of 4 to… |
 | [`sandai/magi-2/image-to-video`](models/sandai/magi-2/image-to-video.md) | 0.32–2.4 | async | MAGI-2 by Sand AI animates a first frame, or a first and last frame, into a 1080p video of 4 to 30 seconds with native… |
 | [`sandai/magi-2/reference-to-video`](models/sandai/magi-2/reference-to-video.md) | 0.32–2.4 | async | MAGI-2 by Sand AI creates a 1080p video of 4 to 30 seconds with native audio, guided by up to 10 reference images, 5… |
 | [`sandai/magi-2/text-to-video`](models/sandai/magi-2/text-to-video.md) | 0.32–2.4 | async | MAGI-2 by Sand AI turns a text prompt into a 1080p video of 4 to 30 seconds with native audio, with strong instruction… |

@@ -1915,6 +1915,7 @@ redfin/property,api,Redfin,usage_based,,,,0.0008,0.0008,,sync,POST /v1/run
 redfin/search,api,Redfin,per_call,0.00015,,,,,,async,POST /v1/run
 sams-club/product,api,Sam's Club,usage_based,,,,0.00319,0.00319,,sync,POST /v1/run
 sams-club/search,api,Sam's Club,usage_based,,,,0.00319,0.00319,,sync,POST /v1/run
+sandai/magi-2,video,Sand AI,formula,,,,0.32,2.4,,async,POST /v1/run
 sandai/magi-2/image-to-video,video,Sand AI,formula,,,,0.32,2.4,,async,POST /v1/run
 sandai/magi-2/reference-to-video,video,Sand AI,formula,,,,0.32,2.4,,async,POST /v1/run
 sandai/magi-2/text-to-video,video,Sand AI,formula,,,,0.32,2.4,,async,POST /v1/run
@@ -2062,6 +2063,8 @@ tencent/hunyuan-3d/3.1/pro/text-to-3d,image,Tencent,formula,,,,0.525,0.675,,asyn
 tencent/hunyuan-3d/3.1/rapid/image-to-3d,image,Tencent,formula,,,,0.27,0.375,,async,POST /v1/run
 tencent/hunyuan-3d/3.1/rapid/text-to-3d,image,Tencent,formula,,,,0.27,0.375,,async,POST /v1/run
 tencent/hunyuan-3d/3.1/smart-topology,image,Tencent,per_call,0.75,,,,,,async,POST /v1/run
+tencent/hunyuan-3d/3.6/image-to-3d,image,Tencent,formula,,,,0.525,0.675,,async,POST /v1/run
+tencent/hunyuan-3d/3.6/text-to-3d,image,Tencent,formula,,,,0.525,0.675,,async,POST /v1/run
 tencent/hunyuan-3d/v2,image,Tencent,formula,,,,0.16,0.48,,async,POST /v1/run
 tencent/hunyuan-3d/v2/mini,image,Tencent,formula,,,,0.1,0.3,,async,POST /v1/run
 tencent/hunyuan-3d/v2/mini-turbo,image,Tencent,formula,,,,0.08,0.24,,async,POST /v1/run

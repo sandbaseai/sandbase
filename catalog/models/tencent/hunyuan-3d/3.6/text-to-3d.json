@@ -1,0 +1,227 @@
+{
+  "name": "tencent/hunyuan-3d/3.6/text-to-3d",
+  "display_name": "Hunyuan 3D 3.6 Text to 3D",
+  "type": "image",
+  "vendor": "Tencent",
+  "vendor_slug": "tencent",
+  "description": "Hunyuan 3D 3.6 (Hy3D 3.6) is Tencent's newest native 3D generation model. Turn a text prompt into a detailed high-poly 3D model with PBR materials, up to 2,000,000 faces, for games, film and 3D printing.",
+  "tags": [
+    "text-to-3d"
+  ],
+  "capabilities": [
+    "text-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A super cool space ship with details"
+        ],
+        "maxLength": 1024,
+        "description": "Text description of the 3D content to generate. Max 1024 UTF-8 characters."
+      },
+      "enable_pbr": {
+        "type": "boolean",
+        "title": "Enable PBR",
+        "default": false,
+        "description": "Generate PBR materials (metallic, roughness, normal). Ignored for Geometry output."
+      },
+      "face_count": {
+        "type": "integer",
+        "title": "Face Count",
+        "maximum": 2000000,
+        "minimum": 40000,
+        "description": "Target polygon face count, 40,000 to 2,000,000 (custom face count is billed as an add-on)."
+      },
+      "generate_type": {
+        "enum": [
+          "Normal",
+          "Geometry"
+        ],
+        "type": "string",
+        "title": "Generate Type",
+        "default": "Normal",
+        "description": "Normal: textured model. Geometry: geometry-only white model."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.375 + ((params.enable_pbr ?? false) && (params.generate_type ?? \"Normal\") != \"Geometry\" ? 0.15 : 0.0) + ((params.face_count ?? 0) > 0 ? 0.15 : 0.0)",
+    "formula_variables": [
+      "params.enable_pbr",
+      "params.face_count",
+      "params.generate_type"
+    ],
+    "reference_price": 0.375,
+    "price_examples": [
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 40000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.525
+      },
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 40000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.525
+      },
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 2000000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.525
+      },
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 2000000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.525
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 40000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.675
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 40000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.525
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 2000000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.675
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 2000000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.525
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "A carved wooden treasure chest with brass corner guards and an iron lock"
+      },
+      "output": [
+        {
+          "format": "glb",
+          "poster": "https://static.sandbase.ai/examples/53fb29ea-9a39-422c-a6e9-616282bebf6c/output/487c73c7-4dec-42d1-a890-5d4fff0b3089.png",
+          "thumbnail": "https://static.sandbase.ai/examples/53fb29ea-9a39-422c-a6e9-616282bebf6c/output/487c73c7-4dec-42d1-a890-5d4fff0b3089.png",
+          "url": "https://static.sandbase.ai/examples/53fb29ea-9a39-422c-a6e9-616282bebf6c/output/7950628d-5c39-4249-ad43-e6d1db0efde6.glb"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "enable_pbr": true,
+        "prompt": "A sci-fi armored helmet with angular plates, vents and a glowing visor"
+      },
+      "output": [
+        {
+          "format": "glb",
+          "poster": "https://static.sandbase.ai/examples/75a0abc5-82b1-43a5-a035-47c0c7df1dee/output/74207e8d-0e17-4919-b4f2-42cc6fa2f6f8.png",
+          "thumbnail": "https://static.sandbase.ai/examples/75a0abc5-82b1-43a5-a035-47c0c7df1dee/output/74207e8d-0e17-4919-b4f2-42cc6fa2f6f8.png",
+          "url": "https://static.sandbase.ai/examples/75a0abc5-82b1-43a5-a035-47c0c7df1dee/output/ccdc760e-3191-424c-babb-40682aea6847.glb"
+        }
+      ]
+    }
+  ],
+  "readme": "# Hunyuan 3D 3.6 Text to 3D\n\nHunyuan 3D 3.6 (Hy3D 3.6) is Tencent's newest native 3D model, released 2026-11-27. It learns geometry, textures and materials directly from 3D assets, with cleaner surfaces, sharper hard-surface structure and higher-quality PBR textures than 3.1. It turns a text prompt into a textured or geometry-only model of up to 2,000,000 faces.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 1,024 characters. |\n| `enable_pbr` | boolean | false | PBR materials. |\n| `face_count` | integer 40000–2000000 | — | Target face count. |\n| `generate_type` | `Normal` / `Geometry` | `Normal` | `Normal` textured or `Geometry` (untextured). |\n\n## Billing\n\n$0.375 per model; PBR, a custom face count, and extra views each add $0.15.\n\n| Request | Price |\n|---|---|\n| Default | $0.375 |\n| With PBR | $0.525 |\n| With custom face count | $0.525 |\n\nFailed runs are not charged.\n\n## Also on SandBase\nOther Hunyuan 3D endpoints: `tencent/hunyuan-3d/3.6/image-to-3d`, `tencent/hunyuan-3d/3.1/pro/text-to-3d`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/tencent/hunyuan-3d/3.6/text-to-3d/cover-ed4d71fd0475.webp",
+  "page_url": "https://www.sandbase.ai/model/tencent/hunyuan-3d/3.6/text-to-3d",
+  "created_at": "2026-11-27T07:57:51.265Z"
+}

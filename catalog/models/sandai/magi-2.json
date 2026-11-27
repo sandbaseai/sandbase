@@ -1,0 +1,227 @@
+{
+  "name": "sandai/magi-2",
+  "display_name": "MAGI-2",
+  "type": "video",
+  "vendor": "Sand AI",
+  "vendor_slug": "sandai",
+  "description": "MAGI-2 by Sand AI turns text, a first and last frame, or reference images, videos and audio into a 1080p video of 4 to 30 seconds with native audio. Call it from this page, through /v1/run, or with the Volcengine Ark compatible API that Sand AI documents for MAGI-2.",
+  "tags": [
+    "text-to-video",
+    "image-to-video",
+    "reference-to-video"
+  ],
+  "capabilities": [
+    "text-to-video",
+    "image-to-video",
+    "reference-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "maximum": 4294967295,
+        "minimum": 0,
+        "description": "Random seed for reproducibility (0-4294967295). Omit for a random seed."
+      },
+      "image": {
+        "type": "string",
+        "title": "First Frame",
+        "description": "Optional first frame (upload or public HTTPS URL). Cannot be combined with reference images, videos or audio."
+      },
+      "audios": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Reference Audio",
+        "maxItems": 5,
+        "description": "Up to 5 WAV/MP3 files or URLs, 2-30 s each and 30 s in total, up to 15 MB each."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Reference Images",
+        "maxItems": 10,
+        "description": "Up to 10 reference images (upload or public HTTPS URL), each under 30 MB. Cannot be combined with a first or last frame."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "At dawn, waves break gently against the rocks as the camera slowly moves forward."
+        ],
+        "description": "Describe the scene, motion and sound. Up to 15,000 characters. Required when no image, video or audio is given."
+      },
+      "videos": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Reference Videos",
+        "maxItems": 5,
+        "description": "Up to 5 MP4/MOV files or URLs, 2-30 s each and 30 s in total, up to 200 MB each."
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "maximum": 30,
+        "minimum": 4,
+        "examples": [
+          5,
+          10,
+          30
+        ],
+        "description": "Output video duration in seconds (4-30). Billed per second."
+      },
+      "end_image": {
+        "type": "string",
+        "title": "Last Frame",
+        "description": "Optional last frame; requires a first frame."
+      },
+      "resolution": {
+        "enum": [
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1080p",
+        "description": "Output resolution. MAGI-2 renders 1080p only."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16",
+          "1:1",
+          "4:3",
+          "3:4",
+          "21:9"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "Output aspect ratio."
+      },
+      "enhance_prompt": {
+        "type": "boolean",
+        "title": "Enhance Prompt",
+        "description": "Turn prompt enhancement on or off. Omit to use the model default."
+      },
+      "generate_audio": {
+        "type": "boolean",
+        "title": "Generate Audio",
+        "default": true,
+        "description": "Generate a native audio track with the video. Included in the price."
+      },
+      "omni_reference_task_type": {
+        "enum": [
+          "auto"
+        ],
+        "type": "string",
+        "title": "Omni Reference Task Type",
+        "description": "Optional. Only auto is supported."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 5) * 0.08",
+    "formula_variables": [
+      "params.duration"
+    ],
+    "reference_price": 0.4,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 4
+        },
+        "usd": 0.32
+      },
+      {
+        "params": {
+          "duration": 5
+        },
+        "usd": 0.4
+      },
+      {
+        "params": {
+          "duration": 30
+        },
+        "usd": 2.4
+      }
+    ]
+  },
+  "readme": "# MAGI-2\n[MAGI-2](https://sand.ai/blog/magi-2/) by [Sand AI](https://sand.ai/) generates a 1080p video of 4 to 30 seconds from text, a first and last frame, or reference images, videos and audio, with dialogue, sound effects and music generated together with the picture. [See MAGI-2 results](https://www.sandbase.ai/lab/ai-videos/magi-2) first if you want to judge the quality.\n\nUse the form on this page, call `sandai/magi-2` through `/v1/run`, or use the Volcengine Ark compatible API below with the request body Sand AI documents.\n## Inputs\nPick one way to guide the video:\n- **Text only**: a prompt.\n- **First and last frame**: `image`, optionally `end_image`, with an optional prompt.\n- **References**: up to 10 `images`, 5 `videos` and 5 `audios` (videos and audio 2 to 30 seconds each and 30 seconds in total), with an optional prompt. Refer to them in the prompt as @Image1, @Video1, @Audio1.\n\nFrames and references cannot be combined in one request.\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string | — | Scene, motion and sound. Up to 15,000 characters. Required for text only. |\n| `image` | image | — | First frame. |\n| `end_image` | image | — | Last frame. Requires `image`. |\n| `images` | image list, up to 10 | — | Reference images. |\n| `videos` | video list, up to 5 | — | Reference videos, MP4 or MOV. |\n| `audios` | audio list, up to 5 | — | Reference audio, WAV or MP3. |\n| `duration` | integer 4–30 | 5 | Output length in seconds. Billed per second. |\n| `aspect_ratio` | `21:9` / `16:9` / `4:3` / `1:1` / `3:4` / `9:16` | 16:9 | Output aspect ratio. |\n| `resolution` | `1080p` | 1080p | MAGI-2 renders 1080p only. |\n| `generate_audio` | boolean | true | Native audio track, included in the price. |\n| `seed` | integer 0–4294967295 | random | Fix the seed for reproducible results. |\n| `enhance_prompt` | boolean | model default | Turn prompt enhancement on or off. |\n| `omni_reference_task_type` | `auto` | — | Optional. |\n## Volcengine Ark compatible API\nSandBase implements Sand AI's [Ark compatibility API](https://platform.sand.ai/docs/ark-generations/) for `magi-2`. Use your SandBase API key and point the Ark SDK or HTTP client at SandBase:\n| | Sand AI | SandBase |\n|---|---|---|\n| Base URL | `https://api.sand.ai/compatible/ark/api/v3` | `https://api.sandbase.ai/api/v3` |\n| Create a task | `POST /contents/generations/tasks` | `POST /contents/generations/tasks` |\n| Retrieve a task | `GET /contents/generations/tasks/{id}` | `GET /contents/generations/tasks/{id}` |\n| `model` | `magi-2` | `magi-2` |\n```bash\ncurl https://api.sandbase.ai/api/v3/contents/generations/tasks \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"model\": \"magi-2\",\n    \"content\": [\n      {\"type\": \"text\", \"text\": \"The camera moves from a clear dawn shore to sunset.\"},\n      {\"type\": \"image_url\", \"role\": \"first_frame\", \"image_url\": {\"url\": \"https://example.com/first.jpg\"}},\n      {\"type\": \"image_url\", \"role\": \"last_frame\", \"image_url\": {\"url\": \"https://example.com/last.jpg\"}}\n    ],\n    \"duration\": 5,\n    \"ratio\": \"16:9\",\n    \"resolution\": \"1080p\"\n  }'\n```\nIn this API, `duration` (4 to 30) and `ratio` are required, either as top-level fields or as prompt suffixes such as `--rt 16:9 --dur 5`; top-level fields win. Omit `watermark` and the other fields Sand AI lists as unsupported: any value other than `null` returns 400.\n\nThe response is `{\"id\": \"...\"}`. Poll `GET /api/v3/contents/generations/tasks/{id}` every 10 seconds. `queued` and `running` mean keep polling. On `succeeded`, download `content.video_url`; the task also reports `duration`, `framespersecond`, `resolution`, `ratio` and `generate_audio` when known. `failed`, `expired` and `cancelled` are final; failed and expired tasks carry `error.code` and `error.message`.\n\nRequests and responses use the format in the [Sand AI documentation](https://platform.sand.ai/docs/ark-generations/). Media URLs can be public HTTPS or `data:` URLs: images JPEG, PNG, WebP, GIF, BMP, TIFF, HEIC or HEIF under 30,000,000 bytes, audio MP3 or WAV up to 15,000,000 bytes. A request body can be up to 64,000,000 bytes, of which at most 2 MiB is not media; put `model` near the start of large requests. Also note:\n- `X-Request-Id` is returned only when a task is created.\n- References are sent to the model grouped by type (images, then videos, then audio); the order within each type is kept.\n- MAGI-2 runs on one provider here. The per-mode models below can switch providers.\n## Billing\n$0.08 per second of output video, with native audio included in the price. Resolution is fixed at 1080p. Failed runs are not billed.\n| Output length | Price |\n|---|---|\n| 4s | $0.32 |\n| 5s (default) | $0.40 |\n| 10s | $0.80 |\n| 30s | $2.40 |\n## One mode at a time\nThese models take one input mode each and can switch between providers if one is unavailable:\n- [MAGI-2 Text to Video](/models/sandai/magi-2/text-to-video)\n- [MAGI-2 Image to Video](/models/sandai/magi-2/image-to-video)\n- [MAGI-2 Reference to Video](/models/sandai/magi-2/reference-to-video)\n## See what MAGI-2 can do\n- [MAGI-2 videos from X](https://www.sandbase.ai/lab/ai-videos/magi-2): the most-liked MAGI-2 clips, credited to the people who made them. Short films, ads and anime.\n- Open a mode page above to try it and see its examples.\n## Learn more\n- [Sand AI Ark compatibility API](https://platform.sand.ai/docs/ark-generations/): the official request and response reference, to compare with SandBase.\n- [MAGI-2 announcement from Sand AI](https://sand.ai/blog/magi-2/): model overview and release notes.\n- [Sand AI](https://sand.ai/): the team behind MAGI-2.\n",
+  "cover_url": "https://static.sandbase.ai/blog/covers-v2/model-sandai-magi-2-text-to-video-0cd0197ecb5f.webp",
+  "page_url": "https://www.sandbase.ai/model/sandai/magi-2",
+  "published_at": "2026-11-25T00:00:00Z",
+  "created_at": "2026-11-27T06:46:00.99Z"
+}

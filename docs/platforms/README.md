@@ -28,8 +28,8 @@
 | [Tripo3D](tripo3d.md) | 32 | image generation model |
 | [X (Twitter)](x-twitter.md) | 29 | data API |
 | [Facebook](facebook.md) | 28 | data API |
+| [Tencent](tencent.md) | 28 | LLM, image generation model, video generation model |
 | [MiniMax](minimax.md) | 27 | audio model, image generation model, video generation model |
-| [Tencent](tencent.md) | 26 | LLM, image generation model, video generation model |
 | [Similarweb](similarweb.md) | 25 | data API |
 | [Financial Datasets](financial-datasets.md) | 24 | data API |
 | [BFL](bfl.md) | 22 | image generation model, video generation model |
@@ -124,6 +124,7 @@
 | [Minimax](minimax.md) | 4 | LLM |
 | [Moonshotai](moonshotai.md) | 4 | LLM |
 | [Pinterest](pinterest.md) | 4 | data API |
+| [Sand AI](sand-ai.md) | 4 | video generation model |
 | [Shopify](shopify.md) | 4 | data API |
 | [Steam](steam.md) | 4 | data API |
 | [TradingView](tradingview.md) | 4 | data API |
@@ -145,7 +146,6 @@
 | [Kelley Blue Book](kelley-blue-book.md) | 3 | data API |
 | [MeiGen-AI](meigen-ai.md) | 3 | video generation model |
 | [Mercari](mercari.md) | 3 | data API |
-| [Sand AI](sand-ai.md) | 3 | video generation model |
 | [Scholar](scholar.md) | 3 | data API |
 | [Target](target.md) | 3 | data API |
 | [Tavily](tavily.md) | 3 | data API |

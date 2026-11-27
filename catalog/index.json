@@ -1,12 +1,12 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-27T00:40:52Z",
+ "generated_at": "2026-11-27T08:26:03Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2840,
+ "count": 2843,
  "counts_by_type": {
   "api": 2247,
-  "image": 214,
-  "video": 212,
+  "image": 216,
+  "video": 213,
   "llm": 133,
   "audio": 32,
   "embedding": 2
@@ -50602,6 +50602,46 @@
    "record": "catalog/models/tencent/hunyuan-3d/3.1/smart-topology.json"
   },
   {
+   "name": "tencent/hunyuan-3d/3.6/image-to-3d",
+   "display_name": "Hunyuan 3D 3.6 Image to 3D",
+   "type": "image",
+   "vendor": "Tencent",
+   "description": "Hunyuan 3D 3.6 (Hy3D 3.6) is Tencent's newest native 3D generation model. Turn a reference image, with optional extra views, into a detailed high-poly 3D model with PBR materials, up to 2,000,000 faces.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.525,
+    "usd_to": 0.675
+   },
+   "record": "catalog/models/tencent/hunyuan-3d/3.6/image-to-3d.json"
+  },
+  {
+   "name": "tencent/hunyuan-3d/3.6/text-to-3d",
+   "display_name": "Hunyuan 3D 3.6 Text to 3D",
+   "type": "image",
+   "vendor": "Tencent",
+   "description": "Hunyuan 3D 3.6 (Hy3D 3.6) is Tencent's newest native 3D generation model. Turn a text prompt into a detailed high-poly 3D model with PBR materials, up to 2,000,000 faces, for games, film and 3D printing.",
+   "tags": [
+    "text-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.525,
+    "usd_to": 0.675
+   },
+   "record": "catalog/models/tencent/hunyuan-3d/3.6/text-to-3d.json"
+  },
+  {
    "name": "tencent/hunyuan-3d/v2",
    "display_name": "Hunyuan3D 2.0",
    "type": "image",
@@ -58831,6 +58871,28 @@
     "usd_to": 1.725
    },
    "record": "catalog/models/pixverse/v6/image-to-video.json"
+  },
+  {
+   "name": "sandai/magi-2",
+   "display_name": "MAGI-2",
+   "type": "video",
+   "vendor": "Sand AI",
+   "description": "MAGI-2 by Sand AI turns text, a first and last frame, or reference images, videos and audio into a 1080p video of 4 to 30 seconds with native audio. Call it from this page, through /v1/run, or with the Volcengine Ark compatible API that Sand AI documents for MAGI-2.",
+   "tags": [
+    "text-to-video",
+    "image-to-video",
+    "reference-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.32,
+    "usd_to": 2.4
+   },
+   "record": "catalog/models/sandai/magi-2.json"
   },
   {
    "name": "sandai/magi-2/image-to-video",

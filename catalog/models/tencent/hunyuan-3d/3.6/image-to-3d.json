@@ -1,0 +1,268 @@
+{
+  "name": "tencent/hunyuan-3d/3.6/image-to-3d",
+  "display_name": "Hunyuan 3D 3.6 Image to 3D",
+  "type": "image",
+  "vendor": "Tencent",
+  "vendor_slug": "tencent",
+  "description": "Hunyuan 3D 3.6 (Hy3D 3.6) is Tencent's newest native 3D generation model. Turn a reference image, with optional extra views, into a detailed high-poly 3D model with PBR materials, up to 2,000,000 faces.",
+  "tags": [
+    "image-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Input Image Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/tencent/hunyuan-3d/3.1/pro/image-to-3d/input_image_0.png"
+        ],
+        "description": "Front view image, file or URL. Resolution 128-5000px, max 8MB, JPG/PNG/WEBP. Tips: simple background, single object, object >50% of frame."
+      },
+      "top_image": {
+        "type": "string",
+        "title": "Top Image",
+        "description": "Optional top view image file or URL for multi-view reconstruction."
+      },
+      "back_image": {
+        "type": "string",
+        "title": "Back Image",
+        "description": "Optional back view image file or URL for multi-view reconstruction."
+      },
+      "enable_pbr": {
+        "type": "boolean",
+        "title": "Enable PBR",
+        "default": false,
+        "description": "Generate PBR materials (metallic, roughness, normal). Ignored for Geometry output."
+      },
+      "face_count": {
+        "type": "integer",
+        "title": "Face Count",
+        "maximum": 2000000,
+        "minimum": 40000,
+        "description": "Target polygon face count, 40,000 to 2,000,000 (custom face count is billed as an add-on)."
+      },
+      "left_image": {
+        "type": "string",
+        "title": "Left Image",
+        "description": "Optional left view image file or URL for multi-view reconstruction."
+      },
+      "right_image": {
+        "type": "string",
+        "title": "Right Image",
+        "description": "Optional right view image file or URL for multi-view reconstruction."
+      },
+      "bottom_image": {
+        "type": "string",
+        "title": "Bottom Image",
+        "description": "Optional bottom view image file or URL for multi-view reconstruction."
+      },
+      "generate_type": {
+        "enum": [
+          "Normal",
+          "Geometry"
+        ],
+        "type": "string",
+        "title": "Generate Type",
+        "default": "Normal",
+        "description": "Normal: textured model. Geometry: geometry-only white model."
+      },
+      "left_front_image": {
+        "type": "string",
+        "title": "Left Front Image",
+        "description": "Optional left-front view image file or URL for multi-view reconstruction."
+      },
+      "right_front_image": {
+        "type": "string",
+        "title": "Right Front Image",
+        "description": "Optional right-front view image file or URL for multi-view reconstruction."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.375 + ((params.enable_pbr ?? false) && (params.generate_type ?? \"Normal\") != \"Geometry\" ? 0.15 : 0.0) + ((params.face_count ?? 0) > 0 ? 0.15 : 0.0) + (((params.back_image ?? \"\") != \"\" || (params.left_image ?? \"\") != \"\" || (params.right_image ?? \"\") != \"\" || (params.top_image ?? \"\") != \"\" || (params.bottom_image ?? \"\") != \"\" || (params.left_front_image ?? \"\") != \"\" || (params.right_front_image ?? \"\") != \"\") ? 0.15 : 0.0)",
+    "formula_variables": [
+      "params.back_image",
+      "params.bottom_image",
+      "params.enable_pbr",
+      "params.face_count",
+      "params.generate_type",
+      "params.left_front_image",
+      "params.left_image",
+      "params.right_front_image",
+      "params.right_image",
+      "params.top_image"
+    ],
+    "reference_price": 0.375,
+    "price_examples": [
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 40000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.525
+      },
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 40000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.525
+      },
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 2000000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.525
+      },
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 2000000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.525
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 40000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.675
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 40000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.525
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 2000000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.675
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 2000000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.525
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/bc53910c-b5b6-4d6a-9ad9-bda31001c29d/input/8d834435-c74e-4336-b85b-a5541823c030.png"
+      },
+      "output": [
+        {
+          "format": "glb",
+          "poster": "https://static.sandbase.ai/examples/bc53910c-b5b6-4d6a-9ad9-bda31001c29d/output/675b1ce0-5c0f-48b7-a253-ea39297d9a31.png",
+          "thumbnail": "https://static.sandbase.ai/examples/bc53910c-b5b6-4d6a-9ad9-bda31001c29d/output/675b1ce0-5c0f-48b7-a253-ea39297d9a31.png",
+          "url": "https://static.sandbase.ai/examples/bc53910c-b5b6-4d6a-9ad9-bda31001c29d/output/8ca3969e-68b1-4b13-9011-c14b4e63be93.glb"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "enable_pbr": true,
+        "image": "https://static.sandbase.ai/examples/969c0d7f-c0a7-412d-9105-c7529b10613c/input/6ccaedf3-6b17-48d3-85a1-f6f14e544aa2.png"
+      },
+      "output": [
+        {
+          "format": "glb",
+          "poster": "https://static.sandbase.ai/examples/969c0d7f-c0a7-412d-9105-c7529b10613c/output/e83531c2-3d57-4371-aa8d-5e0583515395.png",
+          "thumbnail": "https://static.sandbase.ai/examples/969c0d7f-c0a7-412d-9105-c7529b10613c/output/e83531c2-3d57-4371-aa8d-5e0583515395.png",
+          "url": "https://static.sandbase.ai/examples/969c0d7f-c0a7-412d-9105-c7529b10613c/output/9051097d-af3c-4b92-8258-292b6a1443f6.glb"
+        }
+      ]
+    }
+  ],
+  "readme": "# Hunyuan 3D 3.6 Image to 3D\n\nHunyuan 3D 3.6 (Hy3D 3.6) is Tencent's newest native 3D model, released 2026-11-27. It learns geometry, textures and materials directly from 3D assets, with cleaner surfaces, sharper hard-surface structure and higher-quality PBR textures than 3.1. It turns an image (plus up to six extra views) into a textured or geometry-only model of up to 2,000,000 faces.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image file or URL, required | — | Front view. JPEG, PNG, or WebP. |\n| `top_image` | image file or URL | — | Optional extra view. |\n| `back_image` | image file or URL | — | Optional extra view. |\n| `enable_pbr` | boolean | false | PBR materials. |\n| `face_count` | integer 40000–2000000 | — | Target face count. |\n| `left_image` | image file or URL | — | Optional extra view. |\n| `right_image` | image file or URL | — | Optional extra view. |\n| `bottom_image` | image file or URL | — | Optional extra view. |\n| `generate_type` | `Normal` / `Geometry` | `Normal` | `Normal` textured or `Geometry` (untextured). |\n| `left_front_image` | image file or URL | — | Optional extra view. |\n| `right_front_image` | image file or URL | — | Optional extra view. |\n\n## Billing\n\n$0.375 per model; PBR, a custom face count, and extra views each add $0.15.\n\n| Request | Price |\n|---|---|\n| Default | $0.375 |\n| With PBR | $0.525 |\n| With custom face count | $0.525 |\n\nFailed runs are not charged.\n\n## Also on SandBase\nOther Hunyuan 3D endpoints: `tencent/hunyuan-3d/3.6/text-to-3d`, `tencent/hunyuan-3d/3.1/pro/image-to-3d`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/tencent/hunyuan-3d/3.6/image-to-3d/cover-9a5672db6c67.webp",
+  "page_url": "https://www.sandbase.ai/model/tencent/hunyuan-3d/3.6/image-to-3d",
+  "created_at": "2026-11-27T07:59:13.969Z"
+}
