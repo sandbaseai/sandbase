@@ -44,9 +44,9 @@
 | [Pipixia](pipixia.md) | 17 | data API |
 | [Anthropic](anthropic.md) | 16 | LLM |
 | [GitHub](github.md) | 16 | data API |
+| [HeyGen](heygen.md) | 16 | audio model, video generation model |
 | [Lemon8](lemon8.md) | 16 | data API |
 | [1688](1688.md) | 15 | data API |
-| [HeyGen](heygen.md) | 15 | audio model, video generation model |
 | [Amazon](amazon.md) | 14 | data API |
 | [AAA](aaa.md) | 13 | data API |
 | [MarketBeat](marketbeat.md) | 13 | data API |

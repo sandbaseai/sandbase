@@ -1,12 +1,12 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-27T16:23:13Z",
+ "generated_at": "2026-11-27T20:21:11Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2854,
+ "count": 2855,
  "counts_by_type": {
   "api": 2247,
   "image": 222,
-  "video": 218,
+  "video": 219,
   "llm": 133,
   "audio": 32,
   "embedding": 2
@@ -57353,6 +57353,25 @@
     "usd_reference": 0.6
    },
    "record": "catalog/models/heygen/avatar5/digital-twin.json"
+  },
+  {
+   "name": "heygen/avatar6-turbo/identity-to-video",
+   "display_name": "HeyGen Avatar 6 Turbo Identity to Video",
+   "type": "video",
+   "vendor": "HeyGen",
+   "description": "HeyGen Avatar 6 Turbo by HeyGen creates a talking video with a public HeyGen avatar from a script or speech audio. Turbo is the faster, lower-cost tier.",
+   "tags": [
+    "text-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 0.3
+   },
+   "record": "catalog/models/heygen/avatar6-turbo/identity-to-video.json"
   },
   {
    "name": "heygen/avatar6-turbo/image-to-video",

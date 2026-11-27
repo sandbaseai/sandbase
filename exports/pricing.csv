@@ -1225,6 +1225,7 @@ hacker-news/search,api,Hacker News,usage_based,,,,0.0015,0.0015,,sync,POST /v1/r
 hacker-news/story,api,Hacker News,usage_based,,,,0.0015,0.0015,,sync,POST /v1/run
 hacker-news/story-comments,api,Hacker News,usage_based,,,,0.0015,0.0015,,sync,POST /v1/run
 heygen/avatar5/digital-twin,video,HeyGen,formula,,,,0.6,0.6,,async,POST /v1/run
+heygen/avatar6-turbo/identity-to-video,video,HeyGen,formula,,,,0.3,0.3,,async,POST /v1/run
 heygen/avatar6-turbo/image-to-video,video,HeyGen,formula,,,,0.3,0.3,,async,POST /v1/run
 heygen/avatar6-turbo/ref-video-to-video,video,HeyGen,formula,,,,0.3,0.3,,async,POST /v1/run
 heygen/avatar6/identity-to-video,video,HeyGen,formula,,,,0.6,0.6,,async,POST /v1/run

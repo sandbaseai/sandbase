@@ -151,6 +151,7 @@
     }
   ],
   "readme": "# HeyGen Avatar 6 Reference Video to Video\nHeyGen Avatar 6 animates an illustrated or animated character from a reference video, lip-synced to a speech track.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `video` | video file or URL, required | — | Animated or illustrated character only. |\n| `audio` | audio file or URL, required | — | Sets the video length. |\n| `image` | image file or URL | — | Optional extra reference. |\n| `motion_prompt` | string | — | Direction for motion and expression. |\n| `motion_expressiveness` | `default` / `less` | `default` | `less` for calmer motion. |\n| `resolution` | `1080p` / `2k` | `1080p` | Sets the per-second rate. |\n## Billing\n$0.12 per output second at 1080p, $0.145 at 2k. Length follows the speech audio; the quote before submission assumes 5 seconds.\n| Output | 1080p | 2k |\n|---|---|---|\n| 10s | $1.20 | $1.450 |\n| 60s | $7.20 | $8.70 |\nFailed runs are not charged.\n## Also on SandBase\nRelated: `heygen/avatar6/image-to-video`, `heygen/avatar6/identity-to-video`, `heygen/avatar5/digital-twin`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/heygen/avatar6/ref-video-to-video/cover-e2fc20c9c2ae.webp",
   "page_url": "https://www.sandbase.ai/model/heygen/avatar6/ref-video-to-video",
   "created_at": "2026-11-27T15:46:31.258Z"
 }

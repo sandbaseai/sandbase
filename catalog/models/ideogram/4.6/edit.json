@@ -217,6 +217,7 @@
     }
   ],
   "readme": "# Ideogram 4.6 Edit\n\nIdeogram 4.6 edit: change an image from an instruction, with an optional mask and style references.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 10,000 characters. |\n| `image` | image URL, required | — | Image to edit. JPEG, PNG, or WebP URL. |\n| `mask` | image URL | — | Optional mask; white areas are edited. |\n| `edit_precision` | `regular` / `high` | `regular` | `high` keeps unmasked areas closer to the original. |\n| `reference_image_urls` | image URL[] | — | Optional style references. |\n| `quality` | `very_low` / `very_low` / `low` / `medium` / `high` | `medium` | Sets the per-image rate. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Output shape. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\nPer image: $0.008 very_low, $0.03 low, $0.06 medium, $0.22 high.\n| Quality | Price |\n|---|---|\n| very_low | $0.008 |\n| low | $0.03 |\n| medium | $0.06 |\n| high | $0.22 |\nFailed runs are not charged.\n## Prompting\n\n- Use a mask for local edits.\n\n## Also on SandBase\nRelated: `ideogram/4.6`, `ideogram/4.5/edit`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/ideogram/4.6/edit/cover-361c30f0f851.webp",
   "page_url": "https://www.sandbase.ai/model/ideogram/4.6/edit",
   "created_at": "2026-11-27T15:29:34.156Z"
 }

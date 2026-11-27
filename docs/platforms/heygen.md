@@ -1,10 +1,11 @@
-# HeyGen models API: 15 endpoints with pricing and code examples
+# HeyGen models API: 16 endpoints with pricing and code examples
 
-Call 15 HeyGen models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 16 HeyGen models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
 | [`heygen/avatar5/digital-twin`](../models/heygen/avatar5/digital-twin.md) | Avatar5 Digital Twin by HeyGen - generate cinematic videos from text descriptions with AI. Create high-quality video content with natural… | about $0.6 per call |
+| [`heygen/avatar6-turbo/identity-to-video`](../models/heygen/avatar6-turbo/identity-to-video.md) | HeyGen Avatar 6 Turbo by HeyGen creates a talking video with a public HeyGen avatar from a script or speech audio. Turbo is the faster,… | about $0.3 per call |
 | [`heygen/avatar6-turbo/image-to-video`](../models/heygen/avatar6-turbo/image-to-video.md) | HeyGen Avatar 6 Turbo by HeyGen turns a photo of a person and a speech track into a lifelike talking video. Turbo is the faster,… | about $0.3 per call |
 | [`heygen/avatar6-turbo/ref-video-to-video`](../models/heygen/avatar6-turbo/ref-video-to-video.md) | HeyGen Avatar 6 Turbo by HeyGen animates an illustrated or animated character from a reference video, lip-synced to speech audio. Turbo is… | about $0.3 per call |
 | [`heygen/avatar6/identity-to-video`](../models/heygen/avatar6/identity-to-video.md) | HeyGen Avatar 6 by HeyGen creates a talking video with a public HeyGen avatar from a script or speech audio. | about $0.6 per call |

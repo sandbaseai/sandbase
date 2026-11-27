@@ -149,6 +149,7 @@
     }
   ],
   "readme": "# HeyGen Avatar 6 Turbo Image to Video\nHeyGen Avatar 6 Turbo turns one photo of a person and a speech track into a talking video with natural motion and lip-sync. Turbo is the faster, lower-cost tier.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image file or URL, required | — | Front-facing photo. |\n| `audio` | audio file or URL, required | — | Sets the video length. |\n| `motion_prompt` | string | — | Direction for motion and expression. |\n| `motion_expressiveness` | `default` / `less` | `default` | `less` for calmer motion. |\n| `resolution` | `1080p` / `2k` | `1080p` | Sets the per-second rate. |\n## Billing\n$0.06 per output second at 1080p, $0.0875 at 2k. Length follows the speech audio; the quote before submission assumes 5 seconds.\n| Output | 1080p | 2k |\n|---|---|---|\n| 10s | $0.60 | $0.875 |\n| 60s | $3.60 | $5.25 |\nFailed runs are not charged.\n## Also on SandBase\nRelated: `heygen/avatar6-turbo/ref-video-to-video`, `heygen/avatar6-turbo/identity-to-video`, `heygen/avatar5/digital-twin`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/heygen/avatar6-turbo/image-to-video/cover-57bf4e3587ed.webp",
   "page_url": "https://www.sandbase.ai/model/heygen/avatar6-turbo/image-to-video",
   "created_at": "2026-11-27T15:52:07.859Z"
 }

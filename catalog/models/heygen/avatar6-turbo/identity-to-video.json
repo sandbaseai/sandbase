@@ -1,0 +1,183 @@
+{
+  "name": "heygen/avatar6-turbo/identity-to-video",
+  "display_name": "HeyGen Avatar 6 Turbo Identity to Video",
+  "type": "video",
+  "vendor": "HeyGen",
+  "vendor_slug": "heygen",
+  "description": "HeyGen Avatar 6 Turbo by HeyGen creates a talking video with a public HeyGen avatar from a script or speech audio. Turbo is the faster, lower-cost tier.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [],
+    "properties": {
+      "audio": {
+        "type": "string",
+        "title": "Audio",
+        "description": "Optional speech audio, file or URL. When set, the script and voice are ignored."
+      },
+      "voice": {
+        "type": "string",
+        "title": "Voice",
+        "default": "Warm Pro Narrator",
+        "examples": [
+          "Warm Pro Narrator"
+        ],
+        "description": "Text-to-speech voice used for the script."
+      },
+      "avatar": {
+        "type": "string",
+        "title": "Avatar",
+        "default": "Abigail Sofa Front",
+        "examples": [
+          "Abigail Sofa Front"
+        ],
+        "description": "Name of an Avatar 6-compatible public HeyGen avatar."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Script",
+        "examples": [
+          "Hello and welcome to this demonstration of HeyGen Avatar 6."
+        ],
+        "description": "Text the avatar will speak. Required unless audio is provided."
+      },
+      "resolution": {
+        "enum": [
+          "1080p",
+          "2k"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1080p",
+        "description": "Output resolution; 2k is billed at a higher per-second rate."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16",
+          "1:1",
+          "4:5",
+          "5:4"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "Output frame shape."
+      },
+      "motion_prompt": {
+        "type": "string",
+        "title": "Motion Prompt",
+        "description": "Optional direction for the avatar's motion and expression."
+      },
+      "motion_expressiveness": {
+        "enum": [
+          "default",
+          "less"
+        ],
+        "type": "string",
+        "title": "Motion Expressiveness",
+        "default": "default",
+        "description": "less gives fewer, smaller gestures and calmer expressions."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/heygen/heygen-avatar4/image-to-video/output_url_1.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(usage.duration ?? ((params.audio ?? \"\") != \"\" ? media_duration(params.audio) : nil) ?? 5.0) * ((params.resolution ?? \"1080p\") == \"2k\" ? 0.0875 : 0.06)",
+    "formula_variables": [
+      "params.audio",
+      "params.resolution",
+      "usage.duration"
+    ],
+    "reference_price": 0.3
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "prompt": "Hello and welcome to this demonstration of HeyGen Avatar 6 Turbo."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/23f5f611-8f48-4fe2-948e-357a055608a0/output/0c3f8c58-7c58-43f1-b234-e10ddc5fb822.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# HeyGen Avatar 6 Turbo Identity to Video\nHeyGen Avatar 6 Turbo makes a talking video with one of HeyGen's public avatars, from a written script or a speech track. Turbo is the faster, lower-cost tier.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string | — | Script; required unless `audio` is set. |\n| `avatar` | string | `Abigail Sofa Front` | Public Avatar 6 avatar name. |\n| `voice` | string | `Warm Pro Narrator` | Voice for the script. |\n| `audio` | audio file or URL | — | Overrides script and voice. |\n| `aspect_ratio` | `16:9` / `9:16` / `1:1` / `4:5` / `5:4` | `16:9` | Frame shape. |\n| `motion_prompt` | string | — | Direction for motion and expression. |\n| `motion_expressiveness` | `default` / `less` | `default` | `less` for calmer motion. |\n| `resolution` | `1080p` / `2k` | `1080p` | Sets the per-second rate. |\n## Billing\n$0.06 per output second at 1080p, $0.0875 at 2k. Length follows the audio or the spoken script; the quote before submission assumes 5 seconds.\n| Output | 1080p | 2k |\n|---|---|---|\n| 10s | $0.60 | $0.875 |\n| 60s | $3.60 | $5.25 |\nFailed runs are not charged.\n## Also on SandBase\nRelated: `heygen/avatar6-turbo/image-to-video`, `heygen/avatar6-turbo/ref-video-to-video`, `heygen/avatar5/digital-twin`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/heygen/avatar6-turbo/identity-to-video/cover-03955c5be27d.webp",
+  "page_url": "https://www.sandbase.ai/model/heygen/avatar6-turbo/identity-to-video",
+  "created_at": "2026-11-27T15:57:36.406Z"
+}

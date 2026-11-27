@@ -177,6 +177,7 @@
     }
   ],
   "readme": "# HeyGen Avatar 6 Identity to Video\nHeyGen Avatar 6 makes a talking video with one of HeyGen's public avatars, from a written script or a speech track.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string | — | Script; required unless `audio` is set. |\n| `avatar` | string | `Abigail Sofa Front` | Public Avatar 6 avatar name. |\n| `voice` | string | `Warm Pro Narrator` | Voice for the script. |\n| `audio` | audio file or URL | — | Overrides script and voice. |\n| `aspect_ratio` | `16:9` / `9:16` / `1:1` / `4:5` / `5:4` | `16:9` | Frame shape. |\n| `motion_prompt` | string | — | Direction for motion and expression. |\n| `motion_expressiveness` | `default` / `less` | `default` | `less` for calmer motion. |\n| `resolution` | `1080p` / `2k` | `1080p` | Sets the per-second rate. |\n## Billing\n$0.12 per output second at 1080p, $0.145 at 2k. Length follows the audio or the spoken script; the quote before submission assumes 5 seconds.\n| Output | 1080p | 2k |\n|---|---|---|\n| 10s | $1.20 | $1.450 |\n| 60s | $7.20 | $8.70 |\nFailed runs are not charged.\n## Also on SandBase\nRelated: `heygen/avatar6/image-to-video`, `heygen/avatar6/ref-video-to-video`, `heygen/avatar5/digital-twin`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/heygen/avatar6/identity-to-video/cover-08a554cedfe3.webp",
   "page_url": "https://www.sandbase.ai/model/heygen/avatar6/identity-to-video",
   "created_at": "2026-11-27T15:48:00.984Z"
 }

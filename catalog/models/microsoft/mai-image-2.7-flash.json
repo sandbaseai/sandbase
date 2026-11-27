@@ -167,6 +167,7 @@
     }
   ],
   "readme": "# MAI Image 2.7 Flash Text to Image\nMAI Image 2.7 Flash is the faster, lower-cost tier of Microsoft's MAI-Image-2.7 model. It turns a text prompt into a photorealistic or illustrated image, with optional transparent background.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | What to draw. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | `1:1` | Output shape. |\n| `background` | `opaque` / `transparent` | `opaque` | `transparent` needs png or webp. |\n| `output_format` | `png` / `jpeg` / `webp` | `png` | File format. |\n## Billing\n$0.025 per image. Failed runs are not charged.\n## Also on SandBase\nRelated: `microsoft/mai-image-2.7-flash/edit`, `microsoft/mai-image-2.5/edit`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/microsoft/mai-image-2.7-flash/cover-0a7cd9b9757a.webp",
   "page_url": "https://www.sandbase.ai/model/microsoft/mai-image-2.7-flash",
   "created_at": "2026-11-27T15:37:27.22Z"
 }

@@ -1,13 +1,13 @@
 # SandBase capability index
 
-2854 capabilities · generated 2026-11-27T16:23:13Z
+2855 capabilities · generated 2026-11-27T20:21:11Z
 
 - [api](#api) (2247)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
 - [image](#image) (222)
 - [llm](#llm) (133)
-- [video](#video) (218)
+- [video](#video) (219)
 
 ## api
 
@@ -2777,6 +2777,7 @@
 | [`google/veo3.1/text-to-video`](models/google/veo3.1/text-to-video.md) | 0.8–4.8 | async | Veo3.1 by Google - generate cinematic videos from text descriptions with AI. Create high-quality video content with… |
 | [`google/veo3.1/video-extend`](models/google/veo3.1/video-extend.md) | 1.4–2.8 | async | Veo3.1 Extend Video is Google's video-to-video AI model. Transform, enhance, and edit video content using text prompts… |
 | [`heygen/avatar5/digital-twin`](models/heygen/avatar5/digital-twin.md) | ~0.6 | async | Avatar5 Digital Twin by HeyGen - generate cinematic videos from text descriptions with AI. Create high-quality video… |
+| [`heygen/avatar6-turbo/identity-to-video`](models/heygen/avatar6-turbo/identity-to-video.md) | ~0.3 | async | HeyGen Avatar 6 Turbo by HeyGen creates a talking video with a public HeyGen avatar from a script or speech audio.… |
 | [`heygen/avatar6-turbo/image-to-video`](models/heygen/avatar6-turbo/image-to-video.md) | ~0.3 | async | HeyGen Avatar 6 Turbo by HeyGen turns a photo of a person and a speech track into a lifelike talking video. Turbo is… |
 | [`heygen/avatar6-turbo/ref-video-to-video`](models/heygen/avatar6-turbo/ref-video-to-video.md) | ~0.3 | async | HeyGen Avatar 6 Turbo by HeyGen animates an illustrated or animated character from a reference video, lip-synced to… |
 | [`heygen/avatar6/identity-to-video`](models/heygen/avatar6/identity-to-video.md) | ~0.6 | async | HeyGen Avatar 6 by HeyGen creates a talking video with a public HeyGen avatar from a script or speech audio. |
