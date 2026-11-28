@@ -20,11 +20,11 @@
 | [Bilibili](bilibili.md) | 46 | data API |
 | [Kuaishou](kuaishou.md) | 40 | data API |
 | [Meshy](meshy.md) | 40 | image generation model |
-| [Bytedance](bytedance.md) | 39 | LLM, audio model, image generation model, video generation model |
 | [Ahrefs](ahrefs.md) | 38 | data API |
 | [LinkedIn](linkedin.md) | 38 | data API |
 | [FRED](fred.md) | 35 | data API |
 | [Reddit](reddit.md) | 35 | data API |
+| [Bytedance](bytedance.md) | 33 | LLM, audio model, image generation model, video generation model |
 | [Tripo3D](tripo3d.md) | 32 | image generation model |
 | [X (Twitter)](x-twitter.md) | 29 | data API |
 | [Facebook](facebook.md) | 28 | data API |
